@@ -35,7 +35,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${organizationList}" var="item">
-					<tr onclick="jumpToParent('${item.id}','${item.name }')">
+					<tr onclick="jumpToParent('${item.id}','${item.name }','${item.code }')">
 						<td>${ item.name}</td>
 						<td>${ item.code}</td>
 					</tr>
@@ -56,9 +56,10 @@
 						"${ contextpath}/securityorganization/list?");
 			});
 	
-	function jumpToParent(id,name){
+	function jumpToParent(id,name,code){
 
 		parent.$('#parentId').val(id);
+		parent.$("#swjgbm").val(code);
 		parent.$('#parentName').val($.trim(name));
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.close(index);

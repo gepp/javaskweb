@@ -86,7 +86,7 @@
 	function selectParentOrganization(){
 		layer.open({
 		    type: 2,
-		    title: '选择上级组织【点击行选中】',
+		    title: '选择上级税务机关【点击行选中】',
 		    shadeClose: true,
 		    shade: 0,
 		    area: ['580px', '90%'],
