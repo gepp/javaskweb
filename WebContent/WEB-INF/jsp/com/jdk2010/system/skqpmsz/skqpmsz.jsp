@@ -32,13 +32,13 @@
 
 
 
-		<ul class="seachform1">
-			<li class="sarchbtn"><label>&nbsp;</label> <input name=""
-				type="button" class="scbtn1" value="新增 " id="table_add" /> <input
-				name="" type="submit" class="scbtn" value="查询" id="table_refresh" />
-				<input name="" type="button" class="scbtn2" value="批量删除"
-				id="table_delete" /></li>
-		</ul>
+		<div class="tools">
+			<ul class="toolbar">
+			<li class="click" id="table_add"><span><img src="${contextpath }/res/images/t01.png" /></span>添加</li>
+	        <li id="table_delete" ><span><img src="${contextpath }/res/images/t03.png" /></span>删除</li>
+	        <li  id="table_refresh"><span><img src="${contextpath }/res/images/t04.png" /></span>查询</li>
+			</ul>
+		</div>
 
 		<div class="formtitle1">
 			<span>品目设置</span>
