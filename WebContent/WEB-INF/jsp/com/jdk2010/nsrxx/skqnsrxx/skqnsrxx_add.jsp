@@ -32,6 +32,10 @@
 .forminfo tr {
 	height: 45px
 }
+
+.dfinput {
+	width: 240px
+}
 </style>
 </head>
 <body>
@@ -51,8 +55,8 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<form action="" method="POST" id="skqNsrxxForm">
-				<ul class="forminfo">
-				
+					<ul class="forminfo">
+
 						<table width="100%">
 							<tr>
 								<td>纳税人微机编码<b></b></td>
@@ -92,9 +96,11 @@
 							</tr>
 							<tr>
 								<td>行业编码<b></b></td>
-								<td><input type="text" class="dfinput" id="hybm"
-									name="skqNsrxx.hybm" placeholder="" readonly /> <input
-									type="button" value="选择" onclick="selectParentOrganization();"
+								<input type="hidden" class="dfinput" id="hybm" name="hybm"
+									placeholder="" />
+								<td><input type="text" class="dfinput" id="hybmmc"
+									name="hybmmc" placeholder="" readonly onclick="selectHy();" />
+									<input type="button" value="选择" onclick="selectHy();"
 									class="btn" /></td>
 								<td>行业明细编码<b></b></td>
 								<td><input type="text" class="dfinput" id="hymxbm"
@@ -107,16 +113,15 @@
 								<td>税务机关编码<b></b></td>
 								<input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"
 									class="scinput1" readonly value="${swjgbm}">
-								<td><input type="text" class="dfinput" name="parentName"
-									id="parentName" placeholder="" readonly /> <input
-									type="button" value="选择" onclick="selectParentOrganization();"
-									class="btn" /></td>
-								<td>注册类型编码<b></b></td>
-								<td><input type="text" class="dfinput" id="zclxbm"
-									name="skqNsrxx.zclxbm" placeholder="" readonly /> <input
-									type="button" value="选择" onclick="selectParentOrganization();"
-									class="btn" /></td>
-
+									<td><input type="text" class="dfinput" name="parentName"
+										id="parentName" placeholder="" readonly /> <input
+										type="button" value="选择" onclick="selectParentOrganization();"
+										class="btn" /></td>
+									<td>注册类型编码<b></b></td>
+									<td><input type="text" class="dfinput" id="zclxbm"
+										name="skqNsrxx.zclxbm" placeholder="" readonly /> <input
+										type="button" value="选择" onclick="selectParentOrganization();"
+										class="btn" /></td>
 							</tr>
 							<tr>
 								<td>征收方式<b></b></td>
@@ -140,81 +145,83 @@
 							</tr>
 
 						</table>
+					</ul>
+					<br />
+					<div class="formtitle1">
+						<span>纳税户税种税目</span>
+					</div>
+					<div class="tools">
+						<ul class="toolbar">
+							<li class="click" id="table_add"><span><img
+									src="${contextpath }/res/images/t01.png" /></span>添加</li>
+							<li id="table_delete"><span><img
+									src="${contextpath }/res/images/t03.png" /></span>删除</li>
 						</ul>
-						<br />
-		 <div class="formtitle1">
-			<span>纳税户税种税目</span>
-		</div>
-		<div class="tools">
-			<ul class="toolbar">
-			<li class="click" id="table_add"><span><img src="${contextpath }/res/images/t01.png" /></span>添加</li>
-	        <li id="table_delete" ><span><img src="${contextpath }/res/images/t03.png" /></span>删除</li>
- 			</ul>
-		</div>
-		<table class="tablelist">
-			<thead>
-				<tr>
-					<th><input type="checkbox" width="15px" id="checkAll" /></th>
+					</div>
+					<table class="tablelist">
+						<thead>
+							<tr>
+								<th><input type="checkbox" width="15px" id="checkAll" /></th>
 
-					<th>税种编码</th>
-					<th>税目编码</th>
-					<th>税目名称</th>
-					<th>税目简称</th>
-					<th>税率</th>
-					<th>税目索引</th>
-					<th>票种编码</th>
-					<th>核定户开票限额比例</th>
-					<th>查账征收户开票限额</th>
-					<th>是否差额征收</th>
-					<th>状态</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${pageList.list}" var="item">
+								<th>税种编码</th>
+								<th>税目编码</th>
+								<th>税目名称</th>
+								<th>税目简称</th>
+								<th>税率</th>
+								<th>税目索引</th>
+								<th>票种编码</th>
+								<th>核定户开票限额比例</th>
+								<th>查账征收户开票限额</th>
+								<th>是否差额征收</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${pageList.list}" var="item">
 
-					<tr>
-						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
+								<tr>
+									<td><input type="checkbox" name="subBox"
+										value="${item.id}" /></td>
 
-						<td>${ item.szbm}</td>
+									<td>${ item.szbm}</td>
 
-						<td>${ item.smbm}</td>
+									<td>${ item.smbm}</td>
 
-						<td>${ item.smmc}</td>
+									<td>${ item.smmc}</td>
 
-						<td>${ item.smjc}</td>
+									<td>${ item.smjc}</td>
 
-						<td>${ item.sl}</td>
+									<td>${ item.sl}</td>
 
-						<td>${ item.smsy}</td>
+									<td>${ item.smsy}</td>
 
-						<td>${ item.fpbm}</td>
+									<td>${ item.fpbm}</td>
 
-						<td>${ item.hdkpbl}</td>
+									<td>${ item.hdkpbl}</td>
 
-						<td>${ item.czkpxe}</td>
+									<td>${ item.czkpxe}</td>
 
-						<td>${ item.cezs}</td>
+									<td>${ item.cezs}</td>
 
-						<td>${ item.status==1?'启用':'停用'}</td>
+									<td>${ item.status==1?'启用':'停用'}</td>
 
-						<td><a
-							href="${ contextpath }/skqpmsz/modify.htm?id=${item.id}"
-							class="tablelink">编辑</a> <a
-							href="${ contextpath }/skqpmsz/view.htm?id=${item.id}"
-							class="tablelink">查看</a>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<br/>
-		<br/>
-		   <ul class="forminfo">
+									<td><a
+										href="${ contextpath }/skqpmsz/modify.htm?id=${item.id}"
+										class="tablelink">编辑</a> <a
+										href="${ contextpath }/skqpmsz/view.htm?id=${item.id}"
+										class="tablelink">查看</a>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<br /> <br />
+					<ul class="forminfo">
 						<li><label>&nbsp;</label><input name="" type="submit"
 							class="btn" value=" 确定" /> &nbsp;&nbsp; <input name=""
 							type="button" class="btn" value="返回"
 							onclick="window.location='${ contextpath}/skqnsrxx/list'" /></li>
-					</form>
+				</form>
 				</ul>
 			</div>
 		</div>
@@ -239,9 +246,21 @@
 		});
 	}
 
+	function selectHy() {
+		layer.open({
+			type : 2,
+			title : '选择行业编码【点击行选中】',
+			shadeClose : true,
+			shade : 0,
+			area : [ '580px', '90%' ],
+
+			content : '${contextpath}/skqhy/select.htm' //iframe的url
+		});
+	}
+
 	$(document).ready(function() {
 		$(".select1").uedSelect({
-			width : 345
+			width : 240
 		});
 		$('#skqNsrxxForm').on("click", ".doSubmit", function(e) {
 			var a = $(e.delegateTarget).trigger("validate");

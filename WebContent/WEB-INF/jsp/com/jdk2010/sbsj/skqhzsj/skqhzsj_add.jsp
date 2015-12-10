@@ -1,0 +1,145 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.tag.mytag.com" prefix="page"  %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>汇总数据</title>
+<link href="${ contextpath }/res/css/style.css" rel="stylesheet" type="text/css" />
+ <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
+<link rel="stylesheet" href="${ contextpath }/res/js/validator-0.7.3/jquery.validator.css">
+<script type="text/javascript" src="${ contextpath }/res/js/validator-0.7.3/jquery.validator.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/validator-0.7.3/local/zh_CN.js"></script>
+<link href="${ contextpath }/res/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${ contextpath }/res/js/select-ui.min.js"></script>
+</head>
+<body>
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">汇总数据</a></li>
+    </ul>
+</div>
+<div class="formbody">
+<div id="usual1" class="usual"> 
+    <div class="itab">
+  	<ul> 
+    <li><a href="#tab1" class="selected">汇总数据添加</a></li> 
+  	</ul>
+</div> 
+<div id="tab1" class="tabson">
+  <ul class="forminfo">
+  	<form action="" method="POST"  id="skqHzsjForm">
+									 
+					 			   <li><label>id<b></b></label>
+ 			   <input  type="text" class="dfinput" id="id" name="skqHzsj.id" placeholder="请输入id"  />
+ 			   </li>
+ 				       			 			   <li><label>年<b></b></label>
+ 			   <input  type="text" class="dfinput" id="year" name="skqHzsj.year" placeholder="请输入年"  />
+ 			   </li>
+ 				       			 			   <li><label>月<b></b></label>
+ 			   <input  type="text" class="dfinput" id="month" name="skqHzsj.month" placeholder="请输入月"  />
+ 			   </li>
+ 				       			 			   <li><label>正常票份数<b></b></label>
+ 			   <input  type="text" class="dfinput" id="zcpfs" name="skqHzsj.zcpfs" placeholder="请输入正常票份数"  />
+ 			   </li>
+ 				       			 			   <li><label>退票份数<b></b></label>
+ 			   <input  type="text" class="dfinput" id="tpfs" name="skqHzsj.tpfs" placeholder="请输入退票份数"  />
+ 			   </li>
+ 				       			 			   <li><label>废票份数<b></b></label>
+ 			   <input  type="text" class="dfinput" id="fpfs" name="skqHzsj.fpfs" placeholder="请输入废票份数"  />
+ 			   </li>
+ 				       			 			   <li><label>正常票总金额<b></b></label>
+ 			   <input  type="text" class="dfinput" id="zcpzje" name="skqHzsj.zcpzje" placeholder="请输入正常票总金额"  />
+ 			   </li>
+ 				       			 			   <li><label>退票总金额<b></b></label>
+ 			   <input  type="text" class="dfinput" id="tpzje" name="skqHzsj.tpzje" placeholder="请输入退票总金额"  />
+ 			   </li>
+ 				       			 			   <li><label>纳税人微机编码<b></b></label>
+ 			   <input  type="text" class="dfinput" id="nsrwjbm" name="skqHzsj.nsrwjbm" placeholder="请输入纳税人微机编码"  />
+ 			   </li>
+ 				       			 			   <li><label>汇总日期<b></b></label>
+ 			   <input  type="text" class="dfinput" id="hzrq" name="skqHzsj.hzrq" placeholder="请输入汇总日期"  />
+ 			   </li>
+ 				       			 			   <li><label>处理标志<b></b></label>
+ 			   <input  type="text" class="dfinput" id="clbz" name="skqHzsj.clbz" placeholder="请输入处理标志"  />
+ 			   </li>
+ 				        			<li><label>&nbsp;</label><input name="" type="submit" class="btn" value=" 确定"/>
+    			&nbsp;&nbsp;
+   			 <input name="" type="button" class="btn" value="返回" onclick="window.location='${ contextpath}/skqhzsj/list'"/></li>
+ 	</form>
+  </ul>
+ </div>
+ </div>  
+</div>
+</body>
+</html>
+  <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+
+ 
+ <script type="text/javascript">
+
+ 
+ 	$(document).ready(
+ 		function(){
+ 		  $(".select1").uedSelect({
+				width : 345			  
+			});
+ 			$('#skqHzsjForm').on("click", ".doSubmit", function(e){
+ 				var a=$(e.delegateTarget).trigger("validate");
+ 			})
+ 			.validator({
+ 			    fields: {
+ 			    	 			    		 			    			'skqHzsj.id':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.year':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.month':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.zcpfs':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.tpfs':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.fpfs':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.zcpzje':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.tpzje':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.nsrwjbm':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.hzrq':'required;',
+ 			    	     			    	 			    		 			    			'skqHzsj.clbz':'required;',
+ 			    	     			    	 			        
+ 			    },
+ 			   valid: function(form){
+ 				  var me = this;
+ 			        // 提交表单之前，hold住表单，防止重复提交
+ 			        me.holdSubmit();
+ 			        $.ajax({
+ 			            url:"${ contextpath}/skqhzsj/addaction",
+ 			            data: $(form).serialize(),
+ 			            type: "POST",
+ 			            success: function(data){
+ 			                // 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+ 			                me.holdSubmit(false);
+ 			                if(data.status=='success'){
+ 			                
+ 			                	layer.alert('当前操作成功', {
+								shade:0,closeBtn: 0
+								}, function(){
+									window.location.href='${ contextpath}/skqhzsj/list';
+								});
+ 			                	 
+ 			                }else{
+ 			                	sAlert('当前操作失败');
+ 			                }
+ 			               
+ 			            }
+ 			        });
+ 			    }
+ 			})
+ 			;
+ 		 
+ 		}		
+ 	);
+ </script>
+ 
