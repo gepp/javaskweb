@@ -1,4 +1,7 @@
 package com.jdk2010.system.skqzclx.controller;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,5 +77,12 @@ public class SkqZclxController extends BaseController{
 					 setAttr("skqZclx", skqZclx);
 		return "/com/jdk2010/system/skqzclx/skqzclx_view";
 	}
+	
+	@RequestMapping("/select")
+    public String select(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List<Map<String, Object>> list = skqZclxService.queryForList("select * from skq_zclx where status=1");
+        setAttr("list", list);
+        return "/com/jdk2010/system/skqzclx/select";
+    }
 	
 }

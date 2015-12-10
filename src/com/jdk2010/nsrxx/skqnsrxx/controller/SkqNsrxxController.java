@@ -1,5 +1,7 @@
 package com.jdk2010.nsrxx.skqnsrxx.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.DbKit;
+import com.jdk2010.framework.util.JsonUtil;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.ReturnData;
+import com.jdk2010.framework.util.StringUtil;
+import com.jdk2010.nsrxx.skqnsrszsm.model.SkqNsrszsm;
+import com.jdk2010.nsrxx.skqnsrszsm.service.ISkqNsrszsmService;
 import com.jdk2010.nsrxx.skqnsrxx.model.SkqNsrxx;
 import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
-
 
 @Controller
 @RequestMapping(value = "/skqnsrxx")
@@ -23,34 +28,45 @@ public class SkqNsrxxController extends BaseController {
 	@Resource
 	ISkqNsrxxService skqNsrxxService;
 
+	@Resource
+	ISkqNsrszsmService skqNsrszsmService;
+
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		DbKit dbKit = new DbKit("select * from skq_nsrxx  where 1=1 ");
+		String sql="select * from skq_nsrxx  where 1=1 ";
+		DbKit dbKit = new DbKit(sql);
 		String searchSQL = "";
 		String orderSQL = "";
 		String NSRWJBM = getPara("NSRWJBM");
 		if (NSRWJBM != null && !"".equals(NSRWJBM)) {
 			searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
 			setAttr("NSRWJBM", NSRWJBM);
-			dbKit.append(searchSQL);
+			//dbKit.append(searchSQL);
 		}
 
 		String NSRSBH = getPara("NSRSBH");
 		if (NSRSBH != null && !"".equals(NSRSBH)) {
 			searchSQL = searchSQL + " and  NSRSBH LIKE '%" + NSRSBH + "%'";
 			setAttr("NSRSBH", NSRSBH);
-			dbKit.append(searchSQL);
+			//dbKit.append(searchSQL);
 		}
 
 		String NSRMC = getPara("NSRMC");
 		if (NSRMC != null && !"".equals(NSRMC)) {
 			searchSQL = searchSQL + " and  NSRMC LIKE '%" + NSRMC + "%'";
 			setAttr("NSRMC", NSRMC);
-			dbKit.append(searchSQL);
+		}
+		
+		String SWJGBM = getPara("SWJGBM");
+		if (SWJGBM != null && !"".equals(SWJGBM)) {
+			searchSQL = searchSQL + " and  SWJGBM ='"+SWJGBM+"'";
+			setAttr("SWJGBM", SWJGBM);
+			setAttr("parentName",getPara("parentName"));
 		}
 
 		dbKit.append(orderSQL);
+		dbKit.append(searchSQL);
 		Page pageList = skqNsrxxService.queryForPageList(dbKit, getPage(),
 				SkqNsrxx.class);
 		setAttr("pageList", pageList);
@@ -68,6 +84,22 @@ public class SkqNsrxxController extends BaseController {
 			HttpServletResponse response) throws Exception {
 		SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
 		skqNsrxxService.save(skqNsrxx);
+		String hiddenStr = getPara("hiddenStr");
+		for (int i = 0; i < hiddenStr.split("~").length; i++) {
+			String jsonStr = hiddenStr.split("~")[i];
+			if (StringUtil.isNotBlank(jsonStr)) {
+				Map<String, Object> nsrszsmMap = JsonUtil.jsonToMap(jsonStr);
+				SkqNsrszsm nsrszsm = new SkqNsrszsm();
+				nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
+				nsrszsm.setSl(Double.parseDouble("" + nsrszsmMap.get("sl")));
+				nsrszsm.setSmbm("" + nsrszsmMap.get("sl"));
+				nsrszsm.setSmjc("" + nsrszsmMap.get("smjc"));
+				nsrszsm.setSmmc("" + nsrszsmMap.get("smmc"));
+				nsrszsm.setStatus(1);
+				nsrszsm.setSzbm("" + nsrszsmMap.get("szbm"));
+				skqNsrszsmService.save(nsrszsm);
+			}
+		}
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
 		renderJson(returnData);
 	}

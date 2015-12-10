@@ -82,6 +82,14 @@ public class SkqHymxController extends BaseController {
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
         renderJson(returnData);
     }
+    
+    @RequestMapping("/select")
+    public String select(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String hybm=getPara("hybm");
+        List<Map<String, Object>> list = skqHymxService.queryForList("select * from skq_hymx where status=1 and hybm='"+hybm+"'");
+        setAttr("list", list);
+        return "/com/jdk2010/system/skqhymx/select";
+    }
 
     
 

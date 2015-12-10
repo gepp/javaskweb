@@ -1,4 +1,7 @@
 package com.jdk2010.system.skqpmsz.controller;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,4 +78,12 @@ public class SkqPmszController extends BaseController{
 		return "/com/jdk2010/system/skqpmsz/skqpmsz_view";
 	}
 	
+	@RequestMapping("/select")
+    public String select(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List<Map<String, Object>> list = skqPmszService.queryForList("select * from skq_pmsz where status=1");
+        setAttr("list", list);
+        String smbms=getPara("smbms");
+        setAttr("smbms", smbms);
+        return "/com/jdk2010/system/skqpmsz/select";
+    }
 }
