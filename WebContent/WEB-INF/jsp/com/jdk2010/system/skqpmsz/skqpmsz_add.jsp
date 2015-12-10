@@ -22,13 +22,13 @@
 		src="${ contextpath }/res/js/validator-0.7.3/local/zh_CN.js"></script>
 	<link href="${ contextpath }/res/css/select.css" rel="stylesheet"
 		type="text/css" />
-	<script type="text/javascript"  src="${ contextpath }/res/js/select-ui.min.js"></script>
-<style type="text/css">
+	<script type="text/javascript"
+		src="${ contextpath }/res/js/select-ui.min.js"></script>
+	<style type="text/css">
 .forminfo li label {
-width:128px
+	width: 128px
 }
-</style>		
-		
+</style>
 </head>
 <body>
 	<div class="place">
@@ -68,19 +68,23 @@ width:128px
 						<li><label>税目索引<b></b></label> <input type="text"
 							class="dfinput" id="smsy" name="skqPmsz.smsy"
 							placeholder="请输入税目索引" /></li>
-						<li><label>票种编码<b></b></label>
-						 <input type="text" class="dfinput" id="fpbm" name="skqPmsz.fpbm" placeholder="" readonly />
-						 <input type="button" value="选择票种" onclick="selectFp();" class="btn" />
-						 </li>
+						<li><label>票种编码<b></b></label> <input type="text"
+							class="dfinput" id="fpbm" name="skqPmsz.fpbm" placeholder="" 
+							readonly onclick="selectFp();" /> <input type="button"
+							value="选择票种" onclick="selectFp();" class="btn" /></li>
 						<li><label>核定户开票限额比例<b></b></label> <input type="text"
 							class="dfinput" id="hdkpbl" name="skqPmsz.hdkpbl"
 							placeholder="请输入核定户开票限额比例" /></li>
 						<li><label>查账征收户开票限额<b></b></label> <input type="text"
 							class="dfinput" id="czkpxe" name="skqPmsz.czkpxe"
 							placeholder="请输入查账征收户开票限额" /></li>
-						<li><label>是否差额征收<b></b></label> <input type="text"
-							class="dfinput" id="cezs" name="skqPmsz.cezs"
-							placeholder="请输入是否差额征收" /></li>
+						<li><label>是否差额征收<b></b></label>
+							<div class="vocation">
+								<select name="skqPmsz.cezs" class="select1">
+									<option value="1">是</option>
+									<option value="0">否</option>
+								</select>
+							</div></li>
 						<li><label>状态<b></b></label>
 							<div class="vocation">
 								<select name="skqPmsz.status" class="select1">
@@ -142,9 +146,8 @@ width:128px
 												'skqPmsz.sl' : 'required;',
 												'skqPmsz.smsy' : 'required;',
 												'skqPmsz.hdkpbl' : 'required;',
-												'skqPmsz.czkpxe' : 'required;',
-												'skqPmsz.cezs' : 'required;',
-
+												'skqPmsz.czkpxe' : 'required;'
+ 
 											},
 											valid : function(form) {
 												var me = this;

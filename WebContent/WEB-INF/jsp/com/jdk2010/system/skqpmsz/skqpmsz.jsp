@@ -86,7 +86,7 @@
 
 						<td>${ item.czkpxe}</td>
 
-						<td>${ item.cezs}</td>
+						<td>${ item.cezs==1?'是':'否'}</td>
 
 						<td>${ item.status==1?'启用':'停用'}</td>
 

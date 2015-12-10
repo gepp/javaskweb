@@ -21,7 +21,7 @@ function closeChild(){
 function table_init(action_base_url,action_query_url){
 	//action_base_url是action的url action_query_url是查询的URL
 	  $("#checkAll").click(function() {
-		    $('input[name="subBox"]').attr("checked",this.checked);
+ 		    $('input[name="subBox"]').prop("checked",$("#checkAll").prop("checked"));
 		  });
  
 	//删除按钮业务处理

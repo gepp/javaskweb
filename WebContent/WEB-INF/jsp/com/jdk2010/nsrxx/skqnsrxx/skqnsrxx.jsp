@@ -40,9 +40,9 @@
 				<li><label style="width:60px">纳税人名称</label><input type="text" name="NSRMC"
 					id="NSRMC" class="scinput1" placeholder="请输入纳税人名称" value="${NSRMC}"></li>
 					<li><label style="width:50px" >税务机关</label>
-			 		<input type="hidden" name="swjgbm"  id="swjgbm" class="scinput1" readonly  
-					value="${swjgbm}">
-					<input type="text" name="parentName"  id="parentName" class="scinput1" readonly  
+			 		<input type="hidden" name="SWJGBM"  id="swjgbm" class="scinput1" readonly  
+					value="${SWJGBM}">
+					<input type="text" name="parentName"  id="parentName" class="scinput1" readonly  onclick="selectParentOrganization();"
 					value="${parentName}">
 					<input name="" type="button"   class="scbtn" value="选择" onclick="selectParentOrganization();"/>
 					</li>
@@ -50,9 +50,10 @@
  			</ul>
  			<div style="align:center">
  			<br/>
- 			<ul class="seachform" style="left:40%;  position: absolute;   ">
- 			 	<li><label>&nbsp;</label><input name="" type="button"  id="table_refresh" class="scbtn1" value="查询"/></li>
-				<li><label>&nbsp;</label><input name="" type="button"  id="table_add" class="scbtn2" value="新增"/></li>
+ 			<ul class="seachform" style="left:35%;  position: absolute;   ">
+ 			 	<li><label>&nbsp;</label><input name="" type="submit"  id="table_refresh" class="scbtn1" value="查询"/></li>
+				<li><label>&nbsp;</label><input name="" type="button" class="scbtn2" onclick="deleteInput();" value="清空"/></li>
+				<li><label>&nbsp;</label><input name="" type="button"  id="table_add" class="scbtn" value="新增"/></li>
 				
 			</ul>
 			<br/>
@@ -108,6 +109,15 @@
 
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
+	function deleteInput(){
+			$("#NSRWJBM").val("");
+			$("#NSRSBH").val("");
+			$("#NSRMC").val("");
+			$("#SWJGBM").val("");
+			$("#parentName").val("");
+			
+			
+	}
 	$(document).ready(
 			function() {
 				table_init("${ contextpath}/skqnsrxx",

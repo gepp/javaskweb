@@ -70,17 +70,25 @@
 							class="dfinput" id="smsy" name="skqPmsz.smsy"
 							placeholder="请输入税目索引" value="${ skqPmsz.smsy}" /></li>
 						<li><label>票种编码<b></b></label> <input type="text"
-							class="dfinput" id="fpbm" name="skqPmsz.fpbm"
-							placeholder="请输入票种编码" value="${ skqPmsz.fpbm}" /></li>
+							class="dfinput" id="fpbm" name="skqPmsz.fpbm" placeholder="" value="${skqPmsz.fpbm }"
+							readonly onclick="selectFp();" /> <input type="button"
+							value="选择票种" onclick="selectFp();" class="btn" /></li>
 						<li><label>核定户开票限额比例<b></b></label> <input type="text"
 							class="dfinput" id="hdkpbl" name="skqPmsz.hdkpbl"
 							placeholder="请输入核定户开票限额比例" value="${ skqPmsz.hdkpbl}" /></li>
 						<li><label>查账征收户开票限额<b></b></label> <input type="text"
 							class="dfinput" id="czkpxe" name="skqPmsz.czkpxe"
 							placeholder="请输入查账征收户开票限额" value="${ skqPmsz.czkpxe}" /></li>
-						<li><label>是否差额征收<b></b></label> <input type="text"
-							class="dfinput" id="cezs" name="skqPmsz.cezs"
-							placeholder="请输入是否差额征收" value="${ skqPmsz.cezs}" /></li>
+						<li><label>是否差额征收<b></b></label> 
+						<div class="vocation">
+								<select name="skqPmsz.cezs" class="select1">
+									<option value="0"
+										<c:if test="${skqPmsz.cezs==0}">selected</c:if>>否</option>
+									<option value="1"
+										<c:if test="${skqPmsz.cezs==1}">selected</c:if>>是</option>
+								</select>
+							</div>
+						</li>
 						<li><label>状态<b></b></label>
 							<div class="vocation">
 								<select name="skqPmsz.status" class="select1">
@@ -103,6 +111,17 @@
 </html>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
+	function selectFp(){
+		layer.open({
+		    type: 2,
+		    title: '选择发票票种【点击行选中】',
+		    shadeClose: true,
+		    shade: 0,
+		    area: ['580px', '90%'],
+		    
+		    content: '${contextpath}/skqfp/select.htm' //iframe的url
+		}); 
+	}
 </script>
 
 
@@ -133,9 +152,7 @@
 												'skqPmsz.fpbm' : 'required;',
 												'skqPmsz.hdkpbl' : 'required;',
 												'skqPmsz.czkpxe' : 'required;',
-												'skqPmsz.cezs' : 'required;',
-												'skqPmsz.status' : 'required;',
-
+  
 											},
 											valid : function(form) {
 												var me = this;
