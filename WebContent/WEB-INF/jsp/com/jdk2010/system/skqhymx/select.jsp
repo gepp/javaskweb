@@ -35,6 +35,9 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${fn:length(list)==0}">
+				<tr><td colspan="4">暂无该行业对应的行业明细,请联系管理员进行维护！</td></tr>
+				</c:if>
 				<c:forEach items="${list}" var="item">
 					<tr  onclick="jumpToParent('${item.hymxbm}','${item.hymxmc }')">
 						<td>${ item.hybm}</td>

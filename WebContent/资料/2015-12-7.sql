@@ -13,7 +13,7 @@ MySQL - 5.5.20 : Database - wlsk
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`wlsk` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`wlsk` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `wlsk`;
 
@@ -519,11 +519,11 @@ CREATE TABLE `skq_jqxh` (
   `SCCS` varchar(100) DEFAULT NULL COMMENT '生产厂商',
   `STATUS` int(11) DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `skq_jqxh` */
 
-insert  into `skq_jqxh`(`id`,`JQXHBM`,`JQXHMC`,`SCCS`,`STATUS`) values (1,'DT0001','机器型号','江苏双阿基',1);
+insert  into `skq_jqxh`(`id`,`JQXHBM`,`JQXHMC`,`SCCS`,`STATUS`) values (1,'DT0001','机器型号','江苏双阿基',1),(2,'DT0002','型号2',NULL,1);
 
 /*Table structure for table `skq_jqxx` */
 
@@ -631,11 +631,11 @@ CREATE TABLE `skq_nsrszsm` (
   `SL` decimal(9,2) NOT NULL COMMENT '税率',
   `STATUS` int(11) DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /*Data for the table `skq_nsrszsm` */
 
-insert  into `skq_nsrszsm`(`id`,`NSRWJBM`,`SZBM`,`SMBM`,`SMMC`,`SMJC`,`SL`,`STATUS`) values (1,'0080880234','0002','5.00','93#汽油','93#汽油','5.00',1),(2,'0080880234','00003','5.00','34汽油','34汽油','5.00',1),(3,'0080880234','0004','4.00','啊啊啊啊汽油','啊','4.00',1),(4,'3204820824324234','00003','5.00','34汽油','34汽油','5.00',1),(5,'3204820824324234','0004','4.00','啊啊啊啊汽油','啊','4.00',1),(6,'3204820824324234','0005','5.00','阿德法大赛阿三发','5','5.00',1);
+insert  into `skq_nsrszsm`(`id`,`NSRWJBM`,`SZBM`,`SMBM`,`SMMC`,`SMJC`,`SL`,`STATUS`) values (4,'3204820824324234','00003','5.00','34汽油','34汽油','5.00',1),(5,'3204820824324234','0004','4.00','啊啊啊啊汽油','啊','4.00',1),(6,'3204820824324234','0005','5.00','阿德法大赛阿三发','5','5.00',1),(14,'0080880234','0001','5.00','77#汽油','77#汽油','5.00',1),(15,'0080880234','0002','5.00','93#汽油','93#汽油','5.00',1),(16,'0080880234','00003','5.00','34汽油','34汽油','5.00',1),(17,'0080880234','0004','4.00','啊啊啊啊汽油','啊','4.00',1),(18,'0080880234','0005','5.00','阿德法大赛阿三发','5','5.00',1);
 
 /*Table structure for table `skq_nsrxx` */
 

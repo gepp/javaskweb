@@ -29,37 +29,41 @@
 		</ul>
 	</div>
 	<div class="rightinfo">
-		<form method="post" action="${ contextpath}/skqnsrxx/list" >
-			<ul class="seachform" style="padding-top:10px;padding-left:15px">
-				<li><label style="width:85px">纳税人微机编码</label><input type="text" name="NSRWJBM"
-					id="NSRWJBM" class="scinput1" placeholder="请输入纳税人微机编码"
-					value="${NSRWJBM}"></li>
-				<li><label style="width:80px">纳税人识别号</label><input type="text" name="NSRSBH"
-					id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
+		<form method="post" action="${ contextpath}/skqnsrxx/list">
+			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
+				<li><label style="width: 85px">纳税人微机编码</label><input
+					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"
+					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li>
+				<li><label style="width: 80px">纳税人识别号</label><input type="text"
+					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
 					value="${NSRSBH}"></li>
-				<li><label style="width:60px">纳税人名称</label><input type="text" name="NSRMC"
-					id="NSRMC" class="scinput1" placeholder="请输入纳税人名称" value="${NSRMC}"></li>
-					<li><label style="width:50px" >税务机关</label>
-			 		<input type="hidden" name="SWJGBM"  id="swjgbm" class="scinput1" readonly  
-					value="${SWJGBM}">
-					<input type="text" name="parentName"  id="parentName" class="scinput1" readonly  onclick="selectParentOrganization();"
-					value="${parentName}">
-					<input name="" type="button"   class="scbtn" value="选择" onclick="selectParentOrganization();"/>
-					</li>
-				
- 			</ul>
- 			<div style="align:center">
- 			<br/>
- 			<ul class="seachform" style="left:35%;  position: absolute;   ">
- 			 	<li><label>&nbsp;</label><input name="" type="submit"  id="table_refresh" class="scbtn1" value="查询"/></li>
-				<li><label>&nbsp;</label><input name="" type="button" class="scbtn2" onclick="deleteInput();" value="清空"/></li>
-				<li><label>&nbsp;</label><input name="" type="button"  id="table_add" class="scbtn" value="新增"/></li>
-				
+				<li><label style="width: 60px">纳税人名称</label><input type="text"
+					name="NSRMC" id="NSRMC" class="scinput1" placeholder="请输入纳税人名称"
+					value="${NSRMC}"></li>
+				<li><label style="width: 50px">税务机关</label> <input
+					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
+					value="${SWJGBM}"> <input type="text" name="parentName"
+						id="parentName" class="scinput1" readonly
+						onclick="selectParentOrganization();" value="${parentName}">
+							<input name="" type="button" class="scbtn" value="选择"
+							onclick="selectParentOrganization();" /></li>
+
 			</ul>
-			<br/>
-		 </div>
+			<div style="align: center">
+				<br />
+				<ul class="seachform" style="left: 35%; position: absolute;">
+					<li><label>&nbsp;</label><input name="" type="submit"
+						id="table_refresh" class="scbtn1" value="查询" /></li>
+					<li><label>&nbsp;</label><input name="" type="button"
+						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
+					<li><label>&nbsp;</label><input name="" type="button"
+						id="table_add" class="scbtn" value="新增" /></li>
+
+				</ul>
+				<br />
+			</div>
 		</form>
-		<br/>
+		<br />
 		<div class="formtitle1">
 			<span>纳税户基本信息</span>
 		</div>
@@ -71,7 +75,7 @@
 					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
 					<th>税务机关编码</th>
-  					<th>状态</th>
+					<th>状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -86,21 +90,24 @@
 						<td>${ item.nsrsbh}</td>
 
 						<td>${ item.nsrmc}</td>
-  
+
 
 						<td>${ item.swjgbm}</td>
 						<td>${ item.status==1?'正常':'停用'}</td>
 
 						<td><a
-							href="${ contextpath }/skqnsrxx/modify.htm?id=${item.id}"
-							class="tablelink">编辑</a> <a
-							href="${ contextpath }/skqnsrxx/view.htm?id=${item.id}"
-							class="tablelink">查看</a>
+							href="${ contextpath }/skqnsrxx/modify.htm?nsrwjbm=${item.nsrwjbm}"
+							class="tablelink">纳税人信息维护</a> &nbsp;&nbsp;<a
+							href="${ contextpath }/skqjqxx/list.htm?nsrwjbm=${item.nsrwjbm}"
+							class="tablelink">机器信息维护</a> &nbsp;&nbsp;<a
+							href="${ contextpath }/skqnsrxx/view.htm?nsrwjbm=${item.nsrwjbm}"
+							class="tablelink">纳税户同步</a>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<page:page href="${ contextpath}/skqnsrxx/list?NSRWJBM=${NSRWJBM}&NSRSBH=${NSRSBH}&NSRMC=${NSRMC}"
+		<page:page
+			href="${ contextpath}/skqnsrxx/list?NSRWJBM=${NSRWJBM}&NSRSBH=${NSRSBH}&NSRMC=${NSRMC}"
 			data="pageList" />
 
 	</div>
@@ -109,14 +116,13 @@
 
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
-	function deleteInput(){
-			$("#NSRWJBM").val("");
-			$("#NSRSBH").val("");
-			$("#NSRMC").val("");
-			$("#SWJGBM").val("");
-			$("#parentName").val("");
-			
-			
+	function deleteInput() {
+		$("#NSRWJBM").val("");
+		$("#NSRSBH").val("");
+		$("#NSRMC").val("");
+		$("#SWJGBM").val("");
+		$("#parentName").val("");
+
 	}
 	$(document).ready(
 			function() {

@@ -59,6 +59,8 @@ $(document).ready(function(){
     function jumpToParent(hybm,hymc){
 		parent.$('#hybm').val(hybm);
 		parent.$("#hymc").val(hymc);
+		parent.$('#hymxbm').val("");
+		parent.$('#hymxmc').val("");
  		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.close(index);
 	}
