@@ -105,8 +105,8 @@ public class LoginController extends BaseController {
         String md5Password = getAttrForStr("md5Password");
         SecurityUser securityUser = securityUserService.login(username, md5Password);
         if (securityUser == null) {
-            CookieUtil.deleteCookie(request, response, "username");
-            CookieUtil.deleteCookie(request, response, "md5Password");
+            //CookieUtil.deleteCookie(request, response, "username");
+            //CookieUtil.deleteCookie(request, response, "md5Password");
             return "/login";
         } else {
             setSessionAttr("securityUser", securityUser);
