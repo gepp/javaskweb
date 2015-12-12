@@ -48,7 +48,14 @@ public class SkqNsrxxServiceImpl extends BaseServiceImpl implements ISkqNsrxxSer
     public static void main(String[] args) {
         BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
         ISkqNsrxxService nsrxxService = factory.getBean(ISkqNsrxxService.class);
-        SkqNsrxx nsrxx = nsrxxService.getNsrxxByNsrwjbm("1");
-        System.out.println(nsrxx.getNsrszsmList().size());
+//        SkqNsrxx nsrxx = nsrxxService.getNsrxxByNsrwjbm("1");
+//        System.out.println(nsrxx.getNsrszsmList().size());
+        System.out.println(nsrxxService.getNsrwjbmByNsrsbh("234234242"));
     }
+
+	@Override
+	public String getNsrwjbmByNsrsbh(String nsrsbh) {
+		String nsrwjbm = dalClient.queryColumn("select NSRWJBM from skq_nsrxx where NSRSBH='"+nsrsbh+"'", "NSRWJBM");
+		return nsrwjbm;
+	}
 }
