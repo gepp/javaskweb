@@ -79,7 +79,7 @@
 								<td>法人代表<b></b></td>
 								<td><input type="text" class="dfinput" id="frdb"
 									name="skqNsrxx.frdb" placeholder="请输入法人代表" /></td>
-								<td>联系方式<b></b></td>
+								<td>税收管理员<b></b></td>
 								<td><input type="text" class="dfinput" id="ssgly"
 									name="skqNsrxx.ssgly" placeholder="请输入联系方式" /></td>
 
@@ -111,7 +111,7 @@
 							</tr>
 
 							<tr>
-								<td>税务机关编码<b></b></td>
+								<td>主管科(所)<b></b></td>
 								<input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"
 									class="scinput1" readonly value="${swjgbm}">
 									<td><input type="text" class="dfinput" name="parentName"
@@ -239,7 +239,7 @@
 	function selectSzsm(){
 		layer.open({
 			type : 2,
-			title : '选择注册类型【点击行选中】',
+			title : '选择注纳税人税种税目',
 			shadeClose : true,
 			shade : 0,
 			area : [ '580px', '90%' ],

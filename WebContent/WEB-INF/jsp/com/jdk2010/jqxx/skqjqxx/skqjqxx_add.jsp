@@ -12,6 +12,8 @@
 	type="text/css" />
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript"
+	src="${ contextpath }/res/js/laydate/laydate.js"></script>
+<script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <link rel="stylesheet"
@@ -24,6 +26,7 @@
 		type="text/css" />
 	<script type="text/javascript"
 		src="${ contextpath }/res/js/select-ui.min.js"></script>
+		
 	<style type="text/css">
 .forminfo li label {
 	width: 128px
@@ -65,13 +68,13 @@
 									name="skqJqxx.jqbh" placeholder="请输入机器编号" /></td>
 								<td>机器型号编码</td>
 								<td>
-								<div class="vocation" style="margin-top:10px">
-								<select name="skqJqxx.jqxmbm" class="select1">
-										<c:forEach var="jqxh" items="${jqxhList }">
-											<option value="${jqxh.jqxhbm }">${jqxh.jqxhmc }</option>
-										</c:forEach>
-								</select>
-								</div>
+									<div class="vocation" style="margin-top: 10px">
+										<select name="skqJqxx.jqxhbm" class="select1">
+											<c:forEach var="jqxh" items="${jqxhList }">
+												<option value="${jqxh.jqxhbm }">${jqxh.jqxhmc }</option>
+											</c:forEach>
+										</select>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -85,10 +88,10 @@
 							<tr>
 								<td>卡启用日期</td>
 								<td><input type="text" class="dfinput" id="kqyrq"
-									name="skqJqxx.kqyrq" placeholder="请输入卡启用日期" /></td>
+									name="skqJqxx.kqyrq"  onclick="laydate()"></input></td>
 								<td>卡有效日期</td>
 								<td><input type="text" class="dfinput" id="kyxrq"
-									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" /></td>
+									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期"  onclick="laydate()" /></td>
 							</tr>
 
 							<tr>
@@ -102,7 +105,7 @@
 							<tr>
 								<td>开票截止日期</td>
 								<td><input type="text" class="dfinput" id="kpjzrq"
-									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期" /></td>
+									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期" onclick="laydate()"/></td>
 								<td>单张开票限额</td>
 								<td><input type="text" class="dfinput" id="dzkpxe"
 									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额" /></td>
@@ -134,48 +137,46 @@
 				<div class="formtitle1">
 					<span>机器税种税目</span>
 				</div>
-				 <div class="tools">
-						<ul class="toolbar">
-							<li class="click" onclick="selectSzsm();"><span><img
-									src="${contextpath }/res/images/t01.png" /></span>添加</li>
-							<li class="click" onclick="deleteSzsm();"><span><img
-									src="${contextpath }/res/images/t03.png" /></span>清空</li>
-							 
-						</ul>
-					</div>
-					<table class="tablelist">
-						<thead>
-							<tr>
-								<th>税种编码</th>
-								<th>税目编码</th>
-								<th>税目名称</th>
-								<th>税目简称</th>
-								<th>税率</th>
- 							</tr>
-						</thead>
-						<input type="hidden" id="smbms" name="smbms" value=""/>
-						<input type="hidden" id="hiddenStr" name="hiddenStr" value=""/>
-						<tbody id="nsrszsmDiv">
-							
-						</tbody>
-					</table>
-					<br /> <br />
-					<div style="left:25%;">
+				<div class="tools">
+					<ul class="toolbar">
+						<li class="click" onclick="selectSzsm();"><span><img
+								src="${contextpath }/res/images/t01.png" /></span>添加</li>
+						<li class="click" onclick="deleteSzsm();"><span><img
+								src="${contextpath }/res/images/t03.png" /></span>清空</li>
+
+					</ul>
+				</div>
+				<table class="tablelist">
+					<thead>
+						<tr>
+							<th>税种编码</th>
+							<th>税目编码</th>
+							<th>税目名称</th>
+							<th>经营项目内容</th>
+							<th>税率</th>
+						</tr>
+					</thead>
+					<input type="hidden" id="smbms" name="smbms" value="" />
+					<input type="hidden" id="hiddenStr" name="hiddenStr" value="" />
+					<tbody id="nsrszsmDiv">
+
+					</tbody>
+				</table>
+				<br /> <br />
+				<div style="left: 25%;">
 					<ul class="forminfo">
 						<li><label>&nbsp;</label><input name="" type="submit"
 							class="btn" value=" 确定" /> &nbsp;&nbsp; <input name=""
 							type="button" class="btn" value="返回"
-							onclick="window.location='${ contextpath}/skqnsrxx/list'" /></li>
+							onclick="window.location='${ contextpath}/skqjqxx/list.htm?nsrwjbm=${nsrwjbm }'" /></li>
 					</ul>
-					</div>
+				</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </body>
-<li><label>&nbsp;</label><input name="" type="submit" class="btn"
-	value=" 确定" /> &nbsp;&nbsp; <input name="" type="button" class="btn"
-	value="返回" onclick="window.location='${ contextpath}/skqjqxx/list'" /></li>
+
 </html>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
@@ -183,6 +184,22 @@
 
 
 <script type="text/javascript">
+
+function deleteSzsm(){
+	$("#smbms").val("");
+	$("#hiddenStr").val("");
+	$("#nsrszsmDiv").html("");
+}
+	function selectSzsm(){
+		layer.open({
+			type : 2,
+			title : '选择机器税种税目',
+			shadeClose : true,
+			shade : 0,
+			area : [ '580px', '90%' ],
+			content : '${contextpath}/skqpmsz/selectJqszsm.htm?nsrwjbm=${nsrwjbm}&smbms='+$("#smbms").val() //iframe的url
+		});
+	}
 	$(document)
 			.ready(
 					function() {
@@ -200,10 +217,7 @@
 								.validator(
 										{
 											fields : {
-												'skqJqxx.id' : 'required;',
-												'skqJqxx.nsrwjbm' : 'required;',
-												'skqJqxx.jqxhbm' : 'required;',
-												'skqJqxx.jqbh' : 'required;',
+ 												'skqJqxx.jqbh' : 'required;',
 												'skqJqxx.skkh' : 'required;',
 												'skqJqxx.yhkh' : 'required;',
 												'skqJqxx.kqyrq' : 'required;',
@@ -241,7 +255,7 @@
 																						closeBtn : 0
 																					},
 																					function() {
-																						window.location.href = '${ contextpath}/skqjqxx/list';
+																						window.location.href = '${ contextpath}/skqjqxx/list.htm?nsrwjbm=${nsrwjbm}';
 																					});
 
 																} else {

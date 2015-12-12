@@ -75,7 +75,7 @@
 						<td>${ item.yljkpxe}</td>
 						<td>${ item.status==1?'启用':'停用'}</td>
 						<td><a
-							href="${ contextpath }/skqjqxx/modify.htm?id=${item.id}"
+							href="${ contextpath }/skqjqxx/modify.htm?jqbh=${item.jqbh}"
 							class="tablelink">编辑</a>
 						</td>
 					</tr>
