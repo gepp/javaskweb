@@ -10,178 +10,110 @@
 <title>不动产项目明细</title>
 <link href="${ contextpath }/res/css/style.css" rel="stylesheet"
 	type="text/css" />
-	<link href="${ contextpath }/res/css/page.css" rel="stylesheet"
+<link href="${ contextpath }/res/css/page.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
-
 </head>
 <body>
-
-<div class="place">
-		<span>位置：</span>
-		<ul class="placeul">
-			<li><a href="#">首页</a></li>
-			<li><a href="#">不动产项目明细</a></li>
-		</ul>
+<div class="place"> <span>位置：</span>
+  <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">不动产项目明细</a></li>
+  </ul>
 </div>
 <div class="rightinfo">
-		
-					
-							 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 				 			 			
-																																																																																																																																																																																																															 <div class="tools">
-			<ul class="toolbar">
-			<li class="click" id="table_add"><span><img src="${ contextpath }/res/images/t01.png" /></span>添加</li>
-	        <li id="table_delete" ><span><img src="${ contextpath }/res/images/t03.png" /></span>删除</li>
-	        <li  id="table_refresh"><span><img src="${ contextpath }/res/images/t04.png" /></span>查询</li>
-			</ul>
-		</div>
-				
-			 		<div class="formtitle1">
-			<span>不动产项目明细</span>
-		</div>
-		<table class="tablelist">
-		<thead>
-				<tr>
-				<th><input type="checkbox" width="15px"  id="checkAll"/></th>
-				
-														   <th>id</th>
-																			   <th>子项目ID</th>
-																			   <th>项目名称</th>
-																			   <th>项目编码</th>
-																			   <th>保障性普通住宅套数</th>
-																			   <th>非保障性普通住宅套数</th>
-																			   <th>非普通住宅套数</th>
-																			   <th>别墅套数</th>
-																			   <th>商铺套数</th>
-																			   <th>写字楼套数</th>
-																			   <th>其他套数</th>
-																			   <th>保障性普通住宅面积</th>
-																			   <th>非保障性普通住宅面积</th>
-																			   <th>非普通住宅面积</th>
-																			   <th>别墅面积</th>
-																			   <th>商铺面积</th>
-																			   <th>写字楼面积</th>
-																			   <th>其他面积</th>
-																			   <th>创建者</th>
-																			   <th>创建时间</th>
-																			   <th>纳税人微机编码</th>
-																			   <th>主项目名称</th>
-													<th>操作</th>
-			</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${pageList.list}" var="item">
-				 	
-			       <tr>
-						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
-												 						<td>
-															${ item.id}
-													</td>	
-
-						 												 						<td>
-															${ item.parentid}
-													</td>	
-
-						 												 						<td>
-															${ item.xmmc}
-													</td>	
-
-						 												 						<td>
-															${ item.xmbm}
-													</td>	
-
-						 												 						<td>
-															${ item.bzxptzzts}
-													</td>	
-
-						 												 						<td>
-															${ item.fbzxptzzts}
-													</td>	
-
-						 												 						<td>
-															${ item.fptzzts}
-													</td>	
-
-						 												 						<td>
-															${ item.bsts}
-													</td>	
-
-						 												 						<td>
-															${ item.spts}
-													</td>	
-
-						 												 						<td>
-															${ item.xzlts}
-													</td>	
-
-						 												 						<td>
-															${ item.qtts}
-													</td>	
-
-						 												 						<td>
-															${ item.bzxptzzmj}
-													</td>	
-
-						 												 						<td>
-															${ item.fbzxptzzmj}
-													</td>	
-
-						 												 						<td>
-															${ item.fptzzmj}
-													</td>	
-
-						 												 						<td>
-															${ item.bsmj}
-													</td>	
-
-						 												 						<td>
-															${ item.spmj}
-													</td>	
-
-						 												 						<td>
-															${ item.xzlmj}
-													</td>	
-
-						 												 						<td>
-															${ item.qtmj}
-													</td>	
-
-						 												 						<td>
-															${ item.cjz}
-													</td>	
-
-						 												 						<td>
-															${ item.cjsj}
-													</td>	
-
-						 												 						<td>
-															${ item.nsrwjbm}
-													</td>	
-
-						 												 						<td>
-															${ item.zxmmc}
-													</td>	
-
-						 													<td>
-							<a href="${ contextpath }/skqbdcxmmx/modify.htm?id=${item.id}" class="tablelink">编辑</a> 
-							<a href="${ contextpath }/skqbdcxmmx/view.htm?id=${item.id}"  class="tablelink">查看</a>
- 				   </tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<page:page href="${ contextpath}/skqbdcxmmx/list?" data="pageList" />
-		
+  <form method="post" action="${ contextpath }/skqbdcxmmx/list">
+    <ul class="seachform" style="padding-top: 10px; padding-left: 15px">
+      <li>
+        <label style="width: 70px">项目明细名称</label>
+        <input type="text" name="xmmc" id="xmmc" class="scinput1" style="width:300px;" placeholder="请输入项目明细名称" value="${xmmc}">
+        <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrwjbm}" />
+        <input type="hidden" name="bdcid" id="bdcid" value="${bdcid}" />
+        <input type="hidden" name="bdczxmid" id="bdczxmid" value="${bdczxmid}" />
+      </li>
+      <li>
+        <input name="" type="submit" class="btn" style="width:80px;" value="查询"/>
+      </li>
+      <li>
+        <input name="" type="button" class="btn" style="width:80px;" value="重置" onclick="resetSearch();"/>
+      </li>
+      <li>
+        <input name="" type="button" class="btn" style="width:80px;" value="返回" onclick="goBack();"/>
+      </li>
+    </ul>
+  </form>
+  <div class="tools">
+    <ul class="toolbar">
+      <li class="click" onclick="add();"><span><img src="${ contextpath }/res/images/t01.png" /></span>添加</li>
+      <li class="click" id="table_delete" ><span><img src="${ contextpath }/res/images/t03.png" /></span>删除</li>
+    </ul>
+  </div>
+  <div class="formtitle1"> <span>${zxmmc}</span> </div>
+  <table class="tablelist">
+    <thead>
+      <tr>
+        <th><input type="checkbox" width="15px"  id="checkAll"/></th>
+        <th width="7%">项目代码</th>
+        <th width="14%">项目明细名称</th>
+        <th width="8%">保普住宅套数</th>
+        <th width="8%">非保普住宅套数</th>
+        <th width="8%">非普住宅套数</th>
+        <th width="8%">别墅套数</th>
+        <th width="8%">商铺套数</th>
+        <th width="8%">写字楼套数</th>
+        <th width="8%">其他套数</th>
+        <th width="8%">录入总套数</th>
+        <th width="15%">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <c:forEach items="${list}" var="item">
+        <tr>
+          <td><input type="checkbox" name="subBox" value="${item.id}" /></td>
+          <td> ${ item.xmmc} </td>
+          <td> ${ item.xmbm} </td>
+          <td> ${ item.bzxptzzts} </td>
+          <td> ${ item.fbzxptzzts} </td>
+          <td> ${ item.fptzzts} </td>
+          <td> ${ item.bsts} </td>
+          <td> ${ item.spts} </td>
+          <td> ${ item.xzlts} </td>
+          <td> ${ item.qtts} </td>
+          <td> ${ item.bzxptzzmj} </td>
+          <td> ${ item.fbzxptzzmj} </td>
+          <td> ${ item.fptzzmj} </td>
+          <td> ${ item.bsmj} </td>
+          <td> ${ item.spmj} </td>
+          <td> ${ item.xzlmj} </td>
+          <td> ${ item.qtmj} </td>
+          <td> ${ item.cjz} </td>
+          <td> ${ item.cjsj} </td>
+          <td> ${ item.nsrwjbm} </td>
+          <td> ${ item.zxmmc} </td>
+          <td><a href="${ contextpath }/skqbdcxmmx/modify.htm?id=${item.id}" class="tablelink">编辑</a> <a href="${ contextpath }/skqbdcxmmx/view.htm?id=${item.id}"  class="tablelink">查看</a> 
+        </tr>
+      </c:forEach>
+    </tbody>
+  </table>
 </div>
 </body>
 </html>
-
 <script type="text/javascript">
-		$('.tablelist tbody tr:odd').addClass('odd');
-		$(document).ready(function(){
-			table_init("${ contextpath}/skqbdcxmmx","${ contextpath}/skqbdcxmmx/list?");
-		});
+$('.tablelist tbody tr:odd').addClass('odd');
+$(document).ready(function(){
+	table_init("${ contextpath}/skqbdcxmmx","${ contextpath}/skqbdcxmmx/list?nsrwjbm=${nsrwjbm}&bdcid=${bdcid}&bdczxmid=${bdczxmid}");
+});
+function resetSearch(){
+	var nsrwjbm = $('#nsrwjbm').val();
+	var bdcid = $('#bdcid').val();
+	var bdczxmid = $('#bdczxmid').val();
+	window.location.href = '${ contextpath }/skqbdczxm/list.htm?nsrwjbm='+nsrwjbm+'&bdcid='+bdcid+'&bdczxmid='+bdczxmid;
+}
+function goBack(){
+	var nsrwjbm = $('#nsrwjbm').val();
+	var bdcid = $('#bdcid').val();
+	window.location.href = '${ contextpath }/skqbdczxm/list.htm?nsrwjbm='+nsrwjbm+'&bdcid='+bdcid;
+}
 </script>
-
- 

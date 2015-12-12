@@ -44,7 +44,7 @@ public class SkqBdcController extends BaseController {
 	public void hqmc(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		String keyword = request.getParameter("keyword").trim();
+		String keyword = getPara("keyword").trim();
 		// System.out.println("keyword==" + keyword);
 		List<Map<String, Object>> list = skqBdcService
 				.queryForList("select NSRSBH,NSRMC from skq_nsrxx where NSRSBH like '%"
@@ -65,9 +65,9 @@ public class SkqBdcController extends BaseController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		String nsrsbh = request.getParameter("nsrsbh");
-		String nsrwjbm = request.getParameter("nsrwjbm");
-		String xmmc = request.getParameter("xmmc");
+		String nsrsbh = getPara("nsrsbh");
+		String nsrwjbm = getPara("nsrwjbm");
+		String xmmc = getPara("xmmc");
 		String sqlStr = "";
 		if(!StringUtil.isBlank(xmmc)){
 			sqlStr = " and xmmc like '%"+xmmc+"%'";
@@ -86,7 +86,7 @@ public class SkqBdcController extends BaseController {
 	@RequestMapping("/add")
 	public String add(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		String nsrwjbm = request.getParameter("nsrwjbm");
+		String nsrwjbm = getPara("nsrwjbm");
 		
 		setAttr("nsrwjbm", nsrwjbm);
 		return "/com/jdk2010/bdc/skqbdc/skqbdc_add";
@@ -120,6 +120,7 @@ public class SkqBdcController extends BaseController {
 	public void modifyaction(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		SkqBdc skqBdc = getModel(SkqBdc.class);
+		skqBdc.setCjsj(new Date());
 		skqBdcService.update(skqBdc);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
 		renderJson(returnData);

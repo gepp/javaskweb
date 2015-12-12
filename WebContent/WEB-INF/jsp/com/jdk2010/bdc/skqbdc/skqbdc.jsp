@@ -20,20 +20,27 @@
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="#">不动产</a></li>
+    <li><a href="#">不动产项目</a></li>
   </ul>
 </div>
 <div class="rightinfo">
-	<form method="post" action="${ contextpath }/skqbdc/list">
-  <ul class="seachform" style="padding-top: 10px; padding-left: 15px">
-    <li>
-      <label style="width: 70px">项目名称</label>
-      <input type="text" name="xmmc" id="xmmc" class="scinput1" style="width:300px;" placeholder="请输入项目名称" value="${xmmc}">
-      <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrwjbm}" />
-    </li>
-    <li><input name="" type="submit" class="btn" style="width:80px;" value="查询"/></li>
-    <li><input name="" type="button" class="btn" style="width:80px;" value="重置" onclick="resBdc();"/></li>
-  </ul>
+  <form method="post" action="${ contextpath }/skqbdc/list">
+    <ul class="seachform" style="padding-top: 10px; padding-left: 15px">
+      <li>
+        <label style="width: 70px">项目名称</label>
+        <input type="text" name="xmmc" id="xmmc" class="scinput1" style="width:300px;" placeholder="请输入项目名称" value="${xmmc}">
+        <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrwjbm}" />
+      </li>
+      <li>
+        <input name="" type="submit" class="btn" style="width:80px;" value="查询"/>
+      </li>
+      <li>
+        <input name="" type="button" class="btn" style="width:80px;" value="重置" onclick="resetSearch();"/>
+      </li>
+      <li>
+        <input name="" type="button" class="btn" style="width:80px;" value="返回" onclick="goBack();"/>
+      </li>
+    </ul>
   </form>
   <div class="tools">
     <ul class="toolbar">
@@ -41,12 +48,13 @@
       <li class="click" id="table_delete"><span><img src="${ contextpath }/res/images/t03.png" /></span>删除</li>
     </ul>
   </div>
-  <div class="formtitle1"> <span>不动产</span> </div>
+  <div class="formtitle1"> <span>不动产项目</span> </div>
   <table class="tablelist">
     <thead>
       <tr>
         <th width="30px"><input type="checkbox" id="checkAll"/></th>
         <th>项目名称</th>
+        <th width="15%">创建者</th>
         <th width="15%">创建时间</th>
         <th width="15%">操作</th>
       </tr>
@@ -56,10 +64,9 @@
         <tr>
           <td><input type="checkbox" name="subBox" value="${item.id}" /></td>
           <td> ${ item.xmmc} </td>
-          <td> <fmt:formatDate value="${item.cjsj }"   pattern="yyyy-MM-dd"/></td>
-          <td>
-            <a href="${ contextpath }/skqbdc/modify.htm?id=${item.id}" class="tablelink">编辑</a>&nbsp;&nbsp;
-            <a href="${ contextpath }/skqbdczxm/list.htm?bdcid=${item.id}"  class="tablelink">子项目管理</a> 
+          <td> ${ item.cjz} </td>
+          <td><fmt:formatDate value="${item.cjsj }"   pattern="yyyy-MM-dd"/></td>
+          <td><a href="${ contextpath }/skqbdc/modify.htm?id=${item.id}" class="tablelink">编辑</a>&nbsp;&nbsp; <a href="${ contextpath }/skqbdczxm/list.htm?bdcid=${item.id}&nsrwjbm=${nsrwjbm}"  class="tablelink">子项目管理</a> 
         </tr>
       </c:forEach>
     </tbody>
@@ -73,9 +80,12 @@ $(document).ready(function(){
 	var nsrwjbm = $('#nsrwjbm').val(); 
 	table_init("${ contextpath}/skqbdc","${ contextpath}/skqbdc/list?nsrwjbm="+nsrwjbm);
 });
-function resBdc(){
+function resetSearch(){
 	var nsrwjbm = $('#nsrwjbm').val();
 	window.location.href = '${ contextpath }/skqbdc/list.htm?nsrwjbm='+nsrwjbm;
+}
+function goBack(){
+	window.location.href = '${ contextpath }/skqbdc/init.htm';
 }
 function add(){
 	var nsrwjbm = $('#nsrwjbm').val();
