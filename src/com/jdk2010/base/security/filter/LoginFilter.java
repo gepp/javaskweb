@@ -11,9 +11,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jdk2010.base.security.securityuser.model.SecurityUser;
 
 public class LoginFilter implements Filter {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public LoginFilter() {
     }
 
@@ -29,8 +34,7 @@ public class LoginFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        System.out.println(req.getRealPath("/"));
-        System.out.println(req.getRequestURI().toLowerCase());
+        logger.debug(req.getRequestURI().toLowerCase());
         SecurityUser securityUser = (SecurityUser) req.getSession().getAttribute("securityUser");
         if (securityUser == null) {
             res.sendRedirect(req.getContextPath() + "/login.htm");

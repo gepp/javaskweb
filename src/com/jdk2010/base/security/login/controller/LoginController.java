@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.base.security.menu.service.ISecurityMenuService;
+import com.jdk2010.base.security.securityorganization.model.SecurityOrganization;
+import com.jdk2010.base.security.securityorganization.service.ISecurityOrganizationService;
 import com.jdk2010.base.security.securityrolemenu.service.ISecurityRoleMenuService;
 import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.base.security.securityuser.service.ISecurityUserService;
@@ -37,6 +39,9 @@ public class LoginController extends BaseController {
     
     @Resource
     ISecurityRoleMenuService securityRoleMenuService;
+    
+    @Resource
+    ISecurityOrganizationService securityOrganizationService;
 
     
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -76,23 +81,7 @@ public class LoginController extends BaseController {
                 CookieUtil.addCookie(request, response, "md5Password", md5Password);
             }
             setSessionAttr("securityUser", securityUser);
-            //组装菜单
-            String menuStr="";
-            String contextpath=request.getContextPath();
-            Map<Object, Object>  userMenuMap=securityUserService.getUserMenu(securityUser);
-            for(Object obj:userMenuMap.keySet()){
-                Map<String,Object> parentMap=(Map<String,Object>)obj;
-                menuStr=menuStr+"<dd><div class=\"title\"><span><img src=\""+contextpath+parentMap.get("img")+"\" /></span>"+parentMap.get("name")+"</div><ul class=\"menuson\">";
-                List<Map<String, Object>> list=(List<Map<String, Object>>)userMenuMap.get(obj);
-                for(int i=0;i<list.size();i++){
-                    Map<String,Object> secondMap=(Map<String,Object>)list.get(i);
-                    menuStr=menuStr+"<li><cite></cite><a href=\""+contextpath+""+secondMap.get("url")+"\" target=\"rightFrame\">"+secondMap.get("name")+"</a><i></i></li>";
-                }
-                menuStr=menuStr+"</ul></dd>";
-            }
-            setSessionAttr("userMenuMap", userMenuMap);
-            setSessionAttr("menuStr", menuStr);
-            logger.info("menuStr:"+menuStr);
+             
         }
         resultMap.put("flag", flag);
         resultMap.put("reason", reason);
@@ -110,23 +99,7 @@ public class LoginController extends BaseController {
             return "/login";
         } else {
             setSessionAttr("securityUser", securityUser);
-          //组装菜单
-            String menuStr="";
-            String contextpath=request.getContextPath();
-            Map<Object, Object>  userMenuMap=securityUserService.getUserMenu(securityUser);
-            for(Object obj:userMenuMap.keySet()){
-                Map<String,Object> parentMap=(Map<String,Object>)obj;
-                menuStr=menuStr+"<dd><div class=\"title\"><span><img src=\""+contextpath+parentMap.get("img")+"\" /></span>"+parentMap.get("name")+"</div><ul class=\"menuson\">";
-                List<Map<String, Object>> list=(List<Map<String, Object>>)userMenuMap.get(obj);
-                for(int i=0;i<list.size();i++){
-                    Map<String,Object> secondMap=(Map<String,Object>)list.get(i);
-                    menuStr=menuStr+"<li><cite></cite><a href=\""+contextpath+""+secondMap.get("url")+"\" target=\"rightFrame\">"+secondMap.get("name")+"</a><i></i></li>";
-                }
-                menuStr=menuStr+"</ul></dd>";
-            }
-            setSessionAttr("userMenuMap", userMenuMap);
-            setSessionAttr("menuStr", menuStr);
-            logger.info("menuStr:"+menuStr);
+           
            
             return REDIRECT + "main.htm";
         }
@@ -159,6 +132,23 @@ public class LoginController extends BaseController {
 
     @RequestMapping("/left")
     public String left(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	SecurityUser securityUser=getSessionAttr("securityUser");
+    	//组装菜单
+        String menuStr="";
+        String contextpath=request.getContextPath();
+        Map<Object, Object>  userMenuMap=securityUserService.getUserMenu(securityUser);
+        for(Object obj:userMenuMap.keySet()){
+            Map<String,Object> parentMap=(Map<String,Object>)obj;
+            menuStr=menuStr+"<dd><div class=\"title\"><span><img src=\""+contextpath+parentMap.get("img")+"\" /></span>"+parentMap.get("name")+"</div><ul class=\"menuson\">";
+            List<Map<String, Object>> list=(List<Map<String, Object>>)userMenuMap.get(obj);
+            for(int i=0;i<list.size();i++){
+                Map<String,Object> secondMap=(Map<String,Object>)list.get(i);
+                menuStr=menuStr+"<li><cite></cite><a href=\""+contextpath+""+secondMap.get("url")+"\" target=\"rightFrame\">"+secondMap.get("name")+"</a><i></i></li>";
+            }
+            menuStr=menuStr+"</ul></dd>";
+        }
+        setSessionAttr("userMenuMap", userMenuMap);
+        setSessionAttr("menuStr", menuStr);
         return "/left";
     }
 

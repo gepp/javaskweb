@@ -40,7 +40,7 @@ public class SecurityUserServiceImpl extends BaseServiceImpl implements ISecurit
 
     @Override
     public SecurityUser login(String username, String password) throws Exception {
-        DbKit dbKit = new DbKit("select * from security_user where username=:username and userpwd=:password");
+        DbKit dbKit = new DbKit("select t.*,a.code as organizationCode from security_user t left join security_organization a on t.organization_id=a.id where username=:username and userpwd=:password");
         dbKit.put("username", username);
         dbKit.put("password", password);
         SecurityUser user = dalClient.queryForObject(dbKit, SecurityUser.class);
