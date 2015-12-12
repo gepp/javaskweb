@@ -86,4 +86,13 @@ public class SkqPmszController extends BaseController{
         setAttr("smbms", smbms);
         return "/com/jdk2010/system/skqpmsz/select";
     }
+	@RequestMapping("/selectJqszsm")
+    public String selectJqszsm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String nsrwjbm=getPara("nsrwjbm");
+        List<Map<String, Object>> list = skqPmszService.queryForList("select * from skq_pmsz where smbm in (select smbm from skq_nsrszsm where nsrwjbm='"+nsrwjbm+"')");
+        setAttr("list", list);
+        String smbms=getPara("smbms");
+        setAttr("smbms", smbms);
+        return "/com/jdk2010/jqxx/skqjqszsm/select";
+    }
 }

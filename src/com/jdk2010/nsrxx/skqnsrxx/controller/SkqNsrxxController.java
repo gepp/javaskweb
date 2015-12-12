@@ -89,7 +89,7 @@ public class SkqNsrxxController extends BaseController {
                 SkqNsrszsm nsrszsm = new SkqNsrszsm();
                 nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
                 nsrszsm.setSl(Double.parseDouble("" + nsrszsmMap.get("sl")));
-                nsrszsm.setSmbm("" + nsrszsmMap.get("sl"));
+                nsrszsm.setSmbm("" + nsrszsmMap.get("smbm"));
                 nsrszsm.setSmjc("" + nsrszsmMap.get("smjc"));
                 nsrszsm.setSmmc("" + nsrszsmMap.get("smmc"));
                 nsrszsm.setStatus(1);
@@ -133,7 +133,7 @@ public class SkqNsrxxController extends BaseController {
                 SkqNsrszsm nsrszsm = new SkqNsrszsm();
                 nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
                 nsrszsm.setSl(Double.parseDouble("" + nsrszsmMap.get("sl")));
-                nsrszsm.setSmbm("" + nsrszsmMap.get("sl"));
+                nsrszsm.setSmbm("" + nsrszsmMap.get("smbm"));
                 nsrszsm.setSmjc("" + nsrszsmMap.get("smjc"));
                 nsrszsm.setSmmc("" + nsrszsmMap.get("smmc"));
                 nsrszsm.setStatus(1);

@@ -3,6 +3,7 @@ package com.jdk2010.jqxx.skqjqxx.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 
 import com.jdk2010.jqxx.skqjqszsm.model.SkqJqszsm;
@@ -34,4 +35,19 @@ public class SkqJqxxServiceImpl extends BaseServiceImpl implements ISkqJqxxServi
 
         return jqxxList;
     }
+
+	@Override
+	public SkqJqxx getJqxxByJqbh(String jqbh) {
+		SkqJqxx jqxx=dalClient.queryForObject("select * from skq_jqxx where jqbh='"+jqbh+"'",SkqJqxx.class);
+		List<SkqJqszsm> jqszsmList = skqJqszsmService.getJqszsmListByJqbh(jqxx.getJqbh());
+        if (jqszsmList!=null) {
+            jqxx.setJqszsmList(jqszsmList);
+        }
+		return jqxx;
+	}
+
+	@Override
+	public void deleteJqszsmByJqbh(String jqbh) {
+		dalClient.update("delete from skq_jqszsm where jqbh='"+jqbh+"'");
+	}
 }
