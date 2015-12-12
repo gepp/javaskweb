@@ -24,8 +24,16 @@ public class SecurityUser extends Model<SecurityUser> {
     	private Date ctime;
         	/* 组织编码 */
     	private Integer organizationId;
+
+	private String organizationCode;
         
-    	private String organizationName;
+    	public String getOrganizationCode() {
+			return organizationCode;
+		}
+		public void setOrganizationCode(String organizationCode) {
+			this.organizationCode = organizationCode;
+		}
+		private String organizationName;
     	
   		public String getOrganizationName() {
             return organizationName;
