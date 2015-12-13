@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,6 +33,9 @@ import com.jdk2010.framework.util.StringUtil;
 @RequestMapping(value = "/skqjqxx")
 public class SkqJqxxController extends BaseController {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	
 	@Resource
 	ISkqJqxxService skqJqxxService;
 
@@ -56,37 +61,47 @@ public class SkqJqxxController extends BaseController {
 	@RequestMapping("/listcxtj")
 	public String listcxtj(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		DbKit dbKit = new DbKit("select * from skq_jqxx  where 1=1 ");
+		DbKit dbKit = new DbKit("SELECT t.*,a.swjgbm FROM skq_jqxx  t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
 		String searchSQL = "";
 		String orderSQL = "";
 		String NSRWJBM = getPara("NSRWJBM");
 		if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-			searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+			searchSQL = searchSQL + " and  t.NSRWJBM LIKE '%" + NSRWJBM + "%'";
 			setAttr("NSRWJBM", NSRWJBM);
 			// dbKit.append(searchSQL);
 		}
 
 		String JQBH = getPara("JQBH");
 		if (JQBH != null && !"".equals(JQBH)) {
-			searchSQL = searchSQL + " and  JQBH LIKE '%" + JQBH + "%'";
+			searchSQL = searchSQL + " and  t.JQBH LIKE '%" + JQBH + "%'";
 			setAttr("JQBH", JQBH);
 			// dbKit.append(searchSQL);
 		}
 
 		String SKKH = getPara("SKKH");
 		if (SKKH != null && !"".equals(SKKH)) {
-			searchSQL = searchSQL + " and  SKKH LIKE '%" + SKKH + "%'";
+			searchSQL = searchSQL + " and  t.SKKH LIKE '%" + SKKH + "%'";
 			setAttr("SKKH", SKKH);
 		}
 		String YHKH = getPara("YHKH");
 		if (YHKH != null && !"".equals(YHKH)) {
-			searchSQL = searchSQL + " and  YHKH LIKE '%" + YHKH + "%'";
+			searchSQL = searchSQL + " and  t.YHKH LIKE '%" + YHKH + "%'";
 			setAttr("YHKH", JQBH);
 			// dbKit.append(searchSQL);
 		}
+
+		String SWJGBM = getPara("SWJGBM");
+		if (SWJGBM != null && !"".equals(SWJGBM)) {
+			searchSQL = searchSQL
+					+ " and   a.swjgbm='"+SWJGBM+"'";
+			setAttr("SWJGBM", SWJGBM);
+			setAttr("parentName", getPara("parentName"));
+			
+		}
+
 		dbKit.append(orderSQL);
 		dbKit.append(searchSQL);
-
+		logger.info("======="+dbKit.getSql());
 		Page pageList = skqJqxxService.queryForPageList(dbKit, getPage(),
 				SkqJqxx.class);
 		setAttr("pageList", pageList);
