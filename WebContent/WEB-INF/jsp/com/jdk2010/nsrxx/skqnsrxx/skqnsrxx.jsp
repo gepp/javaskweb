@@ -49,7 +49,7 @@
 							onclick="selectParentOrganization();" /></li>
 
 			</ul>
-			<div style="align: center">
+		<div style="align: center;margin-bottom:20px">
 				<br />
 				<ul class="seachform" style="left: 35%; position: absolute;">
 					<li><label>&nbsp;</label><input name="" type="submit"
@@ -107,7 +107,7 @@
 			</tbody>
 		</table>
 		<page:page
-			href="${ contextpath}/skqnsrxx/list?NSRWJBM=${NSRWJBM}&NSRSBH=${NSRSBH}&NSRMC=${NSRMC}"
+			href="${ contextpath}/skqnsrxx/list?NSRWJBM=${NSRWJBM}&NSRSBH=${NSRSBH}&NSRMC=${NSRMC}&SWJGBM=${SWJGBM}&parentName=${parentName }"
 			data="pageList" />
 
 	</div>
