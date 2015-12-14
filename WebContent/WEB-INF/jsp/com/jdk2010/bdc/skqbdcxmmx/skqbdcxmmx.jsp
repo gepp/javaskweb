@@ -81,17 +81,6 @@
           <td> ${ item.spts} </td>
           <td> ${ item.xzlts} </td>
           <td> ${ item.qtts} </td>
-          <td> ${ item.bzxptzzmj} </td>
-          <td> ${ item.fbzxptzzmj} </td>
-          <td> ${ item.fptzzmj} </td>
-          <td> ${ item.bsmj} </td>
-          <td> ${ item.spmj} </td>
-          <td> ${ item.xzlmj} </td>
-          <td> ${ item.qtmj} </td>
-          <td> ${ item.cjz} </td>
-          <td> ${ item.cjsj} </td>
-          <td> ${ item.nsrwjbm} </td>
-          <td> ${ item.zxmmc} </td>
           <td><a href="${ contextpath }/skqbdcxmmx/modify.htm?id=${item.id}" class="tablelink">编辑</a> <a href="${ contextpath }/skqbdcxmmx/view.htm?id=${item.id}"  class="tablelink">查看</a> 
         </tr>
       </c:forEach>
