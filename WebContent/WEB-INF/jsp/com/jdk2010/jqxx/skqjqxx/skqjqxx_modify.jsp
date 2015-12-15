@@ -66,8 +66,23 @@
 						<table width="100%">
 							<tr>
 								<td>机器编号</td>
-								<td><input type="text" class="dfinput" id="jqbh"
+								
+								<td>
+								${skqJqxx.jqbh }
+								<input type="hidden" class="dfinput" id="jqbh"
 									name="skqJqxx.jqbh" placeholder="请输入机器编号"  value="${skqJqxx.jqbh }"/></td>
+								<td>用户卡号</td>
+								<td>
+								${skqJqxx.yhkh }
+								<input type="hidden" class="dfinput" id="yhkh"
+									name="skqJqxx.yhkh" placeholder="请输入用户卡号"  value="${skqJqxx.yhkh }"/></td>
+								
+							</tr>
+							<tr>
+								<td>税控卡号</td>
+								<td>
+								${skqJqxx.skkh }<input type="hidden" class="dfinput" id="skkh"
+									name="skqJqxx.skkh" placeholder="请输入税控卡号"  value="${skqJqxx.skkh }"/></td>
 								<td>机器型号编码</td>
 								<td>
 									<div class="vocation" style="margin-top: 10px">
@@ -78,14 +93,6 @@
 										</select>
 									</div>
 								</td>
-							</tr>
-							<tr>
-								<td>税控卡号</td>
-								<td><input type="text" class="dfinput" id="skkh"
-									name="skqJqxx.skkh" placeholder="请输入税控卡号"  value="${skqJqxx.skkh }"/></td>
-								<td>用户卡号</td>
-								<td><input type="text" class="dfinput" id="yhkh"
-									name="skqJqxx.yhkh" placeholder="请输入用户卡号"  value="${skqJqxx.yhkh }"/></td>
 							</tr>
 							<tr>
 								<td>卡启用日期</td>
@@ -159,7 +166,7 @@
 						</tr>
 					</thead>
 					<input type="hidden" id="smbms" name="smbms" value="${smbms }" />
-					<input type="hidden" id="hiddenStr" name="hiddenStr" value="${hiddenStr }" />
+					<input type="hidden" id="hiddenStr" name="hiddenStr" value='${hiddenStr }' />
 					<tbody id="nsrszsmDiv">
 							<c:forEach var="item" items="${jqszsmList }">
 								<tr>
@@ -205,7 +212,6 @@ function deleteSzsm(){
 			type : 2,
 			title : '选择机器税种税目',
 			shadeClose : true,
-			shade : 0,
 			area : [ '580px', '90%' ],
 			content : '${contextpath}/skqpmsz/selectJqszsm.htm?nsrwjbm=${skqJqxx.nsrwjbm}&smbms='+$("#smbms").val() //iframe的url
 		});
@@ -227,9 +233,6 @@ function deleteSzsm(){
 								.validator(
 										{
 											fields : {
-												'skqJqxx.jqbh' : 'required;',
-												'skqJqxx.skkh' : 'required;',
-												'skqJqxx.yhkh' : 'required;',
 												'skqJqxx.kqyrq' : 'required;',
 												'skqJqxx.kyxrq' : 'required;',
 												'skqJqxx.sbfs' : 'required;',
@@ -246,7 +249,7 @@ function deleteSzsm(){
 												var hiddenStr=$("#hiddenStr").val();
 												if(hiddenStr==''){
 													layer.msg('请选择机器税种税目！', {
-														shade:0,closeBtn: 0,time:1000
+														closeBtn: 0,time:1000
 													}, function(){
 														selectSzsm();
 													});
@@ -270,7 +273,6 @@ function deleteSzsm(){
 																			.alert(
 																					'当前操作成功',
 																					{
-																						shade : 0,
 																						closeBtn : 0
 																					},
 																					function() {

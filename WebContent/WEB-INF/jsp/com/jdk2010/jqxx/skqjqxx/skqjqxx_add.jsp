@@ -26,7 +26,7 @@
 		type="text/css" />
 	<script type="text/javascript"
 		src="${ contextpath }/res/js/select-ui.min.js"></script>
-		
+
 	<style type="text/css">
 .forminfo li label {
 	width: 128px
@@ -88,10 +88,10 @@
 							<tr>
 								<td>卡启用日期</td>
 								<td><input type="text" class="dfinput" id="kqyrq"
-									name="skqJqxx.kqyrq"  onclick="laydate()"></input></td>
+									name="skqJqxx.kqyrq" onclick="laydate()"></input></td>
 								<td>卡有效日期</td>
 								<td><input type="text" class="dfinput" id="kyxrq"
-									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期"  onclick="laydate()" /></td>
+									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" onclick="laydate()" /></td>
 							</tr>
 
 							<tr>
@@ -105,7 +105,8 @@
 							<tr>
 								<td>开票截止日期</td>
 								<td><input type="text" class="dfinput" id="kpjzrq"
-									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期" onclick="laydate()"/></td>
+									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期"
+									onclick="laydate()" /></td>
 								<td>单张开票限额</td>
 								<td><input type="text" class="dfinput" id="dzkpxe"
 									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额" /></td>
@@ -184,21 +185,21 @@
 
 
 <script type="text/javascript">
-
-function deleteSzsm(){
-	$("#smbms").val("");
-	$("#hiddenStr").val("");
-	$("#nsrszsmDiv").html("");
-}
-	function selectSzsm(){
-		layer.open({
-			type : 2,
-			title : '选择机器税种税目',
-			shadeClose : true,
-			shade : 0,
-			area : [ '580px', '90%' ],
-			content : '${contextpath}/skqpmsz/selectJqszsm.htm?nsrwjbm=${nsrwjbm}&smbms='+$("#smbms").val() //iframe的url
-		});
+	function deleteSzsm() {
+		$("#smbms").val("");
+		$("#hiddenStr").val("");
+		$("#nsrszsmDiv").html("");
+	}
+	function selectSzsm() {
+		layer
+				.open({
+					type : 2,
+					title : '选择机器税种税目',
+					shadeClose : true,
+					area : [ '580px', '90%' ],
+					content : '${contextpath}/skqpmsz/selectJqszsm.htm?nsrwjbm=${nsrwjbm}&smbms='
+							+ $("#smbms").val() //iframe的url
+				});
 	}
 	$(document)
 			.ready(
@@ -217,9 +218,9 @@ function deleteSzsm(){
 								.validator(
 										{
 											fields : {
- 												'skqJqxx.jqbh' : 'required;',
-												'skqJqxx.skkh' : 'required;',
-												'skqJqxx.yhkh' : 'required;',
+												'skqJqxx.jqbh' : 'required;remote[${contextpath}/skqjqxx/checkJqbh.htm]',
+												'skqJqxx.skkh' : 'required;remote[${contextpath}/skqjqxx/checkSkkh.htm]',
+												'skqJqxx.yhkh' : 'required;remote[${contextpath}/skqjqxx/checkYhkh.htm]',
 												'skqJqxx.kqyrq' : 'required;',
 												'skqJqxx.kyxrq' : 'required;',
 												'skqJqxx.sbfs' : 'required;',
@@ -251,7 +252,6 @@ function deleteSzsm(){
 																			.alert(
 																					'当前操作成功',
 																					{
-																						shade : 0,
 																						closeBtn : 0
 																					},
 																					function() {

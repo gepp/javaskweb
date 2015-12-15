@@ -24,61 +24,48 @@
 		type="text/css" />
 	<script type="text/javascript"
 		src="${ contextpath }/res/js/select-ui.min.js"></script>
+
 </head>
 <body style="min-width: 300px">
 
 
 
 	<div class="rightinfo">
-		<div class="formtitle1">
-			<span>纳税户基本信息</span>
-		</div>
-		<table class="tableEdit">
-			<thead>
-				<tr>
-					<th>纳税人微机编码</th>
-					<td>${nsrxx.nsrwjbm }</td>
-					<th>纳税人识别号</th>
-					<td>${nsrxx.nsrsbh }</td>
-				</tr>
-				<tr>
-					<th>纳税人名称</th>
-					<td>${nsrxx.nsrmc }</td>
-					<th>经营地址</th>
-					<td>${nsrxx.jydz }</td>
-				</tr>
-				<tr>
-					<th>机器编号</th>
-					<td>${jqxx.jqbh }</td>
-					<th>税控卡号</th>
-					<td>${jqxx.skkh }</td>
-				</tr>
-			</thead>
-		</table>
 
 		<div class="formtitle1">
 			<span>发票新增</span>
 		</div>
 		<ul class="forminfo">
 			<form action="" method="POST" id="skqFpjForm">
-
-				<li><label>发票编码<b></b></label> <input type="text"
-					class="dfinput" id="fpbm" name="skqFpj.fpbm" placeholder="请输入发票编码" /></li>
-				<li><label>发票编码<b></b></label> <input type="text"
-					class="dfinput" id="fpdm" name="skqFpj.fpdm" placeholder="请输入发票编码" /></li>
+			<input type="hidden" value="${nsrxx.nsrwjbm }"  name="nsrwjbm"/>
+				<li><label>发票编码<b></b></label>
+					<div class="vocation">
+						<select name="skqFpj.fpbm" class="select1">
+							<c:forEach var="item" items="${fpList }">
+								<option value="${item.fpbm }">${item.fpmc }</option>
+							</c:forEach>
+						</select>
+					</div></li>
+				<li><label>发票代码<b></b></label> <input type="text"
+					class="dfinput" id="fpdm" name="skqFpj.fpdm" value="${fpdm }" />
+					&nbps;<input type="checkbox" id="fpjy" name="fpjy" checked="checked">发票校验</input>
+					</li>
 				<li><label>发票起始号码<b></b></label> <input type="text"
 					class="dfinput" id="fpqsh" name="skqFpj.fpqsh"
-					placeholder="请输入发票起始号码" /></li>
+					placeholder="请输入发票起始号码" onblur="change_sl();" /></li>
 				<li><label>发票截止号码<b></b></label> <input type="text"
 					class="dfinput" id="fpjzh" name="skqFpj.fpjzh"
-					placeholder="请输入发票截止号码" /></li>
-				<li><label>发票单位<b></b></label> <input type="text"
-					class="dfinput" id="fpdw" name="skqFpj.fpdw" placeholder="请输入发票单位" /></li>
-
+					placeholder="请输入发票截止号码" readonly/></li>
+				<li><label>发票单位(卷)<b></b></label> <input type="text"
+					class="dfinput" id="fpdw" name="skqFpj.fpdw" value="1"
+					placeholder="请输入发票单位" onblur="change_sl();" /></li>
+				<li><label>发票数量<b></b></label> <input type="text"
+					class="dfinput" id="fpsl" name="fpsl" placeholder="" readonly /></li>
+				<li><label>每卷发票张数<b></b></label> <input type="text"
+					class="dfinput" id="fpzs" name="fpzs" placeholder="" onblur="change_sl();" value="${FPZS }"/></li>
 				<li><label>&nbsp;</label><input name="" type="submit"
 					class="btn" value="确认发票领购" /> &nbsp;&nbsp; <input name=""
-					type="button" class="btn" value="返回"
-					onclick="window.location='${ contextpath}/skqfpj/list'" /></li>
+					type="button" class="btn" value="关闭" onclick="closeWindow();" /></li>
 			</form>
 		</ul>
 
@@ -89,10 +76,25 @@
 
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
+	function change_sl() {
+		var fpqsh = $("#fpqsh").val()*1;
+		var fpdw = $("#fpdw").val()*1;
+		var fpzs = $("#fpzs").val()*1;
+		if (fpqsh != '' && fpdw != '') {
+			$("#fpsl").val(fpzs * fpdw);
+			$("#fpjzh").val(fpqsh + fpzs * fpdw - 1);
+		}
+	}
+	function closeWindow() {
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.layer.close(index);
+	}
 	$(document)
 			.ready(
 					function() {
-
+						$(".select1").uedSelect({
+							width : 320
+						});
 						$('#skqFpjForm')
 								.on(
 										"click",
@@ -104,14 +106,10 @@
 								.validator(
 										{
 											fields : {
-												'skqFpj.id' : 'required;',
-												'skqFpj.fpbm' : 'required;',
-												'skqFpj.fpdm' : 'required;',
-												'skqFpj.fpqsh' : 'required;',
-												'skqFpj.fpjzh' : 'required;',
-												'skqFpj.fpdw' : 'required;',
-												'skqFpj.nsrwjbm' : 'required;',
-												'skqFpj.fplgrq' : 'required;',
+												'skqFpj.fpdm' : 'required;integer;length[1~12]',
+												'skqFpj.fpqsh' : 'required;integer;length[1~8]',
+												'skqFpj.fpjzh' : 'required;integer;length[1~8]',
+												'skqFpj.fpdw' : 'required;integer;length[1~4]',
 
 											},
 											valid : function(form) {

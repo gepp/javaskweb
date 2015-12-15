@@ -49,15 +49,14 @@
 							onclick="selectParentOrganization();" /></li>
 
 			</ul>
-		<div style="align: center;margin-bottom:20px">
+			<div style="align: center; margin-bottom: 20px">
 				<br />
 				<ul class="seachform" style="left: 35%; position: absolute;">
 					<li><label>&nbsp;</label><input name="" type="submit"
 						id="table_refresh" class="scbtn1" value="查询" /></li>
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
-					<li><label>&nbsp;</label><input name="" type="button"
-						id="table_add" class="scbtn" value="新增" /></li>
+
 
 				</ul>
 				<br />
@@ -96,16 +95,14 @@
 						<td>${ item.status==1?'正常':'停用'}</td>
 
 						<td><a
-							href="${ contextpath }/skqnsrxx/modify.htm?nsrwjbm=${item.nsrwjbm}"
-							class="tablelink">纳税人信息维护</a> &nbsp;&nbsp;<a
-							href="${ contextpath }/skqjqxx/list.htm?nsrwjbm=${item.nsrwjbm}"
-							class="tablelink">机器信息维护</a> 
+							href="${ contextpath }/skqnsrxx/view.htm?nsrwjbm=${item.nsrwjbm}"
+							class="tablelink">纳税人信息查看</a> &nbsp;&nbsp;
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<page:page
-			href="${ contextpath}/skqnsrxx/list?NSRWJBM=${NSRWJBM}&NSRSBH=${NSRSBH}&NSRMC=${NSRMC}&SWJGBM=${SWJGBM}&parentName=${parentName }"
+			href="${ contextpath}/skqnsrxx/listcxtj?NSRWJBM=${NSRWJBM}&NSRSBH=${NSRSBH}&NSRMC=${NSRMC}&SWJGBM=${SWJGBM}&parentName=${parentName }"
 			data="pageList" />
 
 	</div>
@@ -125,7 +122,7 @@
 	$(document).ready(
 			function() {
 				table_init("${ contextpath}/skqnsrxx",
-						"${ contextpath}/skqnsrxx/list?");
+						"${ contextpath}/skqnsrxx/listcxtj?");
 			});
 	function selectParentOrganization() {
 		layer.open({

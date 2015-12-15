@@ -205,9 +205,7 @@
 			type : 2,
 			title : '选择税务机关【点击行选中】',
 			shadeClose : true,
-			shade : 0,
 			area : [ '580px', '90%' ],
-
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
 	}
@@ -217,9 +215,7 @@
 			type : 2,
 			title : '选择行业编码【点击行选中】',
 			shadeClose : true,
-			shade : 0,
 			area : [ '580px', '90%' ],
-
 			content : '${contextpath}/skqhy/select.htm' //iframe的url
 		});
 	}
@@ -229,7 +225,6 @@
 			type : 2,
 			title : '选择注册类型【点击行选中】',
 			shadeClose : true,
-			shade : 0,
 			area : [ '580px', '90%' ],
 
 			content : '${contextpath}/skqzclx/select.htm' //iframe的url
@@ -241,7 +236,6 @@
 			type : 2,
 			title : '选择注纳税人税种税目',
 			shadeClose : true,
-			shade : 0,
 			area : [ '580px', '90%' ],
 			content : '${contextpath}/skqpmsz/select.htm?smbms='+$("#smbms").val() //iframe的url
 		});
@@ -263,7 +257,6 @@
 			type : 2,
 			title : '选择行业编码【点击行选中】',
 			shadeClose : true,
-			shade : 0,
 			area : [ '580px', '90%' ],
 
 			content : '${contextpath}/skqhymx/select.htm?hybm='+hybm //iframe的url
@@ -278,7 +271,7 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'skqNsrxx.nsrwjbm' : 'required;',
+				'skqNsrxx.nsrwjbm' : 'required;remote[${contextpath}/skqnsrxx/check.htm]',
 				'skqNsrxx.nsrsbh' : 'required;',
 				'skqNsrxx.nsrmc' : 'required;',
 				'skqNsrxx.jydz' : 'required;',
@@ -300,7 +293,7 @@
 				var hiddenStr=$("#hiddenStr").val();
 				if(hybm==''){
 					layer.msg('请选择行业！', {
-						shade:0,closeBtn: 0,time:1000
+						closeBtn: 0,time:1000
 					}, function(){
 						selectHy();
 					});
@@ -310,7 +303,7 @@
 				if(hymxbm==''){
 					
 					layer.msg('请选择行业明细！', {
-						shade:0,closeBtn: 0,time:1000
+						closeBtn: 0,time:1000
 					}, function(){
 						selecthymx();
 					});
@@ -319,7 +312,7 @@
 				}
 				if(swjgbm==''){
 					layer.msg('请选择税务机关！', {
-						shade:0,closeBtn: 0,time:1000
+						closeBtn: 0,time:1000
 					}, function(){
 						selectParentOrganization();
 					});
@@ -328,7 +321,7 @@
 				}
 				if(zclxbm==''){
 					layer.msg('请选择注册类型！', {
-						shade:0,closeBtn: 0,time:1000
+						closeBtn: 0,time:1000
 					}, function(){
 						selectZclx();
 					});
@@ -336,7 +329,7 @@
 				}
 				if(hiddenStr==''){
 					layer.msg('请选择纳税人税种税目！', {
-						shade:0,closeBtn: 0,time:1000
+						closeBtn: 0,time:1000
 					}, function(){
 						selectSzsm();
 					});
@@ -353,7 +346,7 @@
 						me.holdSubmit(false);
 						if (data.status == 'success') {
 							layer.alert('当前操作成功', {
-								shade:0,closeBtn: 0
+								closeBtn: 0
 							}, function(){
 								window.location.href='${ contextpath}/skqnsrxx/list';
 							});

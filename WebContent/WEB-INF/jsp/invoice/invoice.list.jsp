@@ -113,7 +113,7 @@
 				onclick="" />&nbsp;&nbsp;
 				
 				 <input name="" type="button" class="btn" value="返 回"
-				onclick="window.location='${ contextpath}/skqnsrxx/list'" /></li>
+				onclick="window.location='${ contextpath}/skqfpj/toFpgm.htm'" /></li>
 		</ul>
 	</div>
 	<input type="hidden" value="${nsrxx.nsrwjbm }" id="nsrwjbm"/>
@@ -129,7 +129,7 @@ function fplg(){
 		type : 2,
 		title : '发票增加',
 		shadeClose : true,
-		area : [ '680px', '90%' ],
+		area : [ '620px', '90%' ],
 		content : '${contextpath}/skqfpj/add.htm?nsrwjbm='+nsrwjbm+'&jqbh='+jqbh
 	});
  

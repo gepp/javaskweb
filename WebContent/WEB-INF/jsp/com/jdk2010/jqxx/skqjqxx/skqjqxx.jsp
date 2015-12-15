@@ -25,7 +25,7 @@
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">【${nsrwjbm }】机器信息列表</a></li>
+			<li><a href="#">微机编码【${nsrwjbm }】机器信息列表</a></li>
 		</ul>
 	</div>
 	<div class="rightinfo">
@@ -73,10 +73,13 @@
 						<td>${ item.yhkh}</td>
 						<td>${ item.kpjzrq}</td>
 						<td>${ item.yljkpxe}</td>
-						<td>${ item.status==1?'启用':'停用'}</td>
+						<td>${ item.status==1?'正常':'注销'}</td>
 						<td><a
 							href="${ contextpath }/skqjqxx/modify.htm?jqbh=${item.jqbh}"
 							class="tablelink">编辑</a>
+							<a
+							href="${ contextpath }/skqjqxx/modify.htm?jqbh=${item.jqbh}"
+							class="tablelink">发卡</a>
 						</td>
 					</tr>
 				</c:forEach>
