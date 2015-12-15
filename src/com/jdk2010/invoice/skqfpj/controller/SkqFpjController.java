@@ -3,6 +3,7 @@ package com.jdk2010.invoice.skqfpj.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import com.jdk2010.jqxx.skqjqxx.model.SkqJqxx;
 import com.jdk2010.jqxx.skqjqxx.service.ISkqJqxxService;
 import com.jdk2010.nsrxx.skqnsrxx.model.SkqNsrxx;
 import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
+import com.jdk2010.system.skqfp.service.ISkqFpService;
 
 @Controller
 @RequestMapping(value = "/skqfpj")
@@ -41,7 +43,10 @@ public class SkqFpjController extends BaseController {
 
 	@Resource
 	ISkqJqxxService skqJqxxService;
-
+	
+	@Resource
+	ISkqFpService skqFpService;
+	
 	@Resource
 	DalClient dalClient;
 
@@ -91,6 +96,17 @@ public class SkqFpjController extends BaseController {
 		SkqJqxx jqxx = skqJqxxService.getJqxxByJqbh(jqbh);
 		setAttr("nsrxx", nsrxx);
 		setAttr("jqxx", jqxx);
+		List<Map<String, Object>> fpList =skqFpService.queryForList("select * from skq_fp where status=1");
+        setAttr("fpList", fpList);
+		
+        String fpdm="";
+        List<Map<String, Object>> fpdmList =skqFpService.queryForList("select * from skq_fpjmx where nsrwjbm='"+nsrwjbm+"' order by fplgrq desc limit 1");
+        if(fpdmList.size()>0){
+            fpdm=fpdmList.get(0).get("fpdm")+"";
+        }
+        setAttr("fpdm", fpdm);
+        
+        setAttr("FPZS", Constants.FPZS);
 		return "/com/jdk2010/invoice/skqfpj/skqfpj_add";
 	}
 
@@ -194,8 +210,8 @@ public class SkqFpjController extends BaseController {
 		map1.put("FPDM","132000000001");
 		map1.put("JS", "1");
 		EF05.add(map1);
-		EF06.put("JQBH", "123456");
-		EF02.put("NSRWJDM", "3204820824324234");
+		EF06.put("JQBH", "0000000000000001");
+		EF02.put("NSRWJDM", "1");
 
 		UCARDINFO.put("EF02", EF02);
 		UCARDINFO.put("EF06", EF06);

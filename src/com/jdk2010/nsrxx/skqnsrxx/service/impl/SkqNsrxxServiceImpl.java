@@ -1,6 +1,7 @@
 package com.jdk2010.nsrxx.skqnsrxx.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -58,4 +59,15 @@ public class SkqNsrxxServiceImpl extends BaseServiceImpl implements ISkqNsrxxSer
 		String nsrwjbm = dalClient.queryColumn("select NSRWJBM from skq_nsrxx where NSRSBH='"+nsrsbh+"'", "NSRWJBM");
 		return nsrwjbm;
 	}
+
+    @Override
+    public boolean isExistsNsrwjbm(String nsrwjbm) {
+        String sql = "select * from skq_nsrxx where nsrwjbm='" + nsrwjbm + "'";
+        List<Map<String, Object>> list = dalClient.queryForObjectList(sql);
+        if (list.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

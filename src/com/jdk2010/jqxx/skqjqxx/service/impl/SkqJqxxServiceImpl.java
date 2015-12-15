@@ -1,6 +1,7 @@
 package com.jdk2010.jqxx.skqjqxx.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,13 @@ public class SkqJqxxServiceImpl extends BaseServiceImpl implements ISkqJqxxServi
 
     @Override
     public List<SkqJqxx> getJqxxListByNsrwjbm(String nsrwjbm) {
-        List<SkqJqxx> jqxxList = dalClient.queryForObjectList("select t.*,a.nsrmc,b.jqxhmc from skq_jqxx t left join skq_nsrxx a on t.nsrwjbm=a.nsrwjbm left join skq_jqxh b on t.jqxhbm=b.jqxhbm where t.nsrwjbm='" + nsrwjbm + "'",
-                SkqJqxx.class);
+        List<SkqJqxx> jqxxList = dalClient
+                .queryForObjectList(
+                        "select t.*,a.nsrmc,b.jqxhmc from skq_jqxx t left join skq_nsrxx a on t.nsrwjbm=a.nsrwjbm left join skq_jqxh b on t.jqxhbm=b.jqxhbm where t.nsrwjbm='"
+                                + nsrwjbm + "'", SkqJqxx.class);
         for (SkqJqxx jqxx : jqxxList) {
             List<SkqJqszsm> jqszsmList = skqJqszsmService.getJqszsmListByJqbh(jqxx.getJqbh());
-            if (jqszsmList!=null) {
+            if (jqszsmList != null) {
                 jqxx.setJqszsmList(jqszsmList);
             }
         }
@@ -36,18 +39,51 @@ public class SkqJqxxServiceImpl extends BaseServiceImpl implements ISkqJqxxServi
         return jqxxList;
     }
 
-	@Override
-	public SkqJqxx getJqxxByJqbh(String jqbh) {
-		SkqJqxx jqxx=dalClient.queryForObject("select * from skq_jqxx where jqbh='"+jqbh+"'",SkqJqxx.class);
-		List<SkqJqszsm> jqszsmList = skqJqszsmService.getJqszsmListByJqbh(jqxx.getJqbh());
-        if (jqszsmList!=null) {
+    @Override
+    public SkqJqxx getJqxxByJqbh(String jqbh) {
+        SkqJqxx jqxx = dalClient.queryForObject("select * from skq_jqxx where jqbh='" + jqbh + "'", SkqJqxx.class);
+        List<SkqJqszsm> jqszsmList = skqJqszsmService.getJqszsmListByJqbh(jqxx.getJqbh());
+        if (jqszsmList != null) {
             jqxx.setJqszsmList(jqszsmList);
         }
-		return jqxx;
-	}
+        return jqxx;
+    }
 
-	@Override
-	public void deleteJqszsmByJqbh(String jqbh) {
-		dalClient.update("delete from skq_jqszsm where jqbh='"+jqbh+"'");
-	}
+    @Override
+    public void deleteJqszsmByJqbh(String jqbh) {
+        dalClient.update("delete from skq_jqszsm where jqbh='" + jqbh + "'");
+    }
+
+    @Override
+    public boolean isExistsSKKH(String skkh) {
+        String sql = "select * from skq_jqxx where skkh='" + skkh + "'";
+        List<Map<String, Object>> list = dalClient.queryForObjectList(sql);
+        if (list.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isExistsYHKH(String yhkh) {
+        String sql = "select * from skq_jqxx where yhkh='" + yhkh + "'";
+        List<Map<String, Object>> list = dalClient.queryForObjectList(sql);
+        if (list.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isExistsJQBH(String jqbh) {
+        String sql = "select * from skq_jqxx where jqbh='" + jqbh + "'";
+        List<Map<String, Object>> list = dalClient.queryForObjectList(sql);
+        if (list.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

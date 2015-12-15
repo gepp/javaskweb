@@ -1,5 +1,6 @@
 package com.jdk2010.nsrxx.skqnsrxx.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +71,46 @@ public class SkqNsrxxController extends BaseController {
         Page pageList = skqNsrxxService.queryForPageList(dbKit, getPage(), SkqNsrxx.class);
         setAttr("pageList", pageList);
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx";
+    }
+    
+    @RequestMapping("/listcxtj")
+    public String listcxtj(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String sql = "select * from skq_nsrxx  where 1=1 ";
+        DbKit dbKit = new DbKit(sql);
+        String searchSQL = "";
+        String orderSQL = "";
+        String NSRWJBM = getPara("NSRWJBM");
+        if (NSRWJBM != null && !"".equals(NSRWJBM)) {
+            searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+            setAttr("NSRWJBM", NSRWJBM);
+            // dbKit.append(searchSQL);
+        }
+
+        String NSRSBH = getPara("NSRSBH");
+        if (NSRSBH != null && !"".equals(NSRSBH)) {
+            searchSQL = searchSQL + " and  NSRSBH LIKE '%" + NSRSBH + "%'";
+            setAttr("NSRSBH", NSRSBH);
+            // dbKit.append(searchSQL);
+        }
+
+        String NSRMC = getPara("NSRMC");
+        if (NSRMC != null && !"".equals(NSRMC)) {
+            searchSQL = searchSQL + " and  NSRMC LIKE '%" + NSRMC + "%'";
+            setAttr("NSRMC", NSRMC);
+        }
+
+        String SWJGBM = getPara("SWJGBM");
+        if (SWJGBM != null && !"".equals(SWJGBM)) {
+            searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
+            setAttr("SWJGBM", SWJGBM);
+            setAttr("parentName", getPara("parentName"));
+        }
+
+        dbKit.append(orderSQL);
+        dbKit.append(searchSQL);
+        Page pageList = skqNsrxxService.queryForPageList(dbKit, getPage(), SkqNsrxx.class);
+        setAttr("pageList", pageList);
+        return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxxcxtj";
     }
 
     @RequestMapping("/add")
@@ -156,10 +197,42 @@ public class SkqNsrxxController extends BaseController {
 
     @RequestMapping("/view")
     public String view(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String id = getPara("id");
-        SkqNsrxx skqNsrxx = skqNsrxxService.findById(id, SkqNsrxx.class);
+        String nsrwjbm = getPara("nsrwjbm");
+        SkqNsrxx skqNsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        List<SkqNsrszsm> nsrszsmList = skqNsrxx.getNsrszsmList();
+        setAttr("nsrszsmList", nsrszsmList);
+        String hiddenStr="";
+        String smbms=",";
+        for(int i=0;i<nsrszsmList.size();i++){
+            hiddenStr=hiddenStr+"~"+JsonUtil.toJson(nsrszsmList.get(i));
+            smbms=smbms+nsrszsmList.get(i).getSmbm()+",";
+        }
+        setAttr("hiddenStr", hiddenStr);
+        setAttr("smbms", smbms);
         setAttr("skqNsrxx", skqNsrxx);
+        String sql = "select a.*,b.FPMC from SKQ_FPJMX a left outer join SKQ_FP b on a.FPBM=b.FPBM where a.NSRWJBM='"
+                + nsrwjbm + "' order by FPXFZT ASC,FPLGRQ DESC";
+        List<Map<String,Object>> alFpjmx=skqNsrxxService.queryForList(sql);
+        setAttr("alFpjmx", alFpjmx);
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx_view";
     }
+    
+    @RequestMapping("/check")
+    public void check(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String nsrwjbm = getPara("skqNsrxx.nsrwjbm");
+        boolean isExist = skqNsrxxService.isExistsNsrwjbm(nsrwjbm);
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        if (isExist) {
+            returnMap.put("error", "微机编码已存在");
+        } else {
+            returnMap.put("ok", "该微机编码可以使用");
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("data", returnMap);
+        renderJson(map);
+    }
+    
+    
+    
 
 }
