@@ -20,13 +20,13 @@ import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.base.security.securityuser.service.ISecurityUserService;
 import com.jdk2010.base.security.securityuserrole.model.SecurityUserRole;
 import com.jdk2010.base.security.securityuserrole.service.ISecurityUserRoleService;
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.MD5Utils;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.util.StringUtil;
+import com.jdk2010.tools.Constants;
 
 @Controller
 @RequestMapping(value = "/securityuser")

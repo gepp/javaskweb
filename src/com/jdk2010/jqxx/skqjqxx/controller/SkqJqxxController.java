@@ -22,7 +22,7 @@ import com.jdk2010.nsrxx.skqnsrxx.model.SkqNsrxx;
 import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
 import com.jdk2010.system.skqjqxh.model.SkqJqxh;
 import com.jdk2010.system.skqjqxh.service.ISkqJqxhService;
-import com.jdk2010.base.util.Constants;
+import com.jdk2010.tools.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.JsonUtil;
@@ -199,8 +199,7 @@ public class SkqJqxxController extends BaseController {
     public String view(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String jqbh = getPara("jqbh");
         SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
-        setAttr("skqJqxx", skqJqxx);
-        setAttr("jqszsmList", skqJqxx.getJqszsmList());
+        setAttr("jqxx", skqJqxx);
         return "/com/jdk2010/jqxx/skqjqxx/skqjqxx_view";
     }
 
@@ -214,12 +213,11 @@ public class SkqJqxxController extends BaseController {
         setAttr("smbms", smbms);
         return "/com/jdk2010/jqxx/skqjqxx/select";
     }
-    
-    
+
     @RequestMapping("/checkSkkh")
     public void checkSkkh(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String skkh = getPara("skqJqxx.skkh");
-        skkh=StringUtil.charFront(skkh, 16,"0");
+        skkh = StringUtil.charFront(skkh, 16, "0");
         boolean isExist = skqJqxxService.isExistsSKKH(skkh);
         Map<String, Object> returnMap = new HashMap<String, Object>();
         if (isExist) {
@@ -231,11 +229,11 @@ public class SkqJqxxController extends BaseController {
         map.put("data", returnMap);
         renderJson(map);
     }
-    
+
     @RequestMapping("/checkYhkh")
     public void checkYhkh(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String yhkh = getPara("skqJqxx.yhkh");
-        yhkh=StringUtil.charFront(yhkh, 16,"0");
+        yhkh = StringUtil.charFront(yhkh, 16, "0");
         boolean isExist = skqJqxxService.isExistsYHKH(yhkh);
         Map<String, Object> returnMap = new HashMap<String, Object>();
         if (isExist) {
@@ -247,11 +245,11 @@ public class SkqJqxxController extends BaseController {
         map.put("data", returnMap);
         renderJson(map);
     }
-    
+
     @RequestMapping("/checkJqbh")
     public void checkJqbh(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String jqbh = getPara("skqJqxx.jqbh");
-        jqbh=StringUtil.charFront(jqbh, 16,"0");
+        jqbh = StringUtil.charFront(jqbh, 16, "0");
         boolean isExist = skqJqxxService.isExistsJQBH(jqbh);
         Map<String, Object> returnMap = new HashMap<String, Object>();
         if (isExist) {
@@ -263,8 +261,35 @@ public class SkqJqxxController extends BaseController {
         map.put("data", returnMap);
         renderJson(map);
     }
-    
-    
-    
-    
+
+    @RequestMapping("/toFK")
+    public String toFK(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String jqbh = getPara("jqbh");
+        SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
+        setAttr("jqxx", skqJqxx);
+        String nsrwjbm = skqJqxx.getNsrwjbm();
+        SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        setAttr("nsrxx", nsrxx);
+
+        String smStr = "";
+        for (int i = 0; i < skqJqxx.getJqszsmList().size(); i++) {
+            SkqJqszsm szsm = skqJqxx.getJqszsmList().get(i);
+            Integer smsy = szsm.getSmsy();
+            String smsyStr = StringUtil.charFront(smsy.toString(), 2, "0");
+            String sm = smsyStr + "," + szsm.getSmbm() + "," + szsm.getSl().intValue() + "," + szsm.getSmjc();
+            smStr = smStr + "<input type=\"hidden\" name=\"tax" + i + "\" id=\"tax" + i + "\"  value=\"" + sm + "\" />";
+        }
+        int length = skqJqxx.getJqszsmList().size();
+        if (length < 6) {
+
+            for (int i = 0; i < 6 - length; i++) {
+                smStr = smStr + "<input type=\"hidden\" name=\"tax" + (i + length) + "\" id=\"tax" + (i + length)
+                        + "\"  value=\"\" />";
+            }
+        }
+        setAttr("smStr", smStr);
+
+        return "/com/jdk2010/jqxx/skqjqxx/skqjqxx.fk";
+    }
+
 }

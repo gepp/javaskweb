@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.sbsj.skqsbsj.model.SkqSbsj;
 import com.jdk2010.sbsj.skqsbsj.service.ISkqSbsjService;
-import com.jdk2010.base.util.Constants;
+import com.jdk2010.tools.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.Page;
@@ -116,5 +116,13 @@ public class SkqSbsjController extends BaseController {
 		setAttr("skqSbsj", skqSbsj);
 		return "/com/jdk2010/sbsj/skqsbsj/skqsbsj_view";
 	}
+	
+	@RequestMapping("/toZrysb")
+    public String toZrysb(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        return "/com/jdk2010/sbsj/skqsbsj/sbsj";
+    }
+	
+	
 
 }

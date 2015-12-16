@@ -16,12 +16,12 @@ import com.jdk2010.bdc.skqbdcxmmx.model.SkqBdcxmmx;
 import com.jdk2010.bdc.skqbdcxmmx.service.ISkqBdcxmmxService;
 import com.jdk2010.bdc.skqbdczxm.model.SkqBdczxm;
 import com.jdk2010.bdc.skqbdczxm.service.ISkqBdczxmService;
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.StringUtil;
+import com.jdk2010.tools.Constants;
 
 @Controller
 @RequestMapping(value = "/skqbdcxmmx")

@@ -19,12 +19,12 @@ import com.jdk2010.base.security.securityrolemenu.model.SecurityRoleMenu;
 import com.jdk2010.base.security.securityrolemenu.service.ISecurityRoleMenuService;
 import com.jdk2010.base.security.securityuserrole.model.SecurityUserRole;
 import com.jdk2010.base.security.securityuserrole.service.ISecurityUserRoleService;
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.util.StringUtil;
+import com.jdk2010.tools.Constants;
 
 @Controller
 @RequestMapping(value = "/securityrole")

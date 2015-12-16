@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.system.skqpmsz.model.SkqPmsz;
 import com.jdk2010.system.skqpmsz.service.ISkqPmszService;
+import com.jdk2010.tools.Constants;
 @Controller
 @RequestMapping(value="/skqpmsz")
 public class SkqPmszController extends BaseController{

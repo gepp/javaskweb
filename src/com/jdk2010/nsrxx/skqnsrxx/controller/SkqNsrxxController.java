@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.JsonUtil;
@@ -22,6 +21,7 @@ import com.jdk2010.nsrxx.skqnsrszsm.model.SkqNsrszsm;
 import com.jdk2010.nsrxx.skqnsrszsm.service.ISkqNsrszsmService;
 import com.jdk2010.nsrxx.skqnsrxx.model.SkqNsrxx;
 import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
+import com.jdk2010.tools.Constants;
 
 @Controller
 @RequestMapping(value = "/skqnsrxx")

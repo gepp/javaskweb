@@ -22,16 +22,8 @@ public class SkqFpj extends Model<SkqFpj> {
 	/* 发票领购日期 */
 	private Date fplgrq;
 
-	private String swjgbm;
 
-	@TableField
-	public String getSwjgbm() {
-		return swjgbm;
-	}
-
-	public void setSwjgbm(String swjgbm) {
-		this.swjgbm = swjgbm;
-	}
+	 
 
 	@TableField
 	public Integer getId() {

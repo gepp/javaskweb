@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.base.security.menu.model.SecurityMenu;
 import com.jdk2010.base.security.menu.service.ISecurityMenuService;
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.ReturnData;
+import com.jdk2010.tools.Constants;
 
 @Controller
 @RequestMapping(value = "/securitymenu")

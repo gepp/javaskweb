@@ -5,13 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.system.skqjqxh.model.SkqJqxh;
 import com.jdk2010.system.skqjqxh.service.ISkqJqxhService;
+import com.jdk2010.tools.Constants;
 @Controller
 @RequestMapping(value="/skqjqxh")
 public class SkqJqxhController extends BaseController{

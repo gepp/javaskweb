@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.jdk2010.bdc.skqbdcmm.model.SkqBdcmm;
 import com.jdk2010.bdc.skqbdcmm.service.ISkqBdcmmService;
-import com.jdk2010.base.util.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.DbKit;
+import com.jdk2010.tools.Constants;
 @Controller
 @RequestMapping(value="/skqbdcmm")
 public class SkqBdcmmController extends BaseController{

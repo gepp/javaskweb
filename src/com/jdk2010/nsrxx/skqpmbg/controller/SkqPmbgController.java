@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.jdk2010.nsrxx.skqpmbg.model.SkqPmbg;
 import com.jdk2010.nsrxx.skqpmbg.service.ISkqPmbgService;
-import com.jdk2010.base.util.Constants;
+import com.jdk2010.tools.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.util.Page;

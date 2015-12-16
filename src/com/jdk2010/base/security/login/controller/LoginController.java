@@ -77,8 +77,8 @@ public class LoginController extends BaseController {
 
         } else {
             if ("true".equals(rememberMe)) {
-                CookieUtil.addCookie(request, response, "username", username);
-                CookieUtil.addCookie(request, response, "md5Password", md5Password);
+                CookieUtil.addCookie(request, response, "username", username,60*60*24*7);
+                CookieUtil.addCookie(request, response, "md5Password", md5Password,60*60*24*7);
             }
             setSessionAttr("securityUser", securityUser);
              
