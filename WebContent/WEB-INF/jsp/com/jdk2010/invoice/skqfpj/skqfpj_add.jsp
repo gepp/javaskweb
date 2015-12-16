@@ -45,10 +45,12 @@
 								<option value="${item.fpbm }">${item.fpmc }</option>
 							</c:forEach>
 						</select>
-					</div></li>
+					</div>
+					&nbsp;<input type="checkbox" id="fpjy" name="fpjy" checked="checked">发票校验</input>
+					</li>
 				<li><label>发票代码<b></b></label> <input type="text"
 					class="dfinput" id="fpdm" name="skqFpj.fpdm" value="${fpdm }" />
-					&nbps;<input type="checkbox" id="fpjy" name="fpjy" checked="checked">发票校验</input>
+					
 					</li>
 				<li><label>发票起始号码<b></b></label> <input type="text"
 					class="dfinput" id="fpqsh" name="skqFpj.fpqsh"
@@ -129,19 +131,22 @@
 																		.holdSubmit(false);
 																if (data.status == 'success') {
 
-																	layer
-																			.alert(
+																	layer.alert(
 																					'当前操作成功',
 																					{
-																						shade : 0,
 																						closeBtn : 0
 																					},
 																					function() {
-																						window.location.href = '${ contextpath}/skqfpj/list';
+																						parent.window.location.href = '${ contextpath}/skqfpj/info.htm';
+																						closeWindow();
 																					});
 
 																} else {
-																	sAlert('当前操作失败');
+																	$("#fpjzh").val("");
+																	$("#fpqsh").val("");
+																	$("#fpsl").val("");
+																	layer.alert(data.message);
+																	
 																}
 
 															}

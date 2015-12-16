@@ -29,7 +29,7 @@
 		</ul>
 	</div>
 	<div class="rightinfo">
-		<form method="post" action="${ contextpath}/skqnsrxx/list">
+		<form method="post" action="${ contextpath}/skqnsrxx/listcxtj">
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
 				<li><label style="width: 85px">纳税人微机编码</label><input
 					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"

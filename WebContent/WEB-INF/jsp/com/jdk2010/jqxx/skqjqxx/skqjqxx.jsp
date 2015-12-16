@@ -34,7 +34,8 @@
 
 		<div class="tools">
 			<ul class="toolbar">
-				<li onclick="add();"><span><img src="${contextpath }/res/images/t01.png" /></span>添加</li>
+				<li onclick="add();"><span><img
+						src="${contextpath }/res/images/t01.png" /></span>添加</li>
 				<li><span><img src="${contextpath }/res/images/t03.png" /></span>删除</li>
 				<li onclick="window.location='${ contextpath}/skqnsrxx/list.htm'"><span></span>返回纳税人列表</li>
 			</ul>
@@ -76,16 +77,14 @@
 						<td>${ item.status==1?'正常':'注销'}</td>
 						<td><a
 							href="${ contextpath }/skqjqxx/modify.htm?jqbh=${item.jqbh}"
-							class="tablelink">编辑</a>
-							<a
-							href="${ contextpath }/skqjqxx/modify.htm?jqbh=${item.jqbh}"
-							class="tablelink">发卡</a>
-						</td>
+							class="tablelink">编辑</a> <a
+							href="${ contextpath }/skqjqxx/toFK.htm?jqbh=${item.jqbh}"
+							class="tablelink">发卡</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
- 
+
 	</div>
 </body>
 </html>

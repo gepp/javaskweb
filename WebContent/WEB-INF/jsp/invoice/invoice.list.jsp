@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -68,6 +69,7 @@
 		</thead>
 
 		<tbody id="nsrszsmDiv">
+			<input type="hidden" value="${fn:length(cardInvoice)}" id="num"/>
 			<c:forEach var="hasInvoice" items="${cardInvoice }">
 				<td>${hasInvoice.FPDM }</td>
 				<td>${hasInvoice.JS }</td>
@@ -93,12 +95,12 @@
 		<tbody id="nsrszsmDiv">
 			<c:forEach var="noInvoice" items="${alFp }">
 				<tr>
-					<td><input type="checkbox">&nbsp;</td>
+					<td><input type="checkbox" name="subBox" value="${noInvoice.fpqsh }|${noInvoice.fpdm}">&nbsp;</td>
 					<td>${noInvoice.fplgrq }&nbsp;</td>
 					<td>${noInvoice.fpdm }&nbsp;</td>
 					<td>${noInvoice.fpdw }&nbsp;</td>
 					<td>${noInvoice.fpqsh }&nbsp;---${noInvoice.fpjzh }</td>
-					<td><a href="" class="tablelink">删 除</a> &nbsp;</td>
+					<td><a href="javascript:void(0)" onclick="deleteInvoice('${noInvoice.id}');" class="tablelink">删 除</a> &nbsp;</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -110,7 +112,7 @@
 			<li><label>&nbsp;</label><input name="" type="button"
 				class="btn" value="发票增加" onclick="fplg();"/> &nbsp;&nbsp;
 				<input name="" type="button" class="btn" value="发票领购确认"
-				onclick="" />&nbsp;&nbsp;
+				onclick="add();" />&nbsp;&nbsp;
 				
 				 <input name="" type="button" class="btn" value="返 回"
 				onclick="window.location='${ contextpath}/skqfpj/toFpgm.htm'" /></li>
@@ -134,5 +136,75 @@ function fplg(){
 	});
  
 }
+
+function deleteInvoice(id){
+	layer.confirm('您确认删除这条数据么？',function(index){
+		//ajax提交删除数据
+		jQuery.ajax({
+					type: "post", 
+					url: "${contextpath}/skqfpjmx/delete.htm", 
+					dataType: "json",
+					data:{action:'delete',ids:id},
+					success: function (data) { 
+						if(data.status=='success'){
+							layer.alert('删除成功', {
+								closeBtn: 0
+							}, function(){
+								window.location.href=window.location.href = '${ contextpath}/skqfpj/info.htm';
+							});
+						}else{
+							layer.alert(data.message, {
+								closeBtn: 0
+							}, function(){
+								window.location.href=window.location.href = '${ contextpath}/skqfpj/info.htm';
+							});
+						}
+						
+						 
+					} 
+			});
+	});
+}
+
+function add(){
+	layer.confirm('确定选择的发票？',function(index){
+		var fpqshInfoStr="" ;
+		var count=0;
+		var checkbox = $("input[name='subBox']");
+		checkbox.each(function() {
+			if (this.checked) {
+				if(fpqshInfoStr==''){
+					fpqshInfoStr=this.value;
+				}else{
+					fpqshInfoStr=fpqshInfoStr+","+this.value;
+				}
+				count=count+1;
+			}
+		});
+		if(count==0){
+			layer.msg('请选择发票！');
+		}
+		
+		else{
+			var fpqshArr= new Array(); 
+			fpqshArr = fpqshInfoStr.split(",");
+			var num1 = fpqshArr.length;
+			var num = $("#num").val()*1;
+			var allcount = num+num1;
+			if(allcount>10){
+				alert('不能超过10卷！');
+			}
+			else{
+				var nsrwjbm = $("#nsrwjbm").val();
+				var jqbh =$("#jqbh").val();
+			//	alert('${contextpath}/skqfpj/fpxk.htm?nsrwjbm='+nsrwjbm+'&jqbh='+jqbh+'&fpqshInfoStr='+fpqshInfoStr);
+				window.location.href='${contextpath}/skqfpj/fpxk.htm?nsrwjbm='+nsrwjbm+'&jqbh='+jqbh+'&fpqshInfoStr='+fpqshInfoStr;
+			}
+		}
+	});
+}
+
+
+
 
 </script>
