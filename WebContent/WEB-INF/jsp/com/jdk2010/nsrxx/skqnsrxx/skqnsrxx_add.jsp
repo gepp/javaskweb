@@ -131,8 +131,8 @@
 								<td>
 									<div class="vocation">
 										<select name="skqNsrxx.zsfs" class="select1">
-											<option value="1">查账征收</option>
-											<option value="0">核定户</option>
+											<option value="1">核定户</option>
+											<option value="0">查账征收户</option>
 										</select>
 									</div>
 								</td>

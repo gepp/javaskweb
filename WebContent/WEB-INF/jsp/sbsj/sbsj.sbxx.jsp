@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
@@ -90,37 +93,44 @@
 		txt.innerHTML = str;
 		document.getElementById("msgDiv").appendChild(txt);
 	}
-</script>
-<script language="javascript">
-	function add() {
-		if (confirm('确定用户卡已插入！')) {
-			sAlert('读卡中，请等待……');
-			try {
-				var result = document.dtapplet.read();
-				//var result1 = document.ReadInvoiceApplet.read();
-				if (result == 1) {
-					div_close();
-					window.location.href = '/${contextpath}/cxtj/toYhkInfo.htm';
-				} else {
-					div_close();
-					alert('卡基本信息读取失败！');
-				}
-			} catch (e) {
-				div_close();
-				alert('卡基本信息读取失败！');
-			}
-		}
-	}
-
+	
 	function div_close() {
 		var bgObj = document.getElementById("bgDiv");
 		var msgObj = document.getElementById("msgDiv");
 		document.body.removeChild(bgObj);
 		document.body.removeChild(msgObj);
 	}
-	function test(){
-		window.location.href="${contextpath}/skqfpj/testInvoice.htm";
-	}
+</script>
+<script language="javascript">
+function jxdk(){
+	if(confirm('确定用户卡已插入！')){
+		sAlert('读卡中，请等待……');
+		try{
+			var result = document.dtapplet.read();
+			if(result==1){
+				div_close();
+				
+				layer.open({
+					type : 2,
+					title : '监控回传',
+					shadeClose : false,
+					area : [ '620px', '90%' ],
+					content : '${contextpath}/skqsbsj/jkhcdk.htm'
+				});
+				 
+			}
+			else{
+				div_close();
+				alert('基本信息读取失败，有可能卡文件损！');
+			}
+		}
+		catch(err){
+			div_close();
+			alert('读卡失败，请检查读卡器是否连接！');
+		}
+	}	
+}
+ 
 </script>
 </head>
 <body>
@@ -128,23 +138,110 @@
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">用户卡信息读取</a></li>
+			<li><a href="#">申报数据</a></li>
 		</ul>
 	</div>
-	<div style="position: fixed; top: 30%; left: 46%">
-		<input type="hidden" name="userinfo" /> <input type="button"
-			name="btn" value=" 读 卡 " class="btn" style="cursor: hand;" onclick="add();" />
-	       <input type="button"
-			name="btn" value="测 试 " class="btn" style="cursor: hand;" onclick="test();" />
-		
-		<jsp:plugin name="dtapplet" type="applet" archive="dtapplet.jar"
-			codebase="." code="com.jsdt.web.applet.TYUcReadlet.class" height="1"
-			width="1">
-			<jsp:params>
-				<jsp:param name="serverUrl" value="<%=basePath%>" />
-			</jsp:params>
-		</jsp:plugin>
-
+	 <div class="formtitle1">
+		<span>纳税户基本信息</span>
 	</div>
+	<table class="tableEdit">
+		<thead>
+			<tr>
+				<th>纳税人微机编码</th>
+				<td>${nsrxx.nsrwjbm }</td>
+				<th>纳税人识别号</th>
+				<td>${nsrxx.nsrsbh }</td>
+			</tr>
+			<tr>
+				<th>纳税人名称</th>
+				<td>${nsrxx.nsrmc }</td>
+				<th>经营地址</th>
+				<td>${nsrxx.jydz }</td>
+			</tr>
+		</thead>
+	</table>
+	 <div class="formtitle1">
+		<span>机器编号为【${sbsj.jqbh }】申报信息</span>
+	</div>
+	<table class="tableEdit">
+		<thead>
+			<tr>
+				<th>所属开始时间</th>
+				<td>${sbsj.sskssj }</td>
+				<th>所属结束时间</th>
+				<td>${sbsj.ssjzsj }</td>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr>
+				<th>正常票份数</th>
+				<td>${sbsj.zcpfs }</td>
+				<th>退票份数</th>
+				<td>${sbsj.tpfs}</td>
+				<th>废票份数</th>
+				<td>${sbsj.fpfs}</td>
+			</tr>
+			<tr>
+				<th>正常票金额（元）</th>
+				<td>${sbsj.zcpzje }</td>
+				<th>退票金额（元）</th>
+				<td>${sbsj.tpzje}</td>
+				<th>实际开票金额（元）</th>
+				<td>${sbsj.zcpzje-sbsj.tpzje}</td>
+			</tr>
+		</thead>
+	</table>
+	
+	 <div class="formtitle1">
+		<span>阶段申报信息</span>
+	</div>
+	<c:forEach var="item" items="${alJdsb }">
+	<table class="tableEdit">
+		<thead>
+			<tr>
+				<th>所属开始时间</th>
+				<td>${item.sskssj }</td>
+				<th>所属结束时间</th>
+				<td>${item.ssjzsj }</td>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr>
+				<th>正常票份数</th>
+				<td>${item.zcpfs }</td>
+				<th>退票份数</th>
+				<td>${item.tpfs}</td>
+				<th>废票份数</th>
+				<td>${item.fpfs}</td>
+			</tr>
+			<tr>
+				<th>正常票金额（元）</th>
+				<td>${item.zcpzje }</td>
+				<th>退票金额（元）</th>
+				<td>${item.tpzje}</td>
+				<th>实际开票金额（元）</th>
+				<td>${item.zcpzje-item.tpzje}</td>
+			</tr>
+		</thead>
+	</table>
+	</c:forEach>
+	<table class="tableEdit">
+	<tr>
+	<c:if test="${sbflag==0 }">
+	 <td>
+		<input type="button" name="jxdk" class="btn" value="监控回传" onclick="jxdk();" style="cursor:hand;" />&nbsp;&nbsp;
+			<jsp:plugin name="dtapplet" type="applet" code="com.jsdt.web.applet.TYUcReadlet.class" codebase="." archive="dtapplet.jar" width="1" height="1">
+			<jsp:params>  
+			  <jsp:param name="serverUrl" value="<%=basePath%>"   />
+			</jsp:params>
+			</jsp:plugin>
+	</td>
+	</c:if>
+	<c:if test="${sbflag!=0 }">
+		<td>系统正在计算汇总数据，请等待...    </td> 
+	</c:if>
+	</tr>
+	</table>
+	 <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrxx.nsrwjbm }"/>
 </body>
 </html>

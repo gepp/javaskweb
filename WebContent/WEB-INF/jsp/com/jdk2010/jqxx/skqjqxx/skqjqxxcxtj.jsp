@@ -44,7 +44,9 @@
 				<li><label style="width: 60px">用户卡号</label><input type="text"
 					name="YHKH" id="YHKH" class="scinput1" placeholder="请输入用户卡号"
 					value="${YHKH}"></li>
-				<li><label style="width: 50px">税务机关</label> <input
+			</ul>
+			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
+				<li><label style="width: 85px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
 					value="${SWJGBM}"> <input type="text" name="parentName"
 						id="parentName" class="scinput1" readonly
@@ -151,8 +153,7 @@
 		layer.open({
 			type : 2,
 			title : '选择税务机关【点击行选中】',
-			shadeClose : true,
-			shade : 0,
+			shadeClose : false,
 			area : [ '580px', '90%' ],
 
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url

@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="jsdt.tools.*"%>
 <%
-//String WJBMBC = SYSTEM.WJBMBC;
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
-System.out.println("basePath = "+basePath);
-%>
+    //String WJBMBC = SYSTEM.WJBMBC;
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+            + request.getContextPath();
+ %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="images/css.css" rel="stylesheet" type="text/css" />
+<link href="${ contextpath }/res/css/style.css" rel="stylesheet"
+	type="text/css" />
+<link href="${ contextpath }/res/css/page.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript" language="javascript">
 //more javascript from http://www.smallrain.net
         function sAlert(str){
@@ -89,10 +93,9 @@ function add(){
 		sAlert('读卡中，请等待……');
 		try{
 			var result = document.dtapplet.read();
-			//var result1 = document.ReadInvoiceApplet.read();
 			if(result==1){
 				div_close();
-				window.location.href='/javaskweb/cxtj.do?op=toSkkInfo';
+				window.location.href='${contextpath}/cxtj/toSkkInfo.htm';
 			}
 			else{
 				div_close();
@@ -115,35 +118,25 @@ function div_close(){
 </script>
 </head>
 <body>
-<!--==========right部分==========-->
-<div id="right">
-  <div id="tool">
-  </div>
-    <div id="main"> <br />
-      <br />
-      <form name="form1" action="" method="post">
-      <table width="50%" border="0" align="center" cellpadding="0" cellspacing="0" id="userLogin1" >
-        <tr>
-          <th width="5%">税控卡信息读取 </th>
-        </tr>
-        <tr>
-          <td height="152" style="text-align:center">
-          
-          <br>
-          <input type="hidden" name="userinfo" />
-          <input type="button" name="btn" value=" 读 卡 " style="cursor:hand;" onclick="add();" />
-          <jsp:plugin name="dtapplet" type="applet" archive="dtapplet.jar" codebase="." code="com.jsdt.web.applet.TYFcReadlet.class" height="1" width="1" >
-<jsp:params>  
-  <jsp:param name="serverUrl" value="<%=basePath%>"   />
-</jsp:params>
-</jsp:plugin>
-<!--            <applet name="dtapplet" code="com.jsdt.web.applet.TYUcReadlet.class" codebase="." archive="dtapplet.jar" width="1" height="1"></applet>-->
-           </td>
-        </tr>
-        </table>
-        </form>
-        <iframe src="" name="iframe" frameborder="0" width="0" height="0"></iframe>
-    </div>
-</div>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="#">首页</a></li>
+			<li><a href="#">税控卡信息读取</a></li>
+		</ul>
+	</div>
+
+	<div style="position: fixed; top: 30%; left: 46%">
+		<input type="hidden" name="userinfo" />
+		  <input type="button" name="btn" class="btn" value=" 读 卡 " style="cursor:hand;" onclick="add();" />
+		<jsp:plugin name="dtapplet" type="applet" archive="dtapplet.jar"
+			codebase="." code="com.jsdt.web.applet.TYFcReadlet.class" height="1"
+			width="1">
+			<jsp:params>
+				<jsp:param name="serverUrl" value="<%=basePath%>" />
+			</jsp:params>
+		</jsp:plugin>
+
+	</div>
 </body>
 </html>

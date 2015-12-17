@@ -133,8 +133,8 @@
 								<td>
 									<div class="vocation">
 										<select name="skqNsrxx.zsfs" class="select1">
-											<option value="1" <c:if test="${ skqNsrxx.zsfs==1}">selected</c:if>>查账征收</option>
-											<option value="0" <c:if test="${ skqNsrxx.zsfs==0}">selected</c:if>>核定户</option>
+											<option value="1" <c:if test="${ skqNsrxx.zsfs==1}">selected</c:if>>核定户</option>
+											<option value="0" <c:if test="${ skqNsrxx.zsfs==0}">selected</c:if>>查账征收户</option>
 										</select>
 									</div>
 								</td>

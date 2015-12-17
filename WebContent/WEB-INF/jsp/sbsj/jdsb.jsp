@@ -92,25 +92,25 @@
 	}
 </script>
 <script language="javascript">
-	function add() {
-		if (confirm('确定用户卡已插入！')) {
-			sAlert('读卡中，请等待……');
-			try {
-				var result = document.dtapplet.read();
-				//var result1 = document.ReadInvoiceApplet.read();
-				if (result == 1) {
-					div_close();
-					window.location.href = '/${contextpath}/fpService.do?op=info';
-				} else {
-					div_close();
-					alert('卡基本信息读取失败！');
-				}
-			} catch (e) {
+function add(){
+	if(confirm('确定用户卡已插入！')){
+		sAlert('读卡中，请等待……');
+		try{
+			var result = document.dtapplet.read();
+			if(result==1){
+				window.location.href='${contextpath}/skqsbsj/jdsbsjdk.htm';
+			}
+			else{
 				div_close();
-				alert('卡基本信息读取失败！');
+				alert('基本信息读取失败，有可能卡文件损坏！汇总信息读取失败，请检查是否在机器上已做申报！');
 			}
 		}
-	}
+		catch(err){
+			div_close();
+			alert('读卡失败，请检查读卡器是否连接！');
+		}
+	}	
+}
 
 	function div_close() {
 		var bgObj = document.getElementById("bgDiv");
@@ -119,7 +119,7 @@
 		document.body.removeChild(msgObj);
 	}
 	function test(){
-		window.location.href="${contextpath}/skqfpj/testInvoice.htm";
+		window.location.href="${contextpath}/skqsbsj/test.htm";
 	}
 </script>
 </head>
@@ -128,12 +128,12 @@
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">发票购买</a></li>
+			<li><a href="#">阶段申报</a></li>
 		</ul>
 	</div>
 	<div style="position: fixed; top: 30%; left: 46%">
 		<input type="hidden" name="userinfo" /> <input type="button"
-			name="btn" value=" 读 卡 " class="btn" style="cursor: hand;" onclick="add();" />
+			name="btn" value="读 卡" class="btn" style="cursor: hand;" onclick="add();" />
 	       <input type="button"
 			name="btn" value="测 试 " class="btn" style="cursor: hand;" onclick="test();" />
 		
