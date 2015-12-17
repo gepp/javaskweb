@@ -4,8 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-            + request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ request.getContextPath();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -99,7 +100,6 @@
 		document.body.removeChild(bgObj);
 		document.body.removeChild(msgObj);
 	}
-	
 </script>
 <script language="javascript">
 function jxdk(){
@@ -138,7 +138,7 @@ function jxdk(){
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">阶段申报数据</a></li>
+			<li><a href="#">申报数据</a></li>
 		</ul>
 	</div>
 	 <div class="formtitle1">
@@ -191,21 +191,57 @@ function jxdk(){
 			</tr>
 		</thead>
 	</table>
-
-
+	
+	 <div class="formtitle1">
+		<span>阶段申报信息</span>
+	</div>
+	<c:forEach var="item" items="${alJdsb }">
 	<table class="tableEdit">
-		<tr>
-			<td><input type="button" name="jxdk" value="监控回传"
-				onclick="add();" style="cursor: hand;" />&nbsp;&nbsp; <jsp:plugin
-					name="dtapplet" type="applet"
-					code="com.jsdt.web.applet.TYUcReadlet.class" codebase="."
-					archive="dtapplet.jar" width="1" height="1">
-					<jsp:params>
-						<jsp:param name="serverUrl" value="<%=basePath%>" />
-					</jsp:params>
-				</jsp:plugin></td>
-		</tr>
+		<thead>
+			<tr>
+				<th>所属开始时间</th>
+				<td>${item.sskssj }</td>
+				<th>所属结束时间</th>
+				<td>${item.ssjzsj }</td>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr>
+				<th>正常票份数</th>
+				<td>${item.zcpfs }</td>
+				<th>退票份数</th>
+				<td>${item.tpfs}</td>
+				<th>废票份数</th>
+				<td>${item.fpfs}</td>
+			</tr>
+			<tr>
+				<th>正常票金额（元）</th>
+				<td>${item.zcpzje }</td>
+				<th>退票金额（元）</th>
+				<td>${item.tpzje}</td>
+				<th>实际开票金额（元）</th>
+				<td>${item.zcpzje-item.tpzje}</td>
+			</tr>
+		</thead>
 	</table>
-	<input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrxx.nsrwjbm }"/>
+	</c:forEach>
+	<table class="tableEdit">
+	<tr>
+	<c:if test="${sbflag==0 }">
+	 <td>
+		<input type="button" name="jxdk" class="btn" value="监控回传" onclick="jxdk();" style="cursor:hand;" />&nbsp;&nbsp;
+			<jsp:plugin name="dtapplet" type="applet" code="com.jsdt.web.applet.TYUcReadlet.class" codebase="." archive="dtapplet.jar" width="1" height="1">
+			<jsp:params>  
+			  <jsp:param name="serverUrl" value="<%=basePath%>"   />
+			</jsp:params>
+			</jsp:plugin>
+	</td>
+	</c:if>
+	<c:if test="${sbflag!=0 }">
+		<td>系统正在计算汇总数据，请等待...    </td> 
+	</c:if>
+	</tr>
+	</table>
+	 <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrxx.nsrwjbm }"/>
 </body>
 </html>
