@@ -56,7 +56,7 @@
 			<div id="tab1" class="tabson">
 				<form action="" method="POST" id="skqNsrxxForm">
 					<ul class="forminfo">
-
+						<input type="hidden" value="${skqNsrxx.id }" id="id" name="skqNsrxx.id" />
 						<table width="100%">
 							<tr>
 								<td>纳税人微机编码<b></b></td>

@@ -125,7 +125,7 @@
 																			.alert(
 																					'当前操作成功',
 																					{
-																						shade : 0,
+																					 
 																						closeBtn : 0
 																					},
 																					function() {

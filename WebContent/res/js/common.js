@@ -1,9 +1,9 @@
 function sAlert(msg){
-	layer.alert(msg,{shade: 0}
+	layer.alert(msg
 	);
 }
 function sMsg(msg){
-	layer.msg(msg,{shade: 0});
+	layer.msg(msg);
 }
  
 
@@ -42,7 +42,7 @@ function table_init(action_base_url,action_query_url){
 			}
 			
 			else{
-				layer.confirm('您确认删除您所选择的'+count+'条数据么？',{shade: 0},function(index){
+				layer.confirm('您确认删除您所选择的'+count+'条数据么？',function(index){
 					//ajax提交删除数据
 					jQuery.ajax({
 								type: "post", 
@@ -52,13 +52,13 @@ function table_init(action_base_url,action_query_url){
 								success: function (data) { 
 									if(data.status=='success'){
 										layer.alert('当前操作成功', {
-											shade:0,closeBtn: 0
+											closeBtn: 0
 										}, function(){
 											window.location.href=action_query_url;
 										});
 									}else{
 										layer.alert(data.message, {
-											shade:0,closeBtn: 0
+											closeBtn: 0
 										}, function(){
 											window.location.href=action_query_url;
 										});

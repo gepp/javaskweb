@@ -93,15 +93,13 @@
 								<td><input type="text" class="dfinput" id="kyxrq"
 									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" onclick="laydate()" /></td>
 							</tr>
-
-							<tr>
-								<td>申报方式</td>
-								<td><input type="text" class="dfinput" id="sbfs"
-									name="skqJqxx.sbfs" placeholder="请输入申报方式" /></td>
-								<td>明细申报标志</td>
-								<td><input type="text" class="dfinput" id="mxsbbz"
-									name="skqJqxx.mxsbbz" placeholder="请输入明细申报标志" /></td>
-							</tr>
+							<!--1用户卡传递  0其他  -->
+						<input type="hidden" class="dfinput" id="sbfs"
+									name="skqJqxx.sbfs" value="1" />
+							<!--1申报明细  0不申报明细  -->		
+						<input type="hidden" class="dfinput" id="mxsbbz"
+									name="skqJqxx.mxsbbz"  value="1"/>
+							 
 							<tr>
 								<td>开票截止日期</td>
 								<td><input type="text" class="dfinput" id="kpjzrq"

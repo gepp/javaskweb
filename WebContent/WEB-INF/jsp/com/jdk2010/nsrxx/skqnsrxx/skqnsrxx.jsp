@@ -49,7 +49,7 @@
 							onclick="selectParentOrganization();" /></li>
 
 			</ul>
-		<div style="align: center;margin-bottom:20px">
+			<div style="align: center; margin-bottom: 20px">
 				<br />
 				<ul class="seachform" style="left: 35%; position: absolute;">
 					<li><label>&nbsp;</label><input name="" type="submit"
@@ -99,7 +99,8 @@
 							href="${ contextpath }/skqnsrxx/modify.htm?nsrwjbm=${item.nsrwjbm}"
 							class="tablelink">纳税人信息维护</a> &nbsp;&nbsp;<a
 							href="${ contextpath }/skqjqxx/list.htm?nsrwjbm=${item.nsrwjbm}"
-							class="tablelink">机器信息维护</a> 
+							class="tablelink">机器信息维护</a> &nbsp;&nbsp;<a href="javascript:void(0)"
+							class="tablelink" onclick="deleteNsrxx('${item.nsrwjbm}');">删除纳税人信息</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -131,10 +132,38 @@
 		layer.open({
 			type : 2,
 			title : '选择税务机关【点击行选中】',
-			shadeClose : true,
+			shadeClose : false,
 			area : [ '580px', '90%' ],
 
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
+		});
+	}
+	function deleteNsrxx(nsrwjbm){
+		layer.confirm('您确认删除微机编码：'+nsrwjbm+'<br/>如若删除，该纳税户相关机器信息也将删除！',function(index){
+			//ajax提交删除数据
+			jQuery.ajax({
+						type: "post", 
+						url:"${contextpath}/skqnsrxx/deleteNsrxx.htm", 
+						dataType: "json",
+						data:{action:'delete',"nsrwjbm":nsrwjbm},
+						success: function (data) { 
+							if(data.status=='success'){
+								layer.alert('当前操作成功', {
+									shade:0,closeBtn: 0
+								}, function(){
+									window.location.href='${ contextpath}/skqnsrxx/list';
+								});
+							}else{
+								layer.alert(data.message, {
+									closeBtn: 0
+								}, function(){
+									window.location.href='${ contextpath}/skqnsrxx/list';
+								});
+							}
+							
+							 
+						} 
+				});
 		});
 	}
 </script>

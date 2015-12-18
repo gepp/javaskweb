@@ -41,7 +41,7 @@
 		</div>
 
 		<div class="formtitle1">
-			<span>部门</span>
+			<span>税务机关</span>
 		</div>
 		<table class="tablelist">
 			<thead>

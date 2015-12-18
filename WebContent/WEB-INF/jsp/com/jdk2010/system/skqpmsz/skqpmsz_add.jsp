@@ -116,7 +116,6 @@
 		    type: 2,
 		    title: '选择发票票种【点击行选中】',
 		    shadeClose: true,
-		    shade: 0,
 		    area: ['580px', '90%'],
 		    
 		    content: '${contextpath}/skqfp/select.htm' //iframe的url
@@ -140,19 +139,25 @@
 										{
 											fields : {
 												'skqPmsz.szbm' : 'required;',
-												'skqPmsz.smbm' : 'required;',
+												'skqPmsz.smbm' : 'required;length[~8]',
 												'skqPmsz.smmc' : 'required;',
-												'skqPmsz.smjc' : 'required;',
-												'skqPmsz.sl' : 'required;',
-												'skqPmsz.smsy' : 'required;',
-												'skqPmsz.hdkpbl' : 'required;',
+												'skqPmsz.smjc' : 'required;length[~10]',
+												'skqPmsz.sl' : 'required',
+												'skqPmsz.smsy' : 'required;length[~8]',
+ 												'skqPmsz.hdkpbl' : 'required;integer',
 												'skqPmsz.czkpxe' : 'required;'
  
 											},
 											valid : function(form) {
 												var me = this;
 												// 提交表单之前，hold住表单，防止重复提交
-												me.holdSubmit();
+												var fpbm=$("#fpbm").val();
+												if(fpbm==''){
+													layer.msg("请选择票种编码");
+													selectFp();
+													return false;
+												}
+												
 												$
 														.ajax({
 															url : "${ contextpath}/skqpmsz/addaction",

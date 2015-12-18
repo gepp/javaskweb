@@ -81,7 +81,7 @@
 									name="skqNsrxx.frdb" placeholder="请输入法人代表" /></td>
 								<td>税收管理员<b></b></td>
 								<td><input type="text" class="dfinput" id="ssgly"
-									name="skqNsrxx.ssgly" placeholder="请输入联系方式" /></td>
+									name="skqNsrxx.ssgly" placeholder="请输入税收管理员" /></td>
 
 							</tr>
 							<tr>
@@ -94,14 +94,14 @@
 									name="skqNsrxx.yhde" placeholder="请输入月核定营业额" /></td>
 							</tr>
 							<tr>
-								<td>行业编码<b></b></td>
+								<td>所属行业<b></b></td>
 								<input type="hidden" class="dfinput" id="hybm" name="skqNsrxx.hybm"
 									placeholder="" />
 								<td><input type="text" class="dfinput" id="hymc"
 									name="hymc" placeholder="" readonly onclick="selectHy();" />
 									<input type="button" value="选择" onclick="selectHy();"
 									class="btn" /></td>
-								<td>行业明细编码<b></b></td>
+								<td>经营项目<b></b></td>
 								<input type="hidden" class="dfinput" id="hymxbm" name="skqNsrxx.hymxbm"
 									placeholder="" />
 								<td><input type="text" class="dfinput" id="hymxmc" onclick="selecthymx();"

@@ -247,13 +247,13 @@
 								<td>${item.jqbh }</td>
 								<td>${item.fpqsh }-${item.fpjzh }</td>
 								<td>
-								<c:if test="${item.jqbh==''&&xfzt==0 }">
+								<c:if test="${item.jqbh==''&&item.fpxfzt==0 }">
 									未下发
 								</c:if>
-								<c:if test="${item.jqbh!=''&&xfzt==0 }">
+								<c:if test="${item.jqbh!=''&&item.fpxfzt==0 }">
 									已下发，未使用
 								</c:if>
-								<c:if test="${item.jqbh!=''&&xfzt!=0 }">
+								<c:if test="${item.jqbh!=''&&item.fpxfzt!=0 }">
 									已使用
 								</c:if>
 								</td>

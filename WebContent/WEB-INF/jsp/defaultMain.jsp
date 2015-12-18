@@ -70,13 +70,13 @@
     <div class="mainright">
      
     <div class="dflist1">
-    <div class="listtitle"><a href="#" class="more1">更多</a>信息统计</div>    
+    <div class="listtitle">信息统计</div>    
     <ul class="newlist">
-    <li><i>纳税户：</a></i>2535462</li>
-    <li><i>机器总数：</a></i>5546</li>
-    <li><i>发票总数：</a></i>2315</li>
-    <li><i>软件：</a></i>1585</li>
-    <li><i>评论数：</a></i>5342</li>    
+    <li><a>纳税户：</a><b>${totalNsrxxCount }</b></li>
+    <li><a>机器总数：</a><b>${totalJqxxCount }</b></li>
+    <li><a>未领购发票总数（卷）：</a><b>${totalFpjmxCount }</b></li>
+    <li><a>未申报纳税户：</a><b>${totalNoSbNsrxxCount }</b></li>
+     
     </ul>        
     </div>
 

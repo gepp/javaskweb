@@ -26,7 +26,7 @@
 		type="text/css" />
 	<script type="text/javascript"
 		src="${ contextpath }/res/js/select-ui.min.js"></script>
-		
+
 	<style type="text/css">
 .forminfo li label {
 	width: 128px
@@ -60,35 +60,34 @@
 				<ul class="forminfo">
 					<form action="" method="POST" id="skqJqxxForm">
 						<input type="hidden" value="${nsrwjbm }" name="skqJqxx.nsrwjbm"
-							id="nsrwjbm" />
-							<input type="hidden" value="${skqJqxx.id }" name="skqJqxx.id"
-							id="id" />
+							id="nsrwjbm" /> <input type="hidden" value="${skqJqxx.id }"
+							name="skqJqxx.id" id="id" />
 						<table width="100%">
 							<tr>
 								<td>机器编号</td>
-								
-								<td>
-								${skqJqxx.jqbh }
-								<input type="hidden" class="dfinput" id="jqbh"
-									name="skqJqxx.jqbh" placeholder="请输入机器编号"  value="${skqJqxx.jqbh }"/></td>
+
+								<td>${skqJqxx.jqbh } <input type="hidden" class="dfinput"
+									id="jqbh" name="skqJqxx.jqbh" placeholder="请输入机器编号"
+									value="${skqJqxx.jqbh }" /></td>
 								<td>用户卡号</td>
-								<td>
-								${skqJqxx.yhkh }
-								<input type="hidden" class="dfinput" id="yhkh"
-									name="skqJqxx.yhkh" placeholder="请输入用户卡号"  value="${skqJqxx.yhkh }"/></td>
-								
+								<td>${skqJqxx.yhkh } <input type="hidden" class="dfinput"
+									id="yhkh" name="skqJqxx.yhkh" placeholder="请输入用户卡号"
+									value="${skqJqxx.yhkh }" /></td>
+
 							</tr>
 							<tr>
 								<td>税控卡号</td>
-								<td>
-								${skqJqxx.skkh }<input type="hidden" class="dfinput" id="skkh"
-									name="skqJqxx.skkh" placeholder="请输入税控卡号"  value="${skqJqxx.skkh }"/></td>
+								<td>${skqJqxx.skkh }<input type="hidden" class="dfinput"
+									id="skkh" name="skqJqxx.skkh" placeholder="请输入税控卡号"
+									value="${skqJqxx.skkh }" /></td>
 								<td>机器型号编码</td>
 								<td>
 									<div class="vocation" style="margin-top: 10px">
 										<select name="skqJqxx.jqxhbm" class="select1">
 											<c:forEach var="jqxh" items="${jqxhList }">
-												<option value="${jqxh.jqxhbm }" <c:if test="${ skqJqxx.jqxhbm==jqxh.jqxhbm}">selected</c:if>>${jqxh.jqxhmc }</option>
+												<option value="${jqxh.jqxhbm }"
+													<c:if test="${ skqJqxx.jqxhbm==jqxh.jqxhbm}">selected</c:if>>${jqxh.jqxhmc
+													}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -97,43 +96,49 @@
 							<tr>
 								<td>卡启用日期</td>
 								<td><input type="text" class="dfinput" id="kqyrq"
-									name="skqJqxx.kqyrq"  onclick="laydate()"  value='<fmt:formatDate value="${skqJqxx.kqyrq }"   pattern="yyyy-MM-dd"/>'></input></td>
+									name="skqJqxx.kqyrq" onclick="laydate()"
+									value='<fmt:formatDate value="${skqJqxx.kqyrq }"   pattern="yyyy-MM-dd"/>'></input></td>
 								<td>卡有效日期</td>
 								<td><input type="text" class="dfinput" id="kyxrq"
-									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期"  onclick="laydate()" value='<fmt:formatDate value="${skqJqxx.kyxrq }"   pattern="yyyy-MM-dd"/>'  /></td>
+									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" onclick="laydate()"
+									value='<fmt:formatDate value="${skqJqxx.kyxrq }"   pattern="yyyy-MM-dd"/>' /></td>
 							</tr>
 
-							<tr>
-								<td>申报方式</td>
-								<td><input type="text" class="dfinput" id="sbfs"
-									name="skqJqxx.sbfs" placeholder="请输入申报方式"  value="${skqJqxx.sbfs }"/></td>
-								<td>明细申报标志</td>
-								<td><input type="text" class="dfinput" id="mxsbbz"
-									name="skqJqxx.mxsbbz" placeholder="请输入明细申报标志"  value="${skqJqxx.mxsbbz }"/></td>
-							</tr>
+							<input type="hidden" class="dfinput" id="sbfs"
+								name="skqJqxx.sbfs" value="1" />
+							<!--1申报明细  0不申报明细  -->
+							<input type="hidden" class="dfinput" id="mxsbbz"
+								name="skqJqxx.mxsbbz" value="1" />
 							<tr>
 								<td>开票截止日期</td>
 								<td><input type="text" class="dfinput" id="kpjzrq"
-									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期" onclick="laydate()"  value='<fmt:formatDate value="${skqJqxx.kpjzrq }"   pattern="yyyy-MM-dd"/>'/></td>
+									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期"
+									onclick="laydate()"
+									value='<fmt:formatDate value="${skqJqxx.kpjzrq }"   pattern="yyyy-MM-dd"/>' /></td>
 								<td>单张开票限额</td>
 								<td><input type="text" class="dfinput" id="dzkpxe"
-									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额"  value="${skqJqxx.dzkpxe }"/></td>
+									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额"
+									value="${skqJqxx.dzkpxe }" /></td>
 							</tr>
 							<tr>
 								<td>月累计开票限额</td>
 								<td><input type="text" class="dfinput" id="yljkpxe"
-									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额"  value="${skqJqxx.yljkpxe }"/></td>
+									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额"
+									value="${skqJqxx.yljkpxe }" /></td>
 								<td>月累计退票限额</td>
 								<td><input type="text" class="dfinput" id="yljtpxe"
-									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额"  value="${skqJqxx.yljtpxe }" /></td>
+									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额"
+									value="${skqJqxx.yljtpxe }" /></td>
 							</tr>
 							<tr>
 								<td>状态</td>
 								<td>
 									<div class="vocation">
 										<select name="skqJqxx.status" class="select1">
-											<option value="1" <c:if test="${ skqJqxx.status==1}">selected</c:if>>启用</option>
-											<option value="0" <c:if test="${ skqJqxx.status==0}">selected</c:if>>停用</option>
+											<option value="1"
+												<c:if test="${ skqJqxx.status==1}">selected</c:if>>启用</option>
+											<option value="0"
+												<c:if test="${ skqJqxx.status==0}">selected</c:if>>停用</option>
 										</select>
 									</div>
 								</td>
@@ -166,17 +171,18 @@
 						</tr>
 					</thead>
 					<input type="hidden" id="smbms" name="smbms" value="${smbms }" />
-					<input type="hidden" id="hiddenStr" name="hiddenStr" value='${hiddenStr }' />
+					<input type="hidden" id="hiddenStr" name="hiddenStr"
+						value='${hiddenStr }' />
 					<tbody id="nsrszsmDiv">
-							<c:forEach var="item" items="${jqszsmList }">
-								<tr>
+						<c:forEach var="item" items="${jqszsmList }">
+							<tr>
 								<td>${item.szbm }</td>
 								<td>${item.smbm }</td>
 								<td>${item.smmc }</td>
 								<td>${item.smjc }</td>
 								<td>${item.sl }</td>
-								</tr>
-							</c:forEach>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<br /> <br />
@@ -201,20 +207,21 @@
 
 
 <script type="text/javascript">
-
-function deleteSzsm(){
-	$("#smbms").val("");
-	$("#hiddenStr").val("");
-	$("#nsrszsmDiv").html("");
-}
-	function selectSzsm(){
-		layer.open({
-			type : 2,
-			title : '选择机器税种税目',
-			shadeClose : true,
-			area : [ '580px', '90%' ],
-			content : '${contextpath}/skqpmsz/selectJqszsm.htm?nsrwjbm=${skqJqxx.nsrwjbm}&smbms='+$("#smbms").val() //iframe的url
-		});
+	function deleteSzsm() {
+		$("#smbms").val("");
+		$("#hiddenStr").val("");
+		$("#nsrszsmDiv").html("");
+	}
+	function selectSzsm() {
+		layer
+				.open({
+					type : 2,
+					title : '选择机器税种税目',
+					shadeClose : true,
+					area : [ '580px', '90%' ],
+					content : '${contextpath}/skqpmsz/selectJqszsm.htm?nsrwjbm=${skqJqxx.nsrwjbm}&smbms='
+							+ $("#smbms").val() //iframe的url
+				});
 	}
 	$(document)
 			.ready(
@@ -246,16 +253,18 @@ function deleteSzsm(){
 											valid : function(form) {
 												var me = this;
 												// 提交表单之前，hold住表单，防止重复提交
-												var hiddenStr=$("#hiddenStr").val();
-												if(hiddenStr==''){
+												var hiddenStr = $("#hiddenStr")
+														.val();
+												if (hiddenStr == '') {
 													layer.msg('请选择机器税种税目！', {
-														closeBtn: 0,time:1000
-													}, function(){
+														closeBtn : 0,
+														time : 1000
+													}, function() {
 														selectSzsm();
 													});
 													return false;
 												}
-												
+
 												$
 														.ajax({
 															url : "${ contextpath}/skqjqxx/modifyaction",
