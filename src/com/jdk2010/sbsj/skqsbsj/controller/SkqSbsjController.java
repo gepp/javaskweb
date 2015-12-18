@@ -153,6 +153,11 @@ public class SkqSbsjController extends BaseController {
         return "/sbsj/jdsb";
     }
     
+    @RequestMapping("/toJkhc")
+    public String toJkhc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/sbsj/jkhc";
+    }
+    
     
     @RequestMapping("/jdsbsjdk")
     public String jdsbsjdk(HttpServletRequest request, HttpServletResponse response) throws Exception {

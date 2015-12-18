@@ -21,6 +21,7 @@ import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.base.security.securityuser.service.ISecurityUserService;
 import com.jdk2010.base.security.securityuserrole.service.ISecurityUserRoleService;
 import com.jdk2010.framework.controller.BaseController;
+import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.CookieUtil;
 import com.jdk2010.framework.util.MD5Utils;
 
@@ -43,6 +44,8 @@ public class LoginController extends BaseController {
     @Resource
     ISecurityOrganizationService securityOrganizationService;
 
+    @Resource
+    DalClient dalClient;
     
     Logger logger = LoggerFactory.getLogger(this.getClass());
     
@@ -154,6 +157,16 @@ public class LoginController extends BaseController {
 
     @RequestMapping("/defaultMain")
     public String defaultMain(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Long totalNsrxxCount=dalClient.queryColumn("select count(*) as totalNsrxxCount from skq_nsrxx ","totalNsrxxCount");
+        Long totalJqxxCount =dalClient.queryColumn("select count(*) as totalJqxxCount from skq_jqxx ","totalJqxxCount");
+        Long totalFpjmxCount =dalClient.queryColumn("select count(*) as totalFpjmxCount from skq_fpjmx where fpxfzt=0 ","totalFpjmxCount");
+        Long totalNoSbNsrxxCount=0L;
+        
+        setAttr("totalNsrxxCount", totalNsrxxCount);
+        setAttr("totalJqxxCount", totalJqxxCount);
+        setAttr("totalFpjmxCount", totalFpjmxCount);
+        setAttr("totalNoSbNsrxxCount", totalNoSbNsrxxCount);
+        
         return "/defaultMain";
     }
 

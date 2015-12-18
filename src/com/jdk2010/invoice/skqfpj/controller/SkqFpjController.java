@@ -221,7 +221,7 @@ public class SkqFpjController extends BaseController {
         map1.put("JS", "1");
         EF05.add(map1);
         EF06.put("JQBH", "0000000000000001");
-        EF02.put("NSRWJDM", "1");
+        EF02.put("NSRWJDM", "0000000000000001");
 
         UCARDINFO.put("EF02", EF02);
         UCARDINFO.put("EF06", EF06);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.framework.controller.BaseController;
+import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.JsonUtil;
 import com.jdk2010.framework.util.Page;
@@ -33,6 +34,9 @@ public class SkqNsrxxController extends BaseController {
     @Resource
     ISkqNsrszsmService skqNsrszsmService;
 
+    @Resource
+    DalClient dalClient;
+    
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String sql = "select * from skq_nsrxx  where 1=1 ";
@@ -121,6 +125,7 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/addaction")
     public void addaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
+        skqNsrxx.setNsrwjbm(StringUtil.charFront(skqNsrxx.getNsrwjbm(), 16, "0"));
         skqNsrxxService.save(skqNsrxx);
         String hiddenStr = getPara("hiddenStr");
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
@@ -164,6 +169,8 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/modifyaction")
     public void modifyaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
+        String swjgbm=getPara("skqNsrxx.swjgbm");
+        skqNsrxx.setSwjgbm(swjgbm);
         skqNsrxxService.update(skqNsrxx);
         skqNsrszsmService.deleteNsrszsmByNsrwjbm(skqNsrxx.getNsrwjbm());
         String hiddenStr = getPara("hiddenStr");
@@ -220,6 +227,7 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/check")
     public void check(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String nsrwjbm = getPara("skqNsrxx.nsrwjbm");
+        nsrwjbm=StringUtil.charFront(nsrwjbm, 16,"0");
         boolean isExist = skqNsrxxService.isExistsNsrwjbm(nsrwjbm);
         Map<String, Object> returnMap = new HashMap<String, Object>();
         if (isExist) {
@@ -231,6 +239,17 @@ public class SkqNsrxxController extends BaseController {
         map.put("data", returnMap);
         renderJson(map);
     }
+    
+    @RequestMapping("/deleteNsrxx")
+    public void deleteNsrxx(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String nsrwjbm=getPara("nsrwjbm");
+        dalClient.update("delete from skq_nsrxx where nsrwjbm='"+nsrwjbm+"'");
+        dalClient.update("delete from skq_nsrszsm where nsrwjbm='"+nsrwjbm+"'");
+        dalClient.update("delete from skq_jqxx where nsrwjbm='"+nsrwjbm+"'");
+        ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+        renderJson(returnData);
+    }
+
     
     
     
