@@ -1,6 +1,7 @@
 package com.jdk2010.base.security.securityuser.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -22,7 +23,11 @@ import com.jdk2010.base.security.securityuserrole.model.SecurityUserRole;
 import com.jdk2010.base.security.securityuserrole.service.ISecurityUserRoleService;
 import com.jdk2010.base.service.BaseServiceImpl;
 import com.jdk2010.framework.dal.client.DalClient;
+import com.jdk2010.framework.util.Base64Util;
+import com.jdk2010.framework.util.ConfigUtil;
+import com.jdk2010.framework.util.DateUtil;
 import com.jdk2010.framework.util.DbKit;
+import com.jdk2010.framework.util.RSAUtil;
 
 @Service("securityUserService")
 public class SecurityUserServiceImpl extends BaseServiceImpl implements ISecurityUserService {
@@ -40,7 +45,30 @@ public class SecurityUserServiceImpl extends BaseServiceImpl implements ISecurit
 
     @Override
     public SecurityUser login(String username, String password) throws Exception {
-        DbKit dbKit = new DbKit("select t.*,a.code as organizationCode from security_user t left join security_organization a on t.organization_id=a.id where username=:username and userpwd=:password");
+
+        ConfigUtil util = new ConfigUtil("/conf/license.key");
+        String key = util.getString("key");
+        String value = util.getString("value");
+        byte[] encodedData = Base64Util.decode(value);
+        byte[] decodedData;
+        try {
+            decodedData = RSAUtil.decryptByPrivateKey(encodedData, key);
+        } catch (Exception e) {
+            throw new RuntimeException("您好，授权码不正确！");
+        }
+        String target = new String(decodedData, "utf-8");
+        String targetName=target.split("~")[0];
+        Map<String, Object> securityBaseMap = dalClient.queryForObject("select * from security_base");
+        String dbTarget = securityBaseMap.get("name") + "";
+        if (!targetName.equals(dbTarget)) {
+            throw new RuntimeException("您好，授权码不正确！");
+        }
+        String keyEndDate=targetName=target.split("~")[1]+" 23:59:59";
+        if(DateUtil.compareDateWithNow(DateUtil.parse(keyEndDate,"yyyy-MM-dd HH:mm:ss"))<0){
+            throw new RuntimeException("您好，授权码已过期！");
+        }
+        DbKit dbKit = new DbKit(
+                "select t.*,a.code as organizationCode from security_user t left join security_organization a on t.organization_id=a.id where username=:username and userpwd=:password");
         dbKit.put("username", username);
         dbKit.put("password", password);
         SecurityUser user = dalClient.queryForObject(dbKit, SecurityUser.class);

@@ -80,15 +80,15 @@ public class LoginController extends BaseController {
 
         } else {
             if ("true".equals(rememberMe)) {
-                CookieUtil.addCookie(request, response, "username", username,60*60*24*7);
-                CookieUtil.addCookie(request, response, "md5Password", md5Password,60*60*24*7);
+                CookieUtil.addCookie(request, response, "username", username,60*60);
+                CookieUtil.addCookie(request, response, "md5Password", md5Password,60*60);
             }
             setSessionAttr("securityUser", securityUser);
              
         }
         resultMap.put("flag", flag);
         resultMap.put("reason", reason);
-        renderJson(resultMap);
+        renderJson(response,resultMap);
     }
 
     @RequestMapping("/autoLogin")
@@ -179,5 +179,16 @@ public class LoginController extends BaseController {
     public String tech(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return "/tech";
     }
+    
+    @RequestMapping("/error")
+    public String error(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/error";
+    }
+    
+    @RequestMapping("/test123")
+    public String test123(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        throw new RuntimeException("哈哈啊");
+    }
+    
 
 }

@@ -79,7 +79,7 @@ public class SkqFpjmxController extends BaseController {
 		SkqFpjmx skqFpjmx = getModel(SkqFpjmx.class);
 		skqFpjmxService.save(skqFpjmx);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 
 	@RequestMapping("/modify")
@@ -97,7 +97,7 @@ public class SkqFpjmxController extends BaseController {
 		SkqFpjmx skqFpjmx = getModel(SkqFpjmx.class);
 		skqFpjmxService.update(skqFpjmx);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 
 	@RequestMapping("/delete")
@@ -106,7 +106,7 @@ public class SkqFpjmxController extends BaseController {
 		String ids = getPara("ids");
 		skqFpjmxService.deleteByIDS(ids, SkqFpjmx.class);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 
 	@RequestMapping("/view")

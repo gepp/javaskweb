@@ -43,7 +43,7 @@ public class SecurityMenuController extends BaseController {
         SecurityMenu securityMenu = getModel(SecurityMenu.class);
         securityMenuService.save(securityMenu);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -59,7 +59,7 @@ public class SecurityMenuController extends BaseController {
         SecurityMenu securityMenu = getModel(SecurityMenu.class);
         securityMenuService.update(securityMenu);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -67,7 +67,7 @@ public class SecurityMenuController extends BaseController {
         String ids = getPara("ids");
         securityMenuService.deleteByIDS(ids, SecurityMenu.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/view")

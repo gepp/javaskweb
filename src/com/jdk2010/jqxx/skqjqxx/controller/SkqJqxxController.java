@@ -137,7 +137,7 @@ public class SkqJqxxController extends BaseController {
             }
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -184,7 +184,7 @@ public class SkqJqxxController extends BaseController {
             }
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -192,7 +192,7 @@ public class SkqJqxxController extends BaseController {
         String ids = getPara("ids");
         skqJqxxService.deleteByIDS(ids, SkqJqxx.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/view")
@@ -227,7 +227,7 @@ public class SkqJqxxController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(map);
+        renderJson(response,map);
     }
 
     @RequestMapping("/checkYhkh")
@@ -243,7 +243,7 @@ public class SkqJqxxController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(map);
+        renderJson(response,map);
     }
 
     @RequestMapping("/checkJqbh")
@@ -259,7 +259,7 @@ public class SkqJqxxController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(map);
+        renderJson(response,map);
     }
 
     @RequestMapping("/toFK")

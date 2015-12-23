@@ -43,7 +43,7 @@ public class SecurityOrganizationController extends BaseController {
         }
         securityOrganizationService.save(securityOrganization);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -68,7 +68,7 @@ public class SecurityOrganizationController extends BaseController {
         SecurityOrganization securityOrganization = getModel(SecurityOrganization.class);
         securityOrganizationService.update(securityOrganization);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -76,7 +76,7 @@ public class SecurityOrganizationController extends BaseController {
         String ids = getPara("ids");
         securityOrganizationService.deleteByIDS(ids, SecurityOrganization.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/view")

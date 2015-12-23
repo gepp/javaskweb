@@ -11,7 +11,7 @@ public class Util {
 
     // 2010-10-10转20101010
     public static String toxkrq(Date formatDate) {
-        SimpleDateFormat df = new SimpleDateFormat("YYYYMMdd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
         return df.format(formatDate);
     }
 

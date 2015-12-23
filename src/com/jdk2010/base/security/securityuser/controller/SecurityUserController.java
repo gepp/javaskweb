@@ -80,7 +80,7 @@ public class SecurityUserController extends BaseController {
             }
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -146,7 +146,7 @@ public class SecurityUserController extends BaseController {
         
         
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -166,7 +166,7 @@ public class SecurityUserController extends BaseController {
             securityUserRoleService.deleteSecurityUserRoleByUserId(Integer.parseInt(idStrs[i]));
         }
         ReturnData returnData = new ReturnData(status, message);
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/view")
@@ -196,7 +196,7 @@ public class SecurityUserController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(map);
+        renderJson(response,map);
     }
 
 }

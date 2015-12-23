@@ -38,7 +38,7 @@ public class SkqJqszsmController extends BaseController{
  		SkqJqszsm skqJqszsm=getModel(SkqJqszsm.class);
   		skqJqszsmService.save(skqJqszsm);
  		ReturnData returnData=new ReturnData(Constants.SUCCESS,"操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 	
 	
@@ -54,7 +54,7 @@ public class SkqJqszsmController extends BaseController{
  		SkqJqszsm skqJqszsm=getModel(SkqJqszsm.class);
   		skqJqszsmService.update(skqJqszsm);
  		ReturnData returnData=new ReturnData(Constants.SUCCESS,"操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 	
 	@RequestMapping("/delete")
@@ -62,7 +62,7 @@ public class SkqJqszsmController extends BaseController{
 		String ids=getPara("ids");
 		skqJqszsmService.deleteByIDS(ids,SkqJqszsm.class);
 		ReturnData returnData=new ReturnData(Constants.SUCCESS,"操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 	
 	@RequestMapping("/view")
