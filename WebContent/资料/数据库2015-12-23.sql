@@ -16,6 +16,21 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`wlsk` /*!40100 DEFAULT CHARACTER SET ut
 
 USE `wlsk`;
 
+/*Table structure for table `security_base` */
+
+DROP TABLE IF EXISTS `security_base`;
+
+CREATE TABLE `security_base` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `version` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `security_base` */
+
+insert  into `security_base`(`id`,`name`,`version`) values (1,'铜陵地税','v1.0');
+
 /*Table structure for table `security_menu` */
 
 DROP TABLE IF EXISTS `security_menu`;
@@ -36,7 +51,7 @@ CREATE TABLE `security_menu` (
 
 /*Data for the table `security_menu` */
 
-insert  into `security_menu`(`id`,`name`,`code`,`description`,`orderlist`,`img`,`url`,`parent_id`,`type`,`status`) values (1,'税控基础设置','123',NULL,1,'/res/images/leftico01.png',NULL,0,NULL,NULL),(2,'纳税户信息管理',NULL,NULL,NULL,NULL,'/skqnsrxx/list.htm',1,NULL,NULL),(3,'纳税人名称更新',NULL,NULL,NULL,NULL,'/taxpayer/toImport.htm',1,NULL,NULL),(4,'发票管理',NULL,NULL,2,'/res/images/leftico02.png',NULL,0,NULL,NULL),(5,'发票购买',NULL,NULL,NULL,NULL,'/skqfpj/toFpgm.htm',4,NULL,NULL),(6,'系统管理',NULL,NULL,4,'/res/images/leftico04.png',NULL,0,NULL,NULL),(7,'发票票种管理',NULL,NULL,NULL,NULL,'/skqfp/list.htm',6,NULL,NULL),(8,'品目设置',NULL,NULL,NULL,NULL,'/skqpmsz/list.htm',6,NULL,NULL),(9,'机器型号管理',NULL,NULL,NULL,NULL,'/skqjqxh/list.htm',6,NULL,NULL),(10,'注册类型管理',NULL,NULL,NULL,NULL,'/skqzclx/list.htm',6,NULL,NULL),(11,'行业及明细管理',NULL,NULL,NULL,NULL,'/skqhy/list.htm',6,NULL,NULL),(12,'税务机关管理',NULL,NULL,NULL,NULL,'/securityorganization/list.htm',6,NULL,NULL),(13,'用户管理',NULL,NULL,NULL,NULL,'/securityuser/list.htm',6,NULL,NULL),(14,'角色权限管理',NULL,NULL,NULL,NULL,'/securityrole/list.htm',6,NULL,NULL),(15,'申报数据',NULL,NULL,3,'/res/images/leftico03.png','',0,NULL,NULL),(16,'自然月申报',NULL,NULL,NULL,NULL,'/skqsbsj/toZrysb.htm',15,NULL,NULL),(17,'阶段申报',NULL,'爱爱爱',NULL,NULL,'/skqsbsj/toJdsb.htm',15,NULL,NULL),(18,'监控回传',NULL,NULL,NULL,NULL,'/skqsbsj/toJkhc.htm',15,NULL,NULL),(20,'查询统计',NULL,NULL,5,'/res/images/leftico04.png',NULL,0,NULL,NULL),(21,'纳税户信息查询',NULL,NULL,NULL,NULL,'/skqnsrxx/listcxtj.htm',20,NULL,NULL),(22,'税控装置查询',NULL,NULL,NULL,NULL,'/skqjqxx/listcxtj.htm',20,NULL,NULL),(23,'发票领购查询',NULL,NULL,NULL,NULL,'/skqfpjmx/list.htm',20,NULL,NULL),(24,'申报汇总查询',NULL,NULL,NULL,NULL,'/skqsbsj/list.htm',20,NULL,NULL),(26,'用户卡信息读取',NULL,NULL,NULL,NULL,'/cxtj/toYhkImport.htm',20,NULL,NULL),(27,'税控卡信息读取',NULL,NULL,NULL,NULL,'/cxtj/toSkkImport.htm',20,NULL,NULL),(28,'税控卡复制',NULL,NULL,NULL,NULL,NULL,20,NULL,NULL),(29,'菜单管理',NULL,NULL,NULL,NULL,'/securitymenu/list.htm',6,NULL,NULL);
+insert  into `security_menu`(`id`,`name`,`code`,`description`,`orderlist`,`img`,`url`,`parent_id`,`type`,`status`) values (1,'税控基础设置','123',NULL,1,'/res/images/leftico01.png',NULL,0,NULL,NULL),(2,'纳税户信息管理',NULL,NULL,NULL,NULL,'/skqnsrxx/list.htm',1,NULL,NULL),(3,'纳税人名称更新',NULL,NULL,NULL,NULL,'/taxpayer/toImport.htm',1,NULL,NULL),(4,'发票管理',NULL,NULL,2,'/res/images/leftico02.png',NULL,0,NULL,NULL),(5,'发票购买',NULL,NULL,NULL,NULL,'/skqfpj/toFpgm.htm',4,NULL,NULL),(6,'系统管理',NULL,NULL,4,'/res/images/leftico04.png',NULL,0,NULL,NULL),(7,'发票票种管理',NULL,NULL,NULL,NULL,'/skqfp/list.htm',6,NULL,NULL),(8,'品目设置',NULL,NULL,NULL,NULL,'/skqpmsz/list.htm',6,NULL,NULL),(9,'机器型号管理',NULL,NULL,NULL,NULL,'/skqjqxh/list.htm',6,NULL,NULL),(10,'注册类型管理',NULL,NULL,NULL,NULL,'/skqzclx/list.htm',6,NULL,NULL),(11,'行业及明细管理',NULL,NULL,NULL,NULL,'/skqhy/list.htm',6,NULL,NULL),(12,'税务机关管理',NULL,NULL,NULL,NULL,'/securityorganization/list.htm',6,NULL,NULL),(13,'用户管理',NULL,NULL,NULL,NULL,'/securityuser/list.htm',6,NULL,NULL),(14,'角色权限管理',NULL,NULL,NULL,NULL,'/securityrole/list.htm',6,NULL,NULL),(15,'申报数据',NULL,NULL,3,'/res/images/leftico03.png','',0,NULL,NULL),(16,'自然月申报',NULL,NULL,NULL,NULL,'/skqsbsj/toZrysb.htm',15,NULL,NULL),(17,'阶段申报',NULL,'爱爱爱',NULL,NULL,'/skqsbsj/toJdsb.htm',15,NULL,NULL),(18,'监控回传',NULL,NULL,NULL,NULL,'/skqsbsj/toJkhc.htm',15,NULL,NULL),(20,'查询统计',NULL,NULL,5,'/res/images/leftico04.png',NULL,0,NULL,NULL),(21,'纳税户信息查询',NULL,NULL,NULL,NULL,'/skqnsrxx/listcxtj.htm',20,NULL,NULL),(22,'税控装置查询',NULL,NULL,NULL,NULL,'/skqjqxx/listcxtj.htm',20,NULL,NULL),(23,'发票领购查询',NULL,NULL,NULL,NULL,'/skqfpjmx/list.htm',20,NULL,NULL),(24,'申报汇总查询',NULL,NULL,NULL,NULL,'/skqsbsj/list.htm',20,NULL,NULL),(26,'用户卡信息读取',NULL,NULL,NULL,NULL,'/cxtj/toYhkImport.htm',20,NULL,NULL),(27,'税控卡信息读取',NULL,NULL,NULL,NULL,'/cxtj/toSkkImport.htm',20,NULL,NULL),(28,'税控卡复制',NULL,NULL,NULL,NULL,'/test123.htm',20,NULL,NULL),(29,'菜单管理',NULL,NULL,NULL,NULL,'/securitymenu/list.htm',6,NULL,NULL);
 
 /*Table structure for table `security_organization` */
 
@@ -310,7 +325,7 @@ CREATE TABLE `skq_fp` (
   `FPMC` varchar(100) DEFAULT NULL COMMENT '票种名称',
   `STATUS` int(11) DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `skq_fp` */
 
