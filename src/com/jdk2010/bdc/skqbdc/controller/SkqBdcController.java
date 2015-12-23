@@ -59,7 +59,7 @@ public class SkqBdcController extends BaseController {
 					+ (String) hm.get("nsrmc") + "</b></div>";
 		}
 
-		renderJson(str);
+		renderJson(response,str);
 	}
 
 	@RequestMapping("/list")
@@ -104,7 +104,7 @@ public class SkqBdcController extends BaseController {
 		skqBdc.setStatus(1);
 		skqBdcService.save(skqBdc);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 
 	@RequestMapping("/modify")
@@ -123,7 +123,7 @@ public class SkqBdcController extends BaseController {
 		skqBdc.setCjsj(new Date());
 		skqBdcService.update(skqBdc);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 
 	@RequestMapping("/delete")
@@ -132,7 +132,7 @@ public class SkqBdcController extends BaseController {
 		String ids = getPara("ids");
 		skqBdcService.deleteByIDS(ids, SkqBdc.class);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(returnData);
+		renderJson(response,returnData);
 	}
 
 	@RequestMapping("/view")

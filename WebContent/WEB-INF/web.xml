@@ -46,9 +46,7 @@
     <param-name>logbackConfigLocation</param-name>
     <param-value>classpath:conf/log/logback.xml</param-value>
   </context-param>
-  <listener>
-    <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
-  </listener>
+  
   <jsp-config>
     <taglib>
       <taglib-uri>http://www.tag.mytag.com</taglib-uri>

@@ -1,6 +1,9 @@
 package com.jdk2010.base.test;
 
+<<<<<<< HEAD
 import java.io.UnsupportedEncodingException;
+=======
+>>>>>>> 6b94057bf3a5a651e67b588c24dcfeb731ba8818
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ import com.jdk2010.framework.dal.client.DalClient;
 public class Test {
     public static void main(String[] args) throws UnsupportedEncodingException {
         BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
+<<<<<<< HEAD
         DalClient sybaseDalClient=(DalClient)factory.getBean("sybaseDalClient");
         List<Map<String,Object>> mapList=sybaseDalClient.queryForObjectList("select * from SKQ_PMSZ");
     	for(Map<String,Object> map:mapList){
@@ -37,5 +41,12 @@ public class Test {
 //         } catch (Exception e) {
 //             System.out.println(e.getMessage());
 //         }
+=======
+        DalClient oracleDalClient=(DalClient)factory.getBean("oracleDalClient");
+        List<Map<String,Object>> mapList=oracleDalClient.queryForObjectList("select * from BAK_T_HX_ORG_CONFIG t");
+        for(Map<String,Object> map:mapList){
+            System.out.println(map.get("saleorg"));
+        }
+>>>>>>> 6b94057bf3a5a651e67b588c24dcfeb731ba8818
     }
 }

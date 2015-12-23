@@ -84,7 +84,7 @@ public class SecurityRoleController extends BaseController {
         }
 
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -138,7 +138,7 @@ public class SecurityRoleController extends BaseController {
             securityRoleMenuService.save(roleMenu);
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -161,7 +161,7 @@ public class SecurityRoleController extends BaseController {
         }
 
         ReturnData returnData = new ReturnData(status, message);
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/view")
@@ -196,7 +196,7 @@ public class SecurityRoleController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(map);
+        renderJson(response,map);
     }
 
 }

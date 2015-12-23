@@ -144,7 +144,7 @@ public class SkqNsrxxController extends BaseController {
             }
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -191,7 +191,7 @@ public class SkqNsrxxController extends BaseController {
         }
         
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -199,7 +199,7 @@ public class SkqNsrxxController extends BaseController {
         String ids = getPara("ids");
         skqNsrxxService.deleteByIDS(ids, SkqNsrxx.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/view")
@@ -237,7 +237,7 @@ public class SkqNsrxxController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(map);
+        renderJson(response,map);
     }
     
     @RequestMapping("/deleteNsrxx")
@@ -247,7 +247,7 @@ public class SkqNsrxxController extends BaseController {
         dalClient.update("delete from skq_nsrszsm where nsrwjbm='"+nsrwjbm+"'");
         dalClient.update("delete from skq_jqxx where nsrwjbm='"+nsrwjbm+"'");
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     

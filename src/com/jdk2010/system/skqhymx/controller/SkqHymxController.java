@@ -56,7 +56,7 @@ public class SkqHymxController extends BaseController {
         skqHymx.setHybm(skqHy.getHybm());
         skqHymxService.save(skqHymx);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/modify")
@@ -72,7 +72,7 @@ public class SkqHymxController extends BaseController {
         SkqHymx skqHymx = getModel(SkqHymx.class);
         skqHymxService.update(skqHymx);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
 
     @RequestMapping("/delete")
@@ -80,7 +80,7 @@ public class SkqHymxController extends BaseController {
         String ids = getPara("ids");
         skqHymxService.deleteByIDS(ids, SkqHymx.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(returnData);
+        renderJson(response,returnData);
     }
     
     @RequestMapping("/select")
