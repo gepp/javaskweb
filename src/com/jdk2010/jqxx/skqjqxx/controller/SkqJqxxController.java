@@ -280,9 +280,9 @@ public class SkqJqxxController extends BaseController {
             smStr = smStr + "<input type=\"hidden\" name=\"tax" + i + "\" id=\"tax" + i + "\"  value=\"" + sm + "\" />";
         }
         int length = skqJqxx.getJqszsmList().size();
-        if (length < 6) {
+        if (length < 20) {
 
-            for (int i = 0; i < 6 - length; i++) {
+            for (int i = 0; i < 20 - length; i++) {
                 smStr = smStr + "<input type=\"hidden\" name=\"tax" + (i + length) + "\" id=\"tax" + (i + length)
                         + "\"  value=\"\" />";
             }

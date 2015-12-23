@@ -3,6 +3,7 @@ package com.jdk2010.invoice.skqfpj.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -199,6 +200,18 @@ public class SkqFpjController extends BaseController {
                     return "/cxtj/error";
                 }
                 setSessionAttr("cardInvoice", cardInvoice);
+                int hasInvoiceSize=0;
+                for(int i=0;i<cardInvoice.size();i++){
+                	Map map=(Map) cardInvoice.get(i);
+                	String FPDM=map.get("FPDM")+"";
+                	String JS=map.get("JS")+"";
+                	String QSH=map.get("QSH")+"";
+                	String JZH=map.get("JZH")+"";
+                	if((!FPDM.equals("00000000000000000000"))&&(!JS.equals("0"))){
+                		hasInvoiceSize++;
+                	}
+                }
+                setAttr("hasInvoiceSize", hasInvoiceSize);
                 return FORWARD + "/skqfpj/fpList.htm?jqbh=" + jqbh + "&nsrwjbm=" + card_nsrwjbm;
 
             }
@@ -277,8 +290,22 @@ public class SkqFpjController extends BaseController {
         String hiddenFpj = "";
         HashMap CARDINFO = (HashMap) getSessionAttr("UCARDINFO");
         ArrayList cardInvoice = (ArrayList) CARDINFO.get("EF05");
+        Iterator iterator=cardInvoice.iterator();
+        while(iterator.hasNext()){
+        	HashMap hm = (HashMap) iterator.next();
+        	 String FPDM=hm.get("FPDM")+"";
+         	 String JS=hm.get("JS")+"";
+         	if((FPDM.equals("00000000000000000000"))&&(JS.equals("0"))){
+        		iterator.remove();
+        	}
+        }
+        
         for (int i = 0; i < cardInvoice.size(); i++) {
             HashMap hm = (HashMap) cardInvoice.get(i);
+            String FPDM=hm.get("FPDM")+"";
+        	String JS=hm.get("JS")+"";
+        	String QSH=hm.get("QSH")+"";
+        	String JZH=hm.get("JZH")+"";
             String fpqshStr = StringUtil.charFront(hm.get("QSH").toString(), 8, "0");
             String fpjzhStr = StringUtil.charFront(hm.get("JZH").toString(), 8, "0");
             String fpxi = (String) hm.get("FPDM") + "," + fpqshStr + "," + fpjzhStr + "," + hm.get("JS");

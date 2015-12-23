@@ -25,9 +25,6 @@ public class CxtjController extends BaseController {
 			HttpServletResponse response) throws Exception {
 		HashMap UCARDINFO = (HashMap) request.getSession().getAttribute(
 				"UCARDINFO");
-		String yhswjgbmStr = (String) request.getSession().getAttribute(
-				"yhswjgbmStr");
-		System.out.println("CARDINFO===" + UCARDINFO);
 		if (UCARDINFO == null || UCARDINFO.isEmpty()) {
 			request.setAttribute("errorMsg", "基础信息读取失败！");
 			return "/cxtj/error";

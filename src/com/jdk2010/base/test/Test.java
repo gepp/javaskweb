@@ -1,9 +1,6 @@
 package com.jdk2010.base.test;
 
-<<<<<<< HEAD
 import java.io.UnsupportedEncodingException;
-=======
->>>>>>> 6b94057bf3a5a651e67b588c24dcfeb731ba8818
 import java.util.List;
 import java.util.Map;
 
@@ -15,14 +12,7 @@ import com.jdk2010.framework.dal.client.DalClient;
 public class Test {
     public static void main(String[] args) throws UnsupportedEncodingException {
         BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
-<<<<<<< HEAD
-        DalClient sybaseDalClient=(DalClient)factory.getBean("sybaseDalClient");
-        List<Map<String,Object>> mapList=sybaseDalClient.queryForObjectList("select * from SKQ_PMSZ");
-    	for(Map<String,Object> map:mapList){
-    		for(String key:map.keySet()){
-    			System.out.println(new String((map.get(key)+"").getBytes("iso8859-1"),"gbk"));
-    		}
-    	}
+       
 //    	 try {
 //             Class.forName("com.sybase.jdbc2.jdbc.SybDriver").newInstance();
 //             String url = "jdbc:sybase:Tds:192.168.1.101:5000/wlsk";// 数据库名
@@ -41,12 +31,17 @@ public class Test {
 //         } catch (Exception e) {
 //             System.out.println(e.getMessage());
 //         }
-=======
+        DalClient sybaseDalClient=(DalClient)factory.getBean("sybaseDalClient");
+        List<Map<String,Object>> mapList=sybaseDalClient.queryForObjectList("select * from SKQ_PMSZ");
+    	for(Map<String,Object> map:mapList){
+    		for(String key:map.keySet()){
+    			System.out.println(new String((map.get(key)+"").getBytes("iso8859-1"),"gbk"));
+    		}
+    	}
         DalClient oracleDalClient=(DalClient)factory.getBean("oracleDalClient");
-        List<Map<String,Object>> mapList=oracleDalClient.queryForObjectList("select * from BAK_T_HX_ORG_CONFIG t");
-        for(Map<String,Object> map:mapList){
+        List<Map<String,Object>> map1List=oracleDalClient.queryForObjectList("select * from BAK_T_HX_ORG_CONFIG t");
+        for(Map<String,Object> map:map1List){
             System.out.println(map.get("saleorg"));
         }
->>>>>>> 6b94057bf3a5a651e67b588c24dcfeb731ba8818
     }
 }
