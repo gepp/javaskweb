@@ -69,11 +69,15 @@
 		</thead>
 
 		<tbody id="nsrszsmDiv">
-			<input type="hidden" value="${fn:length(cardInvoice)}" id="num"/>
+			<input type="hidden" value="${hasInvoiceSize }" id="num" />
 			<c:forEach var="hasInvoice" items="${cardInvoice }">
+				<c:if test="${hasInvoice.FPDM!='00000000000000000000'}">
+				<tr>
 				<td>${hasInvoice.FPDM }</td>
 				<td>${hasInvoice.JS }</td>
 				<td>${hasInvoice.QSH }---${hasInvoice.JZH }</td>
+				</tr>
+				</c:if>
 			</c:forEach>
 		</tbody>
 	</table>

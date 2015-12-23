@@ -22,6 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="${ contextpath }/res/css/select.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <style type="text/css">
 .forminfo li label {
 	width: 128px
@@ -124,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</table>
 	</div>
 	<br />
-	<ul style="position:fixed;left:30%;bottom:15px">
+	<ul style=" left:30%;bottom:15px">
 		<li><label>&nbsp;</label> <input type="button" class="btn"
 			name="btn1" onClick="writeFcard()" value=" 发税控卡 "
 			style="cursor: hand;" id="fskk" /> &nbsp;&nbsp; <input type="button"
@@ -136,20 +138,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</ul>
 	<br />
 	<br />
-	<jsp:plugin name="WriteFCApplet" type="applet"
-		code="com.jsdt.web.applet.TYFcWritelet.class" codebase="."
-		archive="dtapplet.jar" width="1" height="1">
-		<jsp:params>
-			<jsp:param name="serverUrl" value="<%=basePath%>" />
-		</jsp:params>
-	</jsp:plugin>
-	<jsp:plugin name="WriteUCApplet" type="applet"
-		code="com.jsdt.web.applet.TYUcWritelet.class" codebase="."
-		archive="dtapplet.jar" width="1" height="1">
-		<jsp:params>
-			<jsp:param name="serverUrl" value="<%=basePath%>" />
-		</jsp:params>
-	</jsp:plugin>
+	<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			name="WriteFCApplet" width="1" height="1"
+			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">
+			<param name="java_code" value="com.jsdt.web.applet.TYFcWritelet.class" />
+			<param name="java_codebase" value="<%=basePath%>" />
+			<param name="java_archive" value="dtapplet.jar" />
+			<param name="type" value="application/x-java-applet" />
+			<param name="serverUrl" value="<%=basePath%>" />
+			<comment> <EMBED type="application/x-java-applet"
+				name="dtapplet" width="1" height="1"
+				pluginspage="http://java.sun.com/products/plugin/"
+				java_code="com.jsdt.web.applet.TYFcWritelet.class" java_codebase="."
+				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
+			</noembed> </comment>
+		</object>
+	<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			name="WriteUCApplet" width="1" height="1"
+			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">
+			<param name="java_code" value="com.jsdt.web.applet.TYUcWritelet.class" />
+			<param name="java_codebase" value="<%=basePath%>" />
+			<param name="java_archive" value="dtapplet.jar" />
+			<param name="type" value="application/x-java-applet" />
+			<param name="serverUrl" value="<%=basePath%>" />
+			<comment> <EMBED type="application/x-java-applet"
+				name="dtapplet" width="1" height="1"
+				pluginspage="http://java.sun.com/products/plugin/"
+				java_code="com.jsdt.web.applet.TYUcWritelet.class" java_codebase="."
+				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
+			</noembed> </comment>
+		</object>
+	 
 	<%
 	SkqNsrxx nsrxx = (SkqNsrxx)request.getAttribute("nsrxx");
 	SkqJqxx jqxx = (SkqJqxx)request.getAttribute("jqxx");
@@ -195,135 +214,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </html>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
-	function sAlert(str) {
-		var msgw, msgh, bordercolor;
-		msgw = 400;//提示窗口的宽度
-		msgh = 100;//提示窗口的高度
-		titleheight = 25 //提示窗口标题高度
-		bordercolor = "#c51100";//提示窗口的边框颜色
-		titlecolor = "#c51100";//提示窗口的标题颜色
-
-		var sWidth, sHeight;
-		sWidth = screen.width;
-		sHeight = screen.height;
-
-		var bgObj = document.createElement("div");
-		bgObj.setAttribute('id', 'bgDiv');
-		bgObj.style.position = "absolute";
-		bgObj.style.top = "0";
-		bgObj.style.background = "#cccccc";
-		bgObj.style.filter = "progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-		bgObj.style.opacity = "0.6";
-		bgObj.style.left = "0";
-		bgObj.style.width = sWidth + "px";
-		bgObj.style.height = sHeight + "px";
-		bgObj.style.zIndex = "10000";
-		document.body.appendChild(bgObj);
-
-		var msgObj = document.createElement("div")
-		msgObj.setAttribute("id", "msgDiv");
-		msgObj.setAttribute("align", "center");
-		msgObj.style.background = "white";
-		msgObj.style.border = "1px solid " + bordercolor;
-		msgObj.style.position = "absolute";
-		msgObj.style.left = "50%";
-		msgObj.style.top = "50%";
-		msgObj.style.font = "12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-		msgObj.style.marginLeft = "-225px";
-		msgObj.style.marginTop = -75 + document.documentElement.scrollTop
-				+ "px";
-		msgObj.style.width = msgw + "px";
-		msgObj.style.height = msgh + "px";
-		msgObj.style.textAlign = "center";
-		msgObj.style.lineHeight = "25px";
-		msgObj.style.zIndex = "10001";
-
-		var title = document.createElement("h4");
-		title.setAttribute("id", "msgTitle");
-		title.setAttribute("align", "right");
-		title.style.margin = "0";
-		title.style.padding = "3px";
-		title.style.background = bordercolor;
-		title.style.filter = "progid:DXImageTransform.Microsoft.Alpha(startX=20, startY=20, finishX=100, finishY=100,style=1,opacity=75,finishOpacity=100);";
-		title.style.opacity = "0.75";
-		title.style.border = "1px solid " + bordercolor;
-		title.style.height = "18px";
-		title.style.font = "12px Verdana, Geneva, Arial, Helvetica, sans-serif";
-		title.style.color = "white";
-		title.style.cursor = "pointer";
-		/*title.innerHTML="关闭";
-		title.onclick=function(){
-		document.body.removeChild(bgObj);
-		document.getElementById("msgDiv").removeChild(title);
-		document.body.removeChild(msgObj);
-		     }*/
-		document.body.appendChild(msgObj);
-		document.getElementById("msgDiv").appendChild(title);
-		var txt = document.createElement("p");
-		txt.style.margin = "1em 0"
-		txt.setAttribute("id", "msgTxt");
-		txt.innerHTML = str;
-		document.getElementById("msgDiv").appendChild(txt);
-	}
+	 
 	function writeUcard() {
-		//alert(document.getElementById("TAXPAYER_NO").value);
-		document.getElementById('fyhk').disabled = true;
-		if (confirm('确定发用户卡？')) {
-			sAlert('用户卡发卡中，请等待……');
+		
+		layer.confirm('确定发用户卡？', {
+		    btn: ['确定','取消'] 
+		}, function(index){
 			try {
+				layer.close(index);
+				ssAlert('用户卡发卡中，请等待……');
 				var v = document.WriteUCApplet.writeTYUserCard();
-				//	var cno = document.getElementById("FISCAL_CARD_NO").value;
-				if (v == 1) {
-					div_close();
-					alert("用户卡 发卡成功！！！您已完成注册登记！");
-					document.getElementById('fyhk').disabled = true;
- 					document.getElementById('fh').disabled = true;
-				} else {
-					div_close();
-					alert("用户卡  发卡失败！！！");
-					document.getElementById('fyhk').disabled = false;
-				}
-			} catch (err) {
 				div_close();
-				alert("用户卡  发卡失败！！！");
-				document.getElementById('fyhk').disabled = false;
+				if (v == 1) {
+					alert("用户卡 发卡成功！！！您已完成注册登记！");
+				} else {
+					alert("用户卡  发卡失败！！！");
+					
+				}
+			} catch (e) {
+				
+				alert("2用户卡  发卡失败！！！");
 			}
-		}
+		}, function(){
+		    
+		});
+		 
 	}
 
 	function writeFcard() {
-		document.getElementById('fskk').disabled = true;
-		if (confirm("确定发税控卡？")) {
-			sAlert('税控卡发卡中，请等待……');
+		
+		layer.confirm('确定发税控卡？', {
+		    btn: ['确定','取消'] 
+		}, function(index){
 			try {
-				var v = document.WriteFCApplet.writeTYFiscalCard();
-				//alert(v);
-				//var cno = document.getElementById("FISCAL_CARD_NO").value;
-				if (v == 1) {
-					div_close();
-					alert("税控卡  发卡成功！！！");
-					document.getElementById('fskk').disabled = true;
-					document.getElementById('fh').disabled = true;
-					document.getElementById('fyhk').disabled = false;
- 				} else {
-					div_close();
-					alert("税控卡   发卡失败！！！");
-					document.getElementById('fskk').disabled = false;
-				}
-			} catch (err) {
+				layer.close(index);
+				ssAlert('税控卡发卡中，请等待……');
+				var result = document.WriteFCApplet.writeTYFiscalCard();
 				div_close();
+				if (result == 1) {
+					alert("税控卡  发卡成功！！！");
+				} else {
+					alert("税控卡   发卡失败！！！");
+					
+				}
+			} catch (e) {
 				alert("税控卡   发卡失败！！！");
-				document.getElementById('fskk').disabled = false;
 			}
-		}
+		}, function(){
+		    
+		});
+		 
 	}
-
-	function div_close() {
-		var bgObj = document.getElementById("bgDiv");
-		var msgObj = document.getElementById("msgDiv");
-		document.body.removeChild(bgObj);
-		document.body.removeChild(msgObj);
-	}
+ 
 </script>
 
 
