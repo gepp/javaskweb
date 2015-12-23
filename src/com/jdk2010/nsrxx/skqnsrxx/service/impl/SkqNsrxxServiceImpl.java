@@ -48,10 +48,10 @@ public class SkqNsrxxServiceImpl extends BaseServiceImpl implements ISkqNsrxxSer
 
     public static void main(String[] args) {
         BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
-        ISkqNsrxxService nsrxxService = factory.getBean(ISkqNsrxxService.class);
+//        ISkqNsrxxService nsrxxService = factory.getBean(ISkqNsrxxService.class);
 //        SkqNsrxx nsrxx = nsrxxService.getNsrxxByNsrwjbm("1");
 //        System.out.println(nsrxx.getNsrszsmList().size());
-        System.out.println(nsrxxService.getNsrwjbmByNsrsbh("234234242"));
+    //    System.out.println(nsrxxService.getNsrwjbmByNsrsbh("234234242"));
     }
 
 	@Override

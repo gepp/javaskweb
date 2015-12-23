@@ -121,16 +121,16 @@ public class SecurityUserServiceImpl extends BaseServiceImpl implements ISecurit
     }
 
     public static void main(String[] args) {
-        BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
-        ISecurityUserService securityUserService = factory.getBean(ISecurityUserService.class);
-        Map<Object, Object> userMenuMap = securityUserService.getAllMenu();
-        for (Object key : userMenuMap.keySet()) {
-            System.out.println("key:" + key);
-            List<Map<String, Object>> keyValue = (List<Map<String, Object>>) userMenuMap.get(key);
-            for (Map<String, Object> map : keyValue) {
-                System.out.println(map.get("name"));
-            }
-        }
+//        BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
+//        ISecurityUserService securityUserService = factory.getBean(ISecurityUserService.class);
+//        Map<Object, Object> userMenuMap = securityUserService.getAllMenu();
+//        for (Object key : userMenuMap.keySet()) {
+//            System.out.println("key:" + key);
+//            List<Map<String, Object>> keyValue = (List<Map<String, Object>>) userMenuMap.get(key);
+//            for (Map<String, Object> map : keyValue) {
+//                System.out.println(map.get("name"));
+//            }
+//        }
     }
 
     @Override

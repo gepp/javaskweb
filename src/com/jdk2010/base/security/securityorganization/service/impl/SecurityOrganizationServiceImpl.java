@@ -57,11 +57,11 @@ public class SecurityOrganizationServiceImpl extends BaseServiceImpl implements 
     }
     
     public static void main(String[] args) throws Exception {
-        BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
-        ISecurityOrganizationService securityOrganizationService=factory.getBean(ISecurityOrganizationService.class);
-        List<Map<String, Object>> list=securityOrganizationService.getOrganizationListByParentId("0");
-        for(Map<String,Object> map:list){
-            System.out.println(map.get("name"));
-        }
+//        BeanFactory factory = new ClassPathXmlApplicationContext("conf/spring/spring-dal.xml");
+//        ISecurityOrganizationService securityOrganizationService=factory.getBean(ISecurityOrganizationService.class);
+//        List<Map<String, Object>> list=securityOrganizationService.getOrganizationListByParentId("0");
+//        for(Map<String,Object> map:list){
+//            System.out.println(map.get("name"));
+//        }
     }
 }
