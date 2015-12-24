@@ -245,15 +245,15 @@
 												'skqJqxx.sbfs' : 'required;',
 												'skqJqxx.mxsbbz' : 'required;',
 												'skqJqxx.kpjzrq' : 'required;',
-												'skqJqxx.dzkpxe' : 'required;',
-												'skqJqxx.yljkpxe' : 'required;',
-												'skqJqxx.yljtpxe' : 'required;',
+												'skqJqxx.dzkpxe' : 'required;range[~42000000]',
+												'skqJqxx.yljkpxe' : 'required;range[~42000000]',
+												'skqJqxx.yljtpxe' : 'required;range[~42000000]',
 
 											},
 											valid : function(form) {
 												var me = this;
-												// 提交表单之前，hold住表单，防止重复提交
-												var hiddenStr = $("#hiddenStr")
+												 
+ 												var hiddenStr = $("#hiddenStr")
 														.val();
 												if (hiddenStr == '') {
 													layer.msg('请选择机器税种税目！', {
@@ -265,8 +265,7 @@
 													return false;
 												}
 
-												$
-														.ajax({
+												$.ajax({
 															url : "${ contextpath}/skqjqxx/modifyaction",
 															data : $(form)
 																	.serialize(),
@@ -274,12 +273,10 @@
 															success : function(
 																	data) {
 																// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
-																me
-																		.holdSubmit(false);
+																me.holdSubmit(false);
 																if (data.status == 'success') {
 
-																	layer
-																			.alert(
+																	layer.alert(
 																					'当前操作成功',
 																					{
 																						closeBtn : 0

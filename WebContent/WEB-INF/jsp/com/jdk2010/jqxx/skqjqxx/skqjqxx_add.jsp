@@ -57,10 +57,10 @@
 				</ul>
 			</div>
 			<div id="tab1" class="tabson">
+			<form action="" method="post" id="skqJqxxForm">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqJqxxForm">
-						<input type="hidden" value="${nsrwjbm }" name="skqJqxx.nsrwjbm"
-							id="nsrwjbm" />
+					
+						<input type="hidden" value="${nsrwjbm }" name="skqJqxx.nsrwjbm" id="nsrwjbm" />
 						<table width="100%">
 							<tr>
 								<td>机器编号</td>
@@ -94,12 +94,12 @@
 									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" onclick="laydate()" /></td>
 							</tr>
 							<!--1用户卡传递  0其他  -->
-						<input type="hidden" class="dfinput" id="sbfs"
-									name="skqJqxx.sbfs" value="1" />
-							<!--1申报明细  0不申报明细  -->		
-						<input type="hidden" class="dfinput" id="mxsbbz"
-									name="skqJqxx.mxsbbz"  value="1"/>
-							 
+							<input type="hidden" class="dfinput" id="sbfs"
+								name="skqJqxx.sbfs" value="1" />
+							<!--1申报明细  0不申报明细  -->
+							<input type="hidden" class="dfinput" id="mxsbbz"
+								name="skqJqxx.mxsbbz" value="1" />
+
 							<tr>
 								<td>开票截止日期</td>
 								<td><input type="text" class="dfinput" id="kpjzrq"
@@ -205,7 +205,8 @@
 						$(".select1").uedSelect({
 							width : 240
 						});
-						$('#skqJqxxForm')
+						
+							$('#skqJqxxForm')
 								.on(
 										"click",
 										".doSubmit",
@@ -216,25 +217,20 @@
 								.validator(
 										{
 											fields : {
-												'skqJqxx.jqbh' : 'required;remote[${contextpath}/skqjqxx/checkJqbh.htm]',
-												'skqJqxx.skkh' : 'required;remote[${contextpath}/skqjqxx/checkSkkh.htm]',
-												'skqJqxx.yhkh' : 'required;remote[${contextpath}/skqjqxx/checkYhkh.htm]',
+												'skqJqxx.jqbh' : 'required;length[~16];remote[${contextpath}/skqjqxx/checkJqbh.htm]',
+												'skqJqxx.skkh' : 'required;length[~16];remote[${contextpath}/skqjqxx/checkSkkh.htm]',
+												'skqJqxx.yhkh' : 'required;length[~16];remote[${contextpath}/skqjqxx/checkYhkh.htm]',
 												'skqJqxx.kqyrq' : 'required;',
 												'skqJqxx.kyxrq' : 'required;',
-												'skqJqxx.sbfs' : 'required;',
-												'skqJqxx.mxsbbz' : 'required;',
 												'skqJqxx.kpjzrq' : 'required;',
-												'skqJqxx.dzkpxe' : 'required;',
-												'skqJqxx.yljkpxe' : 'required;',
-												'skqJqxx.yljtpxe' : 'required;',
-
+												'skqJqxx.dzkpxe' : 'required;range[~42000000]',
+												'skqJqxx.yljkpxe' : 'required;range[~42000000]',
+												'skqJqxx.yljtpxe' : 'required;range[~42000000]',
 											},
 											valid : function(form) {
 												var me = this;
-												// 提交表单之前，hold住表单，防止重复提交
-												me.holdSubmit();
-												$
-														.ajax({
+											 
+												$.ajax({
 															url : "${ contextpath}/skqjqxx/addaction",
 															data : $(form)
 																	.serialize(),

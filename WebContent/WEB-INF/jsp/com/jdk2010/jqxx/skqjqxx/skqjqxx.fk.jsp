@@ -233,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			} catch (e) {
 				
-				alert("2用户卡  发卡失败！！！");
+				alert("用户卡  发卡失败！！！");
 			}
 		}, function(){
 		    

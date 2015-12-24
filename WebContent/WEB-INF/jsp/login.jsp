@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>欢迎登录后台管理系统</title>
+<title>欢迎登录大唐税控管理平台</title>
 <link href="${contextpath}/res/css/style.css" rel="stylesheet"
 	type="text/css" />
 <script language="JavaScript" src="${contextpath}/res/js/jquery.js"></script>

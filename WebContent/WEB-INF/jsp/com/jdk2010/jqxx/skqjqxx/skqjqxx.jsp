@@ -36,7 +36,7 @@
 			<ul class="toolbar">
 				<li onclick="add();"><span><img
 						src="${contextpath }/res/images/t01.png" /></span>添加</li>
-				<li><span><img src="${contextpath }/res/images/t03.png" /></span>删除</li>
+				<li onclick="deletejq();"><span><img src="${contextpath }/res/images/t03.png" /></span>删除</li>
 				<li onclick="window.location='${ contextpath}/skqnsrxx/list.htm'"><span></span>返回纳税人列表</li>
 			</ul>
 		</div>
@@ -99,5 +99,51 @@
 	function add() {
 		window.location.href = "${ contextpath}/skqjqxx/add.htm?nsrwjbm=${nsrwjbm}";
 	}
+	
+	function deletejq(){
+		var del_ids="" ;
+		var count=0;
+		var checkbox = $("input[name='subBox']");
+		checkbox.each(function() {
+			if (this.checked) {
+				del_ids += this.value+",";
+				count=count+1;
+			}
+		});
+		if(count==0){
+			sAlert('请选择要删除的数据！');
+		}
+		
+		else{
+			layer.confirm('您确认删除您所选择的'+count+'条数据么？',function(index){
+				//ajax提交删除数据
+				jQuery.ajax({
+							type: "post", 
+							url: "${contextpath}/skqjqxx/delete.htm", 
+							dataType: "json",
+							data:{action:'delete',ids:del_ids},
+							success: function (data) { 
+								if(data.status=='success'){
+									layer.alert('当前操作成功', {
+										closeBtn: 0
+									}, function(){
+										window.location.href="${contextpath}/skqjqxx/list.htm?nsrwjbm=${nsrwjbm}";
+									});
+								}else{
+									layer.alert(data.message, {
+										closeBtn: 0
+									}, function(){
+										window.location.href=action_query_url;
+									});
+								}
+								
+								 
+							} 
+					});
+			});
+		 
+		}
+	}
+	
 </script>
 

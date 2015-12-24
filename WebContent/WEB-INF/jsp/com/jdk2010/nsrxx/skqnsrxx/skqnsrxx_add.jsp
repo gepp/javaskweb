@@ -54,7 +54,7 @@
 				</ul>
 			</div>
 			<div id="tab1" class="tabson">
-				<form action="" method="POST" id="skqNsrxxForm">
+				<form action="" method="post" id="skqNsrxxForm">
 					<ul class="forminfo">
 						<table width="100%">
 							<tr>
@@ -271,12 +271,12 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'skqNsrxx.nsrwjbm' : 'required;remote[${contextpath}/skqnsrxx/check.htm]',
+				'skqNsrxx.nsrwjbm' : 'required;length[~16];remote[${contextpath}/skqnsrxx/check.htm]',
 				'skqNsrxx.nsrsbh' : 'required;',
 				'skqNsrxx.nsrmc' : 'required;',
 				'skqNsrxx.jydz' : 'required;',
 				'skqNsrxx.frdb' : 'required;',
-				'skqNsrxx.yhde' : 'required;',
+				'skqNsrxx.yhde' : 'required;double',
 				'skqNsrxx.bsy' : 'required;',
 				'skqNsrxx.ssgly' : 'required;',
 

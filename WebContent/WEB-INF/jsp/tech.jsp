@@ -38,7 +38,7 @@
     <dd><b>QQ:&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</b>7867770</dd>
     <dd><b>电子邮件:&nbsp;&nbsp;</b>7867770@qq.com</dd>
     <dd><b>手机:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b>13770737278</dd>
-    <dd><b>联系人:&nbsp;&nbsp;&nbsp;&nbsp;</b>陆 俊</dd>
+    <dd><b>联系人:&nbsp;&nbsp;&nbsp;&nbsp;</b>老 财</dd>
     </dl>
     
         

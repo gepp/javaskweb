@@ -43,132 +43,64 @@
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
+	src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript"
 	src="${ contextpath }/res/js/laydate/laydate.js"></script>
 <script type="text/javascript" language="javascript">
-	function sAlert(str) {
-		var msgw, msgh, bordercolor;
-		msgw = 400;//提示窗口的宽度
-		msgh = 100;//提示窗口的高度
-		titleheight = 25 //提示窗口标题高度
-		bordercolor = "#c51100";//提示窗口的边框颜色
-		titlecolor = "#c51100";//提示窗口的标题颜色
-
-		var sWidth, sHeight;
-		sWidth = screen.width;
-		sHeight = screen.height;
-
-		var bgObj = document.createElement("div");
-		bgObj.setAttribute('id', 'bgDiv');
-		bgObj.style.position = "absolute";
-		bgObj.style.top = "0";
-		bgObj.style.background = "#cccccc";
-		bgObj.style.filter = "progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
-		bgObj.style.opacity = "0.6";
-		bgObj.style.left = "0";
-		bgObj.style.width = sWidth + "px";
-		bgObj.style.height = sHeight + "px";
-		bgObj.style.zIndex = "10000";
-		document.body.appendChild(bgObj);
-
-		var msgObj = document.createElement("div")
-		msgObj.setAttribute("id", "msgDiv");
-		msgObj.setAttribute("align", "center");
-		msgObj.style.background = "white";
-		msgObj.style.border = "1px solid " + bordercolor;
-		msgObj.style.position = "absolute";
-		msgObj.style.left = "50%";
-		msgObj.style.top = "50%";
-		msgObj.style.font = "12px/1.6em Verdana, Geneva, Arial, Helvetica, sans-serif";
-		msgObj.style.marginLeft = "-225px";
-		msgObj.style.marginTop = -75 + document.documentElement.scrollTop
-				+ "px";
-		msgObj.style.width = msgw + "px";
-		msgObj.style.height = msgh + "px";
-		msgObj.style.textAlign = "center";
-		msgObj.style.lineHeight = "25px";
-		msgObj.style.zIndex = "10001";
-
-		var title = document.createElement("h4");
-		title.setAttribute("id", "msgTitle");
-		title.setAttribute("align", "right");
-		title.style.margin = "0";
-		title.style.padding = "3px";
-		title.style.background = bordercolor;
-		title.style.filter = "progid:DXImageTransform.Microsoft.Alpha(startX=20, startY=20, finishX=100, finishY=100,style=1,opacity=75,finishOpacity=100);";
-		title.style.opacity = "0.75";
-		title.style.border = "1px solid " + bordercolor;
-		title.style.height = "18px";
-		title.style.font = "12px Verdana, Geneva, Arial, Helvetica, sans-serif";
-		title.style.color = "white";
-		title.style.cursor = "pointer";
-		/*title.innerHTML="关闭";
-		title.onclick=function(){
-		document.body.removeChild(bgObj);
-		document.getElementById("msgDiv").removeChild(title);
-		document.body.removeChild(msgObj);
-		     }*/
-		document.body.appendChild(msgObj);
-		document.getElementById("msgDiv").appendChild(title);
-		var txt = document.createElement("p");
-		txt.style.margin = "1em 0"
-		txt.setAttribute("id", "msgTxt");
-		txt.innerHTML = str;
-		document.getElementById("msgDiv").appendChild(txt);
-	}
-
-	function div_close() {
-		var bgObj = document.getElementById("bgDiv");
-		var msgObj = document.getElementById("msgDiv");
-		document.body.removeChild(bgObj);
-		document.body.removeChild(msgObj);
-	}
-	
-	function declareback(){
+	function declareback() {
 		var KPJZRQ = document.all('KPJZRQ').value;
 		var MAKE_END_DATE = document.all('MAKE_END_DATE').value;
-		var MAC=document.getElementById('MAC').value;
+		var MAC = document.getElementById('MAC').value;
+		if (MAKE_END_DATE <= KPJZRQ) {
+			alert('申报日期必须大于  ' + KPJZRQ);
+		} else
 
-		 
-		if(MAKE_END_DATE<=KPJZRQ){
-			alert('申报日期必须大于  '+KPJZRQ);
-		}
-		else
-	 
-			if(MAC=='null'||MAC==''){
+		if (MAC == 'null' || MAC == '') {
 			alert('MAC为空，请重新插卡进行监控回传！');
 		}
-		 
-		else{
+
+		else {
 			var frm = document.form1;
-			if(validator(frm)){
-				document.all('MAKE_MAX_SINGLE').value = document.all('MAKE_MAX_SINGLE1').value*100;
-				document.all('MAKE_MAX_SUM').value = document.all('MAKE_MAX_SUM1').value*100;
-				document.all('BACK_MAX_SUM').value = document.all('BACK_MAX_SUM1').value*100;
-				
-				sAlert('清零解锁中，请等待……');
-				try{
+			if (validator(frm)) {
+				document.all('MAKE_MAX_SINGLE').value = document
+						.all('MAKE_MAX_SINGLE1').value * 100;
+				document.all('MAKE_MAX_SUM').value = document
+						.all('MAKE_MAX_SUM1').value * 100;
+				document.all('BACK_MAX_SUM').value = document
+						.all('BACK_MAX_SUM1').value * 100;
+				ssAlert('清零解锁中，请等待……');
+				try {
 					var v = document.DeclareBackApplet.declardBackData();
-					
-					if(v == 1){
+
+					if (v == 1) {
 						var JQBH = document.all('JQBH').value;
-						var src = "${contextpath}/skqsbsj/updateKpxe.htm&kpjzrq="+document.all('MAKE_END_DATE').value+"&jqbh="+JQBH+"&dzkpxe="+document.all('MAKE_MAX_SINGLE1').value+"&yljkpxe="+document.all('MAKE_MAX_SUM1').value+"&yljtpxe="+document.all('BACK_MAX_SUM1').value+'&mac='+document.all('MAC').value;
+						var src = "${contextpath}/skqsbsj/updateKpxe.htm&kpjzrq="
+								+ document.all('MAKE_END_DATE').value
+								+ "&jqbh="
+								+ JQBH
+								+ "&dzkpxe="
+								+ document.all('MAKE_MAX_SINGLE1').value
+								+ "&yljkpxe="
+								+ document.all('MAKE_MAX_SUM1').value
+								+ "&yljtpxe="
+								+ document.all('BACK_MAX_SUM1').value
+								+ '&mac='
+								+ document.all('MAC').value;
 						document.all('updateJZRQ').src = src;
 						alert("清零解锁成功");
 						window.close();
-					}
-					else{
-						div_close()
+					} else {
+						div_close();
 						alert("清零解锁失败");
-						
+
 					}
-				}
-				catch(e){
-					div_close()
+				} catch (e) {
+					div_close();
 					alert("清零解锁失败!");
 				}
 			}
 		}
-		
+
 	}
 </script>
 </head>
@@ -216,11 +148,23 @@
 		<ul class="forminfo">
 			<li><label>&nbsp;</label>
 			<input type="button" name="addBtn" value="确 定" onClick="declareback();"/>
-			<jsp:plugin name="DeclareBackApplet" type="applet" code="com.jsdt.web.applet.DeclareBacklet.class" codebase="." archive="dtapplet.jar" width="1" height="1">
-			<jsp:params>  
-			  <jsp:param name="serverUrl" value="<%=basePath%>"   />
-			</jsp:params>
-			</jsp:plugin>
+		 
+		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			name="DeclareBackApplet" width="1" height="1"
+			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">
+			<param name="java_code" value="com.jsdt.web.applet.DeclareBacklet.class" />
+			<param name="java_codebase" value="<%=basePath%>" />
+			<param name="java_archive" value="dtapplet.jar" />
+			<param name="type" value="application/x-java-applet" />
+			<param name="serverUrl" value="<%=basePath%>" />
+			<comment> <EMBED type="application/x-java-applet"
+				name="DeclareBackApplet" width="1" height="1"
+				pluginspage="http://java.sun.com/products/plugin/"
+				java_code="com.jsdt.web.applet.DeclareBacklet.class" java_codebase="."
+				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
+			</noembed> </comment>
+		</object>
+			
 			</li>
 		</ul>
 	</div>

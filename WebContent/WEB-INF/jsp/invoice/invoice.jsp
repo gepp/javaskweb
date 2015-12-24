@@ -20,32 +20,32 @@
 	src="${ contextpath }/res/js/layer/layer.js"></script>
 
 <script language="javascript">
+	
 	function add() {
-		layer
-				.confirm(
-						'确定用户卡已插入！',
-						{
-							btn : [ '确定', '取消' ]
-						},
-						function(index) {
-							try {
-								layer.close(index);
-								ssAlert('读卡中，请等待……');
-								var result = document.dtapplet.read();
-								if (result == 1) {
-									window.location.href = '${contextpath}/skqfpj/info.htm';
-								} else {
-									div_close();
-									alert('卡基本信息读取失败！');
+		layer.confirm('确定用户卡已插入！', {
+			btn : [ '确定', '取消' ]
+		}, function(index) {
+			try {
+				layer.close(index);
+				ssAlert('读卡中，请等待……');
+				var result = document.dtapplet.read();
+				if (result == 1) {
+					window.location.href = '${contextpath}/skqfpj/info.htm';
+				} else {
+					div_close();
+					alert('卡基本信息读取失败！');
 
-								}
-							} catch (e) {
-								div_close();
-								alert('卡基本信息读取失败！');
-							}
-						}, function() {
+				}
+			} catch (e) {
+				div_close();
+				alert('卡基本信息读取失败！');
+			}
+		}, function() {
 
-						});
+		});
+	}
+	function test() {
+		window.location.href = '${contextpath}/skqfpj/testInvoice.htm';
 	}
 </script>
 </head>
@@ -61,7 +61,9 @@
 		<input type="hidden" name="userinfo" /> <input type="button"
 			name="btn" value=" 读 卡 " class="btn" style="cursor: hand;"
 			onclick="add();" />
-
+		<input type="button"
+			name="btn" value="测试" class="btn" style="cursor: hand;"
+			onclick="test();" />
 
 		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
 			name="dtapplet" width="1" height="1"
