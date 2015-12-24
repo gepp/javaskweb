@@ -204,4 +204,13 @@ public class SkqSbsj extends Model<SkqSbsj> {
 		public void setMac(String mac) {
 			this.mac = mac;
 		}
+		String nsrmc;
+
+		public String getNsrmc() {
+			return nsrmc;
+		}
+		public void setNsrmc(String nsrmc) {
+			this.nsrmc = nsrmc;
+		}
+		
     }

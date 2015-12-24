@@ -44,7 +44,7 @@ public class TaxpayerController extends BaseController {
             request.setAttribute("nsrmc", nsrxx.getNsrmc().trim());
             request.setAttribute("CARDINFO", CARDINFO);
             setAttr("EF02", EF02);
-            return "/register/nsrmcgx.dk";
+            return "/register/nsrmcgx.dk.show";
         }
 
     }
