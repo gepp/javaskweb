@@ -28,7 +28,7 @@ function add() {
 			ssAlert('读卡中，请等待……');
 			var result = document.dtapplet.updateFCName();
 			if (result == 1) {
-				alert('纳税户名称更新成功！');
+				alert('纳税户名称更新成功！请重新发行用户卡,确保纳税户名称一致！！');
 				window.location.href='${contextpath}/taxpayer/toImport.htm';
 			} else {
 				div_close();
@@ -78,6 +78,8 @@ function add() {
 			</tr>
 		</thead>
 	</table>
+	<br/>
+	<br/>
 	<div style="left: 25%;">
 		<ul class="forminfo">
 			<li><label>&nbsp;</label><input name="" type="button"
