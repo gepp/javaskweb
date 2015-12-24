@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.base.security.menu.service.ISecurityMenuService;
+import com.jdk2010.base.security.securitynews.model.SecurityNews;
+import com.jdk2010.base.security.securitynews.service.ISecurityNewsService;
 import com.jdk2010.base.security.securityorganization.model.SecurityOrganization;
 import com.jdk2010.base.security.securityorganization.service.ISecurityOrganizationService;
 import com.jdk2010.base.security.securityrolemenu.service.ISecurityRoleMenuService;
@@ -43,6 +45,9 @@ public class LoginController extends BaseController {
     
     @Resource
     ISecurityOrganizationService securityOrganizationService;
+    
+    @Resource
+    ISecurityNewsService securityNewsService;
 
     @Resource
     DalClient dalClient;
@@ -166,6 +171,9 @@ public class LoginController extends BaseController {
         setAttr("totalJqxxCount", totalJqxxCount);
         setAttr("totalFpjmxCount", totalFpjmxCount);
         setAttr("totalNoSbNsrxxCount", totalNoSbNsrxxCount);
+        
+        List<SecurityNews> newsList=securityNewsService.queryForList("select id,title,ctime  from  security_news where status=1 order by ctime desc limit 0,5",SecurityNews.class);
+        setAttr("newsList", newsList);
         
         return "/defaultMain";
     }
