@@ -27,7 +27,7 @@
   <form method="post" action="${ contextpath }/skqbdcxmmx/list">
     <ul class="seachform" style="padding-top: 10px; padding-left: 15px">
       <li>
-        <label style="width: 70px">项目明细名称</label>
+        <label style="width: 80px">项目明细名称</label>
         <input type="text" name="xmmc" id="xmmc" class="scinput1" style="width:300px;" placeholder="请输入项目明细名称" value="${xmmc}">
         <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrwjbm}" />
         <input type="hidden" name="bdcid" id="bdcid" value="${bdcid}" />
@@ -54,9 +54,9 @@
   <table class="tablelist">
     <thead>
       <tr>
-        <th><input type="checkbox" width="15px"  id="checkAll"/></th>
+        <th width="30px"><input type="checkbox"  id="checkAll"/></th>
         <th width="7%">项目代码</th>
-        <th width="14%">项目明细名称</th>
+        <th>项目明细名称</th>
         <th width="8%">保普住宅套数</th>
         <th width="8%">非保普住宅套数</th>
         <th width="8%">非普住宅套数</th>
@@ -64,6 +64,7 @@
         <th width="8%">商铺套数</th>
         <th width="8%">写字楼套数</th>
         <th width="8%">其他套数</th>
+        <th width="8%">总套数</th>
         <th width="8%">录入总套数</th>
         <th width="15%">操作</th>
       </tr>
@@ -81,6 +82,8 @@
           <td> ${ item.spts} </td>
           <td> ${ item.xzlts} </td>
           <td> ${ item.qtts} </td>
+          <td> ${ item.zts} </td>
+          <td> ${ item.lrts} </td>
           <td><a href="${ contextpath }/skqbdcxmmx/modify.htm?id=${item.id}" class="tablelink">编辑</a> <a href="${ contextpath }/skqbdcxmmx/view.htm?id=${item.id}"  class="tablelink">查看</a> 
         </tr>
       </c:forEach>
@@ -104,5 +107,9 @@ function goBack(){
 	var nsrwjbm = $('#nsrwjbm').val();
 	var bdcid = $('#bdcid').val();
 	window.location.href = '${ contextpath }/skqbdczxm/list.htm?nsrwjbm='+nsrwjbm+'&bdcid='+bdcid;
+}
+
+function add(){
+	
 }
 </script>

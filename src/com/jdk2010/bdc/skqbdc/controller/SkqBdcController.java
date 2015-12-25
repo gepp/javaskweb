@@ -58,8 +58,8 @@ public class SkqBdcController extends BaseController {
 					+ (String) hm.get("nsrsbh") + "'\"><b>"
 					+ (String) hm.get("nsrmc") + "</b></div>";
 		}
-
-		renderJson(response,str);
+		//System.out.println("str=============="+str);
+		renderText(response,str);
 	}
 
 	@RequestMapping("/list")
