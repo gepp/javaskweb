@@ -9,6 +9,7 @@
 <script language="JavaScript" src="${contextpath}/res/js/jquery.js"></script>
 <script src="${contextpath}/res/js/cloud.js" type="text/javascript"></script>
 <script type="text/javascript" src="${contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${contextpath }/res/js/jQuery.decode.js"></script>
 <script language="javascript">
 	$(function() {
 		$('.loginbox').css({
@@ -30,7 +31,7 @@ function login(){
 		layer.alert('请填写用户名/密码！');
 	}
 	else{
-        var map={"username":username,"password":password,"rememberMe":rememberMe};
+        var map={"username":username,"password":$.decode(password),"rememberMe":rememberMe};
 		  $.ajax({
 		        url:"${contextpath}/doLogin.htm",
 		        type:"post",
@@ -66,12 +67,18 @@ $(document).keyup(function(event){
 	</div>
 	<div class="loginbody">
 		<span class="systemlogo"></span>
-		<div class="loginbox">
+		<div class="loginbox loginbox2">
 			<ul>
 				<li><input name="username" id="username" type="text"
 					class="loginuser" value="" onclick="JavaScript:this.value=''" /></li>
 				<li><input name="password" id="password" type="password" class="loginpwd"
 					value="" onclick="JavaScript:this.value=''" /></li>
+				<li class="yzm">
+				    <span><input name="" type="text" value="验证码" onclick="JavaScript:this.value=''"/></span>
+				    <cite>
+				    <img width="114" height="46" src="${contextpath}/captcha.htm?d='+new Date().getTime()" onclick="this.src='${contextpath}/captcha.htm?d='+new Date().getTime()"/>
+					</cite> 
+				</li>
 				<li><input name="" type="button" class="loginbtn" value="登 录"
 					onclick="login();" /><label><input type="checkbox" value="rememberMe" id="rememberMe" name="rememberMe"  />记住密码</label></li>
 			</ul>
