@@ -65,28 +65,29 @@ public class SkqJqxxController extends BaseController {
         String orderSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-            searchSQL = searchSQL + " and  t.NSRWJBM LIKE '%" + NSRWJBM + "%'";
+            searchSQL = searchSQL + " and  t.NSRWJBM LIKE '%:NSRWJBM%'";
             setAttr("NSRWJBM", NSRWJBM);
-            // dbKit.append(searchSQL);
+            dbKit.put("NSRWJBM", NSRWJBM);
         }
 
         String JQBH = getPara("JQBH");
         if (JQBH != null && !"".equals(JQBH)) {
-            searchSQL = searchSQL + " and  t.JQBH LIKE '%" + JQBH + "%'";
+            searchSQL = searchSQL + " and  t.JQBH LIKE '%:JQBH%'";
             setAttr("JQBH", JQBH);
-            // dbKit.append(searchSQL);
+            dbKit.put("JQBH", JQBH);
         }
 
         String SKKH = getPara("SKKH");
         if (SKKH != null && !"".equals(SKKH)) {
-            searchSQL = searchSQL + " and  t.SKKH LIKE '%" + SKKH + "%'";
+            searchSQL = searchSQL + " and  t.SKKH LIKE '%:SKKH%'";
             setAttr("SKKH", SKKH);
+            dbKit.put("SKKH",SKKH);
         }
         String YHKH = getPara("YHKH");
         if (YHKH != null && !"".equals(YHKH)) {
-            searchSQL = searchSQL + " and  t.YHKH LIKE '%" + YHKH + "%'";
+            searchSQL = searchSQL + " and  t.YHKH LIKE '%:YHKH%'";
             setAttr("YHKH", JQBH);
-            // dbKit.append(searchSQL);
+            dbKit.put("YKKH", YHKH);
         }
 
         String SWJGBM = getPara("SWJGBM");

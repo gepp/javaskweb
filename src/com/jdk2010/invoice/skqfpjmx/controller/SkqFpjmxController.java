@@ -29,14 +29,16 @@ public class SkqFpjmxController extends BaseController {
 		String searchSQL = "";
 		String NSRWJBM = getPara("NSRWJBM");
 		if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-			searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+			searchSQL = searchSQL + " and  NSRWJBM LIKE '%:NSRWJBM%'";
 			setAttr("NSRWJBM", NSRWJBM);
+			 dbKit.put("NSRWJBM", NSRWJBM);
 		}
 
 		String JQBH = getPara("JQBH");
 		if (JQBH != null && !"".equals(JQBH)) {
-			searchSQL = searchSQL + " and  JQBH ='" + JQBH + "'";
+			searchSQL = searchSQL + " and  JQBH =':JQBH'";
 			setAttr("JQBH", JQBH);
+			 dbKit.put("JQBH", JQBH);
 		}
 
 		String startTime = getPara("startTime");

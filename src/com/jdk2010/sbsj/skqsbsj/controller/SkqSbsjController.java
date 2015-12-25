@@ -59,8 +59,9 @@ public class SkqSbsjController extends BaseController {
         String searchSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-            searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+            searchSQL = searchSQL + " and  t.NSRWJBM LIKE '%:NSRWJBM%'";
             setAttr("NSRWJBM", NSRWJBM);
+            dbKit.put("NSRWJBM", NSRWJBM);
         }
 
         String SWJGBM = getPara("SWJGBM");
@@ -72,19 +73,20 @@ public class SkqSbsjController extends BaseController {
 
         String JQBH = getPara("JQBH");
         if (JQBH != null && !"".equals(JQBH)) {
-            searchSQL = searchSQL + " and  JQBH ='" + JQBH + "'";
+            searchSQL = searchSQL + " and  t.JQBH =':JQBH'";
             setAttr("JQBH", JQBH);
+            dbKit.put("JQBH", JQBH);
         }
 
         String startTime = getPara("startTime");
         if (startTime != null && !"".equals(startTime)) {
-            searchSQL = searchSQL + " and  SSKSSJ>='" + startTime + " 00:00:00'";
+            searchSQL = searchSQL + " and  t.SSKSSJ>='" + startTime + " 00:00:00'";
             setAttr("startTime", startTime);
         }
 
         String endTime = getPara("endTime");
         if (endTime != null && !"".equals(endTime)) {
-            searchSQL = searchSQL + " and  SSJZSJ<='" + endTime + " 23:59:59'";
+            searchSQL = searchSQL + " and  t.SSJZSJ<='" + endTime + " 23:59:59'";
             setAttr("endTime", endTime);
         }
         dbKit.append(searchSQL);

@@ -30,9 +30,10 @@ public class SecurityNewsController extends BaseController {
         String orderSQL = " order by t.ctime desc";
         String title = getPara("title");
         if (title != null && !"".equals(title)) {
-            searchSQL = searchSQL + " and t.title LIKE '%" + title + "%'";
+            searchSQL = searchSQL + " and t.title LIKE '%:title%'";
             setAttr("title", title);
             dbKit.append(searchSQL);
+            dbKit.put("title", title);
         }
 
         dbKit.append(orderSQL);
