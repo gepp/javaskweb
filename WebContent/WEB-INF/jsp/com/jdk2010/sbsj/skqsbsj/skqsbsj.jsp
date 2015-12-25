@@ -118,8 +118,8 @@
 
 						<td>${ item.tpzje}</td>
 
-						<td><a href="${ contextpath }/skqsbsj/view.htm?id=${item.id}"
-							class="tablelink">查看</a>
+						<td><a href="javascript:void(0)"
+							class="tablelink" onclick="seeDetail('${item.id}');">查看</a>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -155,6 +155,17 @@
 		$("#swjgbm").val("");
 		$("#parentName").val("");
 		
+	}
+	
+	function seeDetail(id) {
+		layer.open({
+			type : 2,
+			title : '申报数据明细信息',
+			shadeClose : false,
+			area : [ '580px', '90%' ],
+
+			content : '${contextpath}/skqsbsj/toSbsjDetail.htm?id='+id //iframe的url
+		});
 	}
 </script>
 
