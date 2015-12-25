@@ -32,13 +32,7 @@ function jxdk() {
 			var result = document.dtapplet.read();
 			if (result == 1) {
 				div_close();
-				layer.open({
-					type : 2,
-					title : '监控回传',
-					shadeClose : false,
-					area : [ '620px', '90%' ],
-					content : '${contextpath}/skqsbsj/jkhcdk.htm'
-				});
+				window.location.href="${contextpath}/skqsbsj/jkhcdk.htm";
 			} else {
 				div_close();
 				alert('卡基本信息读取失败！');
@@ -89,9 +83,15 @@ function jxdk() {
 		<thead>
 			<tr>
 				<th>所属开始时间</th>
-				<td>${sbsj.sskssj }</td>
+				<td>
+				<fmt:formatDate value="${sbsj.sskssj }" pattern="yyyy-MM-dd" var="sskssj"/>
+				${sskssj }
+				</td>
 				<th>所属结束时间</th>
-				<td>${sbsj.ssjzsj }</td>
+				<td>
+				<fmt:formatDate value="${sbsj.ssjzsj }" pattern="yyyy-MM-dd" var="ssjzsj"/>
+				${ssjzsj }
+				</td>
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -114,13 +114,16 @@ function jxdk() {
 		</thead>
 	</table>
 
-
-	<table class="tableEdit">
-		<tr>
-			<td><input type="button" name="jxdk" value="监控回传"
-				onclick="add();" style="cursor: hand;" />&nbsp;&nbsp; </td>
-		</tr>
-	</table>
+	<br/>
+	<br/>
+	<div style="left: 25%;">
+		<ul class="forminfo">
+			<li><label>&nbsp;</label>
+			<input type="button" class="btn" name="addBtn" value="监控回传" onClick="jxdk();"/>
+		</li>
+		</ul>
+	</div>
+ 
 	<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
 			name="dtapplet" width="1" height="1"
 			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">

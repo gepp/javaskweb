@@ -193,7 +193,6 @@
 						var frm = document.addForm;
 						frm.submit();
 						
-						alert('发票写卡成功！');
 						ssAlert('读卡中，请等待……');
 						var result1 = document.dtapplet.read();
 						div_close();

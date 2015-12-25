@@ -22,7 +22,6 @@ public class ReadUserCardServlet extends BaseController {
 	@RequestMapping("/ReadUserCardServlet")
 	public void ReadUserCardServlet(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		System.out.println("test");
 		response.setContentType("application/x-java-serialized-object");
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
@@ -31,8 +30,6 @@ public class ReadUserCardServlet extends BaseController {
 		HashMap echo = new HashMap();
 		echo = (HashMap) inputFromApplet.readObject();
 		System.out.println("echo = " + echo);
-		// session.removeAttribute("CARDINFO");
-
 		session.setAttribute("UCARDINFO", echo);
 
 		OutputStream outstr = response.getOutputStream();
@@ -42,4 +39,30 @@ public class ReadUserCardServlet extends BaseController {
 		oos.flush();
 		oos.close();
 	}
+
+	@RequestMapping("/ReadFiscalCardServlet")
+	public void ReadFiscalCardServlet(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		try {
+			response.setContentType("application/x-java-serialized-object");
+			request.setCharacterEncoding("utf-8");
+			HttpSession session = request.getSession(false);
+			InputStream in = request.getInputStream();
+			ObjectInputStream inputFromApplet = new ObjectInputStream(in);
+			HashMap echo = new HashMap();
+			echo = (HashMap) inputFromApplet.readObject();
+			session.setAttribute("FCARDINFO", echo);
+
+			OutputStream outstr = response.getOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(outstr);
+			response.setContentType("text/html");
+			oos.writeObject("");
+			oos.flush();
+			oos.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

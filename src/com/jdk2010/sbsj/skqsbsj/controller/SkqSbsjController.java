@@ -55,7 +55,7 @@ public class SkqSbsjController extends BaseController {
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         DbKit dbKit = new DbKit(
-                "select * from skq_sbsj  t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
+                "select * from skq_sbsj  t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
         String searchSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
@@ -257,8 +257,8 @@ public class SkqSbsjController extends BaseController {
                             sbsj.setZcpfs(Integer.parseInt((String) sbinfo.get("normalcnt")));
                             sbsj.setTpfs(Integer.parseInt((String) sbinfo.get("backcnt")));
                             sbsj.setFpfs(Integer.parseInt((String) sbinfo.get("deposecnt")));
-                            sbsj.setSskssj(DateUtil.parse(startdate));
-                            sbsj.setSsjzsj(DateUtil.parse(enddate));
+                            sbsj.setSskssj(DateUtil.parse(startdate,"yyyy-MM-dd"));
+                            sbsj.setSsjzsj(DateUtil.parse(enddate,"yyyy-MM-dd"));
                             sbsj.setZcpzje(normalsum);
                             sbsj.setTpzje(backsum);
                             sbsj.setSbrq(new Date());
@@ -404,10 +404,10 @@ public class SkqSbsjController extends BaseController {
                                     }
                                 }
                                 HashMap hmSb = new HashMap();
-                                hmSb.put("nsrxx", nsrxx);
-                                hmSb.put("sbsj", sbsj);
+                                setAttr("nsrxx", nsrxx);
+                                setAttr("sbsj", sbsj);
                                 request.setAttribute("hmSb", hmSb);
-                                return "/invoice/jdsb.sbxx";
+                                return "/sbsj/jdsb.sbxx";
 
                             } else {
                                 request.setAttribute("errorMsg", "申报数据保存失败！");
@@ -515,13 +515,13 @@ public class SkqSbsjController extends BaseController {
                             double backsum = Double.parseDouble(dg.format(backsum1 + backsum2 + backsum3 + backsum4
                                     + backsum5 + backsum6));
                             SkqSbsj sbsj = new SkqSbsj();
-                            sbsj.setNsrwjbm(nsrwjbm);
+                            sbsj.setNsrwjbm(card_nsrwjbm);
                             sbsj.setJqbh(jqbh);
                             sbsj.setZcpfs(Integer.parseInt((String) sbinfo.get("normalcnt")));
                             sbsj.setTpfs(Integer.parseInt((String) sbinfo.get("backcnt")));
                             sbsj.setFpfs(Integer.parseInt((String) sbinfo.get("deposecnt")));
-                            sbsj.setSskssj(DateUtil.parse(startdate));
-                            sbsj.setSsjzsj(DateUtil.parse(enddate));
+                            sbsj.setSskssj(DateUtil.parse(startdate,"yyyy-MM-dd"));
+                            sbsj.setSsjzsj(DateUtil.parse(enddate,"yyyy-MM-dd"));
                             sbsj.setZcpzje(normalsum);
                             sbsj.setTpzje(backsum);
                             sbsj.setSbrq(new Date());
@@ -669,9 +669,8 @@ public class SkqSbsjController extends BaseController {
                                 }
                                 
                                 // 查询本月已申报机器数量
-                                String sql = "select count(SID) as num from SKQ_SBSJ where NSRWJBM='" + nsrwjbm
-                                        + "' and SSKSSJ>='" + startdate + "' and SSJZSJ<='" + enddate + "' and SBLX=1";
-                                int ysbjqsl = dalClient.queryColumn(sql, "num");
+                                String sqlCount = "select count(ID) as num from SKQ_SBSJ where NSRWJBM='" + nsrwjbm + "' and SSKSSJ>='" + startdate + "' and SSJZSJ<='" + enddate + "' and SBLX=1";
+                                Long ysbjqsl = dalClient.queryColumn(sqlCount, "num");
                                 int sbflag = 1;
                                 int jqsl = nsrxx.getJqxxList().size();
                                 String jqmsg = "";
@@ -687,7 +686,7 @@ public class SkqSbsjController extends BaseController {
                                 String previousMonthFirst = Util.getPreviousMonthFirst();
                                 // 上月最后一天
                                 String previousMonthEnd = Util.getPreviousMonthEnd();
-                                String sql2 = "select * from SKQ_SBSJ where NSRWJBM='" + nsrwjbm + "' and SSKSSJ>='"
+                                String sql2 = "select * from SKQ_SBSJ where NSRWJBM='" + nsrxx.getNsrwjbm() + "' and SSKSSJ>='"
                                         + startdate + "' and SSJZSJ<='" + enddate + "' and SBLX=2";
                                 alJdsb = dalClient.queryForObjectList(sql2, SkqSbsj.class);
                                 HashMap hmSb = new HashMap();
@@ -760,16 +759,16 @@ public class SkqSbsjController extends BaseController {
                             + "\" />";
                 }
                 int length = skqJqxx.getJqszsmList().size();
-                if (length < 6) {
+                if (length < 20) {
 
-                    for (int i = 0; i < 6 - length; i++) {
+                    for (int i = 0; i < 20 - length; i++) {
                         smStr = smStr + "<input type=\"hidden\" name=\"tax" + (i + length) + "\" id=\"tax"
                                 + (i + length) + "\"  value=\"\" />";
                     }
                 }
                 setAttr("smStr", smStr);
                 String sbsjSql = "select id from skq_sbsj " + " where (XZZT=0 or XZZT is null) and JQBH='" + jqbh + "'";
-                int sid = dalClient.queryColumn(sbsjSql, "id");
+                Long sid = dalClient.queryColumn(sbsjSql, "id");
                 int sblx = 1;
                 if (sid != 0) {
                     SkqSbsj sbsj = skqSbsjService.findById(sid, SkqSbsj.class);
@@ -801,7 +800,7 @@ public class SkqSbsjController extends BaseController {
         String mac = request.getParameter("mac");
         kpjzrq = Util.tobzrq(kpjzrq);
         SkqJqxx jqxx=skqJqxxService.getJqxxByJqbh(jqbh);
-        jqxx.setKpjzrq(DateUtil.parse(kpjzrq));
+        jqxx.setKpjzrq(DateUtil.parse(kpjzrq,"yyyy-MM-dd"));
         jqxx.setDzkpxe(dzkpxe);
         jqxx.setYljkpxe(yljkpxe);
         jqxx.setYljtpxe(yljtpxe);
@@ -809,7 +808,7 @@ public class SkqSbsjController extends BaseController {
         dalClient.update(sql);
         String sbsjsql="select id from skq_sbsj "+" where (XZZT=0 or XZZT is null) and JQBH='"
                 + jqbh + "'";
-        int sid=dalClient.queryColumn(sbsjsql, "id");
+        Long sid=dalClient.queryColumn(sbsjsql, "id");
         if (sid != 0) {
             SimpleDateFormat sdf = new SimpleDateFormat(
                     "yyyy-MM-dd");

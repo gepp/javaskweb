@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.jdk2010.framework.util.DateUtil;
+import com.jdk2010.framework.util.StringUtil;
 
 public class Util {
 
@@ -74,7 +75,7 @@ public class Util {
         } else {
             newkpjzrq = year + "-" + (month + Constants.ENDMONTH) + "-" + Constants.ENDDAY;
         }
-        return Util.toxkrq(DateUtil.parse(newkpjzrq));
+        return Util.toxkrq(DateUtil.parse(newkpjzrq,"yyyy-MM-dd"));
     }
 
     // 20101010转2010-10-10
@@ -87,7 +88,11 @@ public class Util {
     public static String getNDayAfterOneDate(String sDate, int n) {
         Calendar c = switchStringToCalendar(sDate);
         c.add(c.DAY_OF_MONTH, n);
-        return c.get(c.YEAR) + "-" + (c.get(c.MONTH) + 1) + "-" + c.get(c.DATE);
+        String mouth=(c.get(c.MONTH) + 1)+"" ;
+        String day=c.get(c.DATE)+"";
+        mouth=StringUtil.charFront(mouth, 2,"0");
+        day=StringUtil.charFront(day, 2, "0");
+        return c.get(c.YEAR) + "" + mouth+ "" + day;
     }
 
     public static Calendar switchStringToCalendar(String sDate) {
@@ -149,7 +154,7 @@ public class Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(toxkrq(new Date()));
+        System.out.println(DateUtil.parse("2015-12-24","yyyy-MM-dd"));
         ;
     }
 }

@@ -17,6 +17,7 @@
 			System.out.println(smxkArr);
 			DecimalFormat dg = new DecimalFormat("0.00");
 			String xckpjzrq = (String) hmJkhc.get("xckpjzrq");
+			System.out.println("xckpjzrq:"+xckpjzrq);
 			String QYRQ = (String) hmJkhc.get("QYRQ");
 			String YXRQ = (String) hmJkhc.get("YXRQ");
 			String MXSBBZ = (String) hmJkhc.get("MXSBBZ");
@@ -50,7 +51,9 @@
 	function declareback() {
 		var KPJZRQ = document.all('KPJZRQ').value;
 		var MAKE_END_DATE = document.all('MAKE_END_DATE').value;
+		MAKE_END_DATE=MAKE_END_DATE.replace(new RegExp(/(-)/g),'');
 		var MAC = document.getElementById('MAC').value;
+		 
 		if (MAKE_END_DATE <= KPJZRQ) {
 			alert('申报日期必须大于  ' + KPJZRQ);
 		} else
@@ -61,7 +64,6 @@
 
 		else {
 			var frm = document.form1;
-			if (validator(frm)) {
 				document.all('MAKE_MAX_SINGLE').value = document
 						.all('MAKE_MAX_SINGLE1').value * 100;
 				document.all('MAKE_MAX_SUM').value = document
@@ -70,24 +72,30 @@
 						.all('BACK_MAX_SUM1').value * 100;
 				ssAlert('清零解锁中，请等待……');
 				try {
+					var JQBH = document.all('JQBH').value;
+					var src = "${contextpath}/skqsbsj/updateKpxe.htm?kpjzrq="
+						+ document.all('MAKE_END_DATE').value
+						+ "&jqbh="
+						+ JQBH
+						+ "&dzkpxe="
+						+ document.all('MAKE_MAX_SINGLE1').value
+						+ "&yljkpxe="
+						+ document.all('MAKE_MAX_SUM1').value
+						+ "&yljtpxe="
+						+ document.all('BACK_MAX_SUM1').value
+						+ '&mac='
+						+ document.all('MAC').value;
+				 
+					
 					var v = document.DeclareBackApplet.declardBackData();
 
 					if (v == 1) {
-						var JQBH = document.all('JQBH').value;
-						var src = "${contextpath}/skqsbsj/updateKpxe.htm&kpjzrq="
-								+ document.all('MAKE_END_DATE').value
-								+ "&jqbh="
-								+ JQBH
-								+ "&dzkpxe="
-								+ document.all('MAKE_MAX_SINGLE1').value
-								+ "&yljkpxe="
-								+ document.all('MAKE_MAX_SUM1').value
-								+ "&yljtpxe="
-								+ document.all('BACK_MAX_SUM1').value
-								+ '&mac='
-								+ document.all('MAC').value;
-						document.all('updateJZRQ').src = src;
+						document.updateForm.action=src;
+						
+						document.updateForm.submit();
 						alert("清零解锁成功");
+						div_close();
+						window.location.href='${contextpath}/skqsbsj/toJkhc.htm';
 						window.close();
 					} else {
 						div_close();
@@ -98,7 +106,6 @@
 					div_close();
 					alert("清零解锁失败!");
 				}
-			}
 		}
 
 	}
@@ -118,14 +125,14 @@
 	<table class="tableEdit">
 		<thead>
 			<tr>
-				<th>下次申报截止日期：</th>
+				<th style="width:15%">下次申报截止日期：</th>
 				<td>
-				<input type="text" id="MAKE_END_DATE" name="MAKE_END_DATE" size="20"  class="input" value="<%=xckpjzrq %>" onclick="laydate()" />
+				<input type="text" id="MAKE_END_DATE" name="MAKE_END_DATE" size="20"  class="input" value="<%=xckpjzrq %>" onclick="laydate({format: 'YYYYMMDD'})" />
 				</td>
 			</tr>
 			<tr>
 				<th>单笔开票最高限额（元）</th>
-				<td><input type="text" name="MAKE_MAX_SINGLE1" size="20" class="input" value="<%=dg.format(jqxx.getDzkpxe()) %>" /></td>
+				<td><input type="text" name="MAKE_MAX_SINGLE1" style="border:1px" size="20" class="input" value="<%=dg.format(jqxx.getDzkpxe()) %>" /></td>
 			</tr>
 			<tr>
 				<th>月累计开票最高限额（元）</th>
@@ -147,7 +154,7 @@
 	<div style="left: 25%;">
 		<ul class="forminfo">
 			<li><label>&nbsp;</label>
-			<input type="button" name="addBtn" value="确 定" onClick="declareback();"/>
+			<input type="button" class="btn" name="addBtn" value="确 定" onClick="declareback();"/>
 		 
 		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
 			name="DeclareBackApplet" width="1" height="1"
@@ -191,5 +198,7 @@
     <input type="hidden" id="YYBB" name="YYBB" value="<%=YYBB%>">
     <input type="hidden" id="FCI" name="FCI" value="<%=FCI%>">
     <input type="hidden" id="MAC" name="MAC" value="<%=MAC%>">
+    <form name="updateForm" src="" method="post" action="" id="updateForm">
+    </form>
 </body>
 </html>
