@@ -25,7 +25,7 @@ public class SkqFpjmxController extends BaseController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		DbKit dbKit = new DbKit("select * from skq_fpjmx   t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
+		DbKit dbKit = new DbKit("select * from skq_fpjmx   t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
 		String searchSQL = "";
 		String NSRWJBM = getPara("NSRWJBM");
 		if (NSRWJBM != null && !"".equals(NSRWJBM)) {

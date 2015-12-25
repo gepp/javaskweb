@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +56,7 @@ public class SkqSbsjController extends BaseController {
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         DbKit dbKit = new DbKit(
-                "select * from skq_sbsj  t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
+                "select t.* from skq_sbsj  t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
         String searchSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
@@ -829,7 +830,14 @@ public class SkqSbsjController extends BaseController {
         
         return "/sbsj/sbsj";
     }
-    
+    @RequestMapping("/toSbsjDetail")
+    public String toSbsjDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	Long id=getParaToLong("id");
+    	String sql="select a.JE as je,a.SMBM as smbm,a.KPLX as kplx,b.SL as sl,b.SMMC as smmc from SKQ_SBSJMX a left outer join SKQ_PMSZ b on a.SMBM=b.SMBM where a.PARENTID = "+id;
+    	List<Map<String,Object>> detailList=dalClient.queryForObjectList(sql);
+    	setAttr("detailList", detailList);
+        return "/com/jdk2010/sbsj/skqsbsj/skqsbsj_detail";
+    }
     
 
 }

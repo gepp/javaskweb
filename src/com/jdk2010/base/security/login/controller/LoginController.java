@@ -77,14 +77,15 @@ public class LoginController extends BaseController {
         String password = getPara("password");
         String rememberMe = getPara("rememberMe");
         // String md5Password = MD5Utils.md5(password);
+       
+        String captcha = getPara("captcha");
+        System.out.println("captcha:"+captcha);
+        Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
         request.getSession().invalidate(); // 清空session
         if (request.getCookies() != null) {
             Cookie cookie = request.getCookies()[0]; // 获取cookie
             cookie.setMaxAge(0); // 让cookie过期
         }
-        String captcha = getPara("captcha");
-        Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
-
         Map<String, Object> resultMap = new HashMap<String, Object>();
         String flag = "T";
         String reason = "";
