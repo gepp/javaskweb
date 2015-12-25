@@ -114,11 +114,142 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
+	<bean id="dataSourceSybase" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>${sybase.driver}</value>
+		</property>
+		<property name="url">
+			<value>${sybase.url}</value>
+		</property>
+		<property name="username">
+			<value>${sybase.username}</value>
+		</property>
+		<property name="password">
+			<value>${sybase.password}</value>
+		</property>
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+			</list>
+		</property>
+		<property name="filters" value="stat" />
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<property name="initialSize">
+			<value>5</value>
+		</property>
+		<property name="minIdle">
+			<value>5</value>
+		</property>
+		<property name="maxActive">
+			<value>50</value>
+		</property>
 
-	<!-- <bean id="sybaseDalClient"
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="logAbandoned" value="true" />
+		<property name="removeAbandonedTimeout">
+			<value>1800</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>false</value>
+		</property>
+		<property name="testOnReturn">
+			<value>false</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 </value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>300000</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>60000</value>
+		</property>
+		<property name="numTestsPerEvictionRun">
+			<value>50</value>
+		</property>
+	</bean>
+	
+	<bean id="sybaseDalClient"
 		class="com.jdk2010.framework.dal.client.support.DefaultDalClient">
 		<property name="dataSource" ref="dataSourceSybase"></property>
 		<property name="showSql" value="true"></property>
 	</bean>
- -->
+
+ 
+ <!-- <bean id="dataSourceOracle" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>${oracle.driver}</value>
+		</property>
+		<property name="url">
+			<value>${oracle.url}</value>
+		</property>
+		<property name="username">
+			<value>${oracle.username}</value>
+		</property>
+		<property name="password">
+			<value>${oracle.password}</value>
+		</property>
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+			</list>
+		</property>
+		<property name="filters" value="stat" />
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<property name="initialSize">
+			<value>5</value>
+		</property>
+		<property name="minIdle">
+			<value>5</value>
+		</property>
+		<property name="maxActive">
+			<value>50</value>
+		</property>
+
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="logAbandoned" value="true" />
+		<property name="removeAbandonedTimeout">
+			<value>1800</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>false</value>
+		</property>
+		<property name="testOnReturn">
+			<value>false</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 </value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>300000</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>60000</value>
+		</property>
+		<property name="numTestsPerEvictionRun">
+			<value>50</value>
+		</property>
+	</bean>
+	 <bean id="oracleDalClient"
+		class="com.jdk2010.framework.dal.client.support.DefaultDalClient">
+		<property name="dataSource" ref="dataSourceOracle"></property>
+		<property name="showSql" value="true"></property>
+	</bean> -->
+ 
 </beans>

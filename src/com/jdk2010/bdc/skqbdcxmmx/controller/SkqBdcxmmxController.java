@@ -72,6 +72,13 @@ public class SkqBdcxmmxController extends BaseController {
 	@RequestMapping("/add")
 	public String add(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		String nsrwjbm = getPara("nsrwjbm");
+		String bdcid = getPara("bdcid");
+		String bdczxmid = getPara("bdczxmid");
+		
+		setAttr("nsrwjbm", nsrwjbm);
+		setAttr("bdcid", bdcid);
+		setAttr("bdczxmid", bdczxmid);
 		return "/com/jdk2010/bdc/skqbdcxmmx/skqbdcxmmx_add";
 	}
 
