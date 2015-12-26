@@ -25,7 +25,7 @@ public class SkqHyController extends BaseController{
 
     @RequestMapping("/list")
     public String  list(HttpServletRequest request,HttpServletResponse response) throws Exception {
-        DbKit dbKit=new DbKit("select * from skq_hy  where 1=1 ");
+        DbKit dbKit=new DbKit("select * from skq_hy  where 1=1 order by hybm asc");
         String searchSQL="";
         String orderSQL="";
         dbKit.append(orderSQL);
