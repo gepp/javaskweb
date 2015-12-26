@@ -83,6 +83,9 @@
 							class="tablelink">编辑</a> <a
 							href="${ contextpath }/securityuser/view.htm?id=${item.id}"
 							class="tablelink">查看</a>
+							<a
+							href="javascript:void(0)"
+							class="tablelink" onclick="resetPwd('${item.id}');">密码重置</a>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -100,5 +103,33 @@
 				table_init("${ contextpath}/securityuser",
 						"${ contextpath}/securityuser/list?");
 			});
+	
+	function resetPwd(id){
+		layer.confirm('确定重置该用户密码?', {
+			btn : [ '确定', '取消' ]
+		}, function(index) {
+			$.ajax({
+					url : "${ contextpath}/securityuser/resetPwd.htm?id="+id,
+					type : "post",
+					success : function(data) {
+						// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+						if (data.status == 'success') {
+							layer.alert('重置密码成功！',
+											{
+ 												closeBtn : 0
+											},
+											function() {
+												window.location.href = '${ contextpath}/securityuser/list';
+											});
+						} else {
+							sAlert('当前操作失败');
+						}
+
+					}
+				});
+		}, function() {
+
+		});
+	}
 </script>
 
