@@ -23,8 +23,10 @@ import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.base.security.securityuser.service.ISecurityUserService;
 import com.jdk2010.base.security.securityuserrole.service.ISecurityUserRoleService;
 import com.jdk2010.framework.controller.BaseController;
+import com.jdk2010.framework.dal.cache.support.ehcache.EhCacheCacheManager;
 import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.CookieUtil;
+import com.jdk2010.framework.util.StringUtil;
 import com.octo.captcha.service.image.ImageCaptchaService;
 
 @Controller
@@ -55,6 +57,9 @@ public class LoginController extends BaseController {
     @Resource
     private ImageCaptchaService imageCaptchaService;
 
+    @Resource
+    EhCacheCacheManager ehCacheCacheManager;
+
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping("/login")
@@ -76,10 +81,14 @@ public class LoginController extends BaseController {
         String username = getPara("username");
         String password = getPara("password");
         String rememberMe = getPara("rememberMe");
-        // String md5Password = MD5Utils.md5(password);
-       
+        Integer failTime = (Integer) ehCacheCacheManager.getEhCache("metaCache").get("failTime");
+        
+        if (failTime == null) {
+            failTime = 0;
+            ehCacheCacheManager.getEhCache("metaCache").put("failTime", 0, 60*30); // 30分钟过期设置
+        }
+ 
         String captcha = getPara("captcha");
-        System.out.println("captcha:"+captcha);
         Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
         request.getSession().invalidate(); // 清空session
         if (request.getCookies() != null) {
@@ -89,23 +98,30 @@ public class LoginController extends BaseController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         String flag = "T";
         String reason = "";
-        if (isResponseCorrect) {
-            SecurityUser securityUser = securityUserService.login(username, password);
-            if (securityUser == null) {
-                flag = "F";
-                reason = "用户名或密码错误";
 
-            } else {
-                if ("true".equals(rememberMe)) {
-                    CookieUtil.addCookie(request, response, "username", username, 60 * 60);
-                    CookieUtil.addCookie(request, response, "md5Password", password, 60 * 60);
-                }
-                setSessionAttr("securityUser", securityUser);
-
-            }
-        }else{
+        if (failTime > 6) {
             flag = "F";
-            reason = "验证码错误";
+            reason = "密码错误超过6次，请您半小时以后再登录！";
+        } else {
+            if (isResponseCorrect) {
+                SecurityUser securityUser = securityUserService.login(username, password);
+                if (securityUser == null) {
+                    flag = "F";
+                    reason = "用户名或密码错误";
+                    ehCacheCacheManager.getEhCache("metaCache").put("failTime", failTime + 1, 60*30); // 30分钟过期设置
+                } else {
+                    if ("true".equals(rememberMe)) {
+                        CookieUtil.addCookie(request, response, "username", username, 60 * 60);
+                        CookieUtil.addCookie(request, response, "md5Password", password, 60 * 60);
+                    }
+                    setSessionAttr("securityUser", securityUser);
+                    
+
+                }
+            } else {
+                flag = "F";
+                reason = "验证码错误";
+            }
         }
         resultMap.put("flag", flag);
         resultMap.put("reason", reason);
@@ -201,8 +217,14 @@ public class LoginController extends BaseController {
                 "select id,title,ctime  from  security_news where status=1 order by ctime desc limit 0,5",
                 SecurityNews.class);
         setAttr("newsList", newsList);
-
-        return "/defaultMain";
+        SecurityUser securityUser=getSessionAttr("securityUser");
+        if(securityUser.getUserpwd().equalsIgnoreCase("de88e3e4ab202d87754078cbb2df6063")){
+            return "/com/jdk2010/base/security/securityuser/password_modify";
+        }else{
+            return "/defaultMain";
+        }
+        
+        
     }
 
     @RequestMapping("/footer")
@@ -221,8 +243,8 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping("/test123")
-    public String test123(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        throw new RuntimeException("哈哈啊");
+    public void test123(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Integer i = Integer.parseInt("abc");
     }
 
 }
