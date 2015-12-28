@@ -120,18 +120,18 @@
 								<fmt:formatNumber value="${skqJqxx.dzkpxe }" type="currency" pattern="#0.00" var="dzkpxe"/>
 						 
 								<input type="text" class="dfinput" id="dzkpxe"
-									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额"
+									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额" maxlength="8"
 									value="${dzkpxe }" /></td>
 							</tr>
 							<tr>
 								<td>月累计开票限额</td>
 								<fmt:formatNumber value="${skqJqxx.yljkpxe }" type="currency" pattern="#0.00" var="yljkpxe"/>
 								<td><input type="text" class="dfinput" id="yljkpxe"
-									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额"
+									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额" maxlength="8"
 									value="${yljkpxe }" /></td>
 								<td>月累计退票限额</td>
 								<fmt:formatNumber value="${skqJqxx.yljtpxe }" type="currency" pattern="#0.00" var="yljtpxe"/>
-								<td><input type="text" class="dfinput" id="yljtpxe"
+								<td><input type="text" class="dfinput" id="yljtpxe" maxlength="8"
 									name="yljtpxe" placeholder="请输入月累计退票限额"
 									value="${skqJqxx.yljtpxe }" /></td>
 							</tr>

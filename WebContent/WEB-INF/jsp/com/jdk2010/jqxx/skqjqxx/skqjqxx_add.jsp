@@ -107,15 +107,15 @@
 									onclick="laydate()" value="${kpjzrq }" /></td>
 								<td>单张开票限额</td>
 								<td><input type="text" class="dfinput" id="dzkpxe"
-									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额" /></td>
+									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额" maxlength="8"/></td>
 							</tr>
 							<tr>
 								<td>月累计开票限额</td>
 								<td><input type="text" class="dfinput" id="yljkpxe"
-									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额" /></td>
+									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额" maxlength="8"/></td>
 								<td>月累计退票限额</td>
 								<td><input type="text" class="dfinput" id="yljtpxe"
-									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额" /></td>
+									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额" maxlength="8"/></td>
 							</tr>
 							<tr>
 								<td>状态</td>
