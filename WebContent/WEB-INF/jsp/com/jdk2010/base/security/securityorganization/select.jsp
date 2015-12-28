@@ -29,15 +29,18 @@
 		<table class="tablelist">
 			<thead>
 				<tr>
-					<th>税务机关名称</th>
 					<th>税务机关编码</th>
+					<th>税务机关名称</th>
+					<th>税务机关简称</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${organizationList}" var="item">
 					<tr onclick="jumpToParent('${item.id}','${item.name }','${item.code }')">
-						<td>${ item.name}</td>
 						<td>${ item.code}</td>
+						<td>${ item.name}</td>
+						<td>${ item.description}</td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

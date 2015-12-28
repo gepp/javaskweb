@@ -59,11 +59,11 @@
 								
 								<td>纳税人识别号<b></b></td>
 								<td colspan="3"><input type="text" class="dfinput" id="nsrsbh"
-									name="skqNsrxx.nsrsbh" placeholder="请输入纳税人识别号" /></td>
+									name="skqNsrxx.nsrsbh" placeholder="请输入纳税人识别号" maxlength="20"/></td>
 							</tr>
 							<tr>
 								<td>纳税人名称<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrmc" name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称" /></td>
+								<td><input type="text" class="dfinput" id="nsrmc" name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称" maxlength="50"/></td>
 								<td>月核定营业额<b></b></td>
               <td><input type="text" class="dfinput" id="yhde"
 									name="skqNsrxx.yhde" placeholder="请输入月核定营业额" /></td>

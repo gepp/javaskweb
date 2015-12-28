@@ -90,6 +90,7 @@
 		<div class="formtitle1">
 			<span>机器信息</span>
 		</div>
+		<div  style="overflow: auto; width: 100%;">
 		<table class="tablelist">
 			<thead>
 				<tr>
@@ -97,10 +98,9 @@
 
 					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
-					<th>机器型号编码</th>
+					<th>机器型号</th>
 					<th>机器编号</th>
 					<th>税控卡号</th>
-					<th>用户卡号</th>
 					<th>卡启用日期</th>
 					<th>卡有效日期</th>
 					<th>开票截止日期</th>
@@ -125,7 +125,6 @@
 
 						<td>${ item.skkh}</td>
 
-						<td>${ item.yhkh}</td>
 
 						<td><fmt:formatDate value="${item.kqyrq }"
 								pattern="yyyy-MM-dd" /></td>
@@ -151,6 +150,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		</div>
 		<page:page
 			href="${ contextpath}/skqjqxx/listcxtj.htm?NSRWJBM=${NSRWJBM }&JQBH=${JQBH }&YHKH=${YHKH }&SKKH=${SKKH }&SWJGBM=${SWJGBM }&parentName=${parentName }"
 			data="pageList" />
@@ -175,11 +175,7 @@
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
 	}
-	$('.tablelist tbody tr:odd').addClass('odd');
-	$(document).ready(
-			function() {
-				table_init("${ contextpath}/skqjqxx",
-						"${ contextpath}/skqjqxx/listcxtj?");
-			});
+	jQuery('.tablelist tbody tr:odd').addClass('odd');
+ 
 </script>
 

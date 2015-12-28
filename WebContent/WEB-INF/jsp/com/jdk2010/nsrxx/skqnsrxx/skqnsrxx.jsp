@@ -48,9 +48,9 @@
 </script>
 					
 					</li>
-				<%-- <li><label style="width: 60px">纳税人名称</label><input type="text"
+				<li><label style="width: 60px">纳税人名称</label><input type="text"
 					name="NSRMC" id="NSRMC" class="scinput1" placeholder="请输入纳税人名称"
-					value="${NSRMC}"></li> --%>
+					value="${NSRMC}"></li>
 				<li><label style="width: 50px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
 					value="${SWJGBM}"> <input type="text" name="parentName"
@@ -132,11 +132,7 @@
 		jQuery("#parentName").val("");
 
 	}
-	jQuery(document).ready(
-			function() {
-				table_init("${ contextpath}/skqnsrxx",
-						"${ contextpath}/skqnsrxx/list?");
-			});
+ 
 	function selectParentOrganization() {
 		layer.open({
 			type : 2,
