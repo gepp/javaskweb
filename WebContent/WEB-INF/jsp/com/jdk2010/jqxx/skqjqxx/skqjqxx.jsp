@@ -72,7 +72,9 @@
 						<td>${ item.skkh}</td>
 						<td>${ item.yhkh}</td>
 						<td>${ item.kpjzrq}</td>
-						<td>${ item.yljkpxe}</td>
+						<td>
+						<fmt:formatNumber value="${item.yljkpxe }" type="currency" pattern="#0.00" var="yljkpxe"/>
+						${ yljkpxe}</td>
 						<td>${ item.status==1?'正常':'注销'}</td>
 						<td><a
 							href="${ contextpath }/skqjqxx/modify.htm?jqbh=${item.jqbh}"

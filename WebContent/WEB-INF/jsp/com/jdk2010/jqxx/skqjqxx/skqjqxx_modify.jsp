@@ -58,7 +58,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqJqxxForm">
+					<form action="" method="post" id="skqJqxxForm">
 						<input type="hidden" value="${nsrwjbm }" name="skqJqxx.nsrwjbm"
 							id="nsrwjbm" /> <input type="hidden" value="${skqJqxx.id }"
 							name="skqJqxx.id" id="id" />
@@ -116,18 +116,23 @@
 									onclick="laydate()"
 									value='<fmt:formatDate value="${skqJqxx.kpjzrq }"   pattern="yyyy-MM-dd"/>' /></td>
 								<td>单张开票限额</td>
-								<td><input type="text" class="dfinput" id="dzkpxe"
+								<td>
+								<fmt:formatNumber value="${skqJqxx.dzkpxe }" type="currency" pattern="#0.00" var="dzkpxe"/>
+						 
+								<input type="text" class="dfinput" id="dzkpxe"
 									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额"
-									value="${skqJqxx.dzkpxe }" /></td>
+									value="${dzkpxe }" /></td>
 							</tr>
 							<tr>
 								<td>月累计开票限额</td>
+								<fmt:formatNumber value="${skqJqxx.yljkpxe }" type="currency" pattern="#0.00" var="yljkpxe"/>
 								<td><input type="text" class="dfinput" id="yljkpxe"
 									name="skqJqxx.yljkpxe" placeholder="请输入月累计开票限额"
-									value="${skqJqxx.yljkpxe }" /></td>
+									value="${yljkpxe }" /></td>
 								<td>月累计退票限额</td>
+								<fmt:formatNumber value="${skqJqxx.yljtpxe }" type="currency" pattern="#0.00" var="yljtpxe"/>
 								<td><input type="text" class="dfinput" id="yljtpxe"
-									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额"
+									name="yljtpxe" placeholder="请输入月累计退票限额"
 									value="${skqJqxx.yljtpxe }" /></td>
 							</tr>
 							<tr>
