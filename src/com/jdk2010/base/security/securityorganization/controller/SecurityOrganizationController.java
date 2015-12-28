@@ -1,5 +1,6 @@
 package com.jdk2010.base.security.securityorganization.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.base.security.securityorganization.model.SecurityOrganization;
 import com.jdk2010.base.security.securityorganization.service.ISecurityOrganizationService;
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.framework.controller.BaseController;
+import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.tools.Constants;
 
@@ -23,9 +26,12 @@ public class SecurityOrganizationController extends BaseController {
     @Resource
     ISecurityOrganizationService securityOrganizationService;
 
+    @Resource
+    DalClient dalClient;
+    
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Map<String, Object>> organizationList = securityOrganizationService.getOrganizationListByParentId("0");
+        List<Map<String, Object>> organizationList = securityOrganizationService.getOrganizationList();
         setAttr("organizationList", organizationList);
         return "/com/jdk2010/base/security/securityorganization/securityorganization";
     }
@@ -38,12 +44,12 @@ public class SecurityOrganizationController extends BaseController {
     @RequestMapping("/addaction")
     public void addaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SecurityOrganization securityOrganization = getModel(SecurityOrganization.class);
-        if(securityOrganization.getParentId()==null){
+        if (securityOrganization.getParentId() == null) {
             securityOrganization.setParentId("0");
         }
         securityOrganizationService.save(securityOrganization);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/modify")
@@ -68,7 +74,7 @@ public class SecurityOrganizationController extends BaseController {
         SecurityOrganization securityOrganization = getModel(SecurityOrganization.class);
         securityOrganizationService.update(securityOrganization);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/delete")
@@ -76,7 +82,7 @@ public class SecurityOrganizationController extends BaseController {
         String ids = getPara("ids");
         securityOrganizationService.deleteByIDS(ids, SecurityOrganization.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/view")
@@ -97,7 +103,9 @@ public class SecurityOrganizationController extends BaseController {
 
     @RequestMapping("/select")
     public String select(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Map<String, Object>> organizationList = securityOrganizationService.getOrganizationListByParentId("0");
+        List<Map<String, Object>> organizationList = null;
+        SecurityUser securityUser = getSessionAttr("securityUser");
+        organizationList=securityOrganizationService.getOrganizationList();
         setAttr("organizationList", organizationList);
         return "/com/jdk2010/base/security/securityorganization/select";
     }

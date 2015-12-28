@@ -72,14 +72,14 @@
 								<td>用户卡号</td>
 								<td>${skqJqxx.yhkh } <input type="hidden" class="dfinput"
 									id="yhkh" name="skqJqxx.yhkh" placeholder="请输入用户卡号"
-									value="${skqJqxx.yhkh }" /></td>
+									value="${skqJqxx.yhkh }" maxlength="16"/></td>
 
 							</tr>
 							<tr>
 								<td>税控卡号</td>
 								<td>${skqJqxx.skkh }<input type="hidden" class="dfinput"
 									id="skkh" name="skqJqxx.skkh" placeholder="请输入税控卡号"
-									value="${skqJqxx.skkh }" /></td>
+									value="${skqJqxx.skkh }" maxlength="16"/></td>
 								<td>机器型号编码</td>
 								<td>
 									<div class="vocation" style="margin-top: 10px">

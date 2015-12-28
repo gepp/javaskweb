@@ -33,11 +33,11 @@
 	<div class="rightinfo">
 
 		<div class="formtitle1">
-			<span>发票新增</span>
+			<span>网络发票购买</span>
 		</div>
 		<ul class="forminfo">
 			<form action="" method="post" id="skqFpjForm">
-			<input type="hidden" value="${nsrxx.nsrwjbm }"  name="nsrwjbm"/>
+			<input type="hidden" value="${nsrxx.nsrwjbm }"  name="nsrwjbm" id="nsrwjbm"/>
 				<li><label>发票编码<b></b></label>
 					<div class="vocation">
 						<select name="skqFpj.fpbm" class="select1">
@@ -137,7 +137,7 @@
 																						closeBtn : 0
 																					},
 																					function() {
-																						parent.window.location.href = '${ contextpath}/skqfpj/info.htm';
+																						parent.window.location.href = '${ contextpath}/skqfpj/wlfplist.htm?nsrwjbm='+$("#nsrwjbm").val();
 																						closeWindow();
 																					});
 

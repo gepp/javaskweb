@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DateUtil;
@@ -37,14 +38,15 @@ public class SkqNsrxxController extends BaseController {
 
     @Resource
     DalClient dalClient;
-    
+
     @RequestMapping("/listImport")
     public String listImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx";
     }
-    
+
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("UTF-8");
         String sql = "select * from skq_nsrxx  where 1=1 ";
         DbKit dbKit = new DbKit(sql);
         String searchSQL = "";
@@ -60,20 +62,28 @@ public class SkqNsrxxController extends BaseController {
         if (NSRSBH != null && !"".equals(NSRSBH)) {
             searchSQL = searchSQL + " and  NSRSBH like :nsrsbh";
             setAttr("NSRSBH", NSRSBH);
-            dbKit.put("nsrsbh", NSRSBH+"%");
+            dbKit.put("nsrsbh", NSRSBH + "%");
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
             searchSQL = searchSQL + " and  NSRMC like :nsrmc";
             setAttr("NSRMC", NSRMC);
-            dbKit.put("nsrmc", NSRMC+"%");
+            dbKit.put("nsrmc", NSRMC + "%");
         }
         String SWJGBM = getPara("SWJGBM");
         if (SWJGBM != null && !"".equals(SWJGBM)) {
             searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
             setAttr("parentName", getPara("parentName"));
+        } else {
+            SecurityUser securityUser = getSessionAttr("securityUser");
+            String username = securityUser.getUsername();
+            if (!"system".equals(username)) {
+                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
+                setAttr("parentName", getSessionAttr("securityUserSwjgName"));
+            }
         }
 
         dbKit.append(orderSQL);
@@ -82,13 +92,17 @@ public class SkqNsrxxController extends BaseController {
         setAttr("pageList", pageList);
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx";
     }
-    
-    
+
+    @RequestMapping("/listHandler")
+    public String listHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx";
+    }
+
     @RequestMapping("/listcxtjImport")
     public String listcxtjImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxxcxtj";
     }
-    
+
     @RequestMapping("/listcxtj")
     public String listcxtj(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String sql = "select * from skq_nsrxx  where 1=1 ";
@@ -106,14 +120,14 @@ public class SkqNsrxxController extends BaseController {
         if (NSRSBH != null && !"".equals(NSRSBH)) {
             searchSQL = searchSQL + " and  NSRSBH like :nsrsbh";
             setAttr("NSRSBH", NSRSBH);
-            dbKit.put("nsrsbh", NSRSBH+"%");
+            dbKit.put("nsrsbh", NSRSBH + "%");
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
             searchSQL = searchSQL + " and  NSRMC like :nsrmc";
             setAttr("NSRMC", NSRMC);
-            dbKit.put("nsrmc", NSRMC+"%");
+            dbKit.put("nsrmc", NSRMC + "%");
         }
 
         String SWJGBM = getPara("SWJGBM");
@@ -121,6 +135,15 @@ public class SkqNsrxxController extends BaseController {
             searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
             setAttr("parentName", getPara("parentName"));
+        } else {
+            SecurityUser securityUser = getSessionAttr("securityUser");
+            String username = securityUser.getUsername();
+            if (!"system".equals(username)) {
+                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
+                setAttr("parentName", getSessionAttr("securityUserSwjgName"));
+            }
+
         }
 
         dbKit.append(orderSQL);
@@ -138,15 +161,15 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/addaction")
     public void addaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
-        String nsrsbh=skqNsrxx.getNsrsbh();
-        String nsrwjbm="0"+DateUtil.getNowTime("yyyyMMddHHmmss");
+        String nsrsbh = skqNsrxx.getNsrsbh();
+        String nsrwjbm = "0" + DateUtil.getNowTime("yyyyMMddHHmmss");
         skqNsrxx.setNsrwjbm(nsrwjbm);
         skqNsrxxService.save(skqNsrxx);
         String hiddenStr = getPara("hiddenStr");
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
             String jsonStr = hiddenStr.split("~")[i];
             if (StringUtil.isNotBlank(jsonStr)) {
-            	jsonStr=jsonStr.replaceAll("“","\"");
+                jsonStr = jsonStr.replaceAll("“", "\"");
                 Map<String, Object> nsrszsmMap = JsonUtil.jsonToMap(jsonStr);
                 SkqNsrszsm nsrszsm = new SkqNsrszsm();
                 nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
@@ -160,7 +183,7 @@ public class SkqNsrxxController extends BaseController {
             }
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/modify")
@@ -169,15 +192,15 @@ public class SkqNsrxxController extends BaseController {
         SkqNsrxx skqNsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
         List<SkqNsrszsm> nsrszsmList = skqNsrxx.getNsrszsmList();
         setAttr("nsrszsmList", nsrszsmList);
-        String hiddenStr="";
-        String smbms=",";
-        for(int i=0;i<nsrszsmList.size();i++){
-            hiddenStr=hiddenStr+"~"+JsonUtil.toJson(nsrszsmList.get(i));
-            smbms=smbms+nsrszsmList.get(i).getSmbm()+",";
+        String hiddenStr = "";
+        String smbms = ",";
+        for (int i = 0; i < nsrszsmList.size(); i++) {
+            hiddenStr = hiddenStr + "~" + JsonUtil.toJson(nsrszsmList.get(i));
+            smbms = smbms + nsrszsmList.get(i).getSmbm() + ",";
         }
         setAttr("hiddenStr", hiddenStr);
         setAttr("smbms", smbms);
-        
+
         setAttr("skqNsrxx", skqNsrxx);
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx_modify";
     }
@@ -185,7 +208,7 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/modifyaction")
     public void modifyaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
-        String swjgbm=getPara("skqNsrxx.swjgbm");
+        String swjgbm = getPara("skqNsrxx.swjgbm");
         skqNsrxx.setSwjgbm(swjgbm);
         skqNsrxxService.update(skqNsrxx);
         skqNsrszsmService.deleteNsrszsmByNsrwjbm(skqNsrxx.getNsrwjbm());
@@ -193,7 +216,7 @@ public class SkqNsrxxController extends BaseController {
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
             String jsonStr = hiddenStr.split("~")[i];
             if (StringUtil.isNotBlank(jsonStr)) {
-            	jsonStr=jsonStr.replaceAll("“","\"");
+                jsonStr = jsonStr.replaceAll("“", "\"");
                 Map<String, Object> nsrszsmMap = JsonUtil.jsonToMap(jsonStr);
                 SkqNsrszsm nsrszsm = new SkqNsrszsm();
                 nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
@@ -206,9 +229,9 @@ public class SkqNsrxxController extends BaseController {
                 skqNsrszsmService.save(nsrszsm);
             }
         }
-        
+
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/delete")
@@ -216,7 +239,7 @@ public class SkqNsrxxController extends BaseController {
         String ids = getPara("ids");
         skqNsrxxService.deleteByIDS(ids, SkqNsrxx.class);
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/view")
@@ -225,22 +248,22 @@ public class SkqNsrxxController extends BaseController {
         SkqNsrxx skqNsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
         List<SkqNsrszsm> nsrszsmList = skqNsrxx.getNsrszsmList();
         setAttr("nsrszsmList", nsrszsmList);
-        String hiddenStr="";
-        String smbms=",";
-        for(int i=0;i<nsrszsmList.size();i++){
-            hiddenStr=hiddenStr+"~"+JsonUtil.toJson(nsrszsmList.get(i));
-            smbms=smbms+nsrszsmList.get(i).getSmbm()+",";
+        String hiddenStr = "";
+        String smbms = ",";
+        for (int i = 0; i < nsrszsmList.size(); i++) {
+            hiddenStr = hiddenStr + "~" + JsonUtil.toJson(nsrszsmList.get(i));
+            smbms = smbms + nsrszsmList.get(i).getSmbm() + ",";
         }
         setAttr("hiddenStr", hiddenStr);
         setAttr("smbms", smbms);
         setAttr("skqNsrxx", skqNsrxx);
         String sql = "select a.*,b.FPMC from SKQ_FPJMX a left outer join SKQ_FP b on a.FPBM=b.FPBM where a.NSRWJBM='"
                 + nsrwjbm + "' order by FPXFZT ASC,FPLGRQ DESC";
-        List<Map<String,Object>> alFpjmx=skqNsrxxService.queryForList(sql);
+        List<Map<String, Object>> alFpjmx = skqNsrxxService.queryForList(sql);
         setAttr("alFpjmx", alFpjmx);
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx_view";
     }
-    
+
     @RequestMapping("/check")
     public void check(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String nsrsbh = getPara("skqNsrxx.nsrsbh");
@@ -253,21 +276,17 @@ public class SkqNsrxxController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(response,map);
-    }
-    
-    @RequestMapping("/deleteNsrxx")
-    public void deleteNsrxx(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String nsrwjbm=getPara("nsrwjbm");
-        dalClient.update("delete from skq_nsrxx where nsrwjbm='"+nsrwjbm+"'");
-        dalClient.update("delete from skq_nsrszsm where nsrwjbm='"+nsrwjbm+"'");
-        dalClient.update("delete from skq_jqxx where nsrwjbm='"+nsrwjbm+"'");
-        ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, map);
     }
 
-    
-    
-    
+    @RequestMapping("/deleteNsrxx")
+    public void deleteNsrxx(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String nsrwjbm = getPara("nsrwjbm");
+        dalClient.update("delete from skq_nsrxx where nsrwjbm='" + nsrwjbm + "'");
+        dalClient.update("delete from skq_nsrszsm where nsrwjbm='" + nsrwjbm + "'");
+        dalClient.update("delete from skq_jqxx where nsrwjbm='" + nsrwjbm + "'");
+        ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+        renderJson(response, returnData);
+    }
 
 }

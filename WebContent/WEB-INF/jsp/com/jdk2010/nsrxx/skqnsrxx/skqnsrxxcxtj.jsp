@@ -36,7 +36,7 @@
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
 				<li><label style="width: 80px">纳税人识别号</label><input type="text"
 					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
-					value="${NSRSBH}">
+					value="${NSRSBH}" maxlength="22">
 	 <script type="text/javascript">
 		new CAPXOUS.AutoComplete("NSRSBH", function() {
 			if(this.text.value.length>=3){
@@ -47,9 +47,9 @@
 </script>
 					
 					</li>
-				<%-- <li><label style="width: 60px">纳税人名称</label><input type="text"
+				<li><label style="width: 60px">纳税人名称</label><input type="text"
 					name="NSRMC" id="NSRMC" class="scinput1" placeholder="请输入纳税人名称"
-					value="${NSRMC}"></li> --%>
+					value="${NSRMC}"></li>
 				<li><label style="width: 50px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
 					value="${SWJGBM}"> <input type="text" name="parentName" style="width: 350px"
@@ -127,11 +127,7 @@
 		jQuery("#parentName").val("");
 
 	}
-	$(document).ready(
-			function() {
-				table_init("${ contextpath}/skqnsrxx",
-						"${ contextpath}/skqnsrxx/listcxtj?");
-			});
+ 
 	function selectParentOrganization() {
 		layer.open({
 			type : 2,

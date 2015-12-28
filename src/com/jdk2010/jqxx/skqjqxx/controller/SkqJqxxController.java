@@ -23,9 +23,12 @@ import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
 import com.jdk2010.system.skqjqxh.model.SkqJqxh;
 import com.jdk2010.system.skqjqxh.service.ISkqJqxhService;
 import com.jdk2010.tools.Constants;
+import com.jdk2010.tools.Util;
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
+import com.jdk2010.framework.util.DateUtil;
 import com.jdk2010.framework.util.JsonUtil;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.DbKit;
@@ -109,7 +112,14 @@ public class SkqJqxxController extends BaseController {
             searchSQL = searchSQL + " and   a.swjgbm='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
             setAttr("parentName", getPara("parentName"));
-
+        }else{
+            SecurityUser securityUser=getSessionAttr("securityUser");
+            String username=securityUser.getUsername();
+            if(!"system".equals(username)){
+                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
+                setAttr("parentName", getSessionAttr("securityUserSwjgName"));
+            }
         }
 
         dbKit.append(orderSQL);
@@ -126,6 +136,11 @@ public class SkqJqxxController extends BaseController {
 
         List<SkqJqxh> jqxhList = skqJqxhService.queryForList("select * from skq_jqxh", SkqJqxh.class);
         setAttr("jqxhList", jqxhList);
+        String today=DateUtil.getNowTime("yyyy-MM-dd");
+        String tenToday=Integer.parseInt(today.substring(0,4))+10+today.substring(4);
+        setAttr("today", today);
+        setAttr("tenToday", tenToday);
+        setAttr("kpjzrq",Util.getNextMonthEnd().substring(0,8)+"15");
         return "/com/jdk2010/jqxx/skqjqxx/skqjqxx_add";
     }
 

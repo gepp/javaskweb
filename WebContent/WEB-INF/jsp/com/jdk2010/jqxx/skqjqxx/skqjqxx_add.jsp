@@ -65,7 +65,7 @@
 							<tr>
 								<td>机器编号</td>
 								<td><input type="text" class="dfinput" id="jqbh"
-									name="skqJqxx.jqbh" placeholder="请输入机器编号" /></td>
+									name="skqJqxx.jqbh" placeholder="请输入机器编号" maxlength="16"/></td>
 								<td>机器型号编码</td>
 								<td>
 									<div class="vocation" style="margin-top: 10px">
@@ -80,18 +80,18 @@
 							<tr>
 								<td>税控卡号</td>
 								<td><input type="text" class="dfinput" id="skkh"
-									name="skqJqxx.skkh" placeholder="请输入税控卡号" /></td>
+									name="skqJqxx.skkh" placeholder="请输入税控卡号" maxlength="16"/></td>
 								<td>用户卡号</td>
 								<td><input type="text" class="dfinput" id="yhkh"
-									name="skqJqxx.yhkh" placeholder="请输入用户卡号" /></td>
+									name="skqJqxx.yhkh" placeholder="请输入用户卡号" maxlength="16"/></td>
 							</tr>
 							<tr>
 								<td>卡启用日期</td>
 								<td><input type="text" class="dfinput" id="kqyrq"
-									name="skqJqxx.kqyrq" onclick="laydate()"></input></td>
+									name="skqJqxx.kqyrq" onclick="laydate()" value="${today }"></input></td>
 								<td>卡有效日期</td>
 								<td><input type="text" class="dfinput" id="kyxrq"
-									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" onclick="laydate()" /></td>
+									name="skqJqxx.kyxrq" placeholder="请输入卡有效日期" onclick="laydate()" value="${tenToday }" /></td>
 							</tr>
 							<!--1用户卡传递  0其他  -->
 							<input type="hidden" class="dfinput" id="sbfs"
@@ -104,7 +104,7 @@
 								<td>开票截止日期</td>
 								<td><input type="text" class="dfinput" id="kpjzrq"
 									name="skqJqxx.kpjzrq" placeholder="请输入开票截止日期"
-									onclick="laydate()" /></td>
+									onclick="laydate()" value="${kpjzrq }" /></td>
 								<td>单张开票限额</td>
 								<td><input type="text" class="dfinput" id="dzkpxe"
 									name="skqJqxx.dzkpxe" placeholder="请输入单张开票限额" /></td>

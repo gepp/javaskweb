@@ -1,0 +1,3 @@
+1.纳税户信息管理 的url /skqnsrxx/list.htm 改为/skqnsrxx/listHandler.htm
+2.tomcat/bin/catalina.bat最上面加上set JAVA_OPTS=-Xms512m -Xmx1024m
+3.网络发票购买  url /skqfpj/wlfpgmImport.htm  parent_id 4
