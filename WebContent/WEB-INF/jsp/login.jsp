@@ -63,7 +63,7 @@ $(document).keyup(function(event){
 });  
 
 if (top.location != self.location){       
-    top.location = "../main.jsp";       
+    top.location = "${contextpath}/login.htm";       
 }    
 </script>
 </head>
