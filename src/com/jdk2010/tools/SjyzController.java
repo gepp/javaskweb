@@ -82,197 +82,197 @@ public class SjyzController extends BaseController {
 		yzList.add("=============移植开始=============");
 		yzList.add("导入时间："+DateUtil.getNowTime());
 		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-		okBeginTime=System.currentTimeMillis();
-		int skq_bdc = yz_SKQ_BDC();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_BDC移植成功！共移植:" + skq_bdc + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_BDCKP = yz_SKQ_BDCKP();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_BDCKP移植成功！共移植:" + SKQ_BDCKP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_BDCLP = yz_SKQ_BDCLP();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_BDCLP移植成功！共移植:" + SKQ_BDCLP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_BDCMM = yz_SKQ_BDCMM();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_BDCMM移植成功！共移植:" + SKQ_BDCMM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_BDCXMMX = yz_SKQ_BDCXMMX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_BDCXMMX移植成功！共移植:" + SKQ_BDCXMMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_BDCZXM = yz_SKQ_BDCZXM();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_BDCZXM移植成功！共移植:" + SKQ_BDCZXM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_DHDE = yz_SKQ_DHDE();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_DHDE移植成功！共移植:" + SKQ_DHDE + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_FP = yz_SKQ_FP();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_FP移植成功！共移植:" + SKQ_FP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_FPJ = yz_SKQ_FPJ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_FPJ移植成功！共移植:" + SKQ_FPJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_FPJMX = yz_SKQ_FPJMX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_FPJMX移植成功！共移植:" + SKQ_FPJMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_FPKJ = yz_SKQ_FPKJ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_FPKJ移植成功！共移植:" + SKQ_FPKJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_FPKJXM = yz_SKQ_FPKJXM();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_FPKJXM移植成功！共移植:" + SKQ_FPKJXM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_HY = yz_SKQ_HY();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_HY移植成功！共移植:" + SKQ_HY + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_HYMX = yz_SKQ_HYMX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_HYMX移植成功！共移植:" + SKQ_HYMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_HZSJ = yz_SKQ_HZSJ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_HZSJ移植成功！共移植:" + SKQ_HZSJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_HZSJMX = yz_SKQ_HZSJMX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_HZSJMX移植成功！共移植:" + SKQ_HZSJMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_JKSJKZ = yz_SKQ_JKSJKZ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_JKSJKZ移植成功！共移植:" + SKQ_JKSJKZ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_JQSZSM = yz_SKQ_JQSZSM();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_JQSZSM移植成功！共移植:" + SKQ_JQSZSM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_JQXH = yz_SKQ_JQXH();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_JQXH移植成功！共移植:" + SKQ_JQXH + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_JQXX = yz_SKQ_JQXX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_JQXX移植成功！共移植:" + SKQ_JQXX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_JZAZ = yz_SKQ_JZAZ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_JZAZ移植成功！共移植:" + SKQ_JZAZ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_JZAZKP = yz_SKQ_JZAZKP();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_JZAZKP移植成功！共移植:" + SKQ_JZAZKP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_NSRSZSM = yz_SKQ_NSRSZSM();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_NSRSZSM移植成功！共移植:" + SKQ_NSRSZSM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_NSRXX = yz_SKQ_NSRXX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_NSRXX移植成功！共移植:" + SKQ_NSRXX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_SBSJ = yz_SKQ_SBSJ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_SBSJ移植成功！共移植:" + SKQ_SBSJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_SBSJMX = yz_SKQ_SBSJMX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_SBSJMX移植成功！共移植:" + SKQ_SBSJMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_SWJG = yz_SKQ_SWJG();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_SWJG移植成功！共移植:" + SKQ_SWJG + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_WDHXH = yz_SKQ_WDHXH();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_WDHXH移植成功！共移植:" + SKQ_WDHXH + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_XEBG = yz_SKQ_XEBG();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_XEBG移植成功！共移植:" + SKQ_XEBG + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_ZCLX = yz_SKQ_ZCLX();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_ZCLX移植成功！共移植:" + SKQ_ZCLX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_PMSZ = yz_SKQ_PMSZ();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_PMSZ移植成功！共移植:" + SKQ_PMSZ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-
-		okBeginTime=System.currentTimeMillis();
-		int SKQ_WJBMDY = yz_SKQ_WJBMDY();
-		okEndTime=System.currentTimeMillis();
-		yzList.add("SKQ_WJBMDY移植成功！共移植:" + SKQ_WJBMDY + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
-		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//		okBeginTime=System.currentTimeMillis();
+//		int skq_bdc = yz_SKQ_BDC();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_BDC移植成功！共移植:" + skq_bdc + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_BDCKP = yz_SKQ_BDCKP();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_BDCKP移植成功！共移植:" + SKQ_BDCKP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_BDCLP = yz_SKQ_BDCLP();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_BDCLP移植成功！共移植:" + SKQ_BDCLP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_BDCMM = yz_SKQ_BDCMM();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_BDCMM移植成功！共移植:" + SKQ_BDCMM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_BDCXMMX = yz_SKQ_BDCXMMX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_BDCXMMX移植成功！共移植:" + SKQ_BDCXMMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_BDCZXM = yz_SKQ_BDCZXM();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_BDCZXM移植成功！共移植:" + SKQ_BDCZXM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_DHDE = yz_SKQ_DHDE();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_DHDE移植成功！共移植:" + SKQ_DHDE + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_FP = yz_SKQ_FP();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_FP移植成功！共移植:" + SKQ_FP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_FPJ = yz_SKQ_FPJ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_FPJ移植成功！共移植:" + SKQ_FPJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_FPJMX = yz_SKQ_FPJMX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_FPJMX移植成功！共移植:" + SKQ_FPJMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_FPKJ = yz_SKQ_FPKJ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_FPKJ移植成功！共移植:" + SKQ_FPKJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_FPKJXM = yz_SKQ_FPKJXM();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_FPKJXM移植成功！共移植:" + SKQ_FPKJXM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_HY = yz_SKQ_HY();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_HY移植成功！共移植:" + SKQ_HY + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_HYMX = yz_SKQ_HYMX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_HYMX移植成功！共移植:" + SKQ_HYMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_HZSJ = yz_SKQ_HZSJ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_HZSJ移植成功！共移植:" + SKQ_HZSJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_HZSJMX = yz_SKQ_HZSJMX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_HZSJMX移植成功！共移植:" + SKQ_HZSJMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_JKSJKZ = yz_SKQ_JKSJKZ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_JKSJKZ移植成功！共移植:" + SKQ_JKSJKZ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_JQSZSM = yz_SKQ_JQSZSM();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_JQSZSM移植成功！共移植:" + SKQ_JQSZSM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_JQXH = yz_SKQ_JQXH();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_JQXH移植成功！共移植:" + SKQ_JQXH + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_JQXX = yz_SKQ_JQXX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_JQXX移植成功！共移植:" + SKQ_JQXX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_JZAZ = yz_SKQ_JZAZ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_JZAZ移植成功！共移植:" + SKQ_JZAZ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_JZAZKP = yz_SKQ_JZAZKP();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_JZAZKP移植成功！共移植:" + SKQ_JZAZKP + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_NSRSZSM = yz_SKQ_NSRSZSM();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_NSRSZSM移植成功！共移植:" + SKQ_NSRSZSM + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_NSRXX = yz_SKQ_NSRXX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_NSRXX移植成功！共移植:" + SKQ_NSRXX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_SBSJ = yz_SKQ_SBSJ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_SBSJ移植成功！共移植:" + SKQ_SBSJ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_SBSJMX = yz_SKQ_SBSJMX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_SBSJMX移植成功！共移植:" + SKQ_SBSJMX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_SWJG = yz_SKQ_SWJG();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_SWJG移植成功！共移植:" + SKQ_SWJG + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_WDHXH = yz_SKQ_WDHXH();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_WDHXH移植成功！共移植:" + SKQ_WDHXH + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_XEBG = yz_SKQ_XEBG();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_XEBG移植成功！共移植:" + SKQ_XEBG + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_ZCLX = yz_SKQ_ZCLX();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_ZCLX移植成功！共移植:" + SKQ_ZCLX + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_PMSZ = yz_SKQ_PMSZ();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_PMSZ移植成功！共移植:" + SKQ_PMSZ + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+//
+//		okBeginTime=System.currentTimeMillis();
+//		int SKQ_WJBMDY = yz_SKQ_WJBMDY();
+//		okEndTime=System.currentTimeMillis();
+//		yzList.add("SKQ_WJBMDY移植成功！共移植:" + SKQ_WJBMDY + "条记录！共耗时："+((okEndTime-okBeginTime)/1000)+"秒");
+//		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
 
 		okBeginTime=System.currentTimeMillis();
 		int TRANS_DM_SWJG = yz_TRANS_DM_SWJG();
@@ -454,7 +454,7 @@ public class SjyzController extends BaseController {
 
 	public int yz_SKQ_FPKJXM() throws UnsupportedEncodingException {
 		List<SkqFpkjxm> list = sybaseDalClient.queryForObjectList(
-				"select t.SID as id,t.* from SKQ_FPKJXM t", SkqFpkjxm.class);
+				"select t.* from SKQ_FPKJXM t", SkqFpkjxm.class);
 		for (int i = 0; i < list.size(); i++) {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			String sql = DbKit.warpsavesql(list.get(i), paramMap);
