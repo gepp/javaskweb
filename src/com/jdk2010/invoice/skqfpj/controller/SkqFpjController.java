@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DbKit;
@@ -67,6 +68,14 @@ public class SkqFpjController extends BaseController {
         if (SWJGBM != null && !"".equals(SWJGBM)) {
             searchSQL = searchSQL + " and  nsrwjbm ='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
+        }else{
+            SecurityUser securityUser=getSessionAttr("securityUser");
+            String username=securityUser.getUsername();
+            if(!"system".equals(username)){
+                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
+                setAttr("parentName", getSessionAttr("securityUserSwjgName"));
+            }
         }
 
         String startTime = getPara("startTime");
@@ -108,6 +117,24 @@ public class SkqFpjController extends BaseController {
 
         setAttr("FPZS", Constants.FPZS);
         return "/com/jdk2010/invoice/skqfpj/skqfpj_add";
+    }
+    
+    @RequestMapping("/addWlkp")
+    public String addWlkp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String nsrwjbm = getPara("nsrwjbm");
+        SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        setAttr("nsrxx", nsrxx);
+        List<Map<String, Object>> fpList = skqFpService.queryForList("select * from skq_fp where status=1");
+        setAttr("fpList", fpList);
+        String fpdm = "";
+        List<Map<String, Object>> fpdmList = skqFpService.queryForList("select * from skq_fpjmx where nsrwjbm='"
+                + nsrwjbm + "' order by fplgrq desc limit 1");
+        if (fpdmList.size() > 0) {
+            fpdm = fpdmList.get(0).get("fpdm") + "";
+        }
+        setAttr("fpdm", fpdm);
+        setAttr("FPZS", Constants.FPZS);
+        return "/com/jdk2010/invoice/skqfpj/skqfpj_wlfpadd";
     }
 
     @RequestMapping("/addaction")
@@ -176,7 +203,10 @@ public class SkqFpjController extends BaseController {
     public String toFpgm(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return "/invoice/invoice";
     }
-
+    @RequestMapping("/wlfpgmImport")
+    public String wlfpgmImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/invoice/wlfpgmImport";
+    }
     @RequestMapping("/info")
     public String info(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HashMap CARDINFO = (HashMap) getSessionAttr("UCARDINFO");
@@ -221,28 +251,7 @@ public class SkqFpjController extends BaseController {
 
     }
 
-    @RequestMapping("/testInvoice")
-    public String testInvoice(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HashMap UCARDINFO = new HashMap();
-        HashMap EF02 = new HashMap();
-        HashMap EF06 = new HashMap();
-
-        ArrayList EF05 = new ArrayList();
-        HashMap map1 = new HashMap();
-        map1.put("QSH", "1");
-        map1.put("JZH", "200");
-        map1.put("FPDM", "132000000001");
-        map1.put("JS", "1");
-        EF05.add(map1);
-        EF06.put("JQBH", "0000000000000001");
-        EF02.put("NSRWJDM", "0000000000000001");
-
-        UCARDINFO.put("EF02", EF02);
-        UCARDINFO.put("EF06", EF06);
-        UCARDINFO.put("EF05", EF05);
-        setSessionAttr("UCARDINFO", UCARDINFO);
-        return FORWARD + "/skqfpj/info.htm";
-    }
+    
 
     @RequestMapping("/fpList")
     public String fpList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -255,6 +264,16 @@ public class SkqFpjController extends BaseController {
         List<SkqFpjmx> alFp = skqFpjService.selectFpxf(nsrwjbm);
         setAttr("alFp", alFp);
         return "/invoice/invoice.list";
+    }
+    
+    @RequestMapping("/wlfplist")
+    public String wlfplist(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String nsrwjbm = request.getParameter("nsrwjbm");
+        SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        setAttr("nsrxx", nsrxx);
+        List<SkqFpjmx> alFp = skqFpjService.selectFpxf(nsrwjbm);
+        setAttr("alFp", alFp);
+        return "/invoice/invoice.wlfplist";
     }
 
     @RequestMapping("/fpxk")

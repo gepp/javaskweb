@@ -182,6 +182,25 @@ public class Util {
 		return gc.getTime();
 	}
 
+	public static String getNextMonthEnd() {
+
+        String str = "";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar lastDate = Calendar.getInstance();
+
+        lastDate.add(Calendar.MONTH, 1);// 减一个月
+
+        lastDate.set(Calendar.DATE, 1);// 把日期设置为当月第一天
+
+        lastDate.roll(Calendar.DATE, -1);// 日期回滚一天，也就是本月最后一天
+
+        str = sdf.format(lastDate.getTime());
+
+        return str;
+
+    }
 	public static void main(String[] args) {
 	}
 }

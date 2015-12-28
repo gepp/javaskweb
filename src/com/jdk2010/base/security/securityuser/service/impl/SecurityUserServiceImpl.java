@@ -68,7 +68,7 @@ public class SecurityUserServiceImpl extends BaseServiceImpl implements ISecurit
             throw new RuntimeException("您好，授权码已过期！");
         }
         DbKit dbKit = new DbKit(
-                "select t.*,a.code as organizationCode from security_user t left join security_organization a on t.organization_id=a.id where username=:username and userpwd=:password");
+                "select t.*,a.code as organizationCode,a.name as organizationName from security_user t left join security_organization a on t.organization_id=a.id where username=:username and userpwd=:password");
         dbKit.put("username", username);
         dbKit.put("password", password);
         SecurityUser user = dalClient.queryForObject(dbKit, SecurityUser.class);

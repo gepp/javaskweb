@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DateUtil;
@@ -84,6 +85,15 @@ public class SkqSbsjController extends BaseController {
 			setAttr("SWJGBM", SWJGBM);
 			setAttr("parentName", getPara("parentName"));
 		}
+		else{
+		    SecurityUser securityUser=getSessionAttr("securityUser");
+            String username=securityUser.getUsername();
+            if(!"system".equals(username)){
+                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
+                setAttr("parentName", getSessionAttr("securityUserSwjgName"));
+            }
+        }
 
 		String JQBH = getPara("JQBH");
 		if (JQBH != null && !"".equals(JQBH)) {

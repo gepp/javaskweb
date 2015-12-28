@@ -81,13 +81,13 @@ public class LoginController extends BaseController {
         String username = getPara("username");
         String password = getPara("password");
         String rememberMe = getPara("rememberMe");
-        Integer failTime = (Integer) ehCacheCacheManager.getEhCache("metaCache").get("failTime");
-        
+        Integer failTime = (Integer) ehCacheCacheManager.getEhCache("metaCache").get(username + "failTime");
+
         if (failTime == null) {
             failTime = 0;
-            ehCacheCacheManager.getEhCache("metaCache").put("failTime", 0, 60*30); // 30分钟过期设置
+            ehCacheCacheManager.getEhCache("metaCache").put(username + "failTime", 0, 60 * 30); // 30分钟过期设置
         }
- 
+
         String captcha = getPara("captcha");
         Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
         request.getSession().invalidate(); // 清空session
@@ -108,14 +108,26 @@ public class LoginController extends BaseController {
                 if (securityUser == null) {
                     flag = "F";
                     reason = "用户名或密码错误";
-                    ehCacheCacheManager.getEhCache("metaCache").put("failTime", failTime + 1, 60*30); // 30分钟过期设置
+                    ehCacheCacheManager.getEhCache("metaCache").put(username + "failTime", failTime + 1, 60 * 30); // 30分钟过期设置
                 } else {
                     if ("true".equals(rememberMe)) {
                         CookieUtil.addCookie(request, response, "username", username, 60 * 60);
                         CookieUtil.addCookie(request, response, "md5Password", password, 60 * 60);
                     }
                     setSessionAttr("securityUser", securityUser);
-                    
+                    if("system".equals(securityUser.getUsername())){
+                        setSessionAttr("securityUserSwjgId","0");
+                    setSessionAttr("SWJGBM", "");
+                    setSessionAttr("parentName", "");
+                    setSessionAttr("securityUserSwjgbm", "");
+                    setSessionAttr("securityUserSwjgName", "");
+                    }else{
+                        setSessionAttr("securityUserSwjgId", securityUser.getOrganizationId());
+                        setSessionAttr("securityUserSwjgbm", securityUser.getOrganizationCode());
+                        setSessionAttr("securityUserSwjgName", securityUser.getOrganizationName());
+                        setSessionAttr("SWJGBM", securityUser.getOrganizationCode());
+                        setSessionAttr("parentName", securityUser.getOrganizationName()); 
+                    }
 
                 }
             } else {
@@ -138,13 +150,22 @@ public class LoginController extends BaseController {
             cookie.setMaxAge(0); // 让cookie过期
         }
         SecurityUser securityUser = securityUserService.login(username, md5Password);
+
+        
         if (securityUser == null) {
-            // CookieUtil.deleteCookie(request, response, "username");
-            // CookieUtil.deleteCookie(request, response, "md5Password");
+            CookieUtil.deleteCookie(request, response, "username");
+            CookieUtil.deleteCookie(request, response, "md5Password");
             return "/login";
         } else {
             setSessionAttr("securityUser", securityUser);
-
+            if("system".equals(securityUser.getUsername())){
+                setSessionAttr("SWJGBM", "");
+                setSessionAttr("parentName", "");
+                }else{
+                    setSessionAttr("securityUserSwjgId", securityUser.getOrganizationId());
+                    setSessionAttr("SWJGBM", securityUser.getOrganizationCode());
+                    setSessionAttr("parentName", securityUser.getOrganizationName()); 
+                }
             return REDIRECT + "main.htm";
         }
 
@@ -217,14 +238,13 @@ public class LoginController extends BaseController {
                 "select id,title,ctime  from  security_news where status=1 order by ctime desc limit 0,5",
                 SecurityNews.class);
         setAttr("newsList", newsList);
-        SecurityUser securityUser=getSessionAttr("securityUser");
-        if(securityUser.getUserpwd().equalsIgnoreCase("de88e3e4ab202d87754078cbb2df6063")){
+        SecurityUser securityUser = getSessionAttr("securityUser");
+        if (securityUser.getUserpwd().equalsIgnoreCase("de88e3e4ab202d87754078cbb2df6063")) {
             return "/com/jdk2010/base/security/securityuser/password_modify";
-        }else{
+        } else {
             return "/defaultMain";
         }
-        
-        
+
     }
 
     @RequestMapping("/footer")
