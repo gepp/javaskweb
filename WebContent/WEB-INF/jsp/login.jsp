@@ -61,6 +61,10 @@ $(document).keyup(function(event){
    } 
     
 });  
+
+if (top.location != self.location){       
+    top.location = "${contextpath}/login.htm";       
+}    
 </script>
 </head>
 <body style="background-color: #1c77ac; background-image: url(${contextpath}/res/images/light.png); background-repeat: no-repeat; background-position: center top; overflow: hidden;">

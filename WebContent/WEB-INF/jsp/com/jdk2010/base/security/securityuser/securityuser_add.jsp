@@ -108,7 +108,8 @@
 												'userpwd' : 'required;password1',
 												'securityUser.realname' : 'required;',
 												'securityUser.organizationId' : 'required;',
-												'securityUser.email':'email'
+												'securityUser.email':'email',
+												'securityUser.phone':'mobile'
 											},
 											valid : function(form) {
 												var me = this;
