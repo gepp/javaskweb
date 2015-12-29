@@ -132,8 +132,8 @@
 								<td>月累计退票限额</td>
 								<fmt:formatNumber value="${skqJqxx.yljtpxe }" type="currency" pattern="#0.00" var="yljtpxe"/>
 								<td><input type="text" class="dfinput" id="yljtpxe" maxlength="8"
-									name="yljtpxe" placeholder="请输入月累计退票限额"
-									value="${skqJqxx.yljtpxe }" /></td>
+									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额"
+									value="${yljtpxe }" /></td>
 							</tr>
 							<tr>
 								<td>状态</td>

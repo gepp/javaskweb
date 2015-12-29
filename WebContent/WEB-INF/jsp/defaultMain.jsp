@@ -36,13 +36,14 @@
     <div class="listtitle">常用工具</div>
     
     <ul class="tooli">
-    <li><span><img src="${contextpath }/res/images/d01.png" /></span><p><a href="#">纳税人管理</a></p></li>
-    <li><span><img src="${contextpath }/res/images/d02.png" /></span><p><a href="#">发票购买</a></p></li>
-    <li><span><img src="${contextpath }/res/images/d03.png" /></span><p><a href="#">自然月申报</a></p></li>
-    <li><span><img src="${contextpath }/res/images/d04.png" /></span><p><a href="#">阶段申报</a></p></li>
-    <li><span><img src="${contextpath }/res/images/d05.png" /></span><p><a href="#">监控回传</a></p></li>
-    <li><span><img src="${contextpath }/res/images/d06.png" /></span><p><a href="#">申报汇总查询</a></p></li>
-    <li><span><img src="${contextpath }/res/images/d07.png" /></span><p><a href="#">用户卡读取</a></p></li>    
+    <li><a href="${contextpath }/skqnsrxx/listHandler.htm" target="rightFrame"><span><img src="${contextpath }/res/images/d01.png" /></span><p>纳税人管理</a></p></li>
+    <li><a href="${contextpath }/skqfpj/toFpgm.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d02.png" /></span><p>发票购买</a></p></li>
+    <li><a href="${contextpath }/skqfpj/wlfpgmImport.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d07.png" /></span><p>网络发票购买</a></p></li>    
+    <li><a href="${contextpath }/skqsbsj/toZrysb.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d03.png" /></span><p>自然月申报</a></p></li>
+    <li><a href="${contextpath }/skqsbsj/toJdsb.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d04.png" /></span><p>阶段申报</a></p></li>
+    <li><a href="${contextpath }/skqsbsj/toJkhc.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d05.png" /></span><p>监控回传</a></p></li>
+    <li><a href="${contextpath }/skqsbsj/listImport.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d06.png" /></span><p>申报汇总查询</a></p></li>
+    
     </ul>
     </div>
     <div class="inforight">

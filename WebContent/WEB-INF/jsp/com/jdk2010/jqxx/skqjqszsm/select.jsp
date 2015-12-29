@@ -89,6 +89,10 @@
 			if(smbms.length>0){
 				smbms=","+smbms;
 			}
+			if(count>6){
+				sAlert('您好，最多选择6个税种税目！');
+				return false;
+			}
 			 
 			parent.$('#smbms').val(smbms);
 			parent.$('#hiddenStr').val(hiddenStr);

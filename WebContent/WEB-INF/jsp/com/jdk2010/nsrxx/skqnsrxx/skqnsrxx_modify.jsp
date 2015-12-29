@@ -54,7 +54,7 @@
 				</ul>
 			</div>
 			<div id="tab1" class="tabson">
-				<form action="" method="POST" id="skqNsrxxForm">
+				<form action="" method="post" id="skqNsrxxForm">
 					<ul class="forminfo">
 						<input type="hidden" value="${skqNsrxx.id }" id="id" name="skqNsrxx.id" />
 						<table width="100%">
@@ -72,9 +72,10 @@
 								<td>纳税人名称<b></b></td>
 								<td><input type="text" class="dfinput" id="nsrmc"
 									name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称"  value="${skqNsrxx.nsrmc }" /></td>
-								<td>月核定营业额<b></b></td>
+								<td>月核定营业额1<b></b></td>
+							    <fmt:formatNumber value="${skqNsrxx.yhde}" type="currency" pattern="#0.00" var="yhde"/>
 								<td><input type="text" class="dfinput" id="yhde"
-									name="skqNsrxx.yhde" placeholder="请输入月核定营业额"   value="${skqNsrxx.yhde }"  /></td>
+									name="skqNsrxx.yhde" placeholder="请输入月核定营业额"   value="${yhde }"  /></td>
 								
 							</tr>
 

@@ -23,6 +23,19 @@
 <link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />	
 
 <script language="javascript" type="text/javascript" src="${ contextpath }/res/js/My97DatePicker/WdatePicker.js"></script>
+<style type="text/css" mce_bogus="1">
+table {
+	empty-cells: show;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+table th {
+	white-space: nowrap;
+}
+table td {
+	white-space: nowrap;
+}
+</style>
 
 </head>
 <body>
@@ -89,6 +102,7 @@
 		<div class="formtitle1">
 			<span>申报数据</span>
 		</div>
+		<div style="width:100%; overflow-x:auto;">
 		<table class="tablelist">
 			<thead>
 				<tr>
@@ -106,7 +120,7 @@
 					<th>操作</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody >
 				<c:forEach items="${pageList.list}" var="item">
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
@@ -117,7 +131,7 @@
 
 						<td>${ item.jqbh}</td>
 
-
+						
 						<td>${ item.sskssj}</td>
 
 						<td>${ item.ssjzsj}</td>
@@ -127,10 +141,11 @@
 						<td>${ item.tpfs}</td>
 
 						<td>${ item.fpfs}</td>
-
-						<td>${ item.zcpzje}</td>
-
-						<td>${ item.tpzje}</td>
+						
+						<fmt:formatNumber value="${item.zcpzje}" type="currency" pattern="#0.00" var="zcpzje"/>
+						<td>${zcpzje}</td>
+						<fmt:formatNumber value="${item.tpzje}" type="currency" pattern="#0.00" var="tpzje"/>
+						<td>${ tpzje}</td>
 
 						<td><a href="javascript:void(0)"
 							class="tablelink" onclick="seeDetail('${item.id}');">查看</a>
@@ -138,6 +153,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		</div>
 		<page:page
 			href="${ contextpath}/skqsbsj/list?NSRSBH=${NSRSBH }&JQBH=${JQBH }&YHKH=${YHKH }&SKKH=${SKKH }&SWJGBM=${SWJGBM }&parentName=${parentName }"
 			data="pageList" />
@@ -148,9 +164,7 @@
 
 <script type="text/javascript">
 	jQuery('.tablelist tbody tr:odd').addClass('odd');
-	$(document).ready(function() {
-		table_init("${ contextpath}/skqsbsj", "${ contextpath}/skqsbsj/list?");
-	});
+	 
 	function selectParentOrganization() {
 		layer.open({
 			type : 2,
