@@ -538,7 +538,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqFpkjxm> list = sybaseDalClient
 					.queryForObjectList(
-							"select t.SID as id,t.* from SKQ_FPKJXM t",
+							"select t.* from SKQ_FPKJXM t",
 							SkqFpkjxm.class);
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -549,6 +549,7 @@ public class SjyzController extends BaseController {
 			return list.size();
 		} catch (Exception e) {
 			return 0;
+ 
 		}
 	}
 
