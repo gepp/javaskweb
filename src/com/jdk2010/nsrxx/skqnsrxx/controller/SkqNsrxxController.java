@@ -47,34 +47,38 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
-        String sql = "select * from skq_nsrxx  where 1=1 ";
+        String sql = "select t.*,a.name as organizationName from skq_nsrxx t left join security_organization a on t.swjgbm=a.code where 1=1  ";
         DbKit dbKit = new DbKit(sql);
         String searchSQL = "";
         String orderSQL = "";
         
         String NSRSBH = getPara("NSRSBH");
         if (NSRSBH != null && !"".equals(NSRSBH)) {
-            searchSQL = searchSQL + " and  NSRSBH like :nsrsbh";
+            searchSQL = searchSQL + " and  t.NSRSBH like :nsrsbh";
             setAttr("NSRSBH", NSRSBH);
             dbKit.put("nsrsbh", NSRSBH + "%");
         }
 
         String NSRMC = getPara("NSRMC");
+        
         if (NSRMC != null && !"".equals(NSRMC)) {
-            searchSQL = searchSQL + " and  NSRMC like :nsrmc";
+        	if(getRequest().getMethod().equalsIgnoreCase("get")){
+        		NSRMC=new String(NSRMC.getBytes("iso8859-1"),"utf-8");
+            }
+            searchSQL = searchSQL + " and  t.NSRMC like :nsrmc";
             setAttr("NSRMC", NSRMC);
             dbKit.put("nsrmc", "%"+NSRMC + "%");
         }
         String SWJGBM = getPara("SWJGBM");
         if (SWJGBM != null && !"".equals(SWJGBM)) {
-            searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
+            searchSQL = searchSQL + " and  t.SWJGBM ='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
             setAttr("parentName", getPara("parentName"));
         } else {
             SecurityUser securityUser = getSessionAttr("securityUser");
             String username = securityUser.getUsername();
             if (!"system".equals(username)) {
-                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                searchSQL = searchSQL + " and  t.SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
                 setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
                 setAttr("parentName", getSessionAttr("securityUserSwjgName"));
             }
@@ -99,7 +103,7 @@ public class SkqNsrxxController extends BaseController {
 
     @RequestMapping("/listcxtj")
     public String listcxtj(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String sql = "select * from skq_nsrxx  where 1=1 ";
+        String sql = "select t.*,a.name as organizationName from skq_nsrxx t left join security_organization a on t.swjgbm=a.code where 1=1 ";
         DbKit dbKit = new DbKit(sql);
         String searchSQL = "";
         String orderSQL = "";
@@ -107,28 +111,31 @@ public class SkqNsrxxController extends BaseController {
 
         String NSRSBH = getPara("NSRSBH");
         if (NSRSBH != null && !"".equals(NSRSBH)) {
-            searchSQL = searchSQL + " and  NSRSBH like :nsrsbh";
+            searchSQL = searchSQL + " and  t.NSRSBH like :nsrsbh";
             setAttr("NSRSBH", NSRSBH);
             dbKit.put("nsrsbh", NSRSBH + "%");
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
-            searchSQL = searchSQL + " and  NSRMC like :nsrmc";
+        	if(getRequest().getMethod().equalsIgnoreCase("get")){
+        		NSRMC=new String(NSRMC.getBytes("iso8859-1"),"utf-8");
+            }
+            searchSQL = searchSQL + " and  t.NSRMC like :nsrmc";
             setAttr("NSRMC", NSRMC);
             dbKit.put("nsrmc", "%"+NSRMC + "%");
         }
 
         String SWJGBM = getPara("SWJGBM");
         if (SWJGBM != null && !"".equals(SWJGBM)) {
-            searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
+            searchSQL = searchSQL + " and  t.SWJGBM ='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
             setAttr("parentName", getPara("parentName"));
         } else {
             SecurityUser securityUser = getSessionAttr("securityUser");
             String username = securityUser.getUsername();
             if (!"system".equals(username)) {
-                searchSQL = searchSQL + " and  SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
+                searchSQL = searchSQL + " and  t.SWJGBM ='" + getSessionAttr("securityUserSwjgbm") + "'";
                 setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
                 setAttr("parentName", getSessionAttr("securityUserSwjgName"));
             }
