@@ -67,14 +67,19 @@
 						id="table_refresh" class="scbtn1" value="查询" /></li>
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
-					<li><label>&nbsp;</label><input name="" type="button" onclick="add();"
-					     class="scbtn" value="新增" /></li>
 
 				</ul>
 				<br />
+				<br />
+				<br />
+				<div class="tools">
+			<ul class="toolbar">
+				<li onclick="add();"><span><img
+						src="${contextpath }/res/images/t01.png" /></span>添加</li>
+			</ul>
+		</div>
 			</div>
 		</form>
-		<br />
 		<div class="formtitle1">
 			<span>纳税户基本信息</span>
 		</div>
@@ -82,9 +87,10 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
+					<th>纳税人微机编码</th>
 					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
-					<th>税务机关编码</th>
+					<th>税务机关</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -94,14 +100,14 @@
 
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
-
-
-						<td>${ item.nsrsbh}</td>
+						
+						<td>${item.nsrwjbm }</td>
+						<td>${ item.nsrsbh }</td>
 
 						<td>${ item.nsrmc}</td>
 
 
-						<td>${ item.swjgbm}</td>
+						<td>${ item.organizationName}</td>
 						<td>${ item.status==1?'正常':'停用'}</td>
 
 						<td><a

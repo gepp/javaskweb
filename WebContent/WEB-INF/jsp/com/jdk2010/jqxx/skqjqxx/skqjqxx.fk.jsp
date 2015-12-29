@@ -79,14 +79,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th>开票截止日期<b></b></th>
 				<td>${jqxx.kpjzrq }</td>
 				<th>单笔开票最高限额（元）<b></b></th>
-				<td>${jqxx.dzkpxe }</td>
+				<fmt:formatNumber value="${jqxx.dzkpxe}" type="currency" pattern="#0.00" var="dzkpxe"/>
+				<td>${dzkpxe }</td>
 			</tr>
 
 			<tr>
 				<th>月累计开票最高限额（元）<b></b></th>
-				<td>${jqxx.yljkpxe }</td>
+				<fmt:formatNumber value="${jqxx.yljkpxe}" type="currency" pattern="#0.00" var="yljkpxe"/>
+				<td>${yljkpxe }</td>
 				<th>月累计退票最高限额（元）<b></b></th>
-				<td>${jqxx.yljtpxe }</td>
+				<fmt:formatNumber value="${jqxx.yljtpxe}" type="currency" pattern="#0.00" var="yljtpxe"/>
+				<td>${yljtpxe }</td>
 			</tr>
 			<tr>
 				<th>状态<b></b></th>

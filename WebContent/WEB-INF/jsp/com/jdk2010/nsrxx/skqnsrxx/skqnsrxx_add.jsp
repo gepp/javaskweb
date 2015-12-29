@@ -331,7 +331,7 @@
 							layer.alert('当前操作成功', {
 								closeBtn: 0
 							}, function(){
-								window.location.href='${ contextpath}/skqnsrxx/list';
+								window.location.href='${ contextpath}/skqnsrxx/listImport.htm';
 							});
 						 
 						} else {
