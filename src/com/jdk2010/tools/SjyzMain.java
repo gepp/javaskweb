@@ -2,6 +2,8 @@ package com.jdk2010.tools;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -518,41 +520,60 @@ public class SjyzMain {
 		return swjgList.size();
 	}
 	
+	public static int  yz_ceshi() throws UnsupportedEncodingException {	
+		
+		List<SkqJqxx> list = mysqlDalClient.queryForObjectList(
+				"select t.* from SKQ_JQXX t", SkqJqxx.class);
+		for (int i = 0; i < list.size(); i++) {
+			SkqJqxx skqJqxx = list.get(i);
+			String jqbh = skqJqxx.getJqbh();
+			String nsrwjbm = skqJqxx.getNsrwjbm();
+			
+			String OLD_WJBM = "0"+nsrwjbm;
+			
+			mysqlDalClient.update("insert into skq_wjbmdy(jqbh,new_wjbm,old_wjbm) values('"+jqbh+"','"+nsrwjbm+"','"+OLD_WJBM+"')");
+			
+			}
+		
+		return 0;
+	}
+	
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		 		yz_SKQ_BDC();
-				yz_SKQ_BDCKP();
-				yz_SKQ_BDCLP();
-				yz_SKQ_BDCMM();
-				yz_SKQ_BDCXMMX();
-				yz_SKQ_BDCZXM();
-				yz_SKQ_DHDE();
-				yz_SKQ_FP();
-				yz_SKQ_FPJ();
-				yz_SKQ_FPJMX();
-				yz_SKQ_FPKJ();
-				yz_SKQ_FPKJXM();
-				yz_SKQ_HY();
-				yz_SKQ_HYMX();
-				yz_SKQ_HZSJ();
-				yz_SKQ_HZSJMX();
-				yz_SKQ_JKSJKZ();
-				yz_SKQ_JQSZSM();
-				yz_SKQ_JQXH();
-				yz_SKQ_JQXX();
-				yz_SKQ_JZAZ();
-				yz_SKQ_JZAZKP();
-				yz_SKQ_NSRSZSM();
-				yz_SKQ_NSRXX();
-				yz_SKQ_SBSJ();
-				yz_SKQ_SBSJMX();
-				yz_SKQ_SWJG();
-				yz_SKQ_WDHXH();
-				yz_SKQ_XEBG();
-				yz_SKQ_ZCLX();
-				yz_SKQ_PMSZ();
-				yz_SKQ_WJBMDY();
-				yz_TRANS_DM_SWJG();
-				yz_TRANS_DM_ZSPM();
-				yz_SKQ_USER();
+//		 		yz_SKQ_BDC();
+//				yz_SKQ_BDCKP();
+//				yz_SKQ_BDCLP();
+//				yz_SKQ_BDCMM();
+//				yz_SKQ_BDCXMMX();
+//				yz_SKQ_BDCZXM();
+//				yz_SKQ_DHDE();
+//				yz_SKQ_FP();
+//				yz_SKQ_FPJ();
+//				yz_SKQ_FPJMX();
+//				yz_SKQ_FPKJ();
+//				yz_SKQ_FPKJXM();
+//				yz_SKQ_HY();
+//				yz_SKQ_HYMX();
+//				yz_SKQ_HZSJ();
+//				yz_SKQ_HZSJMX();
+//				yz_SKQ_JKSJKZ();
+//				yz_SKQ_JQSZSM();
+//				yz_SKQ_JQXH();
+//				yz_SKQ_JQXX();
+//				yz_SKQ_JZAZ();
+//				yz_SKQ_JZAZKP();
+//				yz_SKQ_NSRSZSM();
+//				yz_SKQ_NSRXX();
+//				yz_SKQ_SBSJ();
+//				yz_SKQ_SBSJMX();
+//				yz_SKQ_SWJG();
+//				yz_SKQ_WDHXH();
+//				yz_SKQ_XEBG();
+//				yz_SKQ_ZCLX();
+//				yz_SKQ_PMSZ();
+//				yz_SKQ_WJBMDY();
+//				yz_TRANS_DM_SWJG();
+//				yz_TRANS_DM_ZSPM();
+//				yz_SKQ_USER();
+		yz_ceshi();
 	}
 }
