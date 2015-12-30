@@ -98,7 +98,7 @@ public class LoginController extends BaseController {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         String flag = "T";
         String reason = "";
-
+        try{
         if (failTime > 6) {
             flag = "F";
             reason = "密码错误超过6次，请您半小时以后再登录！";
@@ -134,6 +134,10 @@ public class LoginController extends BaseController {
                 flag = "F";
                 reason = "验证码错误";
             }
+        }
+        }catch(Exception e){
+        	flag = "F";
+            reason =e.getMessage();
         }
         resultMap.put("flag", flag);
         resultMap.put("reason", reason);
