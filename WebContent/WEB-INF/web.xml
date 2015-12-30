@@ -9,6 +9,7 @@
 		<param-value>
 		classpath:conf/spring/spring-dal.xml
 		classpath:conf/spring/applicationContext-captcha.xml
+		classpath:conf/spring/spring-quartzJob.xml
 		</param-value>
 	</context-param>
 	<context-param>
