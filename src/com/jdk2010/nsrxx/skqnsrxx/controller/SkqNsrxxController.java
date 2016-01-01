@@ -45,22 +45,23 @@ public class SkqNsrxxController extends BaseController {
         String orderSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-            searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+            searchSQL = searchSQL + " and  NSRWJBM LIKE '%:NSRWJBM%'";
             setAttr("NSRWJBM", NSRWJBM);
-            // dbKit.append(searchSQL);
+            dbKit.put("NSRWJBM", NSRWJBM);
         }
 
         String NSRSBH = getPara("NSRSBH");
         if (NSRSBH != null && !"".equals(NSRSBH)) {
-            searchSQL = searchSQL + " and  NSRSBH LIKE '%" + NSRSBH + "%'";
+            searchSQL = searchSQL + " and  NSRSBH LIKE '%:NSRSBH%'";
             setAttr("NSRSBH", NSRSBH);
-            // dbKit.append(searchSQL);
+            dbKit.put("NSRSBH", NSRSBH);
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
-            searchSQL = searchSQL + " and  NSRMC LIKE '%" + NSRMC + "%'";
+            searchSQL = searchSQL + " and  NSRMC LIKE '%:NSRMC%'";
             setAttr("NSRMC", NSRMC);
+            dbKit.put("NSRMC", NSRMC);
         }
 
         String SWJGBM = getPara("SWJGBM");
@@ -85,22 +86,23 @@ public class SkqNsrxxController extends BaseController {
         String orderSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-            searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+            searchSQL = searchSQL + " and  NSRWJBM LIKE '%:NSRWJBM%'";
             setAttr("NSRWJBM", NSRWJBM);
-            // dbKit.append(searchSQL);
+            dbKit.put("NSRWJBM", NSRWJBM);
         }
 
         String NSRSBH = getPara("NSRSBH");
         if (NSRSBH != null && !"".equals(NSRSBH)) {
-            searchSQL = searchSQL + " and  NSRSBH LIKE '%" + NSRSBH + "%'";
+            searchSQL = searchSQL + " and  NSRSBH LIKE '%:NSRSBH%'";
             setAttr("NSRSBH", NSRSBH);
-            // dbKit.append(searchSQL);
+            dbKit.put("NSRSBH", NSRSBH);
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
-            searchSQL = searchSQL + " and  NSRMC LIKE '%" + NSRMC + "%'";
+            searchSQL = searchSQL + " and  NSRMC LIKE '%:NSRMC%'";
             setAttr("NSRMC", NSRMC);
+            dbKit.put("NSRMC", NSRMC);
         }
 
         String SWJGBM = getPara("SWJGBM");

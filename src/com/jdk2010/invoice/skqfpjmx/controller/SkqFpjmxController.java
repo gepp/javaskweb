@@ -25,18 +25,20 @@ public class SkqFpjmxController extends BaseController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		DbKit dbKit = new DbKit("select * from skq_fpjmx   t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
+		DbKit dbKit = new DbKit("select * from skq_fpjmx   t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
 		String searchSQL = "";
 		String NSRWJBM = getPara("NSRWJBM");
 		if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-			searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+			searchSQL = searchSQL + " and  NSRWJBM LIKE '%:NSRWJBM%'";
 			setAttr("NSRWJBM", NSRWJBM);
+			 dbKit.put("NSRWJBM", NSRWJBM);
 		}
 
 		String JQBH = getPara("JQBH");
 		if (JQBH != null && !"".equals(JQBH)) {
-			searchSQL = searchSQL + " and  JQBH ='" + JQBH + "'";
+			searchSQL = searchSQL + " and  JQBH =':JQBH'";
 			setAttr("JQBH", JQBH);
+			 dbKit.put("JQBH", JQBH);
 		}
 
 		String startTime = getPara("startTime");

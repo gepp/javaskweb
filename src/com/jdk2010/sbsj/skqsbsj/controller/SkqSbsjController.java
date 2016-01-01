@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,12 +56,13 @@ public class SkqSbsjController extends BaseController {
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         DbKit dbKit = new DbKit(
-                "select * from skq_sbsj  t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
+                "select t.* from skq_sbsj  t left JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm left JOIN security_organization b ON a.swjgbm=b.code  ");
         String searchSQL = "";
         String NSRWJBM = getPara("NSRWJBM");
         if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-            searchSQL = searchSQL + " and  NSRWJBM LIKE '%" + NSRWJBM + "%'";
+            searchSQL = searchSQL + " and  t.NSRWJBM LIKE '%:NSRWJBM%'";
             setAttr("NSRWJBM", NSRWJBM);
+            dbKit.put("NSRWJBM", NSRWJBM);
         }
 
         String SWJGBM = getPara("SWJGBM");
@@ -72,19 +74,20 @@ public class SkqSbsjController extends BaseController {
 
         String JQBH = getPara("JQBH");
         if (JQBH != null && !"".equals(JQBH)) {
-            searchSQL = searchSQL + " and  JQBH ='" + JQBH + "'";
+            searchSQL = searchSQL + " and  t.JQBH =':JQBH'";
             setAttr("JQBH", JQBH);
+            dbKit.put("JQBH", JQBH);
         }
 
         String startTime = getPara("startTime");
         if (startTime != null && !"".equals(startTime)) {
-            searchSQL = searchSQL + " and  SSKSSJ>='" + startTime + " 00:00:00'";
+            searchSQL = searchSQL + " and  t.SSKSSJ>='" + startTime + " 00:00:00'";
             setAttr("startTime", startTime);
         }
 
         String endTime = getPara("endTime");
         if (endTime != null && !"".equals(endTime)) {
-            searchSQL = searchSQL + " and  SSJZSJ<='" + endTime + " 23:59:59'";
+            searchSQL = searchSQL + " and  t.SSJZSJ<='" + endTime + " 23:59:59'";
             setAttr("endTime", endTime);
         }
         dbKit.append(searchSQL);
@@ -827,7 +830,14 @@ public class SkqSbsjController extends BaseController {
         
         return "/sbsj/sbsj";
     }
-    
+    @RequestMapping("/toSbsjDetail")
+    public String toSbsjDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	Long id=getParaToLong("id");
+    	String sql="select a.JE as je,a.SMBM as smbm,a.KPLX as kplx,b.SL as sl,b.SMMC as smmc from SKQ_SBSJMX a left outer join SKQ_PMSZ b on a.SMBM=b.SMBM where a.PARENTID = "+id;
+    	List<Map<String,Object>> detailList=dalClient.queryForObjectList(sql);
+    	setAttr("detailList", detailList);
+        return "/com/jdk2010/sbsj/skqsbsj/skqsbsj_detail";
+    }
     
 
 }

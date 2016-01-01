@@ -49,7 +49,7 @@ public class LoginFilter implements Filter {
 
     // 静态资源不做过滤
     public static final String[] IGNORE_SUFFIX = { ".png", ".jpg", ".jpeg", ".gif", ".css", ".js", ".html",
-            "swf","login.htm","test","error.htm",".class",".jar"};
+            "swf","login.htm","test","error.htm",".class",".jar","captcha.htm"};
 
     /**
      * 是否过滤请求
