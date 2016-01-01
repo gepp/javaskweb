@@ -1,5 +1,6 @@
 package com.jdk2010.bdc.skqbdcxmmx.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.bdc.skqbdc.model.SkqBdc;
 import com.jdk2010.bdc.skqbdc.service.ISkqBdcService;
 import com.jdk2010.bdc.skqbdcxmmx.model.SkqBdcxmmx;
@@ -86,6 +88,11 @@ public class SkqBdcxmmxController extends BaseController {
 	public void addaction(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		SkqBdcxmmx skqBdcxmmx = getModel(SkqBdcxmmx.class);
+		
+		SecurityUser user = getSessionAttr("securityUser");
+		skqBdcxmmx.setCjz(user.getUsername());
+		skqBdcxmmx.setCjsj(new Date());
+		
 		skqBdcxmmxService.save(skqBdcxmmx);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
 		renderJson(response,returnData);

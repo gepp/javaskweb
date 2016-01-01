@@ -113,7 +113,7 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
+ <!--
 	<bean id="dataSourceSybase" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
 		<property name="driverClassName">
@@ -182,7 +182,7 @@
 		<property name="dataSource" ref="dataSourceSybase"></property>
 		<property name="showSql" value="true"></property>
 	</bean>
-
+-->
  
  <!-- <bean id="dataSourceOracle" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
