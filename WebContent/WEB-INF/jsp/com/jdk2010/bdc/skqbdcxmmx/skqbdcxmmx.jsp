@@ -110,6 +110,9 @@ function goBack(){
 }
 
 function add(){
-	
+	var nsrwjbm = $('#nsrwjbm').val();
+	var bdcid = $('#bdcid').val();
+	var bdczxmid = $('#bdczxmid').val();
+	window.location.href = "${ contextpath }/skqbdcxmmx/add.htm?nsrwjbm="+nsrwjbm+'&bdcid='+bdcid+'&bdczxmid='+bdczxmid;
 }
 </script>
