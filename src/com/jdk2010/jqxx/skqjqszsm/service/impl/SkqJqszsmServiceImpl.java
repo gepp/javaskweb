@@ -17,6 +17,6 @@ public class SkqJqszsmServiceImpl extends BaseServiceImpl implements ISkqJqszsmS
 
     @Override
     public List<SkqJqszsm> getJqszsmListByJqbh(String jqbh) {
-        return dalClient.queryForObjectList("select t.*,a.szbm,a.smmc,a.sl,a.smsy,a.fpbm,a.smjc from skq_jqszsm t left join skq_pmsz a on t.smbm=a.smbm  where jqbh='"+jqbh+"'",SkqJqszsm.class);
+        return dalClient.queryForObjectList("select t.*,a.szbm,a.smmc,a.sl,a.smsy,a.fpbm,t.jynr as smjc from skq_jqszsm t left join skq_pmsz a on t.smbm=a.smbm  where jqbh='"+jqbh+"'",SkqJqszsm.class);
     }
 }

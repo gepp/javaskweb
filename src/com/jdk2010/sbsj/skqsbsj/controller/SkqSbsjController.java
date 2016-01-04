@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jdk2010.base.security.securityorganization.service.ISecurityOrganizationService;
 import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
@@ -58,6 +59,9 @@ public class SkqSbsjController extends BaseController {
 	@Resource
 	ISkqPmszService skqPmszService;
 
+	@Resource
+	ISecurityOrganizationService securityOrganizationService;
+
 	@RequestMapping("/listImport")
 	public String listImport(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -80,11 +84,17 @@ public class SkqSbsjController extends BaseController {
 			setAttr("NSRSBH", NSRSBH);
 		}
 		String SWJGBM = getPara("SWJGBM");
-		if (SWJGBM != null && !"".equals(SWJGBM)) {
-			searchSQL = searchSQL + " and   a.swjgbm='" + SWJGBM + "'";
-			setAttr("SWJGBM", SWJGBM);
-			setAttr("parentName", getPara("parentName"));
-		}
+		   if (SWJGBM != null && !"".equals(SWJGBM)) {
+			   Long pid=dalClient.queryColumn("select id from security_organization where code='"+SWJGBM+"'","id");
+	            searchSQL = searchSQL + " and  a.SWJGBM in (" +securityOrganizationService.getOrganizationListStrByParentId(pid+"")+ ")";
+	            setAttr("SWJGBM", SWJGBM);
+	            String parentName=getPara("parentName");
+	            if(getRequest().getMethod().equalsIgnoreCase("get")){
+	            	parentName=new String(parentName.getBytes("iso8859-1"),"utf-8");
+	           }
+	            setAttr("parentName", parentName);
+	            
+	        }
 		else{
 		    SecurityUser securityUser=getSessionAttr("securityUser");
             String username=securityUser.getUsername();

@@ -54,6 +54,7 @@ public class SecurityOrganizationServiceImpl extends BaseServiceImpl implements 
                     Map childmap = (HashMap) returnListChild.get(j);
                     childmap.put("name", leftStr + childmap.get("name"));
                     childmap.put("orderlist", childmap.get("orderlist"));
+                    childmap.put("code", childmap.get("code"));
                     returnList.add(childmap);
                 }
             }
@@ -103,4 +104,26 @@ public class SecurityOrganizationServiceImpl extends BaseServiceImpl implements 
 
         return organizationList;
     }
+
+	@Override
+	public String getOrganizationListStrByParentId(String pid) throws Exception {
+		List<Map<String, Object>> map=getOrganizationListByParentId(pid);
+		String organizationListStr="";
+		for(int i=0;i<map.size();i++){
+			Map<String,Object> childMap=map.get(i);
+			if(i==0){
+				organizationListStr="'"+childMap.get("code")+"'";
+			}else{
+				organizationListStr=organizationListStr+","+"'"+childMap.get("code")+"'";
+			}
+		}
+		System.out.println("organizationListStr:"+organizationListStr);
+    	String code=dalClient.queryColumn("select code from security_organization where id="+pid,"code");
+    	if(organizationListStr.equals("")){
+    	organizationListStr=organizationListStr+"'"+code+"'";
+    	}else{
+    		organizationListStr=organizationListStr+","+"'"+code+"'";
+    	}
+		return organizationListStr;
+	}
 }

@@ -9,4 +9,6 @@ public interface ISecurityOrganizationService  extends IBaseService{
     public List<Map<String, Object>> getOrganizationListByParentId(String pid) throws Exception;
     
     public List<Map<String, Object>> getOrganizationList() throws Exception;
+    
+    public String getOrganizationListStrByParentId(String pid) throws Exception;
 }

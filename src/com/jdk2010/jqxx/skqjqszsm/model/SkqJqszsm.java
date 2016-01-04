@@ -139,5 +139,17 @@ public class SkqJqszsm extends Model<SkqJqszsm> {
 	private Integer cezs;
 	/* 状态 */
 	private Integer status;
+	
+	private String jynr;
+
+	@TableField
+	public String getJynr() {
+		return jynr;
+	}
+
+	public void setJynr(String jynr) {
+		this.jynr = jynr;
+	}
+	
 
 }

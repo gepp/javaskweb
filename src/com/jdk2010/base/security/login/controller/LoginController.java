@@ -89,7 +89,7 @@ public class LoginController extends BaseController {
         }
 
         String captcha = getPara("captcha");
-        Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
+       // Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
         request.getSession().invalidate(); // 清空session
         if (request.getCookies() != null) {
             Cookie cookie = request.getCookies()[0]; // 获取cookie
@@ -103,7 +103,7 @@ public class LoginController extends BaseController {
             flag = "F";
             reason = "密码错误超过6次，请您半小时以后再登录！";
         } else {
-            if (isResponseCorrect) {
+           // if (isResponseCorrect) {
                 SecurityUser securityUser = securityUserService.login(username, password);
                 if (securityUser == null) {
                     flag = "F";
@@ -130,10 +130,10 @@ public class LoginController extends BaseController {
                     }
 
                 }
-            } else {
-                flag = "F";
-                reason = "验证码错误";
-            }
+//            } else {
+//                flag = "F";
+//                reason = "验证码错误";
+//            }
         }
         }catch(Exception e){
         	flag = "F";
@@ -243,11 +243,12 @@ public class LoginController extends BaseController {
                 SecurityNews.class);
         setAttr("newsList", newsList);
         SecurityUser securityUser = getSessionAttr("securityUser");
-        if (securityUser.getUserpwd().equalsIgnoreCase("de88e3e4ab202d87754078cbb2df6063")) {
-            return "/com/jdk2010/base/security/securityuser/password_modify";
-        } else {
-            return "/defaultMain";
-        }
+        return "/defaultMain";
+//        if (securityUser.getUserpwd().equalsIgnoreCase("de88e3e4ab202d87754078cbb2df6063")) {
+//            return "/com/jdk2010/base/security/securityuser/password_modify";
+//        } else {
+//            return "/defaultMain";
+//        }
 
     }
 
