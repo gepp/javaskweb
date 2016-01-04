@@ -40,7 +40,7 @@
 					});
 
 							} catch (e) {
-								sAlert('当前操作失败');
+								//sAlert('当前操作失败');
 								div_close();
 							}
 						}, function() {
@@ -63,6 +63,10 @@
 	<div style="position: fixed; top: 10%; left: 30%">
 	<table style="width:100%">
 	<tr>
+<td><input type="button" name="btn" value="测试sybase" class="btn"
+			style="cursor: hand;" onclick="testDB();" /></td>	</tr>
+	<tr>
+	
 	<td style="height:70px">是否需要编码转换：<b></b></td>
 	<td>
 	<div class="vocation">
@@ -90,24 +94,45 @@
 </body>
 </html>
 <script type="text/javascript">
-setInterval(
+try{
+var timer1 = setInterval(
  		function(){
   			$.ajax({
  				url : "${ contextpath}/getProcess.htm",
  				type : "post",
- 				async: false,
  				success : function(data) {
-  					 
  					var arrayStr=str2json(data);
  					if(arrayStr!=null){
  					var str="";
  					for(var i=0;i<arrayStr.length;i++){
  						str=str+"<p>"+arrayStr[i]+"</p>";
+ 						if(arrayStr[i]=='=============移植结束============='){
+ 							alert("移植成功");
+ 						}
  					}
  					$("#showDetail").html(str);
  					}
  				}
  			});
- 		},2000
+ 		},3000
  );
+} catch (e) {
+	 
+}
+
+
+function testDB(){
+	$.ajax({
+			url : "${ contextpath}/testDB.htm",
+			type : "post",
+			success : function(data) {
+			 
+				if(data.message==0){
+					alert("连接数据库失败！");
+				}else{
+					alert("连接数据库成功！");
+				}
+			}
+		});
+}
 </script>

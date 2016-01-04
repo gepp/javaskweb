@@ -79,7 +79,7 @@
 				var smValues=$(this).attr("smValues");
 				hiddenStr=hiddenStr+"~"+smValues;
 				var jsonObj=str2json(smValues);
-				tdstr=tdstr+"<tr><td>"+jsonObj.szbm+"</td><td>"+jsonObj.smbm+"</td><td>"+jsonObj.smmc+"</td><td>"+jsonObj.smjc+"</td><td>"+jsonObj.sl+"</td></tr>";
+				tdstr=tdstr+"<tr><td>"+jsonObj.szbm+"</td><td>"+jsonObj.smbm+"</td><td>"+jsonObj.smmc+"</td><td><input type=\"text\" value=\""+jsonObj.smjc+" \" name='"+jsonObj.smbm+"smjc' style='height:35px;padding-left:5px'/></td><td>"+jsonObj.sl+"</td></tr>";
 			}
 		});
 		if (count == 0) {

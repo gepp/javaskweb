@@ -184,7 +184,7 @@
 								<td>${item.szbm }</td>
 								<td>${item.smbm }</td>
 								<td>${item.smmc }</td>
-								<td>${item.smjc }</td>
+								<td><input type="text" name="${item.smbm }smjc" value="${item.smjc }" style="height:40px;padding-left:5px"/></td>
 								<td>${item.sl }</td>
 							</tr>
 						</c:forEach>

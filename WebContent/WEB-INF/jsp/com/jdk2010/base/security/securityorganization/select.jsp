@@ -35,7 +35,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${organizationList}" var="item">
-					<tr onclick="jumpToParent('${item.id}','${item.name }','${item.code }')">
+					<tr onclick="jumpToParent('${item.id}','${item.description }','${item.code }')">
 						<td>${ item.code}</td>
 						<td>${ item.name}</td>
  						

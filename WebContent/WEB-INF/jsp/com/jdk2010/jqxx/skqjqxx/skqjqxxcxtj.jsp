@@ -90,7 +90,8 @@ table td {
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
 					</li>
-
+<li><label>&nbsp;</label><input name="" type="button"
+						class="scbtn3" onclick="download();" value="excel下载" /></li>
 				</ul>
 				<br />
 			</div>
@@ -190,5 +191,10 @@ table td {
 	}
 	jQuery('.tablelist tbody tr:odd').addClass('odd');
  
+	  function download(){
+ 		  var SWJGBM=jQuery("#swjgbm").val();
+	        var url="${contextpath}/skqjqxx/exportExcel.htm?SWJGBM="+SWJGBM;
+ 	        window.location.href=url;
+	    }
 </script>
 

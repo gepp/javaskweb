@@ -28,9 +28,9 @@
 		<table class="tablelist">
 			<thead>
 				<tr>
-					<th>注册类型编码</th>
-					<th>注册类型名称</th>
-					<th>注册类型简称</th>
+					<th>编码</th>
+					<th>名称</th>
+					<th>注简称</th>
 				</tr>
 			</thead>
 			<tbody>
