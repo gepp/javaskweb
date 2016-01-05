@@ -123,9 +123,9 @@ public class SecurityUserController extends BaseController {
     public void modifyaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SecurityUser securityUser = getModel(SecurityUser.class);
         SecurityUser oldSecurityUser = securityUserService.findById(securityUser.getId(), SecurityUser.class);
-        if (!getPara("userpwd").equals(oldSecurityUser.getUserpwd())) {
-            securityUser.setUserpwd(MD5Utils.md5(getPara("userpwd")));
-        }
+//        if (!getPara("userpwd").equals(oldSecurityUser.getUserpwd())) {
+//            securityUser.setUserpwd(MD5Utils.md5(getPara("userpwd")));
+//        }
 
         Integer organizationId = getParaToInt("organizationId");
         securityUser.setOrganizationId(organizationId);
