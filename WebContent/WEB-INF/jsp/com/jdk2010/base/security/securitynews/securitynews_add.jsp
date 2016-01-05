@@ -44,7 +44,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="" id="securityNewsForm">
+					<form action="post" method="" id="securityNewsForm">
 
 
 						<li><label>通告标题<b></b></label> <input type="text"
@@ -104,8 +104,7 @@
 								.validator(
 										{
 											fields : {
-												'securityNews.title' : 'required;',
-
+												'securityNews.title' : 'required;'
 											},
 											valid : function(form) {
 												var me = this;

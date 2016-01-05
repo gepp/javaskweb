@@ -111,7 +111,7 @@
 												'skqFpj.fpdm' : 'required;length[1~12]',
 												'skqFpj.fpqsh' : 'required;length[1~8]',
 												'skqFpj.fpjzh' : 'required;length[1~8]',
-												'skqFpj.fpdw' : 'required;length[1~4]',
+												'skqFpj.fpdw' : 'required;length[1~4]'
 
 											},
 											valid : function(form) {

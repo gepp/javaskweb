@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqZclxForm">
+					<form action="" method="post" id="skqZclxForm">
 
 						<li><label>注册类型编码<b></b></label> <input type="text"
 							class="dfinput" id="zclxbm" name="skqZclx.zclxbm"
@@ -100,8 +100,7 @@
 											fields : {
 												'skqZclx.zclxbm' : 'required;',
 												'skqZclx.zclxmc' : 'required;',
-												'skqZclx.zclxjc' : 'required;',
-
+												'skqZclx.zclxjc' : 'required;'
 											},
 											valid : function(form) {
 												var me = this;

@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqJqxhForm">
+					<form action="" method="post" id="skqJqxhForm">
 
 
 						<li><label>机器型号编码<b></b></label> <input type="text"
@@ -101,7 +101,7 @@
 											fields : {
 												'skqJqxh.jqxhbm' : 'required;',
 												'skqJqxh.jqxhmc' : 'required;',
-												'skqJqxh.sccs' : 'required;',
+												'skqJqxh.sccs' : 'required;'
 
 											},
 											valid : function(form) {
@@ -113,7 +113,7 @@
 															url : "${ contextpath}/skqjqxh/addaction",
 															data : $(form)
 																	.serialize(),
-															type : "POST",
+															type : "post",
 															success : function(
 																	data) {
 																// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单

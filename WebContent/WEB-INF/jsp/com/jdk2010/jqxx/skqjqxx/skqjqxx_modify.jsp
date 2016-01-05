@@ -252,8 +252,7 @@
 												'skqJqxx.kpjzrq' : 'required;',
 												'skqJqxx.dzkpxe' : 'required;range[~42000000]',
 												'skqJqxx.yljkpxe' : 'required;range[~42000000]',
-												'skqJqxx.yljtpxe' : 'required;range[~42000000]',
-
+												'skqJqxx.yljtpxe' : 'required;range[~42000000]'
 											},
 											valid : function(form) {
 												var me = this;

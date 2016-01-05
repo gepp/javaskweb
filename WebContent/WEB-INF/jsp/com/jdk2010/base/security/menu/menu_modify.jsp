@@ -75,7 +75,7 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'securityMenu.name' : 'required;',
+				'securityMenu.name' : 'required;'
 			},
 			valid : function(form) {
 				var me = this;

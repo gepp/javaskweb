@@ -15,9 +15,11 @@
 <link href="${ contextpath }/res/css/page.css" rel="stylesheet"
 	type="text/css" />
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/json2.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
+	
  
 
 <script language="javascript">

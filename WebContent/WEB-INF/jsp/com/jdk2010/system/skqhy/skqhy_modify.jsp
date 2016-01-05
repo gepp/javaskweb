@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqHyForm">
+					<form action="" method="post" id="skqHyForm">
 
 						<input type="hidden" class="dfinput" id="id" name="skqHy.id"
 							placeholder="请输入id" value="${ skqHy.id}" />
@@ -101,7 +101,7 @@
 											fields : {
 												'skqHy.hybm' : 'required;',
 												'skqHy.hymc' : 'required;',
-												'skqHy.hyjc' : 'required;',
+												'skqHy.hyjc' : 'required;'
 
 											},
 											valid : function(form) {
@@ -113,7 +113,7 @@
 															url : "${ contextpath}/skqhy/modifyaction",
 															data : $(form)
 																	.serialize(),
-															type : "POST",
+															type : "post",
 															success : function(
 																	data) {
 																// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单

@@ -286,7 +286,7 @@
 		}).validator({
 			fields : {
  				'skqNsrxx.nsrmc' : 'required;',
- 				'skqNsrxx.yhde' : 'required;',
+ 				'skqNsrxx.yhde' : 'required;'
  
 			},
 			valid : function(form) {
