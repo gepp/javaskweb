@@ -66,9 +66,17 @@ public class SkqFpjController extends BaseController {
 
         String SWJGBM = getPara("SWJGBM");
         if (SWJGBM != null && !"".equals(SWJGBM)) {
-            searchSQL = searchSQL + " and  nsrwjbm ='" + SWJGBM + "'";
+            searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
             setAttr("SWJGBM", SWJGBM);
-        }else{
+            String parentName=getPara("parentName");
+            if(getRequest().getMethod().equalsIgnoreCase("get")){
+            	parentName=new String(parentName.getBytes("iso8859-1"),"utf-8");
+           }
+            setAttr("parentName", parentName);
+            
+        }
+        
+        else{
             SecurityUser securityUser=getSessionAttr("securityUser");
             String username=securityUser.getUsername();
             if(!"system".equals(username)){

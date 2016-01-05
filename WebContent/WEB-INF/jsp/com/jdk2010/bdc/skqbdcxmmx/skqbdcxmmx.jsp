@@ -84,7 +84,7 @@
           <td> ${ item.qtts} </td>
           <td> ${ item.zts} </td>
           <td> ${ item.lrts} </td>
-          <td><a href="${ contextpath }/skqbdcxmmx/modify.htm?id=${item.id}" class="tablelink">编辑</a> <a href="${ contextpath }/skqbdcxmmx/view.htm?id=${item.id}"  class="tablelink">查看</a> 
+          <td><a href="${ contextpath }/skqbdcxmmx/modify.htm?id=${item.id}" class="tablelink">编辑</a> <a href="${ contextpath }/skqbdcxmmx/view.htm?id=${item.id}&nsrwjbm=${nsrwjbm}&bdcid=${bdcid}&bdczxmid=${bdczxmid}"  class="tablelink">查看</a> 
         </tr>
       </c:forEach>
     </tbody>

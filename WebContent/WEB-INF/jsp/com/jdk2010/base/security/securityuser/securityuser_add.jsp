@@ -105,7 +105,7 @@
 										{
 											fields : {
 												'securityUser.username' : 'required;remote[${contextpath}/securityuser/check.htm]',
-												'userpwd' : 'required;password1',
+												'userpwd' : 'required;',
 												'securityUser.realname' : 'required;',
 												'securityUser.organizationId' : 'required;',
 												'securityUser.email':'email',

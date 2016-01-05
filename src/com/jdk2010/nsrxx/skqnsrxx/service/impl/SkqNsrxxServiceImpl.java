@@ -36,11 +36,11 @@ public class SkqNsrxxServiceImpl extends BaseServiceImpl implements ISkqNsrxxSer
                         "select t.*,a.hymc,b.hymxmc,c.zclxmc,d.name as swjgmc from skq_nsrxx t left join skq_hy a on t.hybm=a.hybm left join skq_hymx b on t.hymxbm=b.hymxbm left join skq_zclx c on t.zclxbm=c.zclxbm left join security_organization d on t.swjgbm=d.code where t.nsrwjbm='"
                                 + nsrwjbm + "'", SkqNsrxx.class);
         List<SkqNsrszsm> nsrszsmList = skqNsrszsmService.getNsrszsmList(nsrwjbm);
-        if (nsrszsmList != null) {
+        if (nsrszsmList != null&&nsrxx!=null) {
             nsrxx.setNsrszsmList(nsrszsmList);
         }
         List<SkqJqxx> jqxxList = skqJqxxService.getJqxxListByNsrwjbm(nsrwjbm);
-        if (jqxxList != null) {
+        if (jqxxList != null&&nsrxx!=null) {
             nsrxx.setJqxxList(jqxxList);
         }
         return nsrxx;

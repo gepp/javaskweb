@@ -68,6 +68,8 @@
 						id="table_refresh" class="scbtn1" value="查询" /></li>
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
+					<li><label>&nbsp;</label><input name="" type="button"
+						class="scbtn3" onclick="download();" value="excel下载" /></li>
 
 
 				</ul>
@@ -138,5 +140,12 @@
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
 	}
+	
+	  function download(){
+		  var NSRSBH=jQuery("#NSRSBH").val();
+		  var SWJGBM=jQuery("#swjgbm").val();
+	        var url="${contextpath}/skqnsrxx/exportExcel.htm?NSRSBH="+NSRSBH+"&SWJGBM="+SWJGBM;
+ 	        window.location.href=url;
+	    }
 </script>
 

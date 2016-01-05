@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!-- 用户卡截止时间-->
           <input type="hidden" name="U_END_DATE" id="U_END_DATE" value="<%=Util.toxkrq(jqxx.getKyxrq()) %>" />
           <!-- 纳税户名称-->
-          <input type="hidden" name="TAXPAYER_NAME" id="TAXPAYER_NAME" value="<%=nsrxx.getNsrmc().trim() %>" />
+          <input type="hidden" name="TAXPAYER_NAME" id="TAXPAYER_NAME" value="${nsrmc }" />
           <!-- 申报截止时间-->
           <input type="hidden" name="MAKE_END_DATE" id="MAKE_END_DATE" value="<%=Util.toxkrq(jqxx.getKpjzrq()) %>" />
           <!-- 单张发票开票限额-->

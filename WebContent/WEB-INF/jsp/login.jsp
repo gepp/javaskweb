@@ -80,12 +80,12 @@ if (top.location != self.location){
 					class="loginuser" value="" onclick="JavaScript:this.value=''" /></li>
 				<li><input name="password" id="password" type="password" class="loginpwd"
 					value="" onclick="JavaScript:this.value=''" /></li>
-				<li class="yzm">
+				<%-- <li class="yzm">
 				    <span><input name="" id="captcha" type="text" value="验证码" onclick="JavaScript:this.value=''"/></span>
 				    <cite>
 				    <img width="114" height="46" id="imgsrc" src="${contextpath}/captcha.htm?d='+new Date().getTime()" onclick="this.src='${contextpath}/captcha.htm?d='+new Date().getTime()"/>
 					</cite> 
-				</li>
+				</li> --%>
 				<li><input name="" type="button" class="loginbtn" value="登 录"
 					onclick="login();" /><label><input type="checkbox" value="rememberMe" id="rememberMe" name="rememberMe"  />记住密码</label></li>
 			</ul>

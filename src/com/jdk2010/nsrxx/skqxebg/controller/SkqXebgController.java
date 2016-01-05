@@ -34,8 +34,11 @@ public class SkqXebgController extends BaseController{
 		String username = user.getUsername();
 		String sqlStr = "";
 		String swjgbm = user.getOrganizationCode();
+		String swjgid = String.valueOf(user.getOrganizationId());
 		if(!"system".equals(username)){
-			sqlStr = " and a.NSRWJBM in(select NSRWJBM from SKQ_NSRXX where STATUS=1 and SWJGBM ='"+swjgbm+"')";
+			//获取税务机关编码及下级编码
+			
+			sqlStr = " and a.NSRWJBM in(select NSRWJBM from SKQ_NSRXX where STATUS=1 and (SWJGBM ='"+swjgbm+"' or SWJGBM IN(select code from security_organization where parent_id="+swjgid+")))";
 		}
 		String sql = "select a.*,b.NSRMC,b.NSRSBH from SKQ_XEBG a left outer join SKQ_NSRXX b on a.NSRWJBM=b.NSRWJBM where (CLBZ=0 or CLBZ is null) "+sqlStr+" order by a.CLBZ asc,a.SQSJ desc";
 		

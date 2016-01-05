@@ -2,6 +2,7 @@ package com.jdk2010.tools;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,20 +29,26 @@ import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DateUtil;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.JsonUtil;
+import com.jdk2010.framework.util.ReturnData;
+import com.jdk2010.framework.util.StringUtil;
 import com.jdk2010.invoice.skqfpj.model.SkqFpj;
 import com.jdk2010.invoice.skqfpjmx.model.SkqFpjmx;
 import com.jdk2010.invoice.skqfpkj.model.SkqFpkj;
 import com.jdk2010.invoice.skqfpkjxm.model.SkqFpkjxm;
 import com.jdk2010.jqxx.skqjqszsm.model.SkqJqszsm;
+import com.jdk2010.jqxx.skqjqszsm.service.ISkqJqszsmService;
 import com.jdk2010.jqxx.skqjqxx.model.SkqJqxx;
+import com.jdk2010.jqxx.skqjqxx.service.ISkqJqxxService;
 import com.jdk2010.jzaz.skqjzaz.model.SkqJzaz;
 import com.jdk2010.jzaz.skqjzazkp.model.SkqJzazkp;
 import com.jdk2010.nsrxx.skqdhde.model.SkqDhde;
 import com.jdk2010.nsrxx.skqnsrszsm.model.SkqNsrszsm;
+import com.jdk2010.nsrxx.skqnsrszsm.service.ISkqNsrszsmService;
 import com.jdk2010.nsrxx.skqnsrxx.model.SkqNsrxx;
 import com.jdk2010.nsrxx.skqnsrxx.model.SkqWjbmdy;
 import com.jdk2010.nsrxx.skqnsrxx.model.TransDmSwjg;
 import com.jdk2010.nsrxx.skqnsrxx.model.TransDmZspm;
+import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
 import com.jdk2010.nsrxx.skqxebg.model.SkqXebg;
 import com.jdk2010.sbsj.skqhzsj.model.SkqHzsj;
 import com.jdk2010.sbsj.skqhzsjmx.model.SkqHzsjmx;
@@ -53,6 +60,7 @@ import com.jdk2010.system.skqfp.model.SkqFp;
 import com.jdk2010.system.skqhy.model.SkqHy;
 import com.jdk2010.system.skqhymx.model.SkqHymx;
 import com.jdk2010.system.skqjqxh.model.SkqJqxh;
+import com.jdk2010.system.skqjqxh.service.ISkqJqxhService;
 import com.jdk2010.system.skqpmsz.model.SkqPmsz;
 import com.jdk2010.system.skqzclx.model.SkqZclx;
 
@@ -68,6 +76,21 @@ public class SjyzController extends BaseController {
 
 	@Resource
 	EhCacheCacheManager ehCacheCacheManager;
+
+	@Resource
+	ISkqNsrxxService skqNsrxxService;
+
+	@Resource
+	ISkqJqxxService skqJqxxService;
+
+	@Resource
+	ISkqJqxhService skqJqxhService;
+
+	@Resource
+	ISkqNsrszsmService skqNsrszsmService;
+
+	@Resource
+	ISkqJqszsmService skqJqszsmService;
 
 	@RequestMapping("/sjyz")
 	public void sjyz(HttpServletRequest request, HttpServletResponse response)
@@ -332,6 +355,8 @@ public class SjyzController extends BaseController {
 
 		yzList.add("=============移植结束=============");
 		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
+		
+		System.out.println("移植结束！！！！！！！！！！！！");
 
 	}
 
@@ -407,6 +432,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqBdcmm> bdcmmList = sybaseDalClient.queryForObjectList(
 					"select  t.* from SKQ_BDCMM t", SkqBdcmm.class);
+			System.out.println("总共：" + bdcmmList.size() + "条记录等待移植...");
 			for (int i = 0; i < bdcmmList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(bdcmmList.get(i), paramMap);
@@ -424,6 +450,7 @@ public class SjyzController extends BaseController {
 			List<SkqBdcxmmx> bdcxmmxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_BDCXMMX t",
 					SkqBdcxmmx.class);
+			System.out.println("总共：" + bdcxmmxList.size() + "条记录等待移植...");
 			for (int i = 0; i < bdcxmmxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(bdcxmmxList.get(i), paramMap);
@@ -441,6 +468,7 @@ public class SjyzController extends BaseController {
 			List<SkqBdczxm> bdczxmList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_BDCZXM t",
 					SkqBdczxm.class);
+			System.out.println("总共：" + bdczxmList.size() + "条记录等待移植...");
 			for (int i = 0; i < bdczxmList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(bdczxmList.get(i), paramMap);
@@ -458,6 +486,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqDhde> skqdhdeList = sybaseDalClient.queryForObjectList(
 					"select  t.* from SKQ_DHDE t", SkqDhde.class);
+			System.out.println("总共：" + skqdhdeList.size() + "条记录等待移植...");
 			for (int i = 0; i < skqdhdeList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(skqdhdeList.get(i), paramMap);
@@ -474,6 +503,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqFp> list = sybaseDalClient.queryForObjectList(
 					"select t.SID as id,t.* from SKQ_FP t", SkqFp.class);
+			System.out.println("总共：" + list.size() + "条记录等待移植...");
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(list.get(i), paramMap);
@@ -490,6 +520,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqFpj> list = sybaseDalClient.queryForObjectList(
 					"select t.SID as id,t.* from SKQ_FPJ t", SkqFpj.class);
+			System.out.println("总共：" + list.size() + "条记录等待移植...");
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(list.get(i), paramMap);
@@ -506,6 +537,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqFpjmx> list = sybaseDalClient.queryForObjectList(
 					"select t.SID as id,t.* from SKQ_FPJMX t", SkqFpjmx.class);
+			System.out.println("总共：" + list.size() + "条记录等待移植...");
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(list.get(i), paramMap);
@@ -522,6 +554,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqFpkj> list = sybaseDalClient.queryForObjectList(
 					"select t.SID as id,t.* from SKQ_FPKJ t", SkqFpkj.class);
+			System.out.println("总共：" + list.size() + "条记录等待移植...");
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(list.get(i), paramMap);
@@ -536,10 +569,9 @@ public class SjyzController extends BaseController {
 
 	public int yz_SKQ_FPKJXM() throws UnsupportedEncodingException {
 		try {
-			List<SkqFpkjxm> list = sybaseDalClient
-					.queryForObjectList(
-							"select t.* from SKQ_FPKJXM t",
-							SkqFpkjxm.class);
+			List<SkqFpkjxm> list = sybaseDalClient.queryForObjectList(
+					"select t.* from SKQ_FPKJXM t", SkqFpkjxm.class);
+			System.out.println("总共：" + list.size() + "条记录等待移植...");
 			for (int i = 0; i < list.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(list.get(i), paramMap);
@@ -549,7 +581,7 @@ public class SjyzController extends BaseController {
 			return list.size();
 		} catch (Exception e) {
 			return 0;
- 
+
 		}
 	}
 
@@ -557,6 +589,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqHy> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_HY t", SkqHy.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -573,6 +606,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqHymx> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_HYMX t", SkqHymx.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -593,6 +627,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqHzsj> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_HZSJ t", SkqHzsj.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -610,6 +645,7 @@ public class SjyzController extends BaseController {
 			List<SkqHzsjmx> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_HZSJMX t",
 					SkqHzsjmx.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -626,6 +662,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqJksjkz> hyList = sybaseDalClient.queryForObjectList(
 					"select t.* from SKQ_JKSJKZ t", SkqJksjkz.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -643,6 +680,7 @@ public class SjyzController extends BaseController {
 			List<SkqJqszsm> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_JQSZSM t",
 					SkqJqszsm.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -659,6 +697,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqJqxh> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_JQXH t", SkqJqxh.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -675,6 +714,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqJqxx> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_JQXX t", SkqJqxx.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -691,6 +731,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqJzaz> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_JZAZ t", SkqJzaz.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -708,6 +749,7 @@ public class SjyzController extends BaseController {
 			List<SkqJzazkp> hyList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_JZAZKP t",
 					SkqJzazkp.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -723,7 +765,8 @@ public class SjyzController extends BaseController {
 	public int yz_SKQ_NSRSZSM() throws UnsupportedEncodingException {
 		try {
 			List<SkqNsrszsm> hyList = sybaseDalClient.queryForObjectList(
-					"select t.* from SKQ_NSRSZSM t", SkqNsrszsm.class);
+					"select t.* from SKQ_NSRSZSM t", SkqNsrszsm.class);System.out.println("总共：" + hyList.size() + "条记录等待移植...");
+					
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -740,6 +783,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqNsrxx> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_NSRXX t", SkqNsrxx.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -756,6 +800,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqSbsj> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_SBSJ t", SkqSbsj.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -773,6 +818,7 @@ public class SjyzController extends BaseController {
 			List<SkqSbsjmx> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_SBSJMX t",
 					SkqSbsjmx.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -791,6 +837,7 @@ public class SjyzController extends BaseController {
 					.queryForObjectList(
 							"SELECT t.SID AS id, t.SWJGBM AS CODE,t.SWJGMC AS NAME,t.SWJGJC AS description,0 AS parent_id,t.STATUS AS STATUS ,t.SJSWJGBM AS sjswjgbm FROM SKQ_SWJG t",
 							SecurityOrganization.class);
+			System.out.println("总共：" + swjgList.size() + "条记录等待移植...");
 			for (int i = 0; i < swjgList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(swjgList.get(i), paramMap);
@@ -814,6 +861,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqWdhxh> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.* from SKQ_WDHXH t", SkqWdhxh.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -830,6 +878,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqXebg> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_XEBG t", SkqXebg.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -846,6 +895,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqZclx> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_ZCLX t", SkqZclx.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -862,6 +912,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqPmsz> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.SID as id, t.* from SKQ_PMSZ t", SkqPmsz.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -878,6 +929,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<SkqWjbmdy> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.* from SKQ_WJBMDY t", SkqWjbmdy.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -894,6 +946,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<TransDmSwjg> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.* from TRANS_DM_SWJG t", TransDmSwjg.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -910,6 +963,7 @@ public class SjyzController extends BaseController {
 		try {
 			List<TransDmZspm> nsrxxList = sybaseDalClient.queryForObjectList(
 					"select t.* from TRANS_DM_ZSPM t", TransDmZspm.class);
+			System.out.println("总共：" + nsrxxList.size() + "条记录等待移植...");
 			for (int i = 0; i < nsrxxList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(nsrxxList.get(i), paramMap);
@@ -928,6 +982,7 @@ public class SjyzController extends BaseController {
 					.queryForObjectList(
 							"SELECT t.SID AS id, t.USERNAME AS username,t.ACTUALNAME AS realname,t.PASSWORD AS userpwd,t.STATUS AS status,t.SWJGBM AS swjgbm from SKQ_USER t",
 							SecurityUser.class);
+			System.out.println("总共：" + swjgList.size() + "条记录等待移植...");
 			for (int i = 0; i < swjgList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(swjgList.get(i), paramMap);
@@ -938,7 +993,8 @@ public class SjyzController extends BaseController {
 					parent_id = new BigDecimal(0);
 				}
 				paramMap.put("organization_id", parent_id);
-				paramMap.put("userpwd", "de88e3e4ab202d87754078cbb2df6063"); // 12345678a
+				// paramMap.put("userpwd", "de88e3e4ab202d87754078cbb2df6063");
+				// // 12345678a
 				paramMap = transLanguage(getParaToBoolean("yzFlag"), paramMap); // 判断是否需要将string类型的编码进行转换
 
 				if (swjgList.get(i).getUsername().equals("system")) {
@@ -966,10 +1022,158 @@ public class SjyzController extends BaseController {
 	@RequestMapping("/getProcess")
 	public void getProcess(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
 		List<String> yzList = (List<String>) ehCacheCacheManager.getEhCache(
 				"metaCache").get("yzList");
 		renderText(response, JsonUtil.toJson(yzList));
+	}
+
+	@RequestMapping("/toSjyzImport")
+	public String toSjyzImport(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		return "/com/jdk2010/nsrxx/skqnsrxx/nsrxxImport";
+	}
+
+	@RequestMapping("/importInfo")
+	public String importInfo(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		HashMap CARDINFO = (HashMap) getSessionAttr("UCARDINFO");
+		List<SkqJqxh> jqxhList = skqJqxhService.queryForList(
+				"select * from skq_jqxh", SkqJqxh.class);
+		setAttr("jqxhList", jqxhList);
+		if (CARDINFO == null || CARDINFO.isEmpty()) {
+			request.setAttribute("errorMsg", "基础信息读取失败！");
+			return "/cxtj/error";
+		} else {
+			request.setAttribute("CARDINFO", CARDINFO);
+			return "/com/jdk2010/nsrxx/skqnsrxx/nsrxxImportAdd";
+		}
+	}
+
+	@RequestMapping("/saveNsrxx")
+	public void saveNsrxx(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
+		String nsrsbh = skqNsrxx.getNsrsbh();
+		String nsrwjbm = skqNsrxx.getNsrwjbm();
+		skqNsrxx.setNsrwjbm(nsrwjbm.substring(1));
+		SkqNsrxx nsrxx1 = skqNsrxxService.getNsrxxByNsrwjbm(skqNsrxx
+				.getNsrwjbm());
+		String ku_nsrwjbm = skqNsrxxService.getNsrwjbmByNsrsbh(nsrsbh);
+		String hiddenStr = getPara("hiddenStr");
+		if (nsrxx1 == null) {
+			for (int i = 0; i < hiddenStr.split("~").length; i++) {
+				String jsonStr = hiddenStr.split("~")[i];
+				if (StringUtil.isNotBlank(jsonStr)) {
+					jsonStr = jsonStr.replaceAll("“", "\"");
+					Map<String, Object> nsrszsmMap = JsonUtil
+							.jsonToMap(jsonStr);
+					SkqNsrszsm nsrszsm = new SkqNsrszsm();
+					nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
+					nsrszsm.setSl(Double.parseDouble("" + nsrszsmMap.get("sl")));
+					nsrszsm.setSmbm("" + nsrszsmMap.get("smbm"));
+					nsrszsm.setSmjc("" + nsrszsmMap.get("smjc"));
+					nsrszsm.setSmmc("" + nsrszsmMap.get("smmc"));
+					nsrszsm.setStatus(1);
+					nsrszsm.setSzbm("" + nsrszsmMap.get("szbm"));
+					skqNsrszsmService.save(nsrszsm);
+				}
+			}
+			skqNsrxx.setStatus(1);
+			skqNsrxx.setZsfs(1);
+			skqNsrxxService.save(skqNsrxx);
+		}
+		SkqJqxx skqJqxx = getModel(SkqJqxx.class);
+		SkqJqxx jqxx = skqJqxxService.getJqxxByJqbh(skqJqxx.getJqbh());
+		if (jqxx == null) {
+			String jqbh = StringUtil.charFront(skqJqxx.getJqbh(), 16, "0");
+			String yhkh = StringUtil.charFront(skqJqxx.getYhkh(), 16, "0");
+			String skkh = StringUtil.charFront(skqJqxx.getSkkh(), 16, "0");
+			skqJqxx.setJqbh(jqbh);
+			skqJqxx.setYhkh(yhkh);
+			skqJqxx.setSkkh(skkh);
+			String kpjzrq = getPara("kpjzrq");
+			String newKpjzrq = kpjzrq.substring(0, 4) + "-"
+					+ kpjzrq.substring(4, 6) +"-"+ kpjzrq.substring(6, 8);
+			skqJqxx.setKpjzrq(DateUtil.parse(newKpjzrq, "yyyy-MM-dd"));
+			String kqyrq = getPara("kqyrq");
+			String newKqyrq = kqyrq.substring(0, 4) + "-"
+					+ kqyrq.substring(4, 6) +"-"+ kqyrq.substring(6, 8);
+			skqJqxx.setKqyrq(DateUtil.parse(newKqyrq, "yyyy-MM-dd"));
+			String kyxrq = getPara("kyxrq");
+			String newKyxrq = kyxrq.substring(0, 4) + "-"
+					+ kyxrq.substring(4, 6) +"-"+ kyxrq.substring(6, 8);
+			skqJqxx.setKyxrq(DateUtil.parse(newKyxrq, "yyyy-MM-dd"));
+			skqJqxx.setSbfs("1");
+			skqJqxx.setStatus(1);
+			skqJqxx.setNsrwjbm(skqNsrxx.getNsrwjbm());
+			skqJqxx.setNsrsbh(skqNsrxx.getNsrsbh());
+			skqJqxx.setMxsbbz("1");
+			skqJqxxService.save(skqJqxx);
+			String OLD_WJBM = dalClient.queryColumn(
+					"select OLD_WJBM from skq_wjbmdy where jqbh='" + jqbh
+							+ "' and new_wjbm='" + skqJqxx.getNsrwjbm() + "'",
+					"OLD_WJBM");
+			dalClient
+					.update("delete from skq_wjbmdy where jqbh='" + jqbh + "'");
+			OLD_WJBM = "0" + skqJqxx.getNsrwjbm();
+			String updateDygxSql = "insert into skq_wjbmdy (JQBH,OLD_WJBM,NEW_WJBM) values('"
+					+ jqbh
+					+ "','"
+					+ OLD_WJBM
+					+ "','"
+					+ skqJqxx.getNsrwjbm()
+					+ "')";
+			dalClient.update(updateDygxSql);
+			hiddenStr = hiddenStr.replaceAll("“", "\"");
+			dalClient.update("delete from skq_jqszsm where jqbh='"+jqbh+"'");
+			for (int i = 0; i < hiddenStr.split("~").length; i++) {
+				String jsonStr = hiddenStr.split("~")[i];
+				if (StringUtil.isNotBlank(jsonStr)) {
+					Map<String, Object> jqszsmMap = JsonUtil.jsonToMap(jsonStr);
+					SkqJqszsm szsm = new SkqJqszsm();
+					szsm.setJqbh(skqJqxx.getJqbh());
+					szsm.setSmbm("" + jqszsmMap.get("smbm"));
+					szsm.setJynr(jqszsmMap.get("smjc")+"");
+					skqJqszsmService.save(szsm);
+				}
+			}
+		}
+		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+		renderJson(response, returnData);
+		// 如果根据wjbm查出来的纳税人的识别号与前台传过来的不一致
+		// if (!nsrsbh.equals(nsrxx1.getNsrsbh())) {
+		// ReturnData returnData = new ReturnData(Constants.ERROR,"卡中微机编码：" +
+		// nsrwjbm
+		// + "已存在，绑定的与您填入的纳税人识别号：" + nsrsbh + " 不一致，库中已绑定的纳税人识别号是："
+		// + nsrxx1.getNsrsbh());
+		// renderJson(response,returnData);
+		// } else if (!StringUtil.isBlank(ku_nsrwjbm)) {
+		// if (!skqNsrxx.getNsrwjbm().equals(ku_nsrwjbm)){
+		// ReturnData returnData = new
+		// ReturnData(Constants.ERROR,"纳税人识别号已绑定微机编码：" + ku_nsrwjbm
+		// + ",与卡中的微机编码：" + skqNsrxx.getNsrwjbm() + " 不一致");
+		// renderJson(response,returnData);
+		//
+		//
+		// } else {
+		//
+		// }
+
+	}
+	
+	@RequestMapping("/testDB")
+	public void testDB(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		try{
+		List<SkqNsrxx> nsrxxList=sybaseDalClient.queryForObjectList("select SID from SKQ_NSRXX ",SkqNsrxx.class);
+		setAttr("size",nsrxxList.size());
+		ReturnData returnData = new ReturnData(Constants.SUCCESS,nsrxxList.size()+"");
+		renderJson(response, returnData);
+		}catch (Exception e) {
+			ReturnData returnData = new ReturnData(Constants.SUCCESS,0+"");
+			renderJson(response, returnData);
+		}
 	}
 
 }

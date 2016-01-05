@@ -54,7 +54,7 @@
 				<li><label style="width: 50px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
 					value="${SWJGBM}"> <input type="text" name="parentName"
-						id="parentName" class="scinput1" readonly
+						id="parentName" class="scinput1" readonly style="width:300px"
 						onclick="selectParentOrganization();" value="${parentName}">
 							<input name="" type="button" class="scbtn" value="选择"
 							onclick="selectParentOrganization();" /></li>
