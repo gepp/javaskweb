@@ -53,13 +53,19 @@
 		var MAKE_END_DATE = document.all('MAKE_END_DATE').value;
 		MAKE_END_DATE=MAKE_END_DATE.replace(new RegExp(/(-)/g),'');
 		var MAC = document.getElementById('MAC').value;
-		 
+		if(KPJZRQ==''){
+			alert('请选择开票截止日期  ' + KPJZRQ);
+			return false;
+		}
+		
 		if (MAKE_END_DATE <= KPJZRQ) {
 			alert('申报日期必须大于  ' + KPJZRQ);
+			return false;
 		} else
 
 		if (MAC == 'null' || MAC == '') {
 			alert('MAC为空，请重新插卡进行监控回传！');
+			return false;
 		}
 
 		else {

@@ -34,7 +34,7 @@
 </div> 
 <div id="tab1" class="tabson">
   <ul class="forminfo">
-  <form action="" method="POST"  id="skqFpjForm">
+  <form action="" method="post"  id="skqFpjForm">
 									 
 					 			   <li><label>id<b></b></label>
  			   <input  type="text" class="dfinput" id="id" name="skqFpj.id" placeholder="请输入id" value="${ skqFpj.id}" />
@@ -95,7 +95,7 @@
  			    	     			    	 			    		 			    			'skqFpj.fpjzh':'required;',
  			    	     			    	 			    		 			    			'skqFpj.fpdw':'required;',
  			    	     			    	 			    		 			    			'skqFpj.nsrwjbm':'required;',
- 			    	     			    	 			    		 			    			'skqFpj.fplgrq':'required;',
+ 			    	     			    	 			    		 			    			'skqFpj.fplgrq':'required;'
  			    	     			    	 			        
  			    },
  			   valid: function(form){
@@ -105,7 +105,7 @@
  			        $.ajax({
  			            url: "${ contextpath}/skqfpj/modifyaction",
  			            data: $(form).serialize(),
- 			            type: "POST",
+ 			            type: "post",
  			            success: function(data){
  			                // 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
  			                me.holdSubmit(false);
