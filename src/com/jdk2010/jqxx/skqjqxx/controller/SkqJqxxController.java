@@ -1,6 +1,7 @@
 package com.jdk2010.jqxx.skqjqxx.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -306,7 +307,7 @@ public class SkqJqxxController extends BaseController {
         String nsrwjbm = skqJqxx.getNsrwjbm();
         SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
         setAttr("nsrxx", nsrxx);
-        String OLD_WJBM=dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrwjbm+"'", "OLD_WJBM");
+        String OLD_WJBM = dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrwjbm+"'", "OLD_WJBM");
         setAttr("OLD_WJBM", OLD_WJBM);
         String smStr = "";
         for (int i = 0; i < skqJqxx.getJqszsmList().size(); i++) {
@@ -328,5 +329,62 @@ public class SkqJqxxController extends BaseController {
 
         return "/com/jdk2010/jqxx/skqjqxx/skqjqxx.fk";
     }
+    
+    @RequestMapping("/getWriteFcardSt")
+	public void hqmc(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		String jqbh = getPara("jqbh");
+		// System.out.println("keyword==" + keyword);
+		SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
+        String nsrwjbm = skqJqxx.getNsrwjbm();
+        SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        String OLD_WJBM = dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrwjbm+"'", "OLD_WJBM");
+        String smStr = "";
+        
+        String STMU = "C:/Program Files/skskjglxt/";
+        String NSRBM = OLD_WJBM;
+		String SKKH = skqJqxx.getSkkh();
+		String JQBH = skqJqxx.getJqbh();
+		String NSRMC = nsrxx.getNsrmc();
+		
+		String SKKQYSJ = Util.toxkrq(skqJqxx.getKqyrq());
+		String SKKYXSJ = Util.toxkrq(skqJqxx.getKyxrq());
+		String BSFS = skqJqxx.getSbfs();
+		String jzrq = Util.toxkrq(skqJqxx.getKpjzrq());
+		
+		long DBZGXE = (long)(skqJqxx.getDzkpxe()*100);
+		long YLJKPXE = (long)(skqJqxx.getYljkpxe()*100);
+		long YLJTPXE = (long)(skqJqxx.getYljtpxe()*100);
+		String NSRSBH = nsrxx.getNsrsbh();
+		
+		
+		String smxkArr = "";
+		List<SkqJqszsm> jqszsmList = skqJqxx.getJqszsmList();
+		if(jqszsmList!=null&&!jqszsmList.isEmpty()){
+			Iterator it = jqszsmList.iterator();
+			while(it.hasNext()){
+				SkqJqszsm szsm = (SkqJqszsm)it.next();
+				String smsy 	= String.valueOf(szsm.getSmsy());
+				if(smsy.length()<2){
+					smsy = "0"+smsy;
+				}
+				smxkArr = smxkArr+smsy;
+			}
+		}
+		
+		String MXSB = skqJqxx.getMxsbbz();
+		String SWJG = nsrxx.getSwjgbm();
+		if(SWJG.length()>8){
+			SWJG=SWJG.substring(3);
+		}
+		String inputfile = STMU+JQBH+"/SKKXK_"+JQBH+".txt";
+		String skkfk = NSRBM+"^"+SKKH+"^"+JQBH+"^"+NSRMC+"^"+SKKQYSJ+"^"+jzrq+"^"+SKKYXSJ+"^"+BSFS+"^"+DBZGXE+"^"+YLJKPXE+"^"+YLJTPXE+"^"+smxkArr+"^"+MXSB+"^"+SWJG+"^"+NSRSBH;
+		
+        
+		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+		returnData.put("skkfk", skkfk);
+		renderJson(response,returnData);
+	}
 
 }
