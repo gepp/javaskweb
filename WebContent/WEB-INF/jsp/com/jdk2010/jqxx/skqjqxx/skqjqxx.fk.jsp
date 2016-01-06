@@ -130,13 +130,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<br />
 	<ul style=" left:30%;bottom:15px">
-		<li><label>&nbsp;</label> <input type="button" class="btn"
-			name="btn1" onClick="writeFcard()" value=" 发税控卡 "
+		<li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
+		<input type="radio" name="sccs1" value="001" checked onclick="change_sccs(this.value);" />
+              大唐
+        <input type="radio" name="sccs1" value="002" onclick="change_sccs(this.value);"/>
+              四通
+		</li>
+		<li id="dt"><label>&nbsp;</label> <input type="button" class="btn"
+			name="btn1" onClick="writeFcard()" value=" 发税控卡  "
 			style="cursor: hand;" id="fskk" /> &nbsp;&nbsp; <input type="button"
-			class="btn" name="btn2" onClick="writeUcard()" value=" 发用户卡 "
+			class="btn" name="btn2" onClick="writeUcard()" value=" 发用户卡"
 			style="cursor: hand;" id="fyhk" /> &nbsp;&nbsp; <input name=""
-			type="button" class="btn" value="返回" id="fh"
-			onclick="window.location='${ contextpath }/skqjqxx/list.htm?nsrwjbm=${jqxx.nsrwjbm}'" />
+			type="button" class="btn" value="返回" id="fh" onclick="window.location='${ contextpath }/skqjqxx/list.htm?nsrwjbm=${jqxx.nsrwjbm}'" />
+		</li>
+		<li id="st" style="display:none;"><label>&nbsp;</label> <input type="button" class="btn"
+			name="btn1" onClick="writeFcardSt()" value=" 发税控卡 "
+			style="cursor: hand;" id="fskk" /> &nbsp;&nbsp; <input type="button"
+			class="btn" name="btn2" onClick="writeUcardSt()" value=" 发用户卡 "
+			style="cursor: hand;" id="fyhk" /> &nbsp;&nbsp; <input name=""
+			type="button" class="btn" value="返回" id="fh" onclick="window.location='${ contextpath }/skqjqxx/list.htm?nsrwjbm=${jqxx.nsrwjbm}'" />
 		</li>
 	</ul>
 	<br />
@@ -168,6 +180,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				name="dtapplet" width="1" height="1"
 				pluginspage="http://java.sun.com/products/plugin/"
 				java_code="com.jsdt.web.applet.TYUcWritelet.class" java_codebase="."
+				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
+			</noembed> </comment>
+		</object>
+		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			name="dsfxk" width="1" height="1"
+			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">
+			<param name="java_code" value="com.jsdt.web.applet.CallExe.class" />
+			<param name="java_codebase" value="<%=basePath%>" />
+			<param name="java_archive" value="dtapplet.jar" />
+			<param name="type" value="application/x-java-applet" />
+			<param name="serverUrl" value="<%=basePath%>" />
+			<comment> <EMBED type="application/x-java-applet"
+				name="dtapplet" width="1" height="1"
+				pluginspage="http://java.sun.com/products/plugin/"
+				java_code="com.jsdt.web.applet.CallExe.class" java_codebase="."
 				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
 			</noembed> </comment>
 		</object>
@@ -279,6 +306,76 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    
 		});
 		 
+	}
+	
+	
+	function change_sccs(val){
+		if(val=='001'){
+			$("#dt").show();
+			$("#st").hide();
+		}
+		else{
+			$("#dt").hide();
+			$("#st").show();
+		}
+	}
+	
+	function writeFcardSt(){
+		var jqbh = $("#MACHINE_NO").val();
+		ssAlert('税控卡发卡中，请等待……');
+		jQuery.ajax({
+			url:"${ contextpath}/skqjqxx/getWriteFcardSt?jqbh="+jqbh,
+			type: "POST",
+			success: function(data){
+				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+				if(data.status=='success'){
+					var sid = "SKKXK_"+data.data.skkfk;
+					alert(sid);
+					var v = document.dsfxk.call(sid);
+					if(v==1){
+						div_close();
+						alert("税控卡发卡成功！！！");
+					}
+					else{
+						div_close();
+						alert("税控卡发卡失败！！！");
+						
+					}		 
+				}else{
+					sAlert("组合税控卡写卡信息失败");
+				}
+			   
+			}
+		});
+	}
+	
+	function writeUcardSt(){
+		var jqbh = $("#MACHINE_NO").val();
+		ssAlert('税控卡发卡中，请等待……');
+		jQuery.ajax({
+			url:"${ contextpath}/skqjqxx/getWriteUcardSt?jqbh="+jqbh,
+			type: "POST",
+			success: function(data){
+				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+				if(data.status=='success'){
+					var sid = "YHKXK_"+data.data.yhkfk;
+					alert(sid);
+					var v = document.dsfxk.call(sid);
+					if(v==1){
+						div_close();
+						alert("用户卡发卡成功！！！");
+					}
+					else{
+						div_close();
+						alert("用户卡发卡失败！！！");
+						
+					}		 
+				}else{
+					sAlert("组合用户卡写卡信息失败");
+				}
+			   
+			}
+		});
 	}
  
 </script>

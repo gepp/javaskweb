@@ -527,5 +527,115 @@ public class SkqJqxxController extends BaseController {
 		}
 		return listmap;
 	}
+	
+	
+	@RequestMapping("/getWriteFcardSt")
+	public void getWriteFcardSt(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 
+		String jqbh = getPara("jqbh");
+		// System.out.println("keyword==" + keyword);
+		SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
+        String nsrwjbm = skqJqxx.getNsrwjbm();
+        SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        String OLD_WJBM = dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrwjbm+"'", "OLD_WJBM");
+        String smStr = "";
+        
+        String STMU = "C:/Program Files/skskjglxt/";
+        String NSRBM = OLD_WJBM;
+		String SKKH = skqJqxx.getSkkh();
+		String JQBH = skqJqxx.getJqbh();
+		String NSRMC = nsrxx.getNsrmc();
+		
+		String SKKQYSJ = Util.toxkrq(skqJqxx.getKqyrq());
+		String SKKYXSJ = Util.toxkrq(skqJqxx.getKyxrq());
+		String BSFS = skqJqxx.getSbfs();
+		String jzrq = Util.toxkrq(skqJqxx.getKpjzrq());
+		
+		long DBZGXE = (long)(skqJqxx.getDzkpxe()*100);
+		long YLJKPXE = (long)(skqJqxx.getYljkpxe()*100);
+		long YLJTPXE = (long)(skqJqxx.getYljtpxe()*100);
+		String NSRSBH = nsrxx.getNsrsbh();
+		
+		
+		String smxkArr = "";
+		List<SkqJqszsm> jqszsmList = skqJqxx.getJqszsmList();
+		for (int i = 0; i < jqszsmList.size(); i++) {
+			SkqJqszsm szsm = skqJqxx.getJqszsmList().get(i);
+			
+			String smsy 	= String.valueOf(szsm.getSmsy());
+			if(smsy.length()<2){
+				smsy = "0"+smsy;
+			}
+			smxkArr = smxkArr+smsy;
+		}
+		
+		String MXSB = skqJqxx.getMxsbbz();
+		String SWJG = nsrxx.getSwjgbm();
+		if(SWJG.length()>8){
+			SWJG=SWJG.substring(3);
+		}
+		String inputfile = STMU+JQBH+"/SKKXK_"+JQBH+".txt";
+		String skkfk = NSRBM+"^"+SKKH+"^"+JQBH+"^"+NSRMC+"^"+SKKQYSJ+"^"+jzrq+"^"+SKKYXSJ+"^"+BSFS+"^"+DBZGXE+"^"+YLJKPXE+"^"+YLJTPXE
+
++"^"+smxkArr+"^"+MXSB+"^"+SWJG+"^"+NSRSBH;
+		
+        
+		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+		returnData.put("skkfk", skkfk);
+		renderJson(response,returnData);
+	}
+	
+	@RequestMapping("/getWriteUcardSt")
+	public void getWriteUcardSt(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String jqbh = getPara("jqbh");
+		// System.out.println("keyword==" + keyword);
+		SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
+        String nsrwjbm = skqJqxx.getNsrwjbm();
+        SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        String OLD_WJBM = dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrwjbm+"'", "OLD_WJBM");
+        
+        String NSRBM = OLD_WJBM;
+		String SKKH = skqJqxx.getSkkh();
+		String JQBH = skqJqxx.getJqbh();
+		String NSRMC = nsrxx.getNsrmc();
+		String YHKQYSJ = Util.toxkrq(skqJqxx.getKqyrq());
+		String YHKYXSJ = Util.toxkrq(skqJqxx.getKyxrq());
+		long DBZGXE = (long)(skqJqxx.getDzkpxe()*100);
+		long YLJKPXE = (long)(skqJqxx.getYljkpxe()*100);
+		long YLJTPXE = (long)(skqJqxx.getYljtpxe()*100);
+		String jzrq = Util.toxkrq(skqJqxx.getKpjzrq());
+		String BSFS = skqJqxx.getSbfs();
+		
+		String NSRSBH = nsrxx.getNsrsbh();
+		
+		String[] smxkArr = new String[6];
+		List<SkqJqszsm> jqszsmList = skqJqxx.getJqszsmList();
+		for (int i = 0; i < jqszsmList.size(); i++) {
+			SkqJqszsm szsm = skqJqxx.getJqszsmList().get(i);
+			
+			String smsy 	= String.valueOf(szsm.getSmsy());
+			if(smsy.length()<2){
+				smsy = "0"+smsy;
+			}
+			double SL 		= szsm.getSl();
+			String JYNR 	= szsm.getJynr();
+			String str1 = "^"+smsy+"^"+szsm.getSmbm()+"^"+(int)SL+"^"+JYNR+"^";
+			smxkArr[i] = str1;
+		}
+		
+		if(smxkArr!=null){
+			for(int i=0;i<6;i++){
+				if(smxkArr[i]==null){
+					smxkArr[i] = "^"+""+"^"+""+"^"+""+"^"+""+"^";
+				}
+			}
+		}
+		String yhkfk = NSRBM+"^"+SKKH+"^"+JQBH+"^"+"1"+"^"+NSRMC+"^"+YHKQYSJ+"^"+YHKYXSJ+"^"+DBZGXE+"^"+YLJKPXE+"^"+YLJTPXE+"^"+jzrq+"^"+BSFS+smxkArr[0]+smxkArr[1]+smxkArr[2]+smxkArr[3]+smxkArr[4]+smxkArr[5]+"^"+NSRSBH;
+		
+		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+		returnData.put("yhkfk", yhkfk);
+		renderJson(response,returnData);
+	}
 }

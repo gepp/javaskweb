@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -185,9 +185,8 @@
 		class="com.jdk2010.framework.dal.client.support.DefaultDalClient">
 		<property name="dataSource" ref="dataSourceSybase"></property>
 		<property name="showSql" value="true"></property>
-	</bean> -->
-
-
+	</bean>
+-->
 	<!-- <bean id="dataSourceOracle" class="com.alibaba.druid.pool.DruidDataSource" 
 		destroy-method="close"> <property name="driverClassName"> <value>${oracle.driver}</value> 
 		</property> <property name="url"> <value>${oracle.url}</value> </property> 

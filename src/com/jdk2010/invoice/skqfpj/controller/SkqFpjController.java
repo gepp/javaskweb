@@ -225,7 +225,11 @@ public class SkqFpjController extends BaseController {
             HashMap kxx = (HashMap) CARDINFO.get("EF02");
             HashMap EF06 = (HashMap) CARDINFO.get("EF06");
             String jqbh = (String) EF06.get("JQBH");
-            ArrayList cardInvoice = (ArrayList) CARDINFO.get("EF05");
+            
+            ArrayList cardInvoice = new ArrayList();
+            setSessionAttr("cardInvoice", cardInvoice);
+            
+            cardInvoice = (ArrayList) CARDINFO.get("EF05");
             String card_nsrwjbm = (String) kxx.get("NSRWJDM");
             String new_wjbm=dalClient.queryColumn("select NEW_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and old_wjbm='"+card_nsrwjbm+"'", "NEW_WJBM");
             SkqJqxx jqxx = dalClient.queryForObject("select * from skq_jqxx where nsrwjbm='" + new_wjbm
@@ -254,6 +258,69 @@ public class SkqFpjController extends BaseController {
                 return FORWARD + "/skqfpj/fpList.htm?jqbh=" + jqbh + "&nsrwjbm=" + new_wjbm;
 
             }
+
+        }
+
+    }
+    
+    @RequestMapping("/infoSt")
+    public String infoSt(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String userinfo = request.getParameter("userinfo");
+    	String dkxx = request.getParameter("dkxx");
+    	
+		String[] userinfo_arr = userinfo.split("\\^");
+		String card_nsrwjbm = userinfo_arr[0];
+		String jqbh = userinfo_arr[4];
+		
+		String new_wjbm=dalClient.queryColumn("select NEW_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and old_wjbm='"+card_nsrwjbm+"'", "NEW_WJBM");
+        SkqJqxx jqxx = dalClient.queryForObject("select * from skq_jqxx where nsrwjbm='" + new_wjbm
+                + "' and jqbh='" + jqbh + "'", SkqJqxx.class);
+        if (jqxx == null) {
+            request.setAttribute("errorMsg", "纳税户不存在！用户卡中纳税户微机编码为：" + card_nsrwjbm + ",机器编号为：" + jqxx);
+            return "/cxtj/error";
+        } else {
+            if (jqxx.getStatus() != 1) {
+                request.setAttribute("errorMsg", "机器已经注销！");
+                return "/cxtj/error";
+            }
+            //
+            ArrayList cardInvoice = new ArrayList();
+            setSessionAttr("cardInvoice", cardInvoice);
+			if(dkxx==null||"".equals(dkxx)){
+				
+			}
+			else{
+				String[] dkxx_arr = dkxx.split("\\|");
+				for(int i=0;i<dkxx_arr.length;i++){
+					String one_fpxx = dkxx_arr[i];
+					String[] one_fpxx_arr = one_fpxx.split("\\^");
+					//System.out.println("one_fpxx_arr======="+one_fpxx_arr);
+					HashMap fpxx = new HashMap();
+					fpxx.put("userno", one_fpxx_arr[0]);
+					fpxx.put("SKKBH", one_fpxx_arr[1]);
+					fpxx.put("SKSKJJQBH", one_fpxx_arr[2]);
+					fpxx.put("FPDM", one_fpxx_arr[3]);
+					fpxx.put("QSH", Integer.parseInt(one_fpxx_arr[4]));
+					fpxx.put("JZH", Integer.parseInt(one_fpxx_arr[5]));
+					fpxx.put("JS", Integer.parseInt(one_fpxx_arr[6]));
+					cardInvoice.add(fpxx);
+				}						
+			}
+			
+			setSessionAttr("cardInvoice", cardInvoice);
+            int hasInvoiceSize=0;
+            for(int i=0;i<cardInvoice.size();i++){
+            	Map map=(Map) cardInvoice.get(i);
+            	String FPDM=map.get("FPDM")+"";
+            	String JS=map.get("JS")+"";
+            	String QSH=map.get("QSH")+"";
+            	String JZH=map.get("JZH")+"";
+            	if((!FPDM.equals("00000000000000000000"))&&(!JS.equals("0"))){
+            		hasInvoiceSize++;
+            	}
+            }
+            setAttr("hasInvoiceSize", hasInvoiceSize);
+            return FORWARD + "/skqfpj/fpList.htm?jqbh=" + jqbh + "&nsrwjbm=" + new_wjbm;
 
         }
 
@@ -318,8 +385,9 @@ public class SkqFpjController extends BaseController {
 
         // 组装桌面隐藏hiddenFpj
         String hiddenFpj = "";
+        String hiddenFpjSt = "";
         HashMap CARDINFO = (HashMap) getSessionAttr("UCARDINFO");
-        ArrayList cardInvoice = (ArrayList) CARDINFO.get("EF05");
+        ArrayList cardInvoice = (ArrayList) getSessionAttr("cardInvoice");
         Iterator iterator=cardInvoice.iterator();
         while(iterator.hasNext()){
         	HashMap hm = (HashMap) iterator.next();
@@ -341,6 +409,10 @@ public class SkqFpjController extends BaseController {
             String fpxi = (String) hm.get("FPDM") + "," + fpqshStr + "," + fpjzhStr + "," + hm.get("JS");
             hiddenFpj = hiddenFpj + "<input type=\"hidden\" id=\"fpxi_" + jqxx.getYhkh() + "_" + i + "\" name=\"fpxi_"
                     + jqxx.getYhkh() + "_" + i + "\" value=\"" + fpxi + "\" />";
+            
+            String fpxi_st = OLD_WJBM+"^"+jqxx.getSkkh()+"^"+jqxx.getJqbh()+"^"+(String)hm.get("FPDM")+"^"+fpqshStr+"^"+fpjzhStr+"^"+(Integer)hm.get("JS");
+            
+            hiddenFpjSt = hiddenFpjSt+"<input type=\"hidden\" id=\"fpxi_st_"+i+"\" name=\"fpxi_st_"+i+"\" value=\""+fpxi_st+"\" />";
         }
         int cardSize = cardInvoice.size();
         for (int i = 0; i < alFp.size(); i++) {
@@ -350,6 +422,9 @@ public class SkqFpjController extends BaseController {
             String fpxi = (String) mx.getFpdm() + "," + fpqshStr + "," + fpjzhStr + "," + mx.getFpdw();
             hiddenFpj = hiddenFpj + "<input type=\"hidden\" id=\"fpxi_" + jqxx.getYhkh() + "_" + (i + cardSize)
                     + "\" name=\"fpxi_" + jqxx.getYhkh() + "_" + (i + cardSize) + "\" value=\"" + fpxi + "\" />";
+            
+            String fpxi_st = OLD_WJBM+"^"+jqxx.getSkkh()+"^"+jqxx.getJqbh()+"^"+(String) mx.getFpdm()+"^"+fpqshStr+"^"+fpjzhStr+"^"+mx.getFpdw();
+            hiddenFpjSt = hiddenFpjSt+"<input type=\"hidden\" id=\"fpxi_st_"+(i + cardSize)+"\" name=\"fpxi_st_"+(i + cardSize)+"\" value=\""+fpxi_st+"\" />";
         }
 
         int total = cardInvoice.size() + alFp.size();
@@ -357,10 +432,12 @@ public class SkqFpjController extends BaseController {
             for (int m = total; m < 10; m++) {
                 hiddenFpj = hiddenFpj + "<input type=\"hidden\" id=\"fpxi_" + jqxx.getYhkh() + "_" + m
                         + "\" name=\"fpxi_" + jqxx.getYhkh() + "_" + m + "\" value=\"\" />";
+                
+                hiddenFpjSt = hiddenFpjSt+"<input type=\"hidden\" id=\"fpxi_st_"+m+"\" name=\"fpxi_st_"+m+"\" value=\"\" />";
             }
         }
         setAttr("hiddenFpj", hiddenFpj);
-
+        setAttr("hiddenFpjSt", hiddenFpjSt);
         return "/invoice/invoice.xk";
     }
 
