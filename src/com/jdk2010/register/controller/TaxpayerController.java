@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
+import com.jdk2010.jqxx.skqjqxx.model.SkqJqxx;
 import com.jdk2010.nsrxx.skqnsrxx.model.SkqNsrxx;
 import com.jdk2010.nsrxx.skqnsrxx.service.ISkqNsrxxService;
 
@@ -39,12 +40,23 @@ public class TaxpayerController extends BaseController {
             return "/cxtj/error";
         } else {
             HashMap EF02 = (HashMap) CARDINFO.get("EF02");
-            String nsrwjbm = ((String) EF02.get("NSRWJDM"));
-            SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
-            request.setAttribute("nsrmc", nsrxx.getNsrmc().trim());
-            request.setAttribute("CARDINFO", CARDINFO);
-            setAttr("EF02", EF02);
-            return "/register/nsrmcgx.dk.show";
+            String card_nsrwjbm = ((String) EF02.get("NSRWJDM"));
+             String jqbh = (String) EF02.get("JQBH");
+            String new_wjbm=dalClient.queryColumn("select NEW_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and old_wjbm='"+card_nsrwjbm+"'", "NEW_WJBM");
+            SkqJqxx jqxx = dalClient.queryForObject("select * from skq_jqxx where nsrwjbm='" + new_wjbm
+                    + "' and jqbh='" + jqbh + "'", SkqJqxx.class);
+            if (jqxx == null) {
+                request.setAttribute("errorMsg", "纳税户不存在！用户卡中纳税户微机编码为：" + card_nsrwjbm + ",机器编号为：" + jqxx);
+                return "/cxtj/error";
+            } else{
+                 SkqNsrxx nsrxx=skqNsrxxService.getNsrxxByNsrwjbm(jqxx.getNsrwjbm());
+            	 request.setAttribute("nsrmc", nsrxx.getNsrmc().trim());
+                 request.setAttribute("CARDINFO", CARDINFO);
+                 setAttr("EF02", EF02);
+                 return "/register/nsrmcgx.dk.show";
+            }
+            
+           
         }
 
     }

@@ -272,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				}
 			} catch (e) {
-				
+				div_close();
 				alert("用户卡  发卡失败！！！");
 			}
 		}, function(){
@@ -294,10 +294,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if (result == 1) {
 					alert("税控卡  发卡成功！！！");
 				} else {
+					div_close();
 					alert("税控卡   发卡失败！！！");
 					
 				}
 			} catch (e) {
+				div_close();
 				alert("税控卡   发卡失败！！！");
 			}
 		}, function(){
