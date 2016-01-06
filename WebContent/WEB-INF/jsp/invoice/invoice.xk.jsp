@@ -148,12 +148,12 @@
 			</noembed> </comment>
 		</object>
 		<ul class="forminfo">
-			<li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
+			<!--  <li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
 		<input type="radio" name="sccs1" value="001" checked onclick="change_sccs(this.value);" />
               大唐
         <input type="radio" name="sccs1" value="002" onclick="change_sccs(this.value);"/>
               四通
-		</li>
+		</li>-->
 			<li id="dt"><label>&nbsp;</label><input name="" type="button"
 				class="btn" value="发票写卡" onclick="fpxk();" id="fpxk_btn" />
 				&nbsp;&nbsp; <input name="" type="button" class="btn" value="返 回"
