@@ -220,7 +220,7 @@ public class LoginController extends BaseController {
         }
         setSessionAttr("userMenuMap", userMenuMap);
         setSessionAttr("menuStr", menuStr);
-        return "/left";
+         return "/left";
     }
 
     @RequestMapping("/defaultMain")

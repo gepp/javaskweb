@@ -204,8 +204,6 @@ public class Util {
 
     }
 	public static void main(String[] args) {
-		 String p="04D6000041010101788000000046932013111920231119000100D5E3BDADCEE5D1F3BDA8D6FEBCAFCDC5CFFBB7C0B9A4B3CCD3D0CFDEB9ABCBBEB3D8D6DDB7D6B9ABCBBE6936285D";
-	       byte[] command9 = Util.HexString2Bytes(p);
-	       CommandAPDU capdu = new CommandAPDU(command9);
+		 System.out.println(hqjkhcrq());
 	}
 }
