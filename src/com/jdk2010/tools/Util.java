@@ -1,14 +1,17 @@
 package com.jdk2010.tools;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import javax.smartcardio.CommandAPDU;
 
 import com.jdk2010.framework.util.DateUtil;
 import com.jdk2010.framework.util.StringUtil;
@@ -203,7 +206,25 @@ public class Util {
         return str;
 
     }
+	
+	public static void test(){
+		String url = "jdbc:sybase:Tds:192.168.1.107:5001/chuzhou?charset=cp850&jconnect_version=3";
+		try {
+			Class.forName("com.sybase.jdbc2.jdbc.SybDriver").newInstance();
+			Connection con = DriverManager.getConnection(url, "sa", "");
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select top 10 * from SKQ_NSRXX");
+			while (rs.next()) {
+				System.out.println(rs.getString(1));
+			}
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+
+		} catch (java.lang.Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
-		 System.out.println(hqjkhcrq());
+		test();
 	}
 }

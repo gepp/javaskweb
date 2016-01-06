@@ -2,7 +2,10 @@ package com.jdk2010.tools;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -355,7 +358,7 @@ public class SjyzController extends BaseController {
 
 		yzList.add("=============移植结束=============");
 		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
-		
+
 		System.out.println("移植结束！！！！！！！！！！！！");
 
 	}
@@ -765,8 +768,9 @@ public class SjyzController extends BaseController {
 	public int yz_SKQ_NSRSZSM() throws UnsupportedEncodingException {
 		try {
 			List<SkqNsrszsm> hyList = sybaseDalClient.queryForObjectList(
-					"select t.* from SKQ_NSRSZSM t", SkqNsrszsm.class);System.out.println("总共：" + hyList.size() + "条记录等待移植...");
-					
+					"select t.* from SKQ_NSRSZSM t", SkqNsrszsm.class);
+			System.out.println("总共：" + hyList.size() + "条记录等待移植...");
+
 			for (int i = 0; i < hyList.size(); i++) {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				String sql = DbKit.warpsavesql(hyList.get(i), paramMap);
@@ -1094,15 +1098,15 @@ public class SjyzController extends BaseController {
 			skqJqxx.setSkkh(skkh);
 			String kpjzrq = getPara("kpjzrq");
 			String newKpjzrq = kpjzrq.substring(0, 4) + "-"
-					+ kpjzrq.substring(4, 6) +"-"+ kpjzrq.substring(6, 8);
+					+ kpjzrq.substring(4, 6) + "-" + kpjzrq.substring(6, 8);
 			skqJqxx.setKpjzrq(DateUtil.parse(newKpjzrq, "yyyy-MM-dd"));
 			String kqyrq = getPara("kqyrq");
 			String newKqyrq = kqyrq.substring(0, 4) + "-"
-					+ kqyrq.substring(4, 6) +"-"+ kqyrq.substring(6, 8);
+					+ kqyrq.substring(4, 6) + "-" + kqyrq.substring(6, 8);
 			skqJqxx.setKqyrq(DateUtil.parse(newKqyrq, "yyyy-MM-dd"));
 			String kyxrq = getPara("kyxrq");
 			String newKyxrq = kyxrq.substring(0, 4) + "-"
-					+ kyxrq.substring(4, 6) +"-"+ kyxrq.substring(6, 8);
+					+ kyxrq.substring(4, 6) + "-" + kyxrq.substring(6, 8);
 			skqJqxx.setKyxrq(DateUtil.parse(newKyxrq, "yyyy-MM-dd"));
 			skqJqxx.setSbfs("1");
 			skqJqxx.setStatus(1);
@@ -1126,7 +1130,8 @@ public class SjyzController extends BaseController {
 					+ "')";
 			dalClient.update(updateDygxSql);
 			hiddenStr = hiddenStr.replaceAll("“", "\"");
-			dalClient.update("delete from skq_jqszsm where jqbh='"+jqbh+"'");
+			dalClient
+					.update("delete from skq_jqszsm where jqbh='" + jqbh + "'");
 			for (int i = 0; i < hiddenStr.split("~").length; i++) {
 				String jsonStr = hiddenStr.split("~")[i];
 				if (StringUtil.isNotBlank(jsonStr)) {
@@ -1134,7 +1139,7 @@ public class SjyzController extends BaseController {
 					SkqJqszsm szsm = new SkqJqszsm();
 					szsm.setJqbh(skqJqxx.getJqbh());
 					szsm.setSmbm("" + jqszsmMap.get("smbm"));
-					szsm.setJynr(jqszsmMap.get("smjc")+"");
+					szsm.setJynr(jqszsmMap.get("smjc") + "");
 					skqJqszsmService.save(szsm);
 				}
 			}
@@ -1161,17 +1166,35 @@ public class SjyzController extends BaseController {
 		// }
 
 	}
-	
+
 	@RequestMapping("/testDB")
-	public void testDB(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		try{
-		List<SkqNsrxx> nsrxxList=sybaseDalClient.queryForObjectList("select SID from SKQ_NSRXX ",SkqNsrxx.class);
-		setAttr("size",nsrxxList.size());
-		ReturnData returnData = new ReturnData(Constants.SUCCESS,nsrxxList.size()+"");
-		renderJson(response, returnData);
-		}catch (Exception e) {
-			ReturnData returnData = new ReturnData(Constants.SUCCESS,0+"");
+	public void testDB(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		try {
+			String driver = getPara("driver");
+			String url = getPara("url");
+			String username = getPara("username");
+			String password = getPara("password");
+			Connection conn = null;
+			Long total=0L;
+			try {
+				Class.forName(driver);
+				conn = DriverManager.getConnection(url, username, password);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			Statement stmt = null;
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select count(*) as total from SKQ_NSRXX");
+			while(rs.next()){
+				total=rs.getLong("total");
+			}
+			
+			ReturnData returnData = new ReturnData(Constants.SUCCESS,
+					total + "");
+			renderJson(response, returnData);
+		} catch (Exception e) {
+			ReturnData returnData = new ReturnData(Constants.SUCCESS, 0 + "");
 			renderJson(response, returnData);
 		}
 	}

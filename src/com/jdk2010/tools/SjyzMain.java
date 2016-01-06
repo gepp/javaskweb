@@ -2,8 +2,11 @@ package com.jdk2010.tools;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +24,6 @@ import com.jdk2010.bdc.skqbdcxmmx.model.SkqBdcxmmx;
 import com.jdk2010.bdc.skqbdczxm.model.SkqBdczxm;
 import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DbKit;
-import com.jdk2010.framework.util.MD5Utils;
 import com.jdk2010.invoice.skqfpj.model.SkqFpj;
 import com.jdk2010.invoice.skqfpjmx.model.SkqFpjmx;
 import com.jdk2010.invoice.skqfpkj.model.SkqFpkj;
@@ -539,7 +541,25 @@ public class SjyzMain {
 		return 0;
 	}
 	
+	public static void test(){
+		String url = "jdbc:sybase:Tds:192.168.1.107:5000/master";
+		try {
+			Class.forName("com.sybase.jdbc2.jdbc.SybDriver").newInstance();
+			Connection con = DriverManager.getConnection(url, "sa", "");
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select top 10 * from SKQ_NSRXX");
+			while (rs.next()) {
+				System.out.println(rs.getString(1));
+			}
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+
+		} catch (java.lang.Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	public static void main(String[] args) throws UnsupportedEncodingException {
+		test();
 //		 		yz_SKQ_BDC();
 //				yz_SKQ_BDCKP();
 //				yz_SKQ_BDCLP();
@@ -576,6 +596,6 @@ public class SjyzMain {
 //				yz_TRANS_DM_ZSPM();
 //				yz_SKQ_USER();
 //				yz_SKQ_USER();
-		System.out.println(MD5Utils.md5("jsdtskzz"));
+//		System.out.println(MD5Utils.md5("jsdtskzz"));
 	}
 }

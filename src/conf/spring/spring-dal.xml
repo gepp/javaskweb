@@ -185,8 +185,8 @@
 		class="com.jdk2010.framework.dal.client.support.DefaultDalClient">
 		<property name="dataSource" ref="dataSourceSybase"></property>
 		<property name="showSql" value="true"></property>
-	</bean>
--->
+	</bean> -->
+
 	<!-- <bean id="dataSourceOracle" class="com.alibaba.druid.pool.DruidDataSource" 
 		destroy-method="close"> <property name="driverClassName"> <value>${oracle.driver}</value> 
 		</property> <property name="url"> <value>${oracle.url}</value> </property> 
