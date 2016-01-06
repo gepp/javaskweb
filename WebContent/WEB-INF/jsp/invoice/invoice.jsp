@@ -119,6 +119,7 @@
               大唐
         <input type="radio" name="sccs1" value="002" onclick="change_sccs(this.value);"/>
               四通</label><br /><br /> -->
+	 
 		<input type="hidden" name="userinfo" /> 
 		<input type="button" id="dt" name="btn" value=" 读 卡 " class="btn" style="cursor: hand;" onclick="add();" />
 		<input type="button" id="st" style="display:none;" name="btn" value=" 读 卡 " class="btn" style="cursor: hand;" onclick="addSt();" />

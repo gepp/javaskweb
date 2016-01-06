@@ -148,7 +148,7 @@
 			</noembed> </comment>
 		</object>
 		<ul class="forminfo">
-			<!-- <li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
+			<!--  <li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
 		<input type="radio" name="sccs1" value="001" checked onclick="change_sccs(this.value);" />
               大唐
         <input type="radio" name="sccs1" value="002" onclick="change_sccs(this.value);"/>
