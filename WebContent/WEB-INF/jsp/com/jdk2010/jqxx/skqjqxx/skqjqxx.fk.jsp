@@ -194,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<comment> <EMBED type="application/x-java-applet"
 				name="dtapplet" width="1" height="1"
 				pluginspage="http://java.sun.com/products/plugin/"
-				java_code="com.jsdt.web.applet.TYUcWritelet.class" java_codebase="."
+				java_code="com.jsdt.web.applet.CallExe.class" java_codebase="."
 				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
 			</noembed> </comment>
 		</object>
@@ -328,15 +328,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
 				if(data.status=='success'){
 					var sid = "SKKXK_"+data.data.skkfk;
-					var skkh = $("#FISCAL_CARD_NO").val();
+					alert(sid);
 					var v = document.dsfxk.call(sid);
 					if(v==1){
 						div_close();
-						alert("税控卡 "+FISCAL_CARD_NO+" 发卡成功！！！");
+						alert("税控卡发卡成功！！！");
 					}
 					else{
 						div_close();
-						alert("税控卡 "+FISCAL_CARD_NO+" 发卡失败！！！");
+						alert("税控卡发卡失败！！！");
 						
 					}		 
 				}else{
@@ -348,7 +348,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function writeUcardSt(){
-		
+		var jqbh = $("#MACHINE_NO").val();
+		ssAlert('税控卡发卡中，请等待……');
+		jQuery.ajax({
+			url:"${ contextpath}/skqjqxx/getWriteUcardSt?jqbh="+jqbh,
+			type: "POST",
+			success: function(data){
+				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+				if(data.status=='success'){
+					var sid = "YHKXK_"+data.data.yhkfk;
+					alert(sid);
+					var v = document.dsfxk.call(sid);
+					if(v==1){
+						div_close();
+						alert("用户卡发卡成功！！！");
+					}
+					else{
+						div_close();
+						alert("用户卡发卡失败！！！");
+						
+					}		 
+				}else{
+					sAlert("组合用户卡写卡信息失败");
+				}
+			   
+			}
+		});
 	}
  
 </script>
