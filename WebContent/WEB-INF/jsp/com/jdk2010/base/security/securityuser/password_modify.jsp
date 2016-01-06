@@ -69,7 +69,7 @@
 										{
 											fields : {
 												'userpwd1' : '第一次密码: required;password1',
-												'userpwd2' : 'required;password1;match(userpwd1)',
+												'userpwd2' : 'required;password1;match(userpwd1)'
 											},
 											valid : function(form) {
 												var me = this;

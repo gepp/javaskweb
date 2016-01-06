@@ -47,7 +47,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqPmszForm">
+					<form action="" method="post" id="skqPmszForm">
 
 						<input type="hidden" class="dfinput" id="id" name="skqPmsz.id"
 							placeholder="请输入id" value="${ skqPmsz.id}" />
@@ -164,7 +164,7 @@
 															url : "${ contextpath}/skqpmsz/modifyaction",
 															data : $(form)
 																	.serialize(),
-															type : "POST",
+															type : "post",
 															success : function(
 																	data) {
 																// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单

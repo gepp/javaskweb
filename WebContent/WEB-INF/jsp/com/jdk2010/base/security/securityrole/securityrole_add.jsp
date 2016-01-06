@@ -43,7 +43,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityRoleForm">
+					<form action="" method="post" id="securityRoleForm">
 
 
 						<li><label>编码<b></b></label> <input type="text" class="dfinput" id="code" name="securityRole.code" placeholder="请输入编码" /></li>
@@ -106,7 +106,7 @@
 		}).validator({
 			fields : {
 				'securityRole.code' : 'required;remote[${contextpath}/securityrole/check.htm]',
-				'securityRole.name' : 'required;',
+				'securityRole.name' : 'required;'
 			},
 			valid : function(form) {
 				var me = this;

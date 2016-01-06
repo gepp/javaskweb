@@ -16,6 +16,7 @@
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/json2.js"></script>
 
 </head>
 <body style="min-width: 300px">
@@ -79,7 +80,7 @@
 				var smValues=$(this).attr("smValues");
 				hiddenStr=hiddenStr+"~"+smValues;
 				var jsonObj=str2json(smValues);
-				tdstr=tdstr+"<tr><td>"+jsonObj.szbm+"</td><td>"+jsonObj.smbm+"</td><td>"+jsonObj.smmc+"</td><td>"+jsonObj.smjc+"</td><td>"+jsonObj.sl+"</td></tr>";
+				tdstr=tdstr+"<tr><td>"+jsonObj.szbm+"</td><td>"+jsonObj.smbm+"</td><td>"+jsonObj.smmc+"</td><td><input type=\"text\" value=\""+jsonObj.smjc+" \" name='"+jsonObj.smbm+"smjc' style='height:35px;padding-left:5px'/></td><td>"+jsonObj.sl+"</td></tr>";
 			}
 		});
 		if (count == 0) {
@@ -88,6 +89,10 @@
 		} else {
 			if(smbms.length>0){
 				smbms=","+smbms;
+			}
+			if(count>6){
+				sAlert('您好，最多选择6个税种税目！');
+				return false;
 			}
 			 
 			parent.$('#smbms').val(smbms);

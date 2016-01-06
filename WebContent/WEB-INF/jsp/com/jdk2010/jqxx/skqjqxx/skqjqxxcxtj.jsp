@@ -22,7 +22,19 @@
 <script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/so.js"></script>
 <link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />	
-
+<style type="text/css" mce_bogus="1">
+table {
+	empty-cells: show;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+table th {
+	white-space: nowrap;
+}
+table td {
+	white-space: nowrap;padding-right:2px
+}
+</style>
 </head>
 <body>
 
@@ -78,7 +90,8 @@
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
 					</li>
-
+<li><label>&nbsp;</label><input name="" type="button"
+						class="scbtn3" onclick="download();" value="excel下载" /></li>
 				</ul>
 				<br />
 			</div>
@@ -90,7 +103,7 @@
 		<div class="formtitle1">
 			<span>机器信息</span>
 		</div>
-		<div  style="overflow: auto; width: 100%;">
+		<div style="width:100%; overflow-x:auto;">
 		<table class="tablelist">
 			<thead>
 				<tr>
@@ -135,10 +148,11 @@
 
 						<td><fmt:formatDate value="${item.kpjzrq }"
 								pattern="yyyy-MM-dd" /></td>
+               <fmt:formatNumber value="${item.dzkpxe}" type="currency" pattern="#0.00" var="dzkpxe"/>
 
-						<td>${ item.dzkpxe}</td>
-
-						<td>${ item.yljkpxe}</td>
+						<td>${ dzkpxe}</td>
+               <fmt:formatNumber value="${item.yljkpxe}" type="currency" pattern="#0.00" var="yljkpxe"/>
+						<td>${yljkpxe}</td>
 
 
 						<td>${ item.status==1?'启用':'停用'}</td>
@@ -177,5 +191,10 @@
 	}
 	jQuery('.tablelist tbody tr:odd').addClass('odd');
  
+	  function download(){
+ 		  var SWJGBM=jQuery("#swjgbm").val();
+	        var url="${contextpath}/skqjqxx/exportExcel.htm?SWJGBM="+SWJGBM;
+ 	        window.location.href=url;
+	    }
 </script>
 

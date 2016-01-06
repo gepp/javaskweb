@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityOrganizationForm">
+					<form action="" method="post" id="securityOrganizationForm">
 
 						<li><label>税务机关名称<b></b></label> <input type="text"
 							class="dfinput" id="name" name="securityOrganization.name"
@@ -104,7 +104,7 @@
 		}).validator({
 			fields : {
 				'securityOrganization.code' : 'required;',
-				'securityOrganization.name' : 'required;',
+				'securityOrganization.name' : 'required;'
 			},
 			valid : function(form) {
 				var me = this;

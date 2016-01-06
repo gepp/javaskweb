@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jdk2010.invoice.skqfpjmx.model.SkqFpjmx;
 import com.jdk2010.invoice.skqfpjmx.service.ISkqFpjmxService;
 import com.jdk2010.tools.Constants;
+import com.jdk2010.base.security.securityorganization.service.ISecurityOrganizationService;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
@@ -26,6 +27,8 @@ public class SkqFpjmxController extends BaseController {
 	 @Resource
 	    DalClient dalClient;
 
+	 @Resource
+	 ISecurityOrganizationService securityOrganizationService;
 	
 	@RequestMapping("/listImport")
 	public String listImport(HttpServletRequest request, HttpServletResponse response)
@@ -69,12 +72,17 @@ public class SkqFpjmxController extends BaseController {
 		}
 
 		String SWJGBM = getPara("SWJGBM");
-		if (SWJGBM != null && !"".equals(SWJGBM)) {
-			searchSQL = searchSQL
-					+ " and   a.swjgbm='"+SWJGBM+"'";
-			setAttr("SWJGBM", SWJGBM);
-			setAttr("parentName", getPara("parentName"));
-		}
+		 if (SWJGBM != null && !"".equals(SWJGBM)) {
+			 Long pid=dalClient.queryColumn("select id from security_organization where code='"+SWJGBM+"'","id");
+	            searchSQL = searchSQL + " and  a.SWJGBM in (" +securityOrganizationService.getOrganizationListStrByParentId(pid+"")+ ")";
+	            setAttr("SWJGBM", SWJGBM);
+	            String parentName=getPara("parentName");
+	            if(getRequest().getMethod().equalsIgnoreCase("get")){
+	            	parentName=new String(parentName.getBytes("iso8859-1"),"utf-8");
+	           }
+	            setAttr("parentName", parentName);
+	            
+	        }
 
 		dbKit.append(searchSQL);
 		Page pageList = skqFpjmxService.queryForPageList(dbKit, getPage(),

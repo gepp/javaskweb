@@ -192,9 +192,15 @@ public class SkqBdcxmmxController extends BaseController {
 	public String view(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String id = getPara("id");
+		String nsrwjbm = getPara("nsrwjbm");
+		String bdcid = getPara("bdcid");
+		String bdczxmid = getPara("bdczxmid");
 		SkqBdcxmmx skqBdcxmmx = skqBdcxmmxService
 				.findById(id, SkqBdcxmmx.class);
 		setAttr("skqBdcxmmx", skqBdcxmmx);
+		setAttr("nsrwjbm", nsrwjbm);
+		setAttr("bdcid", bdcid);
+		setAttr("bdczxmid", bdczxmid);
 		return "/com/jdk2010/bdc/skqbdcxmmx/skqbdcxmmx_view";
 	}
 

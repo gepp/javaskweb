@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import javax.smartcardio.CommandAPDU;
+
 import com.jdk2010.framework.util.DateUtil;
 import com.jdk2010.framework.util.StringUtil;
 
@@ -202,5 +204,6 @@ public class Util {
 
     }
 	public static void main(String[] args) {
+		 System.out.println(hqjkhcrq());
 	}
 }

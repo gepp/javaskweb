@@ -132,8 +132,8 @@
 								<td>月累计退票限额</td>
 								<fmt:formatNumber value="${skqJqxx.yljtpxe }" type="currency" pattern="#0.00" var="yljtpxe"/>
 								<td><input type="text" class="dfinput" id="yljtpxe" maxlength="8"
-									name="yljtpxe" placeholder="请输入月累计退票限额"
-									value="${skqJqxx.yljtpxe }" /></td>
+									name="skqJqxx.yljtpxe" placeholder="请输入月累计退票限额"
+									value="${yljtpxe }" /></td>
 							</tr>
 							<tr>
 								<td>状态</td>
@@ -184,7 +184,7 @@
 								<td>${item.szbm }</td>
 								<td>${item.smbm }</td>
 								<td>${item.smmc }</td>
-								<td>${item.smjc }</td>
+								<td><input type="text" name="${item.smbm }smjc" value="${item.smjc }" style="height:40px;padding-left:5px"/></td>
 								<td>${item.sl }</td>
 							</tr>
 						</c:forEach>
@@ -252,8 +252,7 @@
 												'skqJqxx.kpjzrq' : 'required;',
 												'skqJqxx.dzkpxe' : 'required;range[~42000000]',
 												'skqJqxx.yljkpxe' : 'required;range[~42000000]',
-												'skqJqxx.yljtpxe' : 'required;range[~42000000]',
-
+												'skqJqxx.yljtpxe' : 'required;range[~42000000]'
 											},
 											valid : function(form) {
 												var me = this;

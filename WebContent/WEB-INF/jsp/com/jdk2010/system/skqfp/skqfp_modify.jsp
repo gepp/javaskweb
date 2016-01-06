@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqFpForm">
+					<form action="" method="post" id="skqFpForm">
 
 						<input type="hidden" class="dfinput" id="id" name="skqFp.id"
 							placeholder="请输入id" value="${ skqFp.id}" />
@@ -96,7 +96,7 @@
 										{
 											fields : {
 												'skqFp.fpbm' : 'required;',
-												'skqFp.fpmc' : 'required;',
+												'skqFp.fpmc' : 'required;'
 
 											},
 											valid : function(form) {

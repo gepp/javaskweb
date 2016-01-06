@@ -34,7 +34,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityOrganizationForm">
+					<form action="" method="post" id="securityOrganizationForm">
 					 <input type="hidden" class="dfinput" id="id" name="securityOrganization.id" placeholder="请输入pk" value="${ securityOrganization.id}" />
 						<li><label>税务机关编码<b></b></label> <input type="text" class="dfinput" id="code" name="securityOrganization.code" placeholder="请输入税务机关编码" value="${ securityOrganization.code}" /></li>
 						<li><label>税务机关名称<b></b></label> <input type="text" class="dfinput" id="name" name="securityOrganization.name" placeholder="请输入税务机关名称" value="${ securityOrganization.name}" /></li>
@@ -82,7 +82,7 @@ function selectParentOrganization(){
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'securityOrganization.name' : 'required;',
+				'securityOrganization.name' : 'required;'
 			},
 			valid : function(form) {
 				var me = this;

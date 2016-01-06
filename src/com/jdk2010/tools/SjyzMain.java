@@ -21,6 +21,7 @@ import com.jdk2010.bdc.skqbdcxmmx.model.SkqBdcxmmx;
 import com.jdk2010.bdc.skqbdczxm.model.SkqBdczxm;
 import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.DbKit;
+import com.jdk2010.framework.util.MD5Utils;
 import com.jdk2010.invoice.skqfpj.model.SkqFpj;
 import com.jdk2010.invoice.skqfpjmx.model.SkqFpjmx;
 import com.jdk2010.invoice.skqfpkj.model.SkqFpkj;
@@ -506,7 +507,7 @@ public class SjyzMain {
 				parent_id=new BigDecimal(0);
 			}
 			paramMap.put("organization_id",parent_id);
-			paramMap.put("userpwd","de88e3e4ab202d87754078cbb2df6063"); //12345678a
+			//paramMap.put("userpwd","de88e3e4ab202d87754078cbb2df6063"); //12345678a
 			paramMap = transLanguage(yzFlag, paramMap); // 判断是否需要将string类型的编码进行转换
 			
 			if(swjgList.get(i).getUsername().equals("system")){
@@ -556,7 +557,7 @@ public class SjyzMain {
 //				yz_SKQ_HZSJ();
 //				yz_SKQ_HZSJMX();
 //				yz_SKQ_JKSJKZ();
-//				yz_SKQ_JQSZSM();
+				yz_SKQ_JQSZSM();
 //				yz_SKQ_JQXH();
 //				yz_SKQ_JQXX();
 //				yz_SKQ_JZAZ();
@@ -574,6 +575,7 @@ public class SjyzMain {
 //				yz_TRANS_DM_SWJG();
 //				yz_TRANS_DM_ZSPM();
 //				yz_SKQ_USER();
-		yz_ceshi();
+//				yz_SKQ_USER();
+		System.out.println(MD5Utils.md5("jsdtskzz"));
 	}
 }

@@ -16,6 +16,7 @@
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/json2.js"></script>
 
 </head>
 <body style="min-width: 300px">

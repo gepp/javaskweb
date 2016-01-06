@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqFpForm">
+					<form action="" method="post" id="skqFpForm">
 
 
 						<li><label>票种编码<b></b></label> <input type="text"  
@@ -94,7 +94,7 @@
 										{
 											fields : {
 												'skqFp.fpbm' : 'required;',
-												'skqFp.fpmc' : 'required;',
+												'skqFp.fpmc' : 'required;'
 
 											},
 											valid : function(form) {

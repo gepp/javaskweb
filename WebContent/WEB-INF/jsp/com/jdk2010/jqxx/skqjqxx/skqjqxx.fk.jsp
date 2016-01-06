@@ -79,14 +79,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<th>开票截止日期<b></b></th>
 				<td>${jqxx.kpjzrq }</td>
 				<th>单笔开票最高限额（元）<b></b></th>
-				<td>${jqxx.dzkpxe }</td>
+				<fmt:formatNumber value="${jqxx.dzkpxe}" type="currency" pattern="#0.00" var="dzkpxe"/>
+				<td>${dzkpxe }</td>
 			</tr>
 
 			<tr>
 				<th>月累计开票最高限额（元）<b></b></th>
-				<td>${jqxx.yljkpxe }</td>
+				<fmt:formatNumber value="${jqxx.yljkpxe}" type="currency" pattern="#0.00" var="yljkpxe"/>
+				<td>${yljkpxe }</td>
 				<th>月累计退票最高限额（元）<b></b></th>
-				<td>${jqxx.yljtpxe }</td>
+				<fmt:formatNumber value="${jqxx.yljtpxe}" type="currency" pattern="#0.00" var="yljtpxe"/>
+				<td>${yljtpxe }</td>
 			</tr>
 			<tr>
 				<th>状态<b></b></th>
@@ -210,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!-- 用户卡截止时间-->
           <input type="hidden" name="U_END_DATE" id="U_END_DATE" value="<%=Util.toxkrq(jqxx.getKyxrq()) %>" />
           <!-- 纳税户名称-->
-          <input type="hidden" name="TAXPAYER_NAME" id="TAXPAYER_NAME" value="<%=nsrxx.getNsrmc().trim() %>" />
+          <input type="hidden" name="TAXPAYER_NAME" id="TAXPAYER_NAME" value="${nsrmc }" />
           <!-- 申报截止时间-->
           <input type="hidden" name="MAKE_END_DATE" id="MAKE_END_DATE" value="<%=Util.toxkrq(jqxx.getKpjzrq()) %>" />
           <!-- 单张发票开票限额-->

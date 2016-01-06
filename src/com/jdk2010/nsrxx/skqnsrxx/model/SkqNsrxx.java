@@ -231,4 +231,15 @@ public class SkqNsrxx extends Model<SkqNsrxx> {
     public void setSwjgmc(String swjgmc) {
         this.swjgmc = swjgmc;
     }
+    
+    private String organizationName;
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+    
 }

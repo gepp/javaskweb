@@ -1,6 +1,4 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -57,34 +55,7 @@
 	</div>
 
 	<dl class="leftmenu">
-				${menuStr }
-			<!-- 
-		<dd>
-			<div class="title">
-				<span><img src="${contextpath }/res/images/leftico03.png" /></span>系统管理
-			</div>
-			<ul class="menuson">
-				<li><cite></cite><a href="${contextpath }/securitymenu/list.htm" target="rightFrame">菜单管理</a><i></i></li>
-				<li><cite></cite><a href="${contextpath }/securityrole/list.htm" target="rightFrame">角色管理</a><i></i></li>
-				<li><cite></cite><a href="${contextpath }/securityuser/list.htm" target="rightFrame">用户管理</a><i></i></li>
-				<li><cite></cite><a href="${contextpath }/securityorganization/list.htm" target="rightFrame">部门管理</a><i></i></li>
-			</ul>
-		</dd>
-
-
-		<dd>
-			<div class="title">
-				<span><img src="${contextpath }/res/images/leftico04.png" /></span>日期管理
-			</div>
-			<ul class="menuson">
-				<li><cite></cite><a href="#">自定义</a><i></i></li>
-				<li><cite></cite><a href="#">常用资料</a><i></i></li>
-				<li><cite></cite><a href="#">信息列表</a><i></i></li>
-				<li><cite></cite><a href="#">其他</a><i></i></li>
-			</ul>
-
-		</dd>
- -->
+		${menuStr }
 	</dl>
 
 </body>

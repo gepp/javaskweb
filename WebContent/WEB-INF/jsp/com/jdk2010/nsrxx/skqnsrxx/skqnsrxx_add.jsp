@@ -261,8 +261,7 @@
 			fields : {
  				'skqNsrxx.nsrsbh' : 'required;length[~20];remote[${contextpath}/skqnsrxx/check.htm]',
 				'skqNsrxx.nsrmc' : 'required;',
- 				'skqNsrxx.yhde' : 'required;double',
- 
+ 				'skqNsrxx.yhde' : 'required;double'
 			},
 			valid : function(form) {
 				var me = this;
@@ -331,7 +330,7 @@
 							layer.alert('当前操作成功', {
 								closeBtn: 0
 							}, function(){
-								window.location.href='${ contextpath}/skqnsrxx/list';
+								window.location.href='${ contextpath}/skqnsrxx/listImport.htm';
 							});
 						 
 						} else {

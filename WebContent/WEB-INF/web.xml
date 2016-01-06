@@ -9,6 +9,7 @@
 		<param-value>
 		classpath:conf/spring/spring-dal.xml
 		classpath:conf/spring/applicationContext-captcha.xml
+		classpath:conf/spring/spring-quartzJob.xml
 		</param-value>
 	</context-param>
 	<context-param>
@@ -80,12 +81,12 @@
 		<error-code>404</error-code>
 		<location>/error.htm</location>
 	</error-page>
-	<filter>
+	<!-- <filter>
 		<filter-name>xssFilter</filter-name>
 		<filter-class>com.jdk2010.framework.filter.XSSFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>xssFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 </web-app>

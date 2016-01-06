@@ -84,7 +84,8 @@
 						<th>办税员<b></b></th>
 						<td>${skqNsrxx.bsy }</td>
 						<th>月核定营业额<b></b></th>
-						<td>${skqNsrxx.yhde }</td>
+						<fmt:formatNumber value="${skqNsrxx.yhde}" type="currency" pattern="#0.00" var="yhde"/>
+						<td>${yhde }</td>
 					</tr>
 					<tr>
 						<th>行业编码<b></b></th>
@@ -176,14 +177,17 @@
 							<th>开票截止日期<b></b></th>
 							<td>${jqxx.kpjzrq }</td>
 							<th>单张开票限额<b></b></th>
-							<td>${jqxx.dzkpxe }</td>
+							<fmt:formatNumber value="${jqxx.dzkpxe}" type="currency" pattern="#0.00" var="dzkpxe"/>
+							<td>${dzkpxe }</td>
 						</tr>
 
 						<tr>
 							<th>月累计开票限额<b></b></th>
-							<td>${jqxx.yljkpxe }</td>
+							<fmt:formatNumber value="${jqxx.yljkpxe}" type="currency" pattern="#0.00" var="yljkpxe"/>
+							<td>${yljkpxe }</td>
 							<th>月累计退票限额<b></b></th>
-							<td>${jqxx.yljtpxe }</td>
+							<fmt:formatNumber value="${jqxx.yljtpxe}" type="currency" pattern="#0.00" var="yljtpxe"/>
+							<td>${yljtpxe }</td>
 						</tr>
 						<tr>
 							<th>状态<b></b></th>

@@ -1,8 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page import="com.jdk2010.tools.Util"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.math.BigDecimal"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://www.tag.mytag.com" prefix="page"%>
+
+<%
+    HashMap CARDINFO = (HashMap) request.getAttribute("CARDINFO");
+	HashMap EF01 = (HashMap) CARDINFO.get("EF01");
+	HashMap EF02 = (HashMap) CARDINFO.get("EF02");
+	ArrayList EF03 = (ArrayList) CARDINFO.get("EF03");
+	HashMap EF04 = (HashMap) CARDINFO.get("EF04");
+	System.out.println(EF04);
+	ArrayList EF05 = (ArrayList) CARDINFO.get("EF05");
+	HashMap EF06 = (HashMap) CARDINFO.get("EF06");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -53,76 +68,56 @@
 					<li><a href="#tab1" class="selected">纳税人信息修改</a></li>
 				</ul>
 			</div>
-			<div id="tab1" class="tabson">
+			<div class="formtitle1">
+					<span>纳税人信息</span>
+				</div>
 				<form action="" method="post" id="skqNsrxxForm">
-					<ul class="forminfo">
 						<input type="hidden" value="${skqNsrxx.id }" id="id" name="skqNsrxx.id" />
-						<table width="100%">
-							<tr>
-								  
-								<input type="hidden" class="dfinput" id="nsrwjbm"
-									name="skqNsrxx.nsrwjbm" value="${skqNsrxx.nsrwjbm }" placeholder="请输入纳税人微机编码" /> 
-								<td>纳税人识别号<b></b></td>
-								<td>${skqNsrxx.nsrsbh }</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-							</tr>
-
-							<tr>
-								<td>纳税人名称<b></b></td>
+								<table class="tableEdit">							
+								<tr>
+								 <th>纳税人微机编码</th>
+								 <td><input type="text" class="dfinput" id="nsrwjbm"
+									name="skqNsrxx.nsrwjbm" value="<%=(String) EF02.get("NSRWJDM")%>" readonly /> </td>
+								<th>纳税人名称<b></b></th>
 								<td><input type="text" class="dfinput" id="nsrmc"
-									name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称"  value="${skqNsrxx.nsrmc }" /></td>
-								<td>月核定营业额1<b></b></td>
-							    <fmt:formatNumber value="${skqNsrxx.yhde}" type="currency" pattern="#0.00" var="yhde"/>
-								<td><input type="text" class="dfinput" id="yhde"
-									name="skqNsrxx.yhde" placeholder="请输入月核定营业额"   value="${yhde }"  /></td>
-								
+									name="skqNsrxx.nsrmc"    value="<%=(String) EF02.get("NSRMC")%>" /></td>
 							</tr>
-
-							<%-- <tr>
-								<td>法人代表<b></b></td>
-								<td><input type="text" class="dfinput" id="frdb"
-									name="skqNsrxx.frdb" placeholder="请输入法人代表"  value="${skqNsrxx.frdb }" /></td>
-								<td>联系方式<b></b></td>
-								<td><input type="text" class="dfinput" id="ssgly"
-									name="skqNsrxx.ssgly" placeholder="请输入联系方式"  value="${skqNsrxx.ssgly }" /></td>
-
+								<input type="hidden" class="dfinput" id="yhde"
+									name="skqNsrxx.yhde" placeholder=""   value="100000"  />
+									
+							<tr>
+								<th>纳税人识别号<b></b></th>
+								<td>
+								<input type="text" class="dfinput" id="nsrsbh"
+									name="skqNsrxx.nsrsbh" value=""  /> <font color="red">如果不确定,请读取税控卡</font>
+								</td>
 							</tr>
 							<tr>
-
-								<td>办税员<b></b></td>
-								<td><input type="text" class="dfinput" id="bsy"
-									name="skqNsrxx.bsy" placeholder="请输入办税员"  value="${skqNsrxx.bsy }" /></td>
-								<td>经营地址<b></b></td>
-								<td><input type="text" class="dfinput" id="jydz"
-									name="skqNsrxx.jydz" placeholder="请输入经营地址"  value="${skqNsrxx.jydz }" /></td>
-							</tr> --%>
-							<tr>
-								<td>所属行业<b></b></td>
+								<th>所属行业<b></b></th>
 								<input type="hidden" class="dfinput" id="hybm" name="skqNsrxx.hybm"
-									placeholder=""   value="${skqNsrxx.hybm }" />
-								<td><input type="text" class="dfinput" id="hymc"  value="${skqNsrxx.hymc }" 
+									placeholder=""   value="" />
+								<td><input type="text" class="dfinput" id="hymc"  value="" 
 									name="hymc" placeholder="" readonly onclick="selectHy();" />
 									<input type="button" value="选择" onclick="selectHy();"
 									class="btn" /></td>
-								<td>经营项目<b></b></td>
-								<input type="hidden" class="dfinput" id="hymxbm" name="skqNsrxx.hymxbm"   value="${skqNsrxx.hymxbm }" 
+								<th>经营项目<b></b></th>
+								<input type="hidden" class="dfinput" id="hymxbm" name="skqNsrxx.hymxbm"   value="" 
 									placeholder="" />
-								<td><input type="text" class="dfinput" id="hymxmc"   value="${skqNsrxx.hymxmc }"  onclick="selecthymx();"
+								<td><input type="text" class="dfinput" id="hymxmc"   value=""  onclick="selecthymx();"
 									name="hymxmc" placeholder="" readonly /> <input
 									type="button" value="选择" onclick="selecthymx();"
 									class="btn" /></td>
 							</tr>
 
 							<tr>
-								<td>主管税务机关<b></b></td>
+								<th>主管税务机关<b></b></th>
 								<input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"   value="${skqNsrxx.swjgbm }" 
 									class="scinput1" readonly value="${swjgbm}">
 									<td><input type="text" class="dfinput" name="parentName"   value="${skqNsrxx.swjgmc }" 
 										id="parentName" placeholder="" readonly onclick="selectParentOrganization();"/> <input
 										type="button" value="选择" onclick="selectParentOrganization();"
 										class="btn" /></td>
-									<td>注册类型<b></b></td>
+									<th>注册类型<b></b></th>
 									<input type="hidden" class="dfinput" id="zclxbm"   value="${skqNsrxx.zclxbm }" 
 										name="skqNsrxx.zclxbm"/>
 									<td><input type="text" class="dfinput" id="zclxmc"   value="${skqNsrxx.zclxmc }" 
@@ -130,30 +125,77 @@
 										type="button" value="选择" onclick="selectZclx();"
 										class="btn" /></td>
 							</tr>
+							 
+
+						</table>
+					<br />
+					<div class="formtitle1">
+					<span>机器信息</span>
+					</div>
+					<table class="tableEdit">
 							<tr>
-								<td>征收方式<b></b></td>
+								 <th>机器编号</th>
+								 <td><input type="text" class="dfinput" id="nsrwjbm"
+									name="skqJqxx.jqbh" value="<%=(String) EF06.get("JQBH")%>" readonly /> </td>
+								<th>机器型号</th>
 								<td>
-									<div class="vocation">
-										<select name="skqNsrxx.zsfs" class="select1">
-											<option value="1" <c:if test="${ skqNsrxx.zsfs==1}">selected</c:if>>核定户</option>
-											<option value="0" <c:if test="${ skqNsrxx.zsfs==0}">selected</c:if>>查账征收户</option>
-										</select>
-									</div>
-								</td>
-								<td>状态<b></b></td>
-								<td>
-									<div class="vocation">
-										<select name="skqNsrxx.status" class="select1">
-											<option value="1" <c:if test="${ skqNsrxx.status==1}">selected</c:if>>启用</option>
-											<option value="0" <c:if test="${ skqNsrxx.status==0}">selected</c:if>>停用</option>
+									<div class="vocation" >
+										<select name="skqJqxx.jqxhbm" class="select1">
+											<c:forEach var="jqxh" items="${jqxhList }">
+											
+												<option value="${jqxh.jqxhbm }">${jqxh.jqxhmc }</option>
+											</c:forEach>
 										</select>
 									</div>
 								</td>
 							</tr>
-
+							<tr>
+								<th>税控卡号<b></b></th>
+								<td>
+								<input type="text" class="dfinput"
+									name="skqJqxx.skkh" value="<%=(String) EF06.get("SKKH")%>" readonly />
+								</td>
+								<th>用户卡号<b></b></th>
+								<td>
+								<input type="text" class="dfinput" id="nsrsbh"
+									name="skqJqxx.yhkh" value="<%=(String) EF06.get("SKKH")%>" /><font color="red">请填写正确的用户卡</font>
+								</td>
+								
+							</tr>
+							<tr>
+								 <th>开票截止日期</th>
+								 <td><input type="text" class="dfinput"  
+									name="kpjzrq" value="<%=(String) EF01.get("KPJZRQ")%>" readonly /> </td>
+								<th>单张发票开票金额限额<b></b></th>
+								<td>
+								<input type="text" class="dfinput" id="nsrsbh"
+									name="skqJqxx.dzkpxe" value="<%=new BigDecimal((Long) EF01.get("DZLJJE")).divide(new BigDecimal(100))%>"  readonly/>
+								</td>
+							</tr>
+							<tr>
+								 <th>发票累计金额限额</th>
+								 <td><input type="text" class="dfinput" id="nsrwjbm"
+									name="skqJqxx.yljkpxe" value="<%=new BigDecimal((Long) EF01.get("YKPLJJE")).divide(new BigDecimal(100))%>" readonly /> </td>
+								<th>退票累计金额限额<b></b></th>
+								<td>
+								<input type="text" class="dfinput" id="nsrsbh"
+									name="skqJqxx.yljtpxe" value="<%=new BigDecimal((Long) EF01.get("YTPLJJE")).divide(new BigDecimal(100))%>" readonly />
+								</td>
+							</tr>
+							
+								<tr>
+								 <th>应用启用日期</th>
+								 <td><input type="text" class="dfinput" id="nsrwjbm"
+									name="kqyrq" value="<%=(String) EF02.get("QYRQ")%>" readonly /> </td>
+								<th>应用有效日期<b></b></th>
+								<td>
+								<input type="text" class="dfinput" id="nsrsbh"
+									name="kyxrq" value="<%=(String) EF02.get("YXRQ")%>" readonly />
+								</td>
+							</tr>
+							
 						</table>
-					</ul>
-					<br />
+					<input type="hidden" name="MXSBBZ" value="<%=(String) EF01.get("MXSBBZ")%>" />
 					<div class="formtitle1">
 						<span>纳税户税种税目</span>
 					</div>
@@ -163,9 +205,10 @@
 									src="${contextpath }/res/images/t01.png" /></span>添加</li>
 							<li class="click" onclick="deleteSzsm();"><span><img
 									src="${contextpath }/res/images/t03.png" /></span>清空</li>
-							 
 						</ul>
 					</div>
+					<font color="red">机器将添加默认的与纳税人一样的税种税目！</font>
+					<br/>
 					<table class="tablelist">
 						<thead>
 							<tr>
@@ -201,7 +244,6 @@
 					</div>
 				</form>
 				
-			</div>
 		</div>
 	</div>
 </body>
@@ -285,9 +327,8 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
- 				'skqNsrxx.nsrmc' : 'required;',
- 				'skqNsrxx.yhde' : 'required;'
- 
+  				'skqNsrxx.nsrsbh' : 'required;',
+  				 
 			},
 			valid : function(form) {
 				var me = this;
@@ -346,7 +387,7 @@
 				
 				
 				$.ajax({
-					url : "${ contextpath}/skqnsrxx/modifyaction",
+					url : "${ contextpath}/saveNsrxx",
 					data : $(form).serialize(),
 					type : "POST",
 					success : function(data) {

@@ -17,10 +17,14 @@
 <script type="text/javascript" src="${contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
-<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/prototype.js"></script>
-<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
-<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/so.js"></script>
-<link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />
+<script type="text/javascript"
+	src="${ contextpath }/res/js/googlesuggest/prototype.js"></script>
+<script type="text/javascript"
+	src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
+<script type="text/javascript"
+	src="${ contextpath }/res/js/googlesuggest/so.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />
 </head>
 <body>
 
@@ -36,24 +40,22 @@
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
 				<li><label style="width: 80px">纳税人识别号</label><input type="text"
 					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
-					value="${NSRSBH}" maxlength="22">
-	 <script type="text/javascript">
-		new CAPXOUS.AutoComplete("NSRSBH", function() {
-			if(this.text.value.length>=3){
-        		return "${ contextpath}/skqbdc/hqmc?keyword=" + this.text.value;
-			}
-    	});
-	
-</script>
-					
-					</li>
+					value="${NSRSBH}" maxlength="22"> <script
+							type="text/javascript">
+						new CAPXOUS.AutoComplete("NSRSBH", function() {
+							if (this.text.value.length >= 3) {
+								return "${ contextpath}/skqbdc/hqmc?keyword="
+										+ this.text.value;
+							}
+						});
+					</script></li>
 				<li><label style="width: 60px">纳税人名称</label><input type="text"
 					name="NSRMC" id="NSRMC" class="scinput1" placeholder="请输入纳税人名称"
 					value="${NSRMC}"></li>
 				<li><label style="width: 50px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
-					value="${SWJGBM}"> <input type="text" name="parentName" style="width: 350px"
-						id="parentName" class="scinput1" readonly
+					value="${SWJGBM}"> <input type="text" name="parentName"
+						style="width: 350px" id="parentName" class="scinput1" readonly
 						onclick="selectParentOrganization();" value="${parentName}">
 							<input name="" type="button" class="scbtn" value="选择"
 							onclick="selectParentOrganization();" /></li>
@@ -66,6 +68,8 @@
 						id="table_refresh" class="scbtn1" value="查询" /></li>
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
+					<li><label>&nbsp;</label><input name="" type="button"
+						class="scbtn3" onclick="download();" value="excel下载" /></li>
 
 
 				</ul>
@@ -80,9 +84,10 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
+					<th>纳税人微机编码</th>
 					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
-					<th>税务机关编码</th>
+					<th>税务机关</th>
 					<th>状态</th>
 					<th>操作</th>
 				</tr>
@@ -92,14 +97,11 @@
 
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
-
-
+						<td>${item.nsrwjbm }</td>
 						<td>${ item.nsrsbh}</td>
 
 						<td>${ item.nsrmc}</td>
-
-
-						<td>${ item.swjgbm}</td>
+						<td>${ item.organizationName}</td>
 						<td>${ item.status==1?'正常':'停用'}</td>
 
 						<td><a
@@ -127,7 +129,7 @@
 		jQuery("#parentName").val("");
 
 	}
- 
+
 	function selectParentOrganization() {
 		layer.open({
 			type : 2,
@@ -138,5 +140,12 @@
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
 	}
+	
+	  function download(){
+		  var NSRSBH=jQuery("#NSRSBH").val();
+		  var SWJGBM=jQuery("#swjgbm").val();
+	        var url="${contextpath}/skqnsrxx/exportExcel.htm?NSRSBH="+NSRSBH+"&SWJGBM="+SWJGBM;
+ 	        window.location.href=url;
+	    }
 </script>
 

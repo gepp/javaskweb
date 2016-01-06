@@ -92,7 +92,7 @@ public class SkqBdcController extends BaseController {
 		if (!StringUtil.isBlank(nsrsbh)) {
 			nsrwjbm = skqNsrxxService.getNsrwjbmByNsrsbh(nsrsbh);
 		}
-		List<Map<String, Object>> list = skqBdcService.queryForList("select * from skq_bdc  where status=1 and nsrwjbm='"+nsrwjbm+"' "+sqlStr+" order by cjsj desc");
+		List<Map<String, Object>> list = skqBdcService.queryForList("select * from skq_bdc  where status=0 and nsrwjbm='"+nsrwjbm+"' "+sqlStr+" order by cjsj desc");
 
 		setAttr("list", list);
 		setAttr("nsrwjbm", nsrwjbm);
@@ -118,7 +118,7 @@ public class SkqBdcController extends BaseController {
 		skqBdc.setSwjgbm(user.getOrganizationCode());
 		skqBdc.setCjz(user.getUsername());
 		skqBdc.setCjsj(new Date());
-		skqBdc.setStatus(1);
+		skqBdc.setStatus(0);
 		skqBdcService.save(skqBdc);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
 		renderJson(response,returnData);

@@ -15,6 +15,19 @@
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
+<style type="text/css" mce_bogus="1">
+table {
+	empty-cells: show;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+table th {
+	white-space: nowrap;
+}
+table td {
+	white-space: nowrap;
+}
+</style>
 </head>
 <body>
 <div class="place"> <span>位置：</span>
@@ -50,6 +63,7 @@
     </ul>
   </div>
   <div class="formtitle1"> <span>建筑安装分包项目</span> </div>
+   <div style="width:100%; overflow-x:auto;">
   <table class="tablelist">
     <thead>
       <tr>
@@ -83,6 +97,7 @@
       </c:forEach>
     </tbody>
   </table>
+  </div>
 </div>
 </body>
 </html>

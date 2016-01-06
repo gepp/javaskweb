@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <title>欢迎登录大唐税控管理平台</title>
 <link href="${contextpath}/res/css/style.css" rel="stylesheet"
 	type="text/css" />
@@ -80,12 +81,12 @@ if (top.location != self.location){
 					class="loginuser" value="" onclick="JavaScript:this.value=''" /></li>
 				<li><input name="password" id="password" type="password" class="loginpwd"
 					value="" onclick="JavaScript:this.value=''" /></li>
-				<li class="yzm">
+				<%-- <li class="yzm">
 				    <span><input name="" id="captcha" type="text" value="验证码" onclick="JavaScript:this.value=''"/></span>
 				    <cite>
 				    <img width="114" height="46" id="imgsrc" src="${contextpath}/captcha.htm?d='+new Date().getTime()" onclick="this.src='${contextpath}/captcha.htm?d='+new Date().getTime()"/>
 					</cite> 
-				</li>
+				</li> --%>
 				<li><input name="" type="button" class="loginbtn" value="登 录"
 					onclick="login();" /><label><input type="checkbox" value="rememberMe" id="rememberMe" name="rememberMe"  />记住密码</label></li>
 			</ul>

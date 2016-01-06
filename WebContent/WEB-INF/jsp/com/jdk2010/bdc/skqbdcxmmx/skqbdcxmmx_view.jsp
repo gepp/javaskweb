@@ -141,7 +141,7 @@
    				</div>
  			   </li>
  				        			<li><label>&nbsp;</label>
-   			 <input name="" type="button" class="btn" value="返回" onclick="window.location='${ contextpath}/skqbdcxmmx/list'"/></li>
+   			 <input name="" type="button" class="btn" value="返回" onclick="window.location='${ contextpath}/skqbdcxmmx/list?nsrwjbm=${nsrwjbm}&bdcid=${bdcid}&bdczxmid=${bdczxmid}'"/></li>
  	</form>
   </ul>
  </div>

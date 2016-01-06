@@ -52,10 +52,14 @@
           <td> ${ item.nsrsbh} </td>
           <td> ${ item.nsrmc} </td>
           <td> ${ item.jqbh} </td>
-          <td> ${ item.syljkpxe} </td>
-          <td> ${ item.syljtpxe} </td>
-          <td> ${ item.sqljkpxe} </td>
-          <td> ${ item.sqljtpxe} </td>
+          <fmt:formatNumber value="${item.syljkpxe}" type="currency" pattern="#0.00" var="syljkpxe"/>
+          <td> ${syljkpxe} </td>
+		  <fmt:formatNumber value="${item.syljtpxe}" type="currency" pattern="#0.00" var="syljtpxe"/>
+          <td> ${syljtpxe} </td>
+          <fmt:formatNumber value="${item.sqljkpxe}" type="currency" pattern="#0.00" var="sqljkpxe"/>
+          <td> ${ sqljkpxe} </td>
+ 		  <fmt:formatNumber value="${item.sqljtpxe}" type="currency" pattern="#0.00" var="sqljtpxe"/>
+          <td> ${ sqljtpxe} </td>
           <td> ${ item.sqsj} </td>
           <td><a href="${ contextpath }/skqxebg/modify.htm?id=${item.id}" class="tablelink">变更处理</a></td>
         </tr>

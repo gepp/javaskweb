@@ -47,7 +47,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="skqPmszForm">
+					<form action="" method="post" id="skqPmszForm">
 
 
 						<li><label>税种编码<b></b></label> <input type="text"

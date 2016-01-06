@@ -42,7 +42,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityRoleForm">
+					<form action="" method="post" id="securityRoleForm">
 
 						<input type="hidden" class="dfinput" id="id"
 							name="securityRole.id" placeholder="请输入id"
@@ -109,7 +109,7 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'securityRole.name' : 'required;',
+				'securityRole.name' : 'required;'
 			},
 			valid : function(form) {
 				var me = this;

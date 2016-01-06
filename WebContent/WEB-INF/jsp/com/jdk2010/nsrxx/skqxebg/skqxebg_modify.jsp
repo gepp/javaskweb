@@ -48,15 +48,19 @@
             </tr>
             <tr height="40px;">
               <td>剩余累计开票限额<b></b></td>
-              <td>${skqXebg.syljkpxe}&nbsp;</td>
+              <fmt:formatNumber value="${skqXebg.syljkpxe}" type="currency" pattern="#0.00" var="syljkpxe"/>
+              <td>${syljkpxe}&nbsp;</td>
               <td>剩余累计退票限额<b></b></td>
-              <td>${skqXebg.syljtpxe}&nbsp;</td>
+               <fmt:formatNumber value="${skqXebg.syljtpxe}" type="currency" pattern="#0.00" var="syljtpxe"/>
+              <td>${syljtpxe}&nbsp;</td>
             </tr>
             <tr height="40px;">
               <td>申请累计开票限额<b></b></td>
-              <td>${skqXebg.sqljkpxe}&nbsp;</td>
+               <fmt:formatNumber value="${skqXebg.sqljkpxe}" type="currency" pattern="#0.00" var="sqljkpxe"/>
+              <td>${sqljkpxe}&nbsp;</td>
               <td>申请累计退票限额<b></b></td>
-              <td>${skqXebg.sqljtpxe}&nbsp;</td>
+               <fmt:formatNumber value="${skqXebg.sqljtpxe}" type="currency" pattern="#0.00" var="sqljtpxe"/>
+              <td>${sqljtpxe}&nbsp;</td>
             </tr>
             <tr height="40px;">
               <td>变更说明<b></b></td>
@@ -72,13 +76,17 @@
      </div>
      <div id="tab1" class="tabson">
        <ul class="forminfo">
-        <form action="" method="POST"  id="skqXebgForm">
+        <form action="" method="post"  id="skqXebgForm">
             <table width="100%">
             <tr height="50px;">
               <td>批准累计开票限额<b></b></td>
-              <td><input  type="text" class="dfinput" id="pzljkpxe" name="skqXebg.pzljkpxe" placeholder="请输入批准累计开票限额" value="${skqXebg.syljkpxe+skqXebg.sqljkpxe}" /></td>
+               <fmt:formatNumber value="${skqXebg.syljkpxe+skqXebg.sqljkpxe}" type="currency" pattern="#0.00" var="hexebg"/>
+              
+              <td><input  type="text" class="dfinput" id="pzljkpxe" name="skqXebg.pzljkpxe" placeholder="请输入批准累计开票限额" value="${hexebg}" /></td>
               <td>批准累计退票限额<b></b></td>
-              <td><input  type="text" class="dfinput" id="pzljtpxe" name="skqXebg.pzljtpxe" placeholder="请输入批准累计退票限额" value="${skqXebg.syljtpxe+skqXebg.sqljtpxe}" /></td>
+              <fmt:formatNumber value="${skqXebg.syljtpxe+skqXebg.sqljtpxe}" type="currency" pattern="#0.00" var="hetebg"/>
+              
+              <td><input  type="text" class="dfinput" id="pzljtpxe" name="skqXebg.pzljtpxe" placeholder="请输入批准累计退票限额" value="${hetebg}" /></td>
             </tr>
             <tr height="50px;">
               <td>审核标记<b></b></td>

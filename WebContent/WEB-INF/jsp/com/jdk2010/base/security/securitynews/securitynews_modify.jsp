@@ -46,7 +46,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityNewsForm">
+					<form action="" method="post" id="securityNewsForm">
 						   <input  type="hidden" class="dfinput" id="id" name="securityNews.id" placeholder="请输入id" value="${ securityNews.id}" />
 						<li><label>通告标题<b></b></label> <input type="text"
 							class="dfinput" id="title" name="securityNews.title"
@@ -110,7 +110,7 @@ KindEditor.ready(function(K) {
 								.validator(
 										{
 											fields : {
-												'securityNews.title' : 'required;',
+												'securityNews.title' : 'required;'
 											},
 											valid : function(form) {
 												var me = this;
