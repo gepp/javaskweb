@@ -10,16 +10,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>数据移植</title>
-<link href="${ contextpath }/res/css/style.css" rel="stylesheet"
-	type="text/css" />
-<link href="${ contextpath }/res/css/page.css" rel="stylesheet"
-	type="text/css" />
+ 
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/json2.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
-	
+<script type="text/javascript" src="${ contextpath }/res/js/json2.js"></script>	
  
 
 <script language="javascript">
@@ -31,11 +28,12 @@
 				layer.close(index);
 					$.ajax({
 						url : "${contextpath}/sjyz.htm?yzFlag="+$("#yzFlag").val(),
- 						type : "POST",
+ 						type : "post",
 						success : function(data) {
  							if (data.status == 'success') {
+ 								
 							} else {
-								sAlert('当前操作失败');
+								
 							}
 	
 						}
@@ -55,39 +53,48 @@
 </script>
 </head>
 <body>
-	<div class="place">
-		<span>位置：</span>
-		<ul class="placeul">
-			<li><a href="#">首页</a></li>
-			<li><a href="#">数据移植功能</a></li>
-		</ul>
-	</div>
-	<div style="position: fixed; top: 10%; left: 30%">
-	<table style="width:100%">
-	<tr>
-<td><input type="button" name="btn" value="测试sybase" class="btn"
-			style="cursor: hand;" onclick="testDB();" /></td>	</tr>
-	<tr>
-	
-	<td style="height:70px">是否需要编码转换：<b></b></td>
-	<td>
-	<div class="vocation">
-		<select id="yzFlag" name="yzFlag" style="width:80px">
-			<option value="true">是</option>
-			<option value="false">否</option>
-		</select>
-		</div>
-	</td>
-	<td >
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="button" name="btn" value="数据移植" class="btn"
-			style="cursor: hand;" onclick="add();" />
-	</td>
-	</tr>
  
-	</table>
-	
-	<div id="showDetail">
+	<div style="position: fixed; top: 10%; left: 30%">
+		<table style="width: 100%">
+			<tr>
+				<td>driver</td>
+				<td><input type="text" name="driver" id="driver" value="com.sybase.jdbc2.jdbc.SybDriver" style="width:600px"></input></td>
+			</tr><tr>
+				<td>url</td>
+				<td><input type="text" name="url" id="url" value="jdbc:sybase:Tds:192.168.1.107:5000/liuan?charset=cp850&jconnect_version=3" style="width:600px"></input></td>
+			</tr><tr>
+				<td>username</td>
+				<td><input type="text" name="username" id="username" value="sa" style="width:400px"></input></td>
+				</tr><tr>
+				<td>password</td>
+				<td><input type="text" name="password" id="password" style="width:400px"></input></td>
+			</tr>
+			<tr>
+				<td><input type="button" name="btn" value="测试sybase"
+					class="btn" style="cursor: hand;" onclick="testDB();" /></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+
+				<td style="height: 70px">是否需要编码转换：<b></b></td>
+				<td>
+					<div class="vocation">
+						<select id="yzFlag" name="yzFlag" style="width: 80px">
+							<option value="true">是</option>
+							<option value="false">否</option>
+						</select>
+					</div>
+				</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+					type="button" name="btn" value="数据移植" class="btn"
+					style="cursor: hand;" onclick="add();" />
+				</td>
+			</tr>
+
+		</table>
+
+		<div id="showDetail">
 	  
 	</div>
 
@@ -124,8 +131,13 @@ var timer1 = setInterval(
 
 
 function testDB(){
+	var driver=$("#driver").val();
+	var url=$("#url").val();
+	var username=$("#username").val();
+	var password=$("#password").val();
+	
 	$.ajax({
-			url : "${ contextpath}/testDB.htm",
+			url : "${ contextpath}/testDB.htm?driver="+driver+"&url="+url+"&username="+username+"&password="+password,
 			type : "post",
 			success : function(data) {
 			 
