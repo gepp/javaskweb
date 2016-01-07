@@ -58,9 +58,9 @@
 	
 	function jumpToParent(id,name,code){
 
-		parent.$('#parentId').val(id);
-		parent.$("#swjgbm").val(code);
-		parent.$('#parentName').val($.trim(name));
+		parent.jQuery('#parentId').val(id);
+		parent.jQuery("#swjgbm").val(code);
+		parent.jQuery('#parentName').val($.trim(name));
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.close(index);
 	}

@@ -56,7 +56,7 @@ function jxdk() {
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">申报数据</a></li>
+			<li><a href="#">阶段申报数据</a></li>
 		</ul>
 	</div>
 	 <div class="formtitle1">
@@ -65,10 +65,9 @@ function jxdk() {
 	<table class="tableEdit">
 		<thead>
 			<tr>
-				<th>纳税人微机编码</th>
-				<td>${nsrxx.nsrwjbm }</td>
+				
 				<th>纳税人识别号</th>
-				<td>${nsrxx.nsrsbh }</td>
+				<td colspan="3">${nsrxx.nsrsbh }</td>
 			</tr>
 			<tr>
 				<th>纳税人名称</th>
@@ -79,7 +78,7 @@ function jxdk() {
 		</thead>
 	</table>
 	 <div class="formtitle1">
-		<span>机器编号为【${sbsj.jqbh }】申报信息</span>
+		<span>机器编号为【${sbsj.jqbh }】阶段申报信息</span>
 	</div>
 	<table class="tableEdit">
 		<thead>

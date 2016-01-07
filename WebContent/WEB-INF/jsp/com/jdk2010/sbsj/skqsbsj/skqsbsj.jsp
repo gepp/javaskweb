@@ -17,8 +17,13 @@
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
-<script type="text/javascript"
-	src="${ contextpath }/res/js/laydate/laydate.js"></script>
+	<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/prototype.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/so.js"></script>
+<link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />	
+
+<script language="javascript" type="text/javascript" src="${ contextpath }/res/js/My97DatePicker/WdatePicker.js"></script>
+
 </head>
 <body>
 
@@ -35,23 +40,33 @@
 
 		<form method="post" action="${ contextpath}/skqsbsj/list.htm">
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
-				<li><label style="width: 85px">纳税人微机编码</label><input
-					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"
-					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li>
+				<li><label style="width: 80px">纳税人识别号</label><input type="text"
+					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
+					value="${NSRSBH}">
+				 <script type="text/javascript">
+					new CAPXOUS.AutoComplete("NSRSBH", function() {
+						if(this.text.value.length>=3){
+			        		return "${ contextpath}/skqbdc/hqmc?keyword=" + this.text.value;
+						}
+			    	});
+				
+			</script>
+					
+					</li>
 				<li><label style="width: 80px">机器编号</label><input type="text"
 					name="JQBH" id="JQBH" class="scinput1" placeholder="请输入机器编号"
 					value="${JQBH}"></li>
 				<li><label style="width: 60px">开始时间</label><input type="text"
 					name="startTime" id="startTime" class="scinput1"
-					placeholder="请输入开始时间" value="${startTime}" onclick="laydate()"></li>
+					placeholder="请输入开始时间" value="${startTime}" onfocus="WdatePicker({isShowWeek:true})"></li>
 				<li><label style="width: 60px">截止时间</label><input type="text"
 					name="endTime" id="endTime" class="scinput1" placeholder="请输入截止时间"
-					onclick="laydate()" value="${endTime}"></li>
+					onfocus="WdatePicker({isShowWeek:true})" value="${endTime}"></li>
 				</ul>
 				<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
 				<li><label style="width: 85px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
-					value="${SWJGBM}"> <input type="text" name="parentName"
+					value="${SWJGBM}"> <input type="text" name="parentName" style="width:350px"
 						id="parentName" class="scinput1" readonly
 						onclick="selectParentOrganization();" value="${parentName}">
 							<input name="" type="button" class="scbtn" value="选择"
@@ -78,7 +93,7 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
-					<th>纳税人微机编码</th>
+					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
 					<th>机器编号</th>
 					<th>开始时间</th>
@@ -93,11 +108,10 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${pageList.list}" var="item">
-
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
 
-						<td>${ item.nsrwjbm}</td>
+						<td>${ item.nsrsbh}</td>
 
 						<td>${ item.nsrmc}</td>
 
@@ -125,7 +139,7 @@
 			</tbody>
 		</table>
 		<page:page
-			href="${ contextpath}/skqsbsj/list?NSRWJBM=${NSRWJBM }&JQBH=${JQBH }&YHKH=${YHKH }&SKKH=${SKKH }&SWJGBM=${SWJGBM }&parentName=${parentName }"
+			href="${ contextpath}/skqsbsj/list?NSRSBH=${NSRSBH }&JQBH=${JQBH }&YHKH=${YHKH }&SKKH=${SKKH }&SWJGBM=${SWJGBM }&parentName=${parentName }"
 			data="pageList" />
 
 	</div>
@@ -133,7 +147,7 @@
 </html>
 
 <script type="text/javascript">
-	$('.tablelist tbody tr:odd').addClass('odd');
+	jQuery('.tablelist tbody tr:odd').addClass('odd');
 	$(document).ready(function() {
 		table_init("${ contextpath}/skqsbsj", "${ contextpath}/skqsbsj/list?");
 	});
@@ -148,12 +162,12 @@
 		});
 	}
 	function deleteInput(){
-		$("#NSRWJBM").val("");
-		$("#JQBH").val("");
-		$("#startTime").val("");
-		$("#endTime").val("");
-		$("#swjgbm").val("");
-		$("#parentName").val("");
+		jQuery("#NSRSBH").val("");
+		jQuery("#JQBH").val("");
+		jQuery("#startTime").val("");
+		jQuery("#endTime").val("");
+		jQuery("#swjgbm").val("");
+		jQuery("#parentName").val("");
 		
 	}
 	

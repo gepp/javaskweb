@@ -139,12 +139,11 @@
 				<table class="tablelist">
 					<thead>
 						<tr>
-							<th width="15%">领票日期</th>
-							<th width="30%">发票名称</th>
-							<th width="10%">发票单位</th>
-							<th width="10%">机器编号</th>
-							<th>发票号码起止</th>
-							<th width="10%">下发状态</th>
+							<th width="15%">税目索引</th>
+							<th width="30%">税目编码</th>
+							<th width="10%">中文名称</th>
+							<th width="10%">英文名称</th>
+							<th>税率</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -313,7 +312,7 @@
 			<ul class="forminfo">
 				<li>&nbsp;&nbsp; <input name="" type="button" class="btn"
 					value="返回"
-					onclick="window.location='${ contextpath}/skqnsrxx/listcxtj'" />
+					onclick="window.location='${ contextpath}/cxtj/toYhkImport.htm'" />
 				</li>
 			</ul>
 		</div>

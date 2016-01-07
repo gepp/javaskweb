@@ -13,13 +13,17 @@
 	type="text/css" />
 <link href="${ contextpath }/res/css/page.css" rel="stylesheet"
 	type="text/css" />
-<script type="text/javascript"
-	src="${ contextpath }/res/js/laydate/laydate.js"></script>
+
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
-
+	
+ <script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/prototype.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
+ <link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />	
+ <script language="javascript" type="text/javascript" src="${ contextpath }/res/js/My97DatePicker/WdatePicker.js"></script>
+ 
 </head>
 <body>
 
@@ -36,22 +40,36 @@
 
 		<form method="post" action="${ contextpath}/skqfpjmx/list.htm">
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
-				<%-- <li><label style="width: 85px">纳税人微机编码</label><input
-					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"
-					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li> --%>
+				<li><label style="width: 80px">纳税人识别号</label><input type="text"
+					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
+					value="${NSRSBH}">
+				 <script type="text/javascript">
+					new CAPXOUS.AutoComplete("NSRSBH", function() {
+						if(this.text.value.length>=3){
+			        		return "${ contextpath}/skqbdc/hqmc?keyword=" + this.text.value;
+						}
+			    	});
+				
+			</script>
+					
+					</li>
 				<li><label style="width: 80px">机器编号</label><input type="text"
 					name="JQBH" id="JQBH" class="scinput1" placeholder="请输入机器编号"
 					value="${JQBH}"></li>
 				<li><label style="width: 60px">开始时间</label><input type="text"
 					name="startTime" id="startTime" class="scinput1"
-					placeholder="请输入开始时间" value="${startTime}" onclick="laydate()"></li>
+					placeholder="请输入开始时间" value="${startTime}" onfocus="WdatePicker({isShowWeek:true})"></li>
 				<li><label style="width: 60px">截止时间</label><input type="text"
 					name="endTime" id="endTime" class="scinput1" placeholder="请输入截止时间"
-					onclick="laydate()" value="${endTime}"></li>
-						<li><label style="width: 85px">税务机关</label> <input
-					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
+					 value="${endTime}" onfocus="WdatePicker({isShowWeek:true})"></li>
+						
+				</ul>
+				
+				<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
+				<li><label style="width: 85px">税务机关</label> <input
+					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly 
 					value="${SWJGBM}"> <input type="text" name="parentName"
-						id="parentName" class="scinput1" readonly
+						id="parentName" class="scinput1" readonly style="width:350px"
 						onclick="selectParentOrganization();" value="${parentName}">
 							<input name="" type="button" class="scbtn" value="选择"
 							onclick="selectParentOrganization();" /></li>
@@ -78,7 +96,8 @@
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
 
-					<th>纳税人微机编码</th>
+					<th>纳税人识别号</th>
+					<th>纳税人名称</th>
 					<th>发票编码</th>
 					<th>发票代码</th>
 					<th>发票号码起止</th>
@@ -93,8 +112,10 @@
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
 
-						<td>${ item.nsrwjbm}</td>
+						<td>${ item.nsrsbh}</td>
 
+						<td>${ item.nsrmc}</td>
+						
 						<td>${ item.fpbm}</td>
 
 						<td>${ item.fpdm}</td>
@@ -114,7 +135,7 @@
 			</tbody>
 		</table>
 		<page:page
-			href="${ contextpath}/skqfpjmx/list.htm?NSRWJBM=${NSRWJBM }&JQBH=${JQBH }&startTime=${startTime }&endTime=${endTime }&SWJGBM=${SWJGBM }&parentName=${parentName }"
+			href="${ contextpath}/skqfpjmx/list.htm?NSRSBH=${NSRSBH }&JQBH=${JQBH }&startTime=${startTime }&endTime=${endTime }&SWJGBM=${SWJGBM }&parentName=${parentName }"
 			data="pageList" />
 
 	</div>
@@ -122,7 +143,14 @@
 </html>
 
 <script type="text/javascript">
-	$('.tablelist tbody tr:odd').addClass('odd');
+		
+jQuery(document).ready(function() {
+	jQuery('.tablelist tbody tr:odd').addClass('odd');
+	 
+});
+
+		
+	
 	function selectParentOrganization() {
 		layer.open({
 			type : 2,
@@ -133,19 +161,15 @@
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
 	}
-	$(document).ready(
-			function() {
-				table_init("${ contextpath}/skqfpjmx",
-						"${ contextpath}/skqfpjmx/list?");
-			});
+ 
 	
 	function deleteInput(){
-		$("#NSRWJBM").val("");
-		$("#JQBH").val("");
-		$("#startTime").val("");
-		$("#endTime").val("");
-		$("#swjgbm").val("");
-		$("#parentName").val("");
+		jQuery("#NSRSBH").val("");
+		jQuery("#JQBH").val("");
+		jQuery("#startTime").val("");
+		jQuery("#endTime").val("");
+		jQuery("#swjgbm").val("");
+		jQuery("#parentName").val("");
 		
 	}
 </script>

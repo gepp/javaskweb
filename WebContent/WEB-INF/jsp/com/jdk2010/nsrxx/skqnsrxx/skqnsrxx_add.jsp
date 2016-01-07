@@ -58,12 +58,11 @@
 					<ul class="forminfo">
 						<table width="100%">
 							<tr>
-								<td>纳税人微机编码<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrwjbm"
-									name="skqNsrxx.nsrwjbm" placeholder="请输入纳税人微机编码" /></td>
+								
 								<td>纳税人识别号<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrsbh"
+								<td colspan="3"><input type="text" class="dfinput" id="nsrsbh"
 									name="skqNsrxx.nsrsbh" placeholder="请输入纳税人识别号" /></td>
+									
 							</tr>
 
 							<tr>
@@ -271,8 +270,7 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'skqNsrxx.nsrwjbm' : 'required;length[~16];remote[${contextpath}/skqnsrxx/check.htm]',
-				'skqNsrxx.nsrsbh' : 'required;',
+ 				'skqNsrxx.nsrsbh' : 'required;length[~20];remote[${contextpath}/skqnsrxx/check.htm]',
 				'skqNsrxx.nsrmc' : 'required;',
 				'skqNsrxx.jydz' : 'required;',
 				'skqNsrxx.frdb' : 'required;',

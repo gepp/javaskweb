@@ -4,9 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+            + request.getContextPath();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -48,17 +47,9 @@ function jxdk() {
 	});
 }
 
-function sbhz(){
-	var nsrwjbm = document.getElementById('nsrwjbm').value;
-	window.location.href = '${contextpath}/skqsbsj/sbhzsj.htm?nsrwjbm='+nsrwjbm;
-}
-
-<%
-String sbflag = request.getAttribute("sbflag").toString();
-	 if ("1".equals(sbflag)) {%>
-		setTimeout('sbhz()', 5000);
-	<%}%>
-	
+ 
+ 
+ 
 </script>
 </head>
 <body>
@@ -89,101 +80,74 @@ String sbflag = request.getAttribute("sbflag").toString();
 		</thead>
 	</table>
 	 <div class="formtitle1">
-		<span>机器编号为【${sbsj.jqbh }】申报信息</span>
+		<span>纳税人识别号为【${nsrxx.nsrsbh }】申报汇总信息</span>
 	</div>
 	<table class="tableEdit">
 		<thead>
 			<tr>
-				<th>所属开始时间</th>
+				<th>年份</th>
 				<td>
-				<fmt:formatDate value="${sbsj.sskssj }" pattern="yyyy-MM-dd" var="sskssj"/>
-				${sskssj }
+				${sbhz.year }
 				</td>
-				<th>所属结束时间</th>
+				<th>月份</th>
 				<td>
-				<fmt:formatDate value="${sbsj.ssjzsj }" pattern="yyyy-MM-dd" var="ssjzsj"/>
-				${ssjzsj }
+				${sbhz.month }
 				</td>
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 			</tr>
 			<tr>
 				<th>正常票份数</th>
-				<td>${sbsj.zcpfs }</td>
+				<td>${sbhz.zcpfs }</td>
 				<th>退票份数</th>
-				<td>${sbsj.tpfs}</td>
+				<td>${sbhz.tpfs}</td>
 				<th>废票份数</th>
-				<td>${sbsj.fpfs}</td>
+				<td>${sbhz.fpfs}</td>
 			</tr>
 			<tr>
 				<th>正常票金额（元）</th>
-				<td>${sbsj.zcpzje }</td>
+				<td><font color="red">${sbhz.zcpzje }</font></td>
 				<th>退票金额（元）</th>
-				<td>${sbsj.tpzje}</td>
+				<td><font color="red">${sbhz.tpzje}</font></td>
 				<th>实际开票金额（元）</th>
-				<td>${sbsj.zcpzje-sbsj.tpzje}</td>
+				<td><font color="red">${sbhz.zcpzje-sbhz.tpzje}</font></td>
 			</tr>
 		</thead>
 	</table>
-	
-	
-	 <div class="formtitle1">
-		<span>机器编号为【${sbsj.jqbh }】阶段申报信息</span>
+	<div class="formtitle1">
+		<span>税款信息</span>
 	</div>
-	<c:forEach items="${alJdsb }" var="item">
-	<table class="tableEdit">
+
+	<table class="tablelist">
 		<thead>
 			<tr>
-				<th>所属开始时间</th>
-				<td>
-				<fmt:formatDate value="${item.sskssj }" pattern="yyyy-MM-dd" var="sskssj"/>
-				${sskssj }
-				</td>
-				<th>所属结束时间</th>
-				<td>
-				<fmt:formatDate value="${item.ssjzsj }" pattern="yyyy-MM-dd" var="ssjzsj"/>
-				${ssjzsj }
-				</td>
-				<th>&nbsp;</th>
-				<th>&nbsp;</th>
-			</tr>
-			<tr>
-				<th>正常票份数</th>
-				<td>${item.zcpfs }</td>
-				<th>退票份数</th>
-				<td>${item.tpfs}</td>
-				<th>废票份数</th>
-				<td>${item.fpfs}</td>
-			</tr>
-			<tr>
-				<th>正常票金额（元）</th>
-				<td>${item.zcpzje }</td>
-				<th>退票金额（元）</th>
-				<td>${item.tpzje}</td>
-				<th>实际开票金额（元）</th>
-				<td>${item.zcpzje-item.tpzje}</td>
+				<td width="15%">税目编码：</td>
+				<td width="20%">税目名称：</td>
+				<td width="15%">税率(%)</td>
+				<td width="15%">税款(元)</td>
+				<td width="*">&nbsp;</td>
 			</tr>
 		</thead>
+
+		<tbody id="nsrszsmDiv">
+			<c:forEach var="item" items="${alSbsjzb }">
+				<tr>
+					<td>${item.smbm }</td>
+					<td>${item.smmc }</td>
+					<td>${item.sl }</td>
+					<td>${item.je }</td>
+					<td>&nbsp;</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
-	<br/>
-	</c:forEach>
-	
+
 	<br/>
 	<br/>
 	<div style="left: 25%;">
 		<ul class="forminfo">
-			<li><label>&nbsp;</label> 
-			<%
- 				if ("0".equals(sbflag)) {
- 			%>
-				<input type="button" class="btn" name="addBtn" value="监控回传" onClick="jxdk();"/>
-			 <%
-			 	} else {
-			 %> 系统正在计算汇总数据，请等待... <%
-			 	}
-			 %> 
- 				
- 				
+			<li><label>&nbsp;</label>
+			<input type="button" class="btn" name="addBtn" value="监控回传" onClick="jxdk();"/>
 		</li>
 		</ul>
 	</div>

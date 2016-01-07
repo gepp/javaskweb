@@ -40,10 +40,10 @@
 	<table class="tableEdit">
 		<thead>
 			<tr>
-				<th>纳税人微机编码</th>
-				<td>${nsrxx.nsrwjbm }</td>
 				<th>纳税人识别号</th>
 				<td>${nsrxx.nsrsbh }</td>
+				<th>&nbsp;</th>
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<th>纳税人名称</th>
@@ -158,7 +158,7 @@
 	<input type="hidden" name="YHKH" id="YHKH" value="${jqxx.yhkh }" />
 	<!-- 微机编码-->
 	<input type="hidden" name="WJBM_${jqxx.yhkh }" id="WJBM_${jqxx.yhkh }"
-		value="${jqxx.nsrwjbm }" />
+		value="${OLD_WJBM }" />
 	<!-- 税控卡号-->
 	<input type="hidden" name="FISCAL_CARD_NO_${jqxx.yhkh }"
 		id="FISCAL_CARD_NO_${jqxx.yhkh }" value="${jqxx.skkh }" />
@@ -169,6 +169,7 @@
 	<form name="addForm" method="post"
 		action="${contextpath }/skqfpj/updateXkbz.htm" target="iframe">
 		<input type="hidden" name="fpqshInfoStr" value="${fpqshInfoStr }" />
+		<input type="hidden" name="jqbh"  value="${jqxx.jqbh }"/>
 	</form>
 	<iframe src="" name="iframe" frameborder="0" width="0" height="0"></iframe>
 </body>

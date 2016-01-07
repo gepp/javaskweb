@@ -28,7 +28,7 @@
 		<table class="tablelist">
 			<thead>
 				<tr>
-					<th>行业编码</th>
+					<th>编码</th>
 					<th>行业名称</th>
 					<th>行业简称</th>
 				</tr>

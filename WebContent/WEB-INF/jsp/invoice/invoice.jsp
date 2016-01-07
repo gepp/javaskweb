@@ -61,9 +61,7 @@
 		<input type="hidden" name="userinfo" /> <input type="button"
 			name="btn" value=" 读 卡 " class="btn" style="cursor: hand;"
 			onclick="add();" />
-		<input type="button"
-			name="btn" value="测试" class="btn" style="cursor: hand;"
-			onclick="test();" />
+		 
 
 		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
 			name="dtapplet" width="1" height="1"

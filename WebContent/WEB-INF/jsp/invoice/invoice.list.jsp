@@ -37,10 +37,10 @@
 	<table class="tableEdit">
 		<thead>
 			<tr>
-				<th>纳税人微机编码</th>
-				<td>${nsrxx.nsrwjbm }</td>
 				<th>纳税人识别号</th>
 				<td>${nsrxx.nsrsbh }</td>
+				<th>税务机关名称</th>
+				<td>${nsrxx.swjgmc }</td>
 			</tr>
 			<tr>
 				<th>纳税人名称</th>
@@ -71,7 +71,7 @@
 		<tbody id="nsrszsmDiv">
 			<input type="hidden" value="${hasInvoiceSize }" id="num" />
 			<c:forEach var="hasInvoice" items="${cardInvoice }">
-				<c:if test="${hasInvoice.FPDM!='00000000000000000000'}">
+				<c:if test="${hasInvoice.JS!='0'}">
 				<tr>
 				<td>${hasInvoice.FPDM }</td>
 				<td>${hasInvoice.JS }</td>
@@ -99,7 +99,7 @@
 		<tbody id="nsrszsmDiv">
 			<c:forEach var="noInvoice" items="${alFp }">
 				<tr>
-					<td><input type="checkbox" name="subBox" value="${noInvoice.fpqsh }|${noInvoice.fpdm}">&nbsp;</td>
+					<td><input type="checkbox" name="subBox" value="${noInvoice.fpqsh }~${noInvoice.fpdm}">&nbsp;</td>
 					<td>${noInvoice.fplgrq }&nbsp;</td>
 					<td>${noInvoice.fpdm }&nbsp;</td>
 					<td>${noInvoice.fpdw }&nbsp;</td>

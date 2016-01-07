@@ -59,13 +59,13 @@
 						<input type="hidden" value="${skqNsrxx.id }" id="id" name="skqNsrxx.id" />
 						<table width="100%">
 							<tr>
-								<td>纳税人微机编码<b></b></td>
-								<td>${skqNsrxx.nsrwjbm }
+								  
 								<input type="hidden" class="dfinput" id="nsrwjbm"
-									name="skqNsrxx.nsrwjbm" value="${skqNsrxx.nsrwjbm }" placeholder="请输入纳税人微机编码" /></td>
+									name="skqNsrxx.nsrwjbm" value="${skqNsrxx.nsrwjbm }" placeholder="请输入纳税人微机编码" /> 
 								<td>纳税人识别号<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrsbh"
-									name="skqNsrxx.nsrsbh" value="${skqNsrxx.nsrsbh }" placeholder="请输入纳税人识别号" /></td>
+								<td>${skqNsrxx.nsrsbh }</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
 							</tr>
 
 							<tr>

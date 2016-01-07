@@ -55,7 +55,7 @@
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">申报数据</a></li>
+			<li><a href="#">自然月申报数据</a></li>
 		</ul>
 	</div>
 	<div style="position: fixed; top: 30%; left: 46%">

@@ -18,6 +18,10 @@
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/prototype.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/so.js"></script>
+<link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />	
 
 </head>
 <body>
@@ -32,9 +36,19 @@
 	<div class="rightinfo">
 		<form method="post" action="${ contextpath}/skqjqxx/listcxtj.htm">
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
-				<%-- <li><label style="width: 85px">纳税人微机编码</label><input
-					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"
-					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li> --%>
+				<li><label style="width: 80px">纳税人识别号</label><input type="text"
+					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
+					value="${NSRSBH}">
+				 <script type="text/javascript">
+					new CAPXOUS.AutoComplete("NSRSBH", function() {
+						if(this.text.value.length>=3){
+			        		return "${ contextpath}/skqbdc/hqmc?keyword=" + this.text.value;
+						}
+			    	});
+				
+			</script>
+					
+					</li>
 				<li><label style="width: 80px">机器编号</label><input type="text"
 					name="JQBH" id="JQBH" class="scinput1" placeholder="请输入机器编号"
 					value="${JQBH}"></li>
@@ -44,10 +58,13 @@
 				<li><label style="width: 60px">用户卡号</label><input type="text"
 					name="YHKH" id="YHKH" class="scinput1" placeholder="请输入用户卡号"
 					value="${YHKH}"></li>
-				<li><label style="width: 85px">税务机关</label> <input
+				
+			</ul>
+			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
+			<li><label style="width: 85px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
 					value="${SWJGBM}"> <input type="text" name="parentName"
-						id="parentName" class="scinput1" readonly
+						id="parentName" class="scinput1" readonly style="width:350px"
 						onclick="selectParentOrganization();" value="${parentName}">
 							<input name="" type="button" class="scbtn" value="选择"
 							onclick="selectParentOrganization();" /></li>
@@ -78,7 +95,8 @@
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
 
-					<th>纳税人微机编码</th>
+					<th>纳税人识别号</th>
+					<th>纳税人名称</th>
 					<th>机器型号编码</th>
 					<th>机器编号</th>
 					<th>税控卡号</th>
@@ -98,8 +116,9 @@
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
 
-						<td>${ item.nsrwjbm}</td>
-
+						<td>${ item.nsrsbh}</td>
+						<td>${ item.nsrmc}</td>
+						
 						<td>${ item.jqxhbm}</td>
 
 						<td>${ item.jqbh}</td>
@@ -142,10 +161,10 @@
 
 <script type="text/javascript">
 	function deleteInput() {
-		$("#NSRWJBM").val("");
-		$("#JQBH").val("");
-		$("#YHKH").val("");
-		$("#SKKH").val("");
+		jQuery("#NSRSBH").val("");
+ 		jQuery("#JQBH").val("");
+		jQuery("#YHKH").val("");
+		jQuery("#SKKH").val("");
 	}
 	function selectParentOrganization() {
 		layer.open({
@@ -153,7 +172,6 @@
 			title : '选择税务机关【点击行选中】',
 			shadeClose : false,
 			area : [ '580px', '90%' ],
-
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
 	}

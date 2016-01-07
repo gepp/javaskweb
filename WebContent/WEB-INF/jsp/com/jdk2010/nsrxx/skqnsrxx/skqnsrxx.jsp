@@ -17,6 +17,10 @@
 <script type="text/javascript" src="${contextpath }/res/js/common.js"></script>
 <script type="text/javascript"
 	src="${ contextpath }/res/js/layer/layer.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/prototype.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/autocomplete.js"></script>
+<script type="text/javascript" src="${ contextpath }/res/js/googlesuggest/so.js"></script>
+<link rel="stylesheet" type="text/css" href="${ contextpath }/res/js/googlesuggest/autocomplete.css" />
 
 </head>
 <body>
@@ -31,12 +35,19 @@
 	<div class="rightinfo">
 		<form method="post" action="${ contextpath}/skqnsrxx/list">
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
-				<%-- <li><label style="width: 85px">纳税人微机编码</label><input
-					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"
-					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li> --%>
-				<li><label style="width: 80px">纳税人识别号</label><input type="text"
+			<li><label style="width: 80px">纳税人识别号</label><input type="text"
 					name="NSRSBH" id="NSRSBH" class="scinput1" placeholder="请输入纳税人识别号"
-					value="${NSRSBH}"></li>
+					value="${NSRSBH}">
+	 <script type="text/javascript">
+		new CAPXOUS.AutoComplete("NSRSBH", function() {
+			if(this.text.value.length>=3){
+        		return "${ contextpath}/skqbdc/hqmc?keyword=" + this.text.value;
+			}
+    	});
+	
+</script>
+					
+					</li>
 				<%-- <li><label style="width: 60px">纳税人名称</label><input type="text"
 					name="NSRMC" id="NSRMC" class="scinput1" placeholder="请输入纳税人名称"
 					value="${NSRMC}"></li> --%>
@@ -56,8 +67,8 @@
 						id="table_refresh" class="scbtn1" value="查询" /></li>
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
-					<li><label>&nbsp;</label><input name="" type="button"
-						id="table_add" class="scbtn" value="新增" /></li>
+					<li><label>&nbsp;</label><input name="" type="button" onclick="add();"
+					     class="scbtn" value="新增" /></li>
 
 				</ul>
 				<br />
@@ -71,7 +82,6 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
-					<th>纳税人微机编码</th>
 					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
 					<th>税务机关编码</th>
@@ -85,7 +95,6 @@
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
 
-						<td>${ item.nsrwjbm}</td>
 
 						<td>${ item.nsrsbh}</td>
 
@@ -114,16 +123,16 @@
 </html>
 
 <script type="text/javascript">
-	$('.tablelist tbody tr:odd').addClass('odd');
+	jQuery('.tablelist tbody tr:odd').addClass('odd');
 	function deleteInput() {
-		$("#NSRWJBM").val("");
-		$("#NSRSBH").val("");
-		$("#NSRMC").val("");
-		$("#swjgbm").val("");
-		$("#parentName").val("");
+		jQuery("#NSRWJBM").val("");
+		jQuery("#NSRSBH").val("");
+		jQuery("#NSRMC").val("");
+		jQuery("#swjgbm").val("");
+		jQuery("#parentName").val("");
 
 	}
-	$(document).ready(
+	jQuery(document).ready(
 			function() {
 				table_init("${ contextpath}/skqnsrxx",
 						"${ contextpath}/skqnsrxx/list?");
@@ -137,6 +146,9 @@
 
 			content : '${contextpath}/securityorganization/select.htm' //iframe的url
 		});
+	}
+	function add(){
+		window.location.href="${contextpath}/skqnsrxx/add.htm";
 	}
 	function deleteNsrxx(nsrwjbm){
 		layer.confirm('您确认删除微机编码：'+nsrwjbm+'<br/>如若删除，该纳税户相关机器信息也将删除！',function(index){

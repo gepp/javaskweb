@@ -284,7 +284,7 @@
 			<ul class="forminfo">
 				<li>&nbsp;&nbsp; <input name="" type="button" class="btn"
 					value="返回"
-					onclick="window.location='${ contextpath}/skqnsrxx/listcxtj'" />
+					onclick="window.location='${ contextpath}/cxtj/toSkkImport.htm'" />
 				</li>
 			</ul>
 		</div>

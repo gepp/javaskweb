@@ -48,8 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<table class="tableEdit">
 			<tr>
-				<th>纳税人微机编码<b></b></th>
-				<td>${jqxx.nsrwjbm }</td>
+				<th>纳税人识别号<b></b></th>
+				<td>${nsrxx.nsrsbh }</td>
 				<th>纳税人名称<b></b></th>
 				<td>${nsrxx.nsrmc }</td>
 			</tr>
@@ -91,8 +91,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th>状态<b></b></th>
 				<td>${ jqxx.status==1?'正常':'注销'}</td>
-				<th>&nbsp;<b></b></th>
-				<td>&nbsp;</td>
+				<th>税务机关<b></b></th>
+				<td>${nsrxx.swjgmc }</td>
 			</tr>
 
 		</table>
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	SkqNsrxx nsrxx = (SkqNsrxx)request.getAttribute("nsrxx");
 	SkqJqxx jqxx = (SkqJqxx)request.getAttribute("jqxx");
 	%>
-	<input type="hidden" name="TAXPAYER_NO" id="TAXPAYER_NO" value="${nsrxx.nsrwjbm }" />
+	<input type="hidden" name="TAXPAYER_NO" id="TAXPAYER_NO" value="${OLD_WJBM }" />
           <!-- 税控卡号-->
           <input type="hidden" name="FISCAL_CARD_NO" id="FISCAL_CARD_NO" value="${jqxx.skkh }" />
           <!-- 机器编号-->
@@ -201,7 +201,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!-- 税控卡截止时间-->
           <input type="hidden" name="F_END_DATE" id="F_END_DATE" value="<%=Util.toxkrq(jqxx.getKyxrq()) %>" />
           <!-- 主管科所-->
-          <input type="hidden" name="ORGAN_CODE" id="ORGAN_CODE" value="${nsrxx.swjgbm }" />
+          
+          <%
+          String swjgbm=nsrxx.getSwjgbm();
+          if (swjgbm != null && !"".equals(swjgbm)) {
+  				if(swjgbm.length()>8){
+  					swjgbm=swjgbm.substring(3);
+  				}
+  		}
+
+          %>
+          <input type="hidden" name="ORGAN_CODE" id="ORGAN_CODE" value="<%=swjgbm %>" />
           <!-- 纳税人识别号-->
           <input type="hidden" name="TAXPAYER_CODE" id="TAXPAYER_CODE" value="<%=nsrxx.getNsrsbh() %>" />
           <!-- 下次申报月-->
