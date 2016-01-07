@@ -57,6 +57,8 @@ public class SkqJqxxController extends BaseController {
         String nsrwjbm = getPara("nsrwjbm");
         List<SkqJqxx> jqxxList = skqJqxxService.getJqxxListByNsrwjbm(nsrwjbm);
         setAttr("nsrwjbm", nsrwjbm);
+        SkqNsrxx nsrxx=skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
+        setAttr("nsrsbh", nsrxx.getNsrsbh());
         setAttr("list", jqxxList);
         return "/com/jdk2010/jqxx/skqjqxx/skqjqxx";
     }
