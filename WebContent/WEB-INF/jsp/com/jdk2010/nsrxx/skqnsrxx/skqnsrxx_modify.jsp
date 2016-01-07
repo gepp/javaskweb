@@ -72,12 +72,13 @@
 								<td>纳税人名称<b></b></td>
 								<td><input type="text" class="dfinput" id="nsrmc"
 									name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称"  value="${skqNsrxx.nsrmc }" /></td>
-								<td>经营地址<b></b></td>
-								<td><input type="text" class="dfinput" id="jydz"
-									name="skqNsrxx.jydz" placeholder="请输入经营地址"  value="${skqNsrxx.jydz }" /></td>
+								<td>月核定营业额<b></b></td>
+								<td><input type="text" class="dfinput" id="yhde"
+									name="skqNsrxx.yhde" placeholder="请输入月核定营业额"   value="${skqNsrxx.yhde }"  /></td>
+								
 							</tr>
 
-							<tr>
+							<%-- <tr>
 								<td>法人代表<b></b></td>
 								<td><input type="text" class="dfinput" id="frdb"
 									name="skqNsrxx.frdb" placeholder="请输入法人代表"  value="${skqNsrxx.frdb }" /></td>
@@ -91,19 +92,19 @@
 								<td>办税员<b></b></td>
 								<td><input type="text" class="dfinput" id="bsy"
 									name="skqNsrxx.bsy" placeholder="请输入办税员"  value="${skqNsrxx.bsy }" /></td>
-								<td>月核定营业额<b></b></td>
-								<td><input type="text" class="dfinput" id="yhde"
-									name="skqNsrxx.yhde" placeholder="请输入月核定营业额"   value="${skqNsrxx.yhde }"  /></td>
-							</tr>
+								<td>经营地址<b></b></td>
+								<td><input type="text" class="dfinput" id="jydz"
+									name="skqNsrxx.jydz" placeholder="请输入经营地址"  value="${skqNsrxx.jydz }" /></td>
+							</tr> --%>
 							<tr>
-								<td>行业编码<b></b></td>
+								<td>所属行业<b></b></td>
 								<input type="hidden" class="dfinput" id="hybm" name="skqNsrxx.hybm"
 									placeholder=""   value="${skqNsrxx.hybm }" />
 								<td><input type="text" class="dfinput" id="hymc"  value="${skqNsrxx.hymc }" 
 									name="hymc" placeholder="" readonly onclick="selectHy();" />
 									<input type="button" value="选择" onclick="selectHy();"
 									class="btn" /></td>
-								<td>行业明细编码<b></b></td>
+								<td>经营项目<b></b></td>
 								<input type="hidden" class="dfinput" id="hymxbm" name="skqNsrxx.hymxbm"   value="${skqNsrxx.hymxbm }" 
 									placeholder="" />
 								<td><input type="text" class="dfinput" id="hymxmc"   value="${skqNsrxx.hymxmc }"  onclick="selecthymx();"
@@ -113,14 +114,14 @@
 							</tr>
 
 							<tr>
-								<td>税务机关编码<b></b></td>
+								<td>主管税务机关<b></b></td>
 								<input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"   value="${skqNsrxx.swjgbm }" 
 									class="scinput1" readonly value="${swjgbm}">
 									<td><input type="text" class="dfinput" name="parentName"   value="${skqNsrxx.swjgmc }" 
 										id="parentName" placeholder="" readonly onclick="selectParentOrganization();"/> <input
 										type="button" value="选择" onclick="selectParentOrganization();"
 										class="btn" /></td>
-									<td>注册类型编码<b></b></td>
+									<td>注册类型<b></b></td>
 									<input type="hidden" class="dfinput" id="zclxbm"   value="${skqNsrxx.zclxbm }" 
 										name="skqNsrxx.zclxbm"/>
 									<td><input type="text" class="dfinput" id="zclxmc"   value="${skqNsrxx.zclxmc }" 
@@ -283,14 +284,9 @@
 			var a = $(e.delegateTarget).trigger("validate");
 		}).validator({
 			fields : {
-				'skqNsrxx.nsrsbh' : 'required;',
-				'skqNsrxx.nsrmc' : 'required;',
-				'skqNsrxx.jydz' : 'required;',
-				'skqNsrxx.frdb' : 'required;',
-				'skqNsrxx.yhde' : 'required;',
-				'skqNsrxx.bsy' : 'required;',
-				'skqNsrxx.ssgly' : 'required;',
-
+ 				'skqNsrxx.nsrmc' : 'required;',
+ 				'skqNsrxx.yhde' : 'required;',
+ 
 			},
 			valid : function(form) {
 				var me = this;

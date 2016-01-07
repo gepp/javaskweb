@@ -64,11 +64,12 @@
 							<tr>
 								<td>纳税人名称<b></b></td>
 								<td><input type="text" class="dfinput" id="nsrmc" name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称" /></td>
-              <td>经营地址<b></b></td>
-              <td><input type="text" class="dfinput" id="jydz"
-									name="skqNsrxx.jydz" placeholder="请输入经营地址" /></td>
+								<td>月核定营业额<b></b></td>
+              <td><input type="text" class="dfinput" id="yhde"
+									name="skqNsrxx.yhde" placeholder="请输入月核定营业额" /></td>
+              
             </tr>
-            <tr>
+            <!-- <tr>
               <td>法人代表<b></b></td>
               <td><input type="text" class="dfinput" id="frdb"
 									name="skqNsrxx.frdb" placeholder="请输入法人代表" /></td>
@@ -80,10 +81,10 @@
               <td>办税员<b></b></td>
               <td><input type="text" class="dfinput" id="bsy"
 									name="skqNsrxx.bsy" placeholder="请输入办税员" /></td>
-              <td>月核定营业额<b></b></td>
-              <td><input type="text" class="dfinput" id="yhde"
-									name="skqNsrxx.yhde" placeholder="请输入月核定营业额" /></td>
-            </tr>
+              <td>经营地址<b></b></td>
+              <td><input type="text" class="dfinput" id="jydz"
+									name="skqNsrxx.jydz" placeholder="请输入经营地址" /></td>
+            </tr> -->
             <tr>
               <td>所属行业<b></b></td>
               <input type="hidden" class="dfinput" id="hybm" name="skqNsrxx.hybm"
@@ -102,7 +103,7 @@
 									class="btn" /></td>
             </tr>
             <tr>
-              <td>主管科(所)<b></b></td>
+              <td>主管税务机关<b></b></td>
               <input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"
 									class="scinput1" readonly value="${swjgbm}">
               <td><input type="text" class="dfinput" name="parentName"
@@ -110,7 +111,7 @@
                 <input
 										type="button" value="选择" onclick="selectParentOrganization();"
 										class="btn" /></td>
-              <td>注册类型编码<b></b></td>
+              <td>注册类型<b></b></td>
               <input type="hidden" class="dfinput" id="zclxbm"
 										name="skqNsrxx.zclxbm"/>
               <td><input type="text" class="dfinput" id="zclxmc"
@@ -260,12 +261,8 @@
 			fields : {
  				'skqNsrxx.nsrsbh' : 'required;length[~20];remote[${contextpath}/skqnsrxx/check.htm]',
 				'skqNsrxx.nsrmc' : 'required;',
-				'skqNsrxx.jydz' : 'required;',
-				'skqNsrxx.frdb' : 'required;',
-				'skqNsrxx.yhde' : 'required;double',
-				'skqNsrxx.bsy' : 'required;',
-				'skqNsrxx.ssgly' : 'required;'
-
+ 				'skqNsrxx.yhde' : 'required;double',
+ 
 			},
 			valid : function(form) {
 				var me = this;
