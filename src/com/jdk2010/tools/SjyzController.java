@@ -294,7 +294,7 @@ public class SjyzController extends BaseController {
 
 		Long endTime = System.currentTimeMillis();
 		yzList.add("移植结束时间："+DateUtil.getNowTime());
-		yzList.add("移植成功！共耗时：" + (endTime - beginTime) / 1000 / 60 + "秒");
+		yzList.add("移植成功！共耗时：" + (endTime - beginTime) / 1000 / 60 + "分钟");
 		ehCacheCacheManager.getEhCache("metaCache").put("yzList", yzList);
 		
 		yzList.add("=============移植结束=============");
