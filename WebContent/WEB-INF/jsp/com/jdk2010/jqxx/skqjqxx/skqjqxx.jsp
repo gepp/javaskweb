@@ -25,7 +25,7 @@
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">微机编码【${nsrwjbm }】机器信息列表</a></li>
+			<li><a href="#">纳税人识别号【${nsrsbh }】机器信息列表</a></li>
 		</ul>
 	</div>
 	<div class="rightinfo">
@@ -48,7 +48,7 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" width="15px" id="checkAll" /></th>
-					<th>纳税人微机编码</th>
+					<th>纳税人识别号</th>
 					<th>纳税人名称</th>
 					<th>机器型号</th>
 					<th>机器编号</th>
@@ -65,8 +65,7 @@
 
 					<tr>
 						<td><input type="checkbox" name="subBox" value="${item.id}" /></td>
-
-						<td>${ item.nsrwjbm}</td>
+						<td>${nsrsbh }</td>
 						<td>${ item.nsrmc}</td>
 						<td>${ item.jqxhmc}</td>
 						<td>${ item.jqbh}</td>
