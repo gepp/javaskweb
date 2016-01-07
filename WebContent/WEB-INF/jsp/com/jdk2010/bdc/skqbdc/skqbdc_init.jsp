@@ -56,7 +56,20 @@ function toBdcList(){
 		layer.alert('请输入纳税人识别号',{shade:0,closeBtn: 0});
 	}
 	else{
-		window.location.href = '${ contextpath}/skqbdc/list.htm?nsrsbh='+nsrsbh;
+		jQuery.ajax({
+			url:"${ contextpath}/skqbdc/checkNsrsbh?nsrsbh="+nsrsbh,
+			type: "POST",
+			success: function(data){
+				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+				if(data.status=='success'){
+					window.location.href = '${ contextpath}/skqbdc/list.htm?nsrwjbm='+data.data.nsrwjbm;					 
+				}else{
+					sAlert("未查询到纳税人信息");
+				}
+			   
+			}
+		});
+		
 	}
 }
 </script>

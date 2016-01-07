@@ -1,5 +1,7 @@
 package com.jdk2010.bdc.skqbdcxmmx.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.bdc.skqbdc.model.SkqBdc;
 import com.jdk2010.bdc.skqbdc.service.ISkqBdcService;
 import com.jdk2010.bdc.skqbdcxmmx.model.SkqBdcxmmx;
@@ -76,9 +79,32 @@ public class SkqBdcxmmxController extends BaseController {
 		String bdcid = getPara("bdcid");
 		String bdczxmid = getPara("bdczxmid");
 		
+		long dqlsh = skqBdcxmmxService.getBdcxmmxLsh()+1;
+		String lsh = String.valueOf(dqlsh);
+		for(int i=lsh.length();i<4;i++){
+			lsh = "0"+lsh;
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String nowtime = sdf.format(new Date());
+		String xmbm = "F"+nowtime+lsh;
+		
+		SkqBdc skqBdc = skqBdcService.loadBdc(bdcid);
+		String bdcXmmc = skqBdc.getXmmc();
+		SkqBdczxm skqBdczxm = skqBdczxmService.loadBdczxm(bdczxmid);
+		String bdcZxmmc = skqBdczxm.getXmmc();
+		String zxmmc = "";
+		if(bdcXmmc.equals(bdcZxmmc)){
+			zxmmc = bdcXmmc;
+		}
+		else{
+			zxmmc = bdcXmmc+bdcZxmmc;
+		}
+		
 		setAttr("nsrwjbm", nsrwjbm);
 		setAttr("bdcid", bdcid);
 		setAttr("bdczxmid", bdczxmid);
+		setAttr("xmbm", xmbm);
+		setAttr("zxmmc", zxmmc);
 		return "/com/jdk2010/bdc/skqbdcxmmx/skqbdcxmmx_add";
 	}
 
@@ -86,6 +112,17 @@ public class SkqBdcxmmxController extends BaseController {
 	public void addaction(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		SkqBdcxmmx skqBdcxmmx = getModel(SkqBdcxmmx.class);
+		String zxmmc = getPara("zxmmc");
+		String bdczxmid = getPara("bdczxmid");
+		skqBdcxmmx.setParentid(Integer.parseInt(bdczxmid));
+		String xmmc = skqBdcxmmx.getXmmc();
+		zxmmc = zxmmc+xmmc;
+		skqBdcxmmx.setZxmmc(zxmmc);
+		
+		SecurityUser user = getSessionAttr("securityUser");
+		skqBdcxmmx.setCjz(user.getUsername());
+		skqBdcxmmx.setCjsj(new Date());
+		
 		skqBdcxmmxService.save(skqBdcxmmx);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
 		renderJson(response,returnData);
@@ -95,9 +132,26 @@ public class SkqBdcxmmxController extends BaseController {
 	public String modify(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String id = getPara("id");
-		SkqBdcxmmx skqBdcxmmx = skqBdcxmmxService
-				.findById(id, SkqBdcxmmx.class);
+		SkqBdcxmmx skqBdcxmmx = skqBdcxmmxService.findById(id, SkqBdcxmmx.class);
+		int bdczxmid =  skqBdcxmmx.getParentid();
+		SkqBdczxm skqBdczxm = skqBdczxmService.loadBdczxm(String.valueOf(bdczxmid));
+		int bdcid = skqBdczxm.getParentid();
+		
+		SkqBdc skqBdc = skqBdcService.loadBdc(String.valueOf(bdcid));
+		String bdcXmmc = skqBdc.getXmmc();
+		String bdcZxmmc = skqBdczxm.getXmmc();
+		String zxmmc = "";
+		if(bdcXmmc.equals(bdcZxmmc)){
+			zxmmc = bdcXmmc;
+		}
+		else{
+			zxmmc = bdcXmmc+bdcZxmmc;
+		}
+		
 		setAttr("skqBdcxmmx", skqBdcxmmx);
+		setAttr("bdcid", bdcid);
+		setAttr("bdczxmid", bdczxmid);
+		setAttr("zxmmc", zxmmc);
 		return "/com/jdk2010/bdc/skqbdcxmmx/skqbdcxmmx_modify";
 	}
 
@@ -105,6 +159,12 @@ public class SkqBdcxmmxController extends BaseController {
 	public void modifyaction(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		SkqBdcxmmx skqBdcxmmx = getModel(SkqBdcxmmx.class);
+		String zxmmc = getPara("zxmmc");
+		String bdczxmid = getPara("bdczxmid");
+		skqBdcxmmx.setParentid(Integer.parseInt(bdczxmid));
+		String xmmc = skqBdcxmmx.getXmmc();
+		zxmmc = zxmmc+xmmc;
+		skqBdcxmmx.setZxmmc(zxmmc);
 		skqBdcxmmxService.update(skqBdcxmmx);
 		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
 		renderJson(response,returnData);
@@ -114,9 +174,18 @@ public class SkqBdcxmmxController extends BaseController {
 	public void delete(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String ids = getPara("ids");
-		skqBdcxmmxService.deleteByIDS(ids, SkqBdcxmmx.class);
-		ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-		renderJson(response,returnData);
+		//判断是否有录入楼牌信息
+		String delIds = ids.substring(0, ids.length()-1);
+		long num = skqBdcxmmxService.getBdcLpCount(delIds);
+		if(num>0){
+			ReturnData returnData = new ReturnData(Constants.ERROR, "存在楼牌信息不允许删除");
+			renderJson(response,returnData);
+		}
+		else{
+			skqBdcxmmxService.deleteByIDS(ids, SkqBdcxmmx.class);
+			ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+			renderJson(response,returnData);
+		}
 	}
 
 	@RequestMapping("/view")

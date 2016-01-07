@@ -66,15 +66,15 @@
         <th width="8%">其他套数</th>
         <th width="8%">总套数</th>
         <th width="8%">录入总套数</th>
-        <th width="15%">操作</th>
+        <th width="8%">操作</th>
       </tr>
     </thead>
     <tbody>
       <c:forEach items="${list}" var="item">
         <tr>
           <td><input type="checkbox" name="subBox" value="${item.id}" /></td>
-          <td> ${ item.xmmc} </td>
           <td> ${ item.xmbm} </td>
+          <td> ${ item.xmmc} </td>
           <td> ${ item.bzxptzzts} </td>
           <td> ${ item.fbzxptzzts} </td>
           <td> ${ item.fptzzts} </td>
@@ -110,6 +110,9 @@ function goBack(){
 }
 
 function add(){
-	
+	var nsrwjbm = $('#nsrwjbm').val();
+	var bdcid = $('#bdcid').val();
+	var bdczxmid = $('#bdczxmid').val();
+	window.location.href = "${ contextpath }/skqbdcxmmx/add.htm?nsrwjbm="+nsrwjbm+'&bdcid='+bdcid+'&bdczxmid='+bdczxmid;
 }
 </script>
