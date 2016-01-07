@@ -122,4 +122,13 @@ public class SecurityUser extends Model<SecurityUser> {
         }
         	 
   		 
+        private String swjgbm;
+
+		public String getSwjgbm() {
+			return swjgbm;
+		}
+		public void setSwjgbm(String swjgbm) {
+			this.swjgbm = swjgbm;
+		}
+        
     }

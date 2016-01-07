@@ -10,6 +10,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.jdk2010.base.security.securityorganization.model.SecurityOrganization;
+import com.jdk2010.base.security.securityuser.model.SecurityUser;
 import com.jdk2010.bdc.skqbdc.model.SkqBdc;
 import com.jdk2010.bdc.skqbdckp.model.SkqBdckp;
 import com.jdk2010.bdc.skqbdclp.model.SkqBdclp;
@@ -490,6 +491,33 @@ public class SjyzMain {
 		return nsrxxList.size();
 	}
 	
+	public static int  yz_SKQ_USER() throws UnsupportedEncodingException {
+		List<SecurityUser> swjgList = sybaseDalClient
+				.queryForObjectList(
+						"SELECT t.SID AS id, t.USERNAME AS username,t.ACTUALNAME AS realname,t.PASSWORD AS userpwd,t.STATUS AS status,t.SWJGBM AS swjgbm from SKQ_USER t",
+						SecurityUser.class);
+		for (int i = 0; i < swjgList.size(); i++) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			String sql = DbKit.warpsavesql(swjgList.get(i), paramMap);
+			BigDecimal parent_id=sybaseDalClient.queryColumn("select SID FROM SKQ_SWJG WHERE SWJGBM='"+swjgList.get(i).getSwjgbm()+"'","SID");
+			if(parent_id==null){
+				parent_id=new BigDecimal(0);
+			}
+			paramMap.put("organization_id",parent_id);
+			paramMap.put("userpwd","de88e3e4ab202d87754078cbb2df6063"); //12345678a
+			paramMap = transLanguage(yzFlag, paramMap); // 判断是否需要将string类型的编码进行转换
+			
+			if(swjgList.get(i).getUsername().equals("system")){
+				continue;
+			}else{
+			mysqlDalClient.save(sql, paramMap);
+			mysqlDalClient.update("insert into security_user_role(user_id,role_id) values("+swjgList.get(i).getId()+","+9+")");
+			}
+		}
+		
+		return swjgList.size();
+	}
+	
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		 		yz_SKQ_BDC();
 				yz_SKQ_BDCKP();
@@ -525,6 +553,6 @@ public class SjyzMain {
 				yz_SKQ_WJBMDY();
 				yz_TRANS_DM_SWJG();
 				yz_TRANS_DM_ZSPM();
-				
+				yz_SKQ_USER();
 	}
 }
