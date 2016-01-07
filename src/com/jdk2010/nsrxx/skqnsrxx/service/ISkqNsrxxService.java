@@ -9,4 +9,5 @@ public interface ISkqNsrxxService extends IBaseService {
     public String getNsrwjbmByNsrsbh(String nsrsbh);
     
     public boolean isExistsNsrwjbm(String nsrwjbm);
+    
 }

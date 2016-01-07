@@ -189,7 +189,8 @@ public class SkqFpjController extends BaseController {
             String jqbh = (String) EF06.get("JQBH");
             ArrayList cardInvoice = (ArrayList) CARDINFO.get("EF05");
             String card_nsrwjbm = (String) kxx.get("NSRWJDM");
-            SkqJqxx jqxx = dalClient.queryForObject("select * from skq_jqxx where nsrwjbm='" + card_nsrwjbm
+            String new_wjbm=dalClient.queryColumn("select NEW_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and old_wjbm='"+card_nsrwjbm+"'", "NEW_WJBM");
+            SkqJqxx jqxx = dalClient.queryForObject("select * from skq_jqxx where nsrwjbm='" + new_wjbm
                     + "' and jqbh='" + jqbh + "'", SkqJqxx.class);
             if (jqxx == null) {
                 request.setAttribute("errorMsg", "纳税户不存在！用户卡中纳税户微机编码为：" + card_nsrwjbm + ",机器编号为：" + jqxx);
@@ -212,7 +213,7 @@ public class SkqFpjController extends BaseController {
                 	}
                 }
                 setAttr("hasInvoiceSize", hasInvoiceSize);
-                return FORWARD + "/skqfpj/fpList.htm?jqbh=" + jqbh + "&nsrwjbm=" + card_nsrwjbm;
+                return FORWARD + "/skqfpj/fpList.htm?jqbh=" + jqbh + "&nsrwjbm=" + new_wjbm;
 
             }
 
@@ -267,7 +268,7 @@ public class SkqFpjController extends BaseController {
         String strSql = "";
         for (int i = 0; i < fpqshInfoArr.length; i++) {
             String str = fpqshInfoArr[i];
-            String[] strArr = str.split("\\|");
+            String[] strArr = str.split("\\~");
             fpqsh = Integer.parseInt(strArr[0]);
             fpdm = strArr[1];
             if ("".equals(strSql)) {
@@ -283,6 +284,8 @@ public class SkqFpjController extends BaseController {
         SkqJqxx jqxx = skqJqxxService.getJqxxByJqbh(jqbh);
         setAttr("nsrxx", nsrxx);
         setAttr("jqxx", jqxx);
+        String OLD_WJBM=dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrxx.getNsrwjbm()+"'", "OLD_WJBM");
+        setAttr("OLD_WJBM", OLD_WJBM);
         request.setAttribute("alFp", alFp);
         request.setAttribute("fpqshInfoStr", fpqshInfoStr);
 
@@ -343,7 +346,7 @@ public class SkqFpjController extends BaseController {
         String strSql = "";
         for (int i = 0; i < fpqshInfoArr.length; i++) {
             String str = fpqshInfoArr[i];
-            String[] strArr = str.split("\\|");
+            String[] strArr = str.split("\\~");
             fpqsh = Integer.parseInt(strArr[0]);
             fpdm = strArr[1];
             if ("".equals(strSql)) {
@@ -355,9 +358,10 @@ public class SkqFpjController extends BaseController {
         strSql = strSql + ")";
         String sql = "select * from SKQ_FPJMX where FPXFZT = 0 " + strSql;
         List<SkqFpjmx> alFp = dalClient.queryForObjectList(sql, SkqFpjmx.class);
+        String jqbh=getPara("jqbh");
         for (int i = 0; i < alFp.size(); i++) {
             SkqFpjmx fpjmx = alFp.get(i);
-            String updateSql = "update SKQ_FPJMX set FPXFZT=1 where FPDM='" + fpjmx.getFpdm() + "' and FPQSH="
+            String updateSql = "update SKQ_FPJMX set FPXFZT=1,jqbh='"+jqbh+"' where FPDM='" + fpjmx.getFpdm() + "' and FPQSH="
                     + fpjmx.getFpqsh();
             dalClient.update(updateSql);
         }

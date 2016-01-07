@@ -25,6 +25,7 @@ import com.jdk2010.system.skqjqxh.service.ISkqJqxhService;
 import com.jdk2010.tools.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
+import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.JsonUtil;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.DbKit;
@@ -47,6 +48,9 @@ public class SkqJqxxController extends BaseController {
 
     @Resource
     ISkqJqszsmService skqJqszsmService;
+    
+    @Resource
+    DalClient dalClient;
 
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -57,17 +61,25 @@ public class SkqJqxxController extends BaseController {
         return "/com/jdk2010/jqxx/skqjqxx/skqjqxx";
     }
 
+    
+    @RequestMapping("/listcxtjImport")
+    public String listcxtjImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        return "/com/jdk2010/jqxx/skqjqxx/skqjqxxcxtj";
+    }
+
+    
     @RequestMapping("/listcxtj")
     public String listcxtj(HttpServletRequest request, HttpServletResponse response) throws Exception {
         DbKit dbKit = new DbKit(
-                "SELECT t.*,a.swjgbm FROM skq_jqxx  t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
+                "SELECT t.*,a.swjgbm,a.nsrsbh,a.nsrmc FROM skq_jqxx  t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
         String searchSQL = "";
         String orderSQL = "";
-        String NSRWJBM = getPara("NSRWJBM");
-        if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-            searchSQL = searchSQL + " and  t.NSRWJBM LIKE '%:NSRWJBM%'";
-            setAttr("NSRWJBM", NSRWJBM);
-            dbKit.put("NSRWJBM", NSRWJBM);
+        String NSRSBH = getPara("NSRSBH");
+        if (NSRSBH != null && !"".equals(NSRSBH)) {
+        	String nsrwjbm=dalClient.queryColumn("select nsrwjbm from skq_nsrxx where nsrsbh='"+NSRSBH+"'","nsrwjbm");
+            searchSQL = searchSQL + " and  t.NSRWJBM ='"+nsrwjbm+"'";
+            setAttr("NSRSBH", NSRSBH);
         }
 
         String JQBH = getPara("JQBH");
@@ -100,7 +112,6 @@ public class SkqJqxxController extends BaseController {
 
         dbKit.append(orderSQL);
         dbKit.append(searchSQL);
-        logger.info("=======" + dbKit.getSql());
         Page pageList = skqJqxxService.queryForPageList(dbKit, getPage(), SkqJqxx.class);
         setAttr("pageList", pageList);
         return "/com/jdk2010/jqxx/skqjqxx/skqjqxxcxtj";
@@ -126,7 +137,13 @@ public class SkqJqxxController extends BaseController {
         skqJqxx.setYhkh(yhkh);
         skqJqxx.setSkkh(skkh);
         skqJqxxService.save(skqJqxx);
+        String OLD_WJBM=dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+skqJqxx.getNsrwjbm()+"'", "OLD_WJBM");
+        dalClient.update("delete from skq_wjbmdy where jqbh='"+jqbh+"'");
+        OLD_WJBM="0"+skqJqxx.getNsrwjbm();
+    	String updateDygxSql="insert into skq_wjbmdy (JQBH,OLD_WJBM,NEW_WJBM) values('"+jqbh+"','"+OLD_WJBM+"','"+skqJqxx.getNsrwjbm()+"')";
+    	dalClient.update(updateDygxSql);
         String hiddenStr = getPara("hiddenStr");
+        hiddenStr=hiddenStr.replaceAll("“","\"");
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
             String jsonStr = hiddenStr.split("~")[i];
             if (StringUtil.isNotBlank(jsonStr)) {
@@ -174,6 +191,7 @@ public class SkqJqxxController extends BaseController {
         skqJqxxService.update(skqJqxx);
         skqJqxxService.deleteJqszsmByJqbh(skqJqxx.getJqbh());
         String hiddenStr = getPara("hiddenStr");
+        hiddenStr=hiddenStr.replaceAll("“","\"");
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
             String jsonStr = hiddenStr.split("~")[i];
             if (StringUtil.isNotBlank(jsonStr)) {
@@ -271,7 +289,8 @@ public class SkqJqxxController extends BaseController {
         String nsrwjbm = skqJqxx.getNsrwjbm();
         SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
         setAttr("nsrxx", nsrxx);
-
+        String OLD_WJBM=dalClient.queryColumn("select OLD_WJBM from skq_wjbmdy where jqbh='"+jqbh+"' and new_wjbm='"+nsrwjbm+"'", "OLD_WJBM");
+        setAttr("OLD_WJBM", OLD_WJBM);
         String smStr = "";
         for (int i = 0; i < skqJqxx.getJqszsmList().size(); i++) {
             SkqJqszsm szsm = skqJqxx.getJqszsmList().get(i);

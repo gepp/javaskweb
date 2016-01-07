@@ -124,4 +124,24 @@ public class SkqFpjmx extends Model<SkqFpjmx> {
 		public void setFplgrq(Date fplgrq) {
 			this.fplgrq = fplgrq;
 		}
+		
+		private String nsrsbh;
+		
+		
+		public String getNsrsbh() {
+			return nsrsbh;
+		}
+		public void setNsrsbh(String nsrsbh) {
+			this.nsrsbh = nsrsbh;
+		}
+
+		private String nsrmc;
+
+		public String getNsrmc() {
+			return nsrmc;
+		}
+		public void setNsrmc(String nsrmc) {
+			this.nsrmc = nsrmc;
+		}
+		
     }

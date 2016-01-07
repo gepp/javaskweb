@@ -62,7 +62,7 @@ public class SkqNsrxxServiceImpl extends BaseServiceImpl implements ISkqNsrxxSer
 
     @Override
     public boolean isExistsNsrwjbm(String nsrwjbm) {
-        String sql = "select * from skq_nsrxx where nsrwjbm='" + nsrwjbm + "'";
+        String sql = "select * from skq_nsrxx where nsrsbh='" + nsrwjbm + "'";
         List<Map<String, Object>> list = dalClient.queryForObjectList(sql);
         if (list.size() > 0) {
             return true;

@@ -12,6 +12,7 @@ import com.jdk2010.invoice.skqfpjmx.service.ISkqFpjmxService;
 import com.jdk2010.tools.Constants;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.controller.BaseController;
+import com.jdk2010.framework.dal.client.DalClient;
 import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.DbKit;
 
@@ -22,17 +23,30 @@ public class SkqFpjmxController extends BaseController {
 	@Resource
 	ISkqFpjmxService skqFpjmxService;
 
+	 @Resource
+	    DalClient dalClient;
+
+	
+	@RequestMapping("/listImport")
+	public String listImport(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		 
+		return "/com/jdk2010/invoice/skqfpjmx/skqfpjmx";
+	}
+
+	
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		DbKit dbKit = new DbKit("select * from skq_fpjmx   t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
+		DbKit dbKit = new DbKit("select t.*,a.nsrmc,a.nsrsbh from skq_fpjmx   t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
 		String searchSQL = "";
-		String NSRWJBM = getPara("NSRWJBM");
-		if (NSRWJBM != null && !"".equals(NSRWJBM)) {
-			searchSQL = searchSQL + " and  NSRWJBM LIKE :NSRWJBM";
-			setAttr("NSRWJBM", NSRWJBM);
-			 dbKit.put("NSRWJBM", NSRWJBM);
-		}
+		
+		String NSRSBH = getPara("NSRSBH");
+        if (NSRSBH != null && !"".equals(NSRSBH)) {
+        	String nsrwjbm=dalClient.queryColumn("select nsrwjbm from skq_nsrxx where nsrsbh='"+NSRSBH+"'","nsrwjbm");
+            searchSQL = searchSQL + " and  t.NSRWJBM ='"+nsrwjbm+"'";
+            setAttr("NSRSBH", NSRSBH);
+        }
 
 		String JQBH = getPara("JQBH");
 		if (JQBH != null && !"".equals(JQBH)) {

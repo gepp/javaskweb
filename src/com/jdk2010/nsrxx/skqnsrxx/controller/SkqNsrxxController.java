@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdk2010.framework.controller.BaseController;
 import com.jdk2010.framework.dal.client.DalClient;
+import com.jdk2010.framework.util.DateUtil;
 import com.jdk2010.framework.util.DbKit;
 import com.jdk2010.framework.util.JsonUtil;
 import com.jdk2010.framework.util.Page;
@@ -36,6 +37,11 @@ public class SkqNsrxxController extends BaseController {
 
     @Resource
     DalClient dalClient;
+    
+    @RequestMapping("/listImport")
+    public String listImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx";
+    }
     
     @RequestMapping("/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -75,6 +81,12 @@ public class SkqNsrxxController extends BaseController {
         Page pageList = skqNsrxxService.queryForPageList(dbKit, getPage(), SkqNsrxx.class);
         setAttr("pageList", pageList);
         return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxx";
+    }
+    
+    
+    @RequestMapping("/listcxtjImport")
+    public String listcxtjImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/com/jdk2010/nsrxx/skqnsrxx/skqnsrxxcxtj";
     }
     
     @RequestMapping("/listcxtj")
@@ -126,12 +138,15 @@ public class SkqNsrxxController extends BaseController {
     @RequestMapping("/addaction")
     public void addaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SkqNsrxx skqNsrxx = getModel(SkqNsrxx.class);
-        skqNsrxx.setNsrwjbm(StringUtil.charFront(skqNsrxx.getNsrwjbm(), 16, "0"));
+        String nsrsbh=skqNsrxx.getNsrsbh();
+        String nsrwjbm="0"+DateUtil.getNowTime("yyyyMMddHHmmss");
+        skqNsrxx.setNsrwjbm(nsrwjbm);
         skqNsrxxService.save(skqNsrxx);
         String hiddenStr = getPara("hiddenStr");
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
             String jsonStr = hiddenStr.split("~")[i];
             if (StringUtil.isNotBlank(jsonStr)) {
+            	jsonStr=jsonStr.replaceAll("“","\"");
                 Map<String, Object> nsrszsmMap = JsonUtil.jsonToMap(jsonStr);
                 SkqNsrszsm nsrszsm = new SkqNsrszsm();
                 nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
@@ -178,6 +193,7 @@ public class SkqNsrxxController extends BaseController {
         for (int i = 0; i < hiddenStr.split("~").length; i++) {
             String jsonStr = hiddenStr.split("~")[i];
             if (StringUtil.isNotBlank(jsonStr)) {
+            	jsonStr=jsonStr.replaceAll("“","\"");
                 Map<String, Object> nsrszsmMap = JsonUtil.jsonToMap(jsonStr);
                 SkqNsrszsm nsrszsm = new SkqNsrszsm();
                 nsrszsm.setNsrwjbm(skqNsrxx.getNsrwjbm());
@@ -227,14 +243,13 @@ public class SkqNsrxxController extends BaseController {
     
     @RequestMapping("/check")
     public void check(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String nsrwjbm = getPara("skqNsrxx.nsrwjbm");
-        nsrwjbm=StringUtil.charFront(nsrwjbm, 16,"0");
-        boolean isExist = skqNsrxxService.isExistsNsrwjbm(nsrwjbm);
+        String nsrsbh = getPara("skqNsrxx.nsrsbh");
+        boolean isExist = skqNsrxxService.isExistsNsrwjbm(nsrsbh);
         Map<String, Object> returnMap = new HashMap<String, Object>();
         if (isExist) {
-            returnMap.put("error", "微机编码已存在");
+            returnMap.put("error", "纳税人识别号已存在");
         } else {
-            returnMap.put("ok", "该微机编码可以使用");
+            returnMap.put("ok", "纳税人识别号可以使用");
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);

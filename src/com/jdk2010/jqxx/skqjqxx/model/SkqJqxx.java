@@ -202,5 +202,14 @@ public class SkqJqxx extends Model<SkqJqxx> {
 
     private String jqxhmc;
     private String nsrmc;
+    private String nsrsbh;
+
+	public String getNsrsbh() {
+		return nsrsbh;
+	}
+
+	public void setNsrsbh(String nsrsbh) {
+		this.nsrsbh = nsrsbh;
+	}
 
 }
