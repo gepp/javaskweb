@@ -41,7 +41,7 @@
     <li><a href="${contextpath }/skqfpj/wlfpgmImport.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d07.png" /></span><p>网络发票购买</a></p></li>    
     <li><a href="${contextpath }/skqsbsj/toZrysb.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d03.png" /></span><p>自然月申报</a></p></li>
     <li><a href="${contextpath }/skqsbsj/toJdsb.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d04.png" /></span><p>阶段申报</a></p></li>
-    <li><a href="${contextpath }/skqsbsj/toJkhc.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d05.png" /></span><p>监控回传</a></p></li>
+    <li><a href="${contextpath }/skqsbsj/toJkhc.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d05.png" /></span><p>清零解锁</a></p></li>
     <li><a href="${contextpath }/skqsbsj/listImport.htm"  target="rightFrame"><span><img src="${contextpath }/res/images/d06.png" /></span><p>申报汇总查询</a></p></li>
     
     </ul>

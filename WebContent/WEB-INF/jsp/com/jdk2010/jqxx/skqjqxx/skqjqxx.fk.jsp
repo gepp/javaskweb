@@ -131,10 +131,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br />
 	<ul style=" left:30%;bottom:15px">
 
-		<!--<li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
-		<input type="radio" name="sccs1" value="001" checked onclick="change_sccs(this.value);" />
+		<!-- <li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
+		<input type="radio" name="sccs1" value="001" checked onClick="change_sccs('001');" />
               大唐
-        <input type="radio" name="sccs1" value="002" onclick="change_sccs(this.value);"/>
+        <input type="radio" name="sccs1" value="002" onClick="change_sccs('002');"/>
               四通
 		</li> -->
  
@@ -146,9 +146,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			type="button" class="btn" value="返回" id="fh" onclick="window.location='${ contextpath }/skqjqxx/list.htm?nsrwjbm=${jqxx.nsrwjbm}'" />
 		</li>
 		<li id="st" style="display:none;"><label>&nbsp;</label> <input type="button" class="btn"
-			name="btn1" onClick="writeFcardSt()" value=" 发税控卡 "
+			name="btn1" onClick="writeFcardSt()" value=" 四通发税控卡 "
 			style="cursor: hand;" id="fskk" /> &nbsp;&nbsp; <input type="button"
-			class="btn" name="btn2" onClick="writeUcardSt()" value=" 发用户卡 "
+			class="btn" name="btn2" onClick="writeUcardSt()" value=" 四通发用户卡 "
 			style="cursor: hand;" id="fyhk" /> &nbsp;&nbsp; <input name=""
 			type="button" class="btn" value="返回" id="fh" onclick="window.location='${ contextpath }/skqjqxx/list.htm?nsrwjbm=${jqxx.nsrwjbm}'" />
 		</li>
@@ -257,68 +257,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 	 
+	
+	
 	function writeUcard() {
-		
-		layer.confirm('确定发用户卡？', {
-		    btn: ['确定','取消'] 
-		}, function(index){
-			try {
-				layer.close(index);
-				ssAlert('用户卡发卡中，请等待……');
-				var v = document.WriteUCApplet.writeTYUserCard();
+		ssAlert('用户卡发卡中，请等待……');
+		if(confirm('确定发用户卡？')){
+		try {
+			
+			var v = document.WriteUCApplet.writeTYUserCard();
+			
+			if (v == 1) {
+				alert("用户卡 发卡成功！！！您已完成注册登记！");
 				div_close();
-				if (v == 1) {
-					alert("用户卡 发卡成功！！！您已完成注册登记！");
-				} else {
-					alert("用户卡  发卡失败！！！");
-					
-				}
-			} catch (e) {
-				div_close();
+			} else {
 				alert("用户卡  发卡失败！！！");
+				div_close();
 			}
-		}, function(){
-		    
-		});
+		} catch (e) {
+			
+			alert("用户卡  发卡失败！！！");
+		}
+		}else{
+			div_close();
+		}
+		
 		 
 	}
 
 	function writeFcard() {
-		
-		layer.confirm('确定发税控卡？', {
-		    btn: ['确定','取消'] 
-		}, function(index){
+		ssAlert('税控卡发卡中，请等待……');
+		if(confirm("确定发税控卡？")){
 			try {
-				layer.close(index);
-				ssAlert('税控卡发卡中，请等待……');
+ 				
 				var result = document.WriteFCApplet.writeTYFiscalCard();
-				div_close();
+				
 				if (result == 1) {
 					alert("税控卡  发卡成功！！！");
-				} else {
 					div_close();
-					alert("税控卡   发卡失败！！！");
+				} else {
+ 					alert("税控卡   发卡失败！！！");
+					div_close();
 					
 				}
 			} catch (e) {
 				div_close();
 				alert("税控卡   发卡失败！！！");
 			}
-		}, function(){
-		    
-		});
+		}else{
+			div_close();
+		}
+		 
 		 
 	}
 	
 	
 	function change_sccs(val){
 		if(val=='001'){
-			$("#dt").show();
-			$("#st").hide();
+			//document.getElementById('dt').style.display='';
+			//document.getElementById('st').style.display='none';
+			jQuery("#dt").show();
+			jQuery("#st").hide();
 		}
 		else{
-			$("#dt").hide();
-			$("#st").show();
+			//document.getElementById('dt').style.display='none';
+			//document.getElementById('st').style.display='';
+			jQuery("#dt").hide();
+			jQuery("#st").show();
 		}
 	}
 	
@@ -332,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
 				if(data.status=='success'){
 					var sid = "SKKXK_"+data.data.skkfk;
-					alert(sid);
+					//alert(sid);
 					var v = document.dsfxk.call(sid);
 					if(v==1){
 						div_close();
@@ -353,7 +357,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	function writeUcardSt(){
 		var jqbh = $("#MACHINE_NO").val();
-		ssAlert('税控卡发卡中，请等待……');
+		ssAlert('用户卡发卡中，请等待……');
 		jQuery.ajax({
 			url:"${ contextpath}/skqjqxx/getWriteUcardSt?jqbh="+jqbh,
 			type: "POST",
@@ -361,7 +365,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				// 提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
 				if(data.status=='success'){
 					var sid = "YHKXK_"+data.data.yhkfk;
-					alert(sid);
+					//alert(sid);
 					var v = document.dsfxk.call(sid);
 					if(v==1){
 						div_close();

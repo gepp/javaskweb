@@ -92,7 +92,8 @@ table td {
 						class="scbtn1" value="查询" /></li>
 					<li><label>&nbsp;</label><input name="" type="button"
 						class="scbtn2" onclick="deleteInput();" value="清空" /></li>
-
+<li><label>&nbsp;</label><input name="" type="button"
+						class="scbtn3" onclick="download();" value="excel下载" /></li>
 				</ul>
 				<br />
 			</div>
@@ -195,5 +196,29 @@ table td {
 			content : '${contextpath}/skqsbsj/toSbsjDetail.htm?id='+id //iframe的url
 		});
 	}
+	
+	  function download(){
+		  var NSRSBH=jQuery("#NSRSBH").val();
+		  var SWJGBM=jQuery("#swjgbm").val();
+		  if(SWJGBM==''){
+			  alert('请选择税务机关！');
+			  return false;
+		  }
+		  
+	 	  var startTime=jQuery("#startTime").val();
+		  var endTime=jQuery("#endTime").val();
+		  if(startTime==''){
+			  alert('请填写起始时间');
+			  return false;
+		  }
+		  
+		  if(endTime==''){
+			  alert('请填写截止');
+			  return false;
+		  }
+		  
+	        var url="${contextpath}/skqsbsj/exportExcel.htm?NSRSBH="+NSRSBH+"&SWJGBM="+SWJGBM+"&startTime="+startTime+"&endTime="+endTime;
+		        window.location.href=url;
+	    }
 </script>
 

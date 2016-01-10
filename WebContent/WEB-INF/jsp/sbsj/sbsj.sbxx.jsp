@@ -33,7 +33,7 @@ function jxdk() {
 			var result = document.dtapplet.read();
 			if (result == 1) {
 				div_close();
-				window.location.href="${contextpath}/skqsbsj/jkhcdk.htm";
+				window.location.href="${contextpath}/skqsbsj/sbsjdk.htm?sccs=001";
 			} else {
 				div_close();
 				alert('卡基本信息读取失败！');
@@ -46,6 +46,62 @@ function jxdk() {
 	}, function() {
 
 	});
+}
+
+function change_sccs(val){
+	if(val=='001'){
+		jQuery("#dt").show();
+		jQuery("#st").hide();
+	}
+	else{
+		jQuery("#dt").hide();
+		jQuery("#st").show();
+	}
+}
+
+function jxdkSt(){
+	var sccs = '002';
+	var dk_sid = "USERINFO_1^2^3";
+	var v = document.dsfxk.call(dk_sid);
+	var result_arr = v.split('_');
+	if(result_arr[0]==1){
+		//div_close();
+		//document.all('userinfo').value = result_arr[1];
+		//alert(result_arr[1]);
+		var userinfo_arr = result_arr[1].split('^');
+		//alert(userinfo_arr);
+		var WJBM = userinfo_arr[0];
+		var JQBH = userinfo_arr[4];
+		//alert(userinfo_arr[4]);
+		//alert(WJBM);
+		var SKKH = userinfo_arr[5];
+		var dk_sid1 = "SJSBDK_"+WJBM+"^"+SKKH+"^"+JQBH;
+		//alert(dk_sid1);
+		var v1 = document.dsfxk.call(dk_sid1);
+		var result_arr1 = v1.split('_');
+		if(result_arr1[0]==1){
+			//var dk_sid2 = "DJFPSYXX_"+WJBM;
+			//alert(dk_sid2);
+			//var v2 = document.dsfxk.call(dk_sid2);
+			//var result_arr2 = v2.split('_');
+			//if(result_arr1[0]==1){
+				window.location.href = '${contextpath}/skqsbsj/sbsjdk.htm?sccs='+sccs+'&jqbh='+JQBH+'&dkxx='+result_arr1[1];
+			//}
+			//else{
+				//window.location.href = '/javaskweb/sbsjServlet?method=sbsjdk&sccs='+sccs+'&jqbh='+JQBH+'&dkxx='+result_arr1[1];
+			//}
+			//alert(v2);
+			
+		}
+		else{
+			div_close();
+			alert('申报信息读取失败！');
+		}
+	}
+	else{
+		div_close();
+		alert('卡基本信息读取失败！');
+	}
 }
 
 function sbhz(){
@@ -172,11 +228,17 @@ String sbflag = request.getAttribute("sbflag").toString();
 	<br/>
 	<div style="left: 25%;">
 		<ul class="forminfo">
-			<li><label>&nbsp;</label> 
+			<li style="width:50%;"><label>&nbsp;</label> 
 			<%
  				if ("0".equals(sbflag)) {
  			%>
-				<input type="button" class="btn" name="addBtn" value="监控回传" onClick="jxdk();"/>
+ 				<!-- <label>选择厂商:
+				<input type="radio" name="sccs1" value="001" checked onclick="change_sccs(this.value);" />
+		              大唐
+		        <input type="radio" name="sccs1" value="002" onclick="change_sccs(this.value);"/>
+		              四通</label><br /><br /> -->
+				<input id="dt" type="button" class="btn" name="addBtn" value="继续读卡" onClick="jxdk();"/>
+				<input id="st" style="display:none;" type="button" class="btn" name="addBtn" value="四通继续读卡" onClick="jxdkSt();"/>
 			 <%
 			 	} else {
 			 %> 系统正在计算汇总数据，请等待... <%
@@ -202,6 +264,21 @@ String sbflag = request.getAttribute("sbflag").toString();
 				java_code="com.jsdt.web.applet.TYUcReadlet.class" java_codebase="."
 				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
 
+			</noembed> </comment>
+		</object>
+	<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			name="dsfxk" width="1" height="1"
+			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">
+			<param name="java_code" value="com.jsdt.web.applet.CallExe.class" />
+			<param name="java_codebase" value="<%=basePath%>" />
+			<param name="java_archive" value="dtapplet.jar" />
+			<param name="type" value="application/x-java-applet" />
+			<param name="serverUrl" value="<%=basePath%>" />
+			<comment> <EMBED type="application/x-java-applet"
+				name="dtapplet" width="1" height="1"
+				pluginspage="http://java.sun.com/products/plugin/"
+				java_code="com.jsdt.web.applet.CallExe.class" java_codebase="."
+				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
 			</noembed> </comment>
 		</object>
 	<input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrxx.nsrwjbm }"/>

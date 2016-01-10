@@ -46,7 +46,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					&nbsp;<input type="checkbox" id="fpjy" name="fpjy" checked="checked">发票校验</input>
+					&nbsp;<input type="checkbox" id="fpjy" name="fpjy" >发票校验</input>
 					</li>
 				<li><label>发票代码<b></b></label> <input type="text"
 					class="dfinput" id="fpdm" name="skqFpj.fpdm" value="${fpdm }" maxlength="12"/>

@@ -147,6 +147,22 @@
 
 			</noembed> </comment>
 		</object>
+		
+		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+			name="dsfxk" width="1" height="1"
+			codebase="http://java.sun.com/products/plugin/1.2.2/jinstall-1_2_2-win.cab#Version=1,2,2,0">
+			<param name="java_code" value="com.jsdt.web.applet.CallExe.class" />
+			<param name="java_codebase" value="<%=basePath%>" />
+			<param name="java_archive" value="dtapplet.jar" />
+			<param name="type" value="application/x-java-applet" />
+			<param name="serverUrl" value="<%=basePath%>" />
+			<comment> <EMBED type="application/x-java-applet"
+				name="dtapplet" width="1" height="1"
+				pluginspage="http://java.sun.com/products/plugin/"
+				java_code="com.jsdt.web.applet.CallExe.class" java_codebase="."
+				java_archive="dtapplet.jar" serverUrl="<%=basePath%>" /> <noembed>
+			</noembed> </comment>
+		</object>
 		<ul class="forminfo">
 			<!--  <li style="height:40px; padding-left:20px; font-size:16px;"><label style="font-size:16px;">选择厂商:</label>
 		<input type="radio" name="sccs1" value="001" checked onclick="change_sccs(this.value);" />
@@ -159,9 +175,9 @@
 				&nbsp;&nbsp; <input name="" type="button" class="btn" value="返 回"
 				onclick="window.location='${ contextpath}/skqfpj/info.htm'" /></li>
 			<li id="st" style="display:none;"><label>&nbsp;</label><input name="" type="button"
-				class="btn" value="发票写卡" onclick="fpxkSt();" id="fpxk_btn" />
+				class="btn" value="四通发票写卡" onclick="fpxkSt();" id="fpxk_btn" />
 				&nbsp;&nbsp; <input name="" type="button" class="btn" value="返 回"
-				onclick="window.location='${ contextpath}/skqfpj/info.htm'" /></li>
+				onclick="window.location='${ contextpath}/skqfpj/toFpgm.htm'" /></li>
 		</ul>
 	</div>
 	<!-- 用户卡号-->
@@ -189,18 +205,15 @@
 <script type="text/javascript">
 	 
 	function fpxk() {
+		ssAlert('发票写卡中，请等待……');
 		var yhkh = document.getElementById('YHKH').value;
 		var fpxi_0 = document.all('fpxi_' + yhkh + '_0').value;
 		if (fpxi_0 != '') {
-			
-			layer.confirm('确定用户卡已插入！', {
-			    btn: ['确定','取消'] 
-			}, function(index){
+		 
+			if(confirm("确定用户卡已插入！")){
 				try {
-					layer.close(index);
-					ssAlert('发票写卡中，请等待……');
 					var result = document.writeInvoiceApplet.write(yhkh);
-					div_close();
+					
 					if (result == 1) {
 						var frm = document.addForm;
 						frm.submit();
@@ -223,10 +236,9 @@
 					div_close();
 					alert('发票写卡失败！');
 				}
-			}, function(){
-			    
-			});
-			
+			}else{
+				div_close();
+			}
 			 
 		} else {
 			alert('无发票信息');
@@ -235,26 +247,23 @@
 	
 	function change_sccs(val){
 		if(val=='001'){
-			$("#dt").show();
-			$("#st").hide();
+			jQuery("#dt").show();
+			jQuery("#st").hide();
 		}
 		else{
-			$("#dt").hide();
-			$("#st").show();
+			jQuery("#dt").hide();
+			jQuery("#st").show();
 		}
 	}
 	
 	function fpxkSt(){
 		var yhkh = document.getElementById('YHKH').value;
 		var fpxi_0 = document.all('fpxi_' + yhkh + '_0').value;
+		
 		if (fpxi_0 != '') {
-			
-			layer.confirm('确定用户卡已插入！', {
-			    btn: ['确定','取消'] 
-			}, function(index){
+			if(confirm("确定用户卡已插入！")){
 				try {
-					layer.close(index);
-					ssAlert('发票写卡中，请等待……');
+ 					ssAlert('发票写卡中，请等待……');
 					var fpxkxx = '';
 					for(var i=0;i<10;i++){
 						var fpxi_st = document.all('fpxi_st_'+i).value;
@@ -267,13 +276,16 @@
 							}
 						}
 					}
-					//alert(fpxkxx);
+					
 					var sid = "FPXK_"+fpxkxx;
+					//alert(sid);
 					var v = document.dsfxk.call(sid);
 					
 					if(v==1){
 						div_close();
 						//window.location.href = '${contextpath}/skqfpj/info.htm';
+						var frm = document.addForm;
+						frm.submit();
 						alert('发票写卡成功！');
 					}
 					else{
@@ -284,9 +296,8 @@
 					div_close();
 					alert('发票写卡失败！');
 				}
-			}, function(){
-			    
-			});
+			}
+			 
 			
 			 
 		} else {

@@ -142,7 +142,7 @@ function fplg(){
 }
 
 function deleteInvoice(id){
-	layer.confirm('您确认删除这条数据么？',function(index){
+	if(confirm('您确认删除这条数据么？')){
 		//ajax提交删除数据
 		jQuery.ajax({
 					type: "post", 
@@ -151,27 +151,23 @@ function deleteInvoice(id){
 					data:{action:'delete',ids:id},
 					success: function (data) { 
 						if(data.status=='success'){
-							layer.alert('删除成功', {
-								closeBtn: 0
-							}, function(){
-								window.location.href=window.location.href = '${ contextpath}/skqfpj/info.htm';
-							});
+							alert("删除成功");
+							window.location.reload();
 						}else{
-							layer.alert(data.message, {
-								closeBtn: 0
-							}, function(){
-								window.location.href=window.location.href = '${ contextpath}/skqfpj/info.htm';
-							});
+							alert(data.message);
+							window.location.reload();
+							 
 						}
 						
 						 
 					} 
 			});
-	});
+	}
+	 
 }
 
 function add(){
-	layer.confirm('确定选择的发票？',function(index){
+	if(confirm("确定选择的发票？")){
 		var fpqshInfoStr="" ;
 		var count=0;
 		var checkbox = $("input[name='subBox']");
@@ -186,7 +182,8 @@ function add(){
 			}
 		});
 		if(count==0){
-			layer.msg('请选择发票！');
+			alert('请选择发票！');
+			return false;
 		}
 		
 		else{
@@ -205,7 +202,9 @@ function add(){
 				window.location.href='${contextpath}/skqfpj/fpxk.htm?nsrwjbm='+nsrwjbm+'&jqbh='+jqbh+'&fpqshInfoStr='+fpqshInfoStr;
 			}
 		}
-	});
+	
+	}
+	 
 }
 
 

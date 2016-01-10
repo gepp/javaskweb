@@ -22,12 +22,9 @@
 <script language="javascript">
 	
 	function add() {
-		layer.confirm('确定用户卡已插入！', {
-			btn : [ '确定', '取消' ]
-		}, function(index) {
+		ssAlert('读卡中，请等待……');
+		if(confirm('确定用户卡已插入？')){
 			try {
-				layer.close(index);
-				ssAlert('读卡中，请等待……');
 				var result = document.dtapplet.read();
 				if (result == 1) {
 					window.location.href = '${contextpath}/skqfpj/info.htm';
@@ -40,9 +37,10 @@
 				div_close();
 				alert('卡基本信息读取失败！');
 			}
-		}, function() {
-
-		});
+		}else{
+			div_close();
+		}
+		 
 	}
 	function test() {
 		window.location.href = '${contextpath}/skqfpj/testInvoice.htm';
@@ -50,12 +48,12 @@
 	
 	function change_sccs(val){
 		if(val=='001'){
-			$("#dt").show();
-			$("#st").hide();
+			jQuery("#dt").show();
+			jQuery("#st").hide();
 		}
 		else{
-			$("#dt").hide();
-			$("#st").show();
+			jQuery("#dt").hide();
+			jQuery("#st").show();
 		}
 	}
 	
@@ -122,7 +120,7 @@
 	 
 		<input type="hidden" name="userinfo" /> 
 		<input type="button" id="dt" name="btn" value=" 读 卡 " class="btn" style="cursor: hand;" onclick="add();" />
-		<input type="button" id="st" style="display:none;" name="btn" value=" 读 卡 " class="btn" style="cursor: hand;" onclick="addSt();" />
+		<input type="button" id="st" name="btn" value=" 四通读卡 " class="btn" style="display:none;cursor: hand;" onclick="addSt();" />
 		 
 
 		<object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
