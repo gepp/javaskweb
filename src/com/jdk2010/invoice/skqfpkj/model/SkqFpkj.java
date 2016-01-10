@@ -174,4 +174,21 @@ public class SkqFpkj extends Model<SkqFpkj> {
 		public void setBz(String bz) {
 			this.bz = bz;
 		}
+		
+		private String nsrsbh;
+		private String nsrmc;
+
+		public String getNsrsbh() {
+			return nsrsbh;
+		}
+		public void setNsrsbh(String nsrsbh) {
+			this.nsrsbh = nsrsbh;
+		}
+		public String getNsrmc() {
+			return nsrmc;
+		}
+		public void setNsrmc(String nsrmc) {
+			this.nsrmc = nsrmc;
+		}
+		
     }

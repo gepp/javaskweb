@@ -1,5 +1,11 @@
 package com.jdk2010.sbsj.skqsbsj.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -12,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,6 +45,7 @@ import com.jdk2010.sbsj.skqsbsj.model.SkqSbsj;
 import com.jdk2010.sbsj.skqsbsj.service.ISkqSbsjService;
 import com.jdk2010.system.skqpmsz.service.ISkqPmszService;
 import com.jdk2010.tools.Constants;
+import com.jdk2010.tools.ExcelUtil;
 import com.jdk2010.tools.Util;
 
 @Controller
@@ -215,7 +223,73 @@ public class SkqSbsjController extends BaseController {
 		String kpjzrq = "";
 		HashMap sbinfo = new HashMap();
 		DecimalFormat dg = new DecimalFormat("0.00");
-		HashMap cardInfo = (HashMap) session.getAttribute("UCARDINFO");
+		HashMap cardInfo = new HashMap();
+		String sccs = getPara("sccs");
+		if("001".equals(sccs)){
+			cardInfo = (HashMap) session.getAttribute("UCARDINFO");
+		}
+		else{
+			HashMap EF06 = new HashMap();
+			HashMap EF02 = new HashMap();
+			HashMap EF04 = new HashMap();
+			String JQBH_DSF = getPara("jqbh");
+			String dkxx = new String(getPara("dkxx").getBytes("iso8859-1"),"utf-8");
+			EF06.put("JQBH", JQBH_DSF);			
+			
+			String[] dkxx_arr = dkxx.split("\\^");
+			System.out.println("dkxx_arr=="+dkxx_arr);
+			System.out.println("dkxx=="+dkxx);
+			System.out.println("startdate=="+dkxx_arr[4]);
+			System.out.println("enddate=="+dkxx_arr[5]);
+			EF02.put("NSRWJDM", dkxx_arr[0]);
+			sbinfo.put("NSRWJDM", dkxx_arr[0]);
+			sbinfo.put("fiscalno", dkxx_arr[1]);
+			sbinfo.put("SKSKJJQBH", dkxx_arr[2]);
+			sbinfo.put("NSRMC", dkxx_arr[3]);
+			sbinfo.put("startdate", dkxx_arr[4]);
+			sbinfo.put("enddate", dkxx_arr[5]);
+			sbinfo.put("normalcnt", dkxx_arr[6]);
+			sbinfo.put("backcnt", dkxx_arr[7]);
+			sbinfo.put("deposecnt", dkxx_arr[8]);
+			sbinfo.put("normalsum1", String.valueOf(Double.parseDouble(dkxx_arr[9])*100));
+			sbinfo.put("normalsum2", String.valueOf(Double.parseDouble(dkxx_arr[10])*100));
+			sbinfo.put("normalsum3", String.valueOf(Double.parseDouble(dkxx_arr[11])*100));
+			sbinfo.put("normalsum4", String.valueOf(Double.parseDouble(dkxx_arr[12])*100));
+			sbinfo.put("normalsum5", String.valueOf(Double.parseDouble(dkxx_arr[13])*100));
+			sbinfo.put("normalsum6", String.valueOf(Double.parseDouble(dkxx_arr[14])*100));
+			sbinfo.put("backsum1", String.valueOf(Double.parseDouble(dkxx_arr[15])*100));
+			sbinfo.put("backsum2", String.valueOf(Double.parseDouble(dkxx_arr[16])*100));
+			sbinfo.put("backsum3", String.valueOf(Double.parseDouble(dkxx_arr[17])*100));
+			sbinfo.put("backsum4", String.valueOf(Double.parseDouble(dkxx_arr[18])*100));
+			sbinfo.put("backsum5", String.valueOf(Double.parseDouble(dkxx_arr[19])*100));
+			sbinfo.put("backsum6", String.valueOf(Double.parseDouble(dkxx_arr[20])*100));
+			sbinfo.put("mac", dkxx_arr[21]);
+			
+			//String sql = "update SKQ_JQXX set MAC='"+dkxx_arr[21]+"' where JQBH='"+JQBH_DSF+"'";
+			//dalClient.update(sql);
+			
+			session.setAttribute("mac_st", dkxx_arr[21]);
+			
+			String sql = "select SMSY from SKQ_PMSZ where SMBM in(select SMBM from SKQ_JQSZSM where JQBH='"+JQBH_DSF+"')";
+			List<Map<String,Object>> list = dalClient.queryForObjectList(sql);
+			if(list!=null&&list.size()>0){
+				for(int i=0;i<list.size();i++){
+					Map<String,Object> map = list.get(i);
+					String smsy = (Integer)map.get("SMSY")+"";
+					
+					int num = i+1;
+					sbinfo.put("index"+num, smsy);
+				}
+			}
+			
+			//EF04.put("sbinfo", sbinfo);
+			
+			cardInfo.put("EF04", sbinfo);
+			cardInfo.put("EF06", EF06);
+			cardInfo.put("EF02", EF02);
+			
+			session.setAttribute("UCARDINFO", cardInfo);
+		}
 		if (cardInfo == null || cardInfo.isEmpty()) {
 			request.setAttribute("errorMsg", "卡基本信息读取失败，请检查！");
 			return "/cxtj/error";
@@ -555,12 +629,78 @@ public class SkqSbsjController extends BaseController {
 	@RequestMapping("/sbsjdk")
 	public String sbsjdk(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String sccs = getPara("sccs");
 		HttpSession session = request.getSession();
 		String nsrwjbm = "";
 		String kpjzrq = "";
 		HashMap sbinfo = new HashMap();
 		DecimalFormat dg = new DecimalFormat("0.00");
-		HashMap cardInfo = (HashMap) session.getAttribute("UCARDINFO");
+		HashMap cardInfo = new HashMap();
+		if("001".equals(sccs)){
+			cardInfo = (HashMap) session.getAttribute("UCARDINFO");
+		}
+		else{
+			HashMap EF06 = new HashMap();
+			HashMap EF02 = new HashMap();
+			HashMap EF04 = new HashMap();
+			String JQBH_DSF = getPara("jqbh");
+			String dkxx = new String(getPara("dkxx").getBytes("iso8859-1"),"utf-8");
+			EF06.put("JQBH", JQBH_DSF);			
+			
+			String[] dkxx_arr = dkxx.split("\\^");
+			System.out.println("dkxx_arr=="+dkxx_arr);
+			System.out.println("dkxx=="+dkxx);
+			System.out.println("startdate=="+dkxx_arr[4]);
+			System.out.println("enddate=="+dkxx_arr[5]);
+			EF02.put("NSRWJDM", dkxx_arr[0]);
+			sbinfo.put("NSRWJDM", dkxx_arr[0]);
+			sbinfo.put("fiscalno", dkxx_arr[1]);
+			sbinfo.put("SKSKJJQBH", dkxx_arr[2]);
+			sbinfo.put("NSRMC", dkxx_arr[3]);
+			sbinfo.put("startdate", dkxx_arr[4]);
+			sbinfo.put("enddate", dkxx_arr[5]);
+			sbinfo.put("normalcnt", dkxx_arr[6]);
+			sbinfo.put("backcnt", dkxx_arr[7]);
+			sbinfo.put("deposecnt", dkxx_arr[8]);
+			sbinfo.put("normalsum1", String.valueOf(Double.parseDouble(dkxx_arr[9])*100));
+			sbinfo.put("normalsum2", String.valueOf(Double.parseDouble(dkxx_arr[10])*100));
+			sbinfo.put("normalsum3", String.valueOf(Double.parseDouble(dkxx_arr[11])*100));
+			sbinfo.put("normalsum4", String.valueOf(Double.parseDouble(dkxx_arr[12])*100));
+			sbinfo.put("normalsum5", String.valueOf(Double.parseDouble(dkxx_arr[13])*100));
+			sbinfo.put("normalsum6", String.valueOf(Double.parseDouble(dkxx_arr[14])*100));
+			sbinfo.put("backsum1", String.valueOf(Double.parseDouble(dkxx_arr[15])*100));
+			sbinfo.put("backsum2", String.valueOf(Double.parseDouble(dkxx_arr[16])*100));
+			sbinfo.put("backsum3", String.valueOf(Double.parseDouble(dkxx_arr[17])*100));
+			sbinfo.put("backsum4", String.valueOf(Double.parseDouble(dkxx_arr[18])*100));
+			sbinfo.put("backsum5", String.valueOf(Double.parseDouble(dkxx_arr[19])*100));
+			sbinfo.put("backsum6", String.valueOf(Double.parseDouble(dkxx_arr[20])*100));
+			sbinfo.put("mac", dkxx_arr[21]);
+			
+			//String sql = "update SKQ_JQXX set MAC='"+dkxx_arr[21]+"' where JQBH='"+JQBH_DSF+"'";
+			//dalClient.update(sql);
+			
+			session.setAttribute("mac_st", dkxx_arr[21]);
+			
+			String sql = "select SMSY from SKQ_PMSZ where SMBM in(select SMBM from SKQ_JQSZSM where JQBH='"+JQBH_DSF+"')";
+			List<Map<String,Object>> list = dalClient.queryForObjectList(sql);
+			if(list!=null&&list.size()>0){
+				for(int i=0;i<list.size();i++){
+					Map<String,Object> map = list.get(i);
+					String smsy = (Integer)map.get("SMSY")+"";
+					
+					int num = i+1;
+					sbinfo.put("index"+num, smsy);
+				}
+			}
+			
+			//EF04.put("sbinfo", sbinfo);
+			
+			cardInfo.put("EF04", sbinfo);
+			cardInfo.put("EF06", EF06);
+			cardInfo.put("EF02", EF02);
+			
+			session.setAttribute("UCARDINFO", cardInfo);
+		}
 		if (cardInfo == null || cardInfo.isEmpty()) {
 			request.setAttribute("errorMsg", "卡基本信息读取失败，请检查！");
 			return "/cxtj/error";
@@ -949,12 +1089,40 @@ public class SkqSbsjController extends BaseController {
 	@RequestMapping("/jkhcdk")
 	public String jkhcdk(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		dalClient.update("delete from skq_jqszsm where jynr is null");
+		String sccs = getPara("sccs");
 		HttpSession session = request.getSession();
-		HashMap CARDINFO = (HashMap) session.getAttribute("UCARDINFO");
+		HashMap CARDINFO = new HashMap();
+		String mac_st = "";
+		if("001".equals(sccs)){
+			CARDINFO = (HashMap) session.getAttribute("UCARDINFO");
+		}
+		else{
+			String old_wjbm = getPara("old_wjbm");
+			String jqbh = getPara("jqbh");
+			String skkh = getPara("skkh");
+			String dkxx = new String(getPara("dkxx").getBytes("iso8859-1"),"utf-8");
+			
+			String[] dkxx_arr = dkxx.split("\\^");
+			mac_st = dkxx_arr[21];
+			
+			HashMap EF06 = new HashMap();
+			EF06.put("JQBH", jqbh);
+			EF06.put("SKKH", skkh);
+			HashMap EF02 = new HashMap();
+			EF02.put("NSRWJDM", old_wjbm);
+			
+			CARDINFO.put("EF06", EF06);
+			CARDINFO.put("EF02", EF02);
+			CARDINFO.put("EF01", new HashMap());
+			CARDINFO.put("EF04", new HashMap());
+		}
+		 
 		if (CARDINFO == null || CARDINFO.isEmpty()) {
-			request.setAttribute("errorMsg", "申报数据保存失败！");
+			request.setAttribute("errorMsg", "卡信息读取失败！");
 			return "/cxtj/error";
-		} else {
+		}
+		else {
 			HashMap kxx = (HashMap) CARDINFO.get("EF02");
 			HashMap EF01 = (HashMap) CARDINFO.get("EF01");
 			HashMap EF06 = (HashMap) CARDINFO.get("EF06");
@@ -967,41 +1135,77 @@ public class SkqSbsjController extends BaseController {
 
 			SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(new_wjbm);
 			int status = nsrxx.getStatus();
+			String swjgbm = nsrxx.getSwjgbm();
+			HashMap EF02 = (HashMap) CARDINFO.get("EF02");
+			HashMap EF04 = (HashMap) CARDINFO.get("EF04");
+			String old_nsrwjbm = (String) EF02.get("NSRWJDM");
+			String kpjzrq = (String) EF01.get("KPJZRQ");
+			String skkh = (String) EF06.get("SKKH");
+			SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
 			if (status != 1) {
 				request.setAttribute("errorMsg", "纳税户已注销！");
 				return "/cxtj/error";
-			} else {
-				String swjgbm = nsrxx.getSwjgbm();
-				HashMap EF02 = (HashMap) CARDINFO.get("EF02");
-				HashMap EF04 = (HashMap) CARDINFO.get("EF04");
-				String old_nsrwjbm = (String) EF02.get("NSRWJDM");
-				String kpjzrq = (String) EF01.get("KPJZRQ");
-				String skkh = (String) EF06.get("SKKH");
-				SkqJqxx skqJqxx = skqJqxxService.getJqxxByJqbh(jqbh);
+			}else if(skqJqxx.getJqszsmList().size()==0) {
+				request.setAttribute("errorMsg", "机器对应税种税目为空，请去机器设置添加相关税种税目！");
+				return "/cxtj/error";
+			}
+			
+			else {
 				HashMap hmJkhc = new HashMap();
-				hmJkhc.put("old_nsrwjbm", old_nsrwjbm);
-				hmJkhc.put("jqxx", skqJqxx);
-				hmJkhc.put("nsrxx", nsrxx);
-				hmJkhc.put("QYRQ", (String) EF02.get("QYRQ"));
-				hmJkhc.put("YXRQ", (String) EF02.get("YXRQ"));
-				hmJkhc.put("MXSBBZ", (String) EF01.get("MXSBBZ"));
-				hmJkhc.put("JQLX", (String) EF02.get("JQLX"));
-				hmJkhc.put("JQSL", (String) EF02.get("JQSL"));
-				hmJkhc.put("LXBS", (String) EF02.get("LXBS"));
-				hmJkhc.put("YYBB", (String) EF02.get("YYBB"));
-				hmJkhc.put("FCI", (String) EF02.get("FCI"));
-				hmJkhc.put("MAC", (String) EF04.get("mac"));
-				hmJkhc.put("kpjzrq", kpjzrq);
+				
+				if("001".equals(sccs)){
+					hmJkhc.put("old_nsrwjbm", old_nsrwjbm);
+					hmJkhc.put("jqxx", skqJqxx);
+					hmJkhc.put("nsrxx", nsrxx);
+					hmJkhc.put("QYRQ", (String) EF02.get("QYRQ"));
+					hmJkhc.put("YXRQ", (String) EF02.get("YXRQ"));
+					hmJkhc.put("MXSBBZ", (String) EF01.get("MXSBBZ"));
+					hmJkhc.put("JQLX", (String) EF02.get("JQLX"));
+					hmJkhc.put("JQSL", (String) EF02.get("JQSL"));
+					hmJkhc.put("LXBS", (String) EF02.get("LXBS"));
+					hmJkhc.put("YYBB", (String) EF02.get("YYBB"));
+					hmJkhc.put("FCI", (String) EF02.get("FCI"));
+					hmJkhc.put("MAC", (String) EF04.get("mac"));
+					hmJkhc.put("kpjzrq", kpjzrq);
+				}
+				else{
+					kpjzrq = Util.toxkrq(skqJqxx.getKpjzrq());
+					hmJkhc.put("old_nsrwjbm",old_nsrwjbm);
+					hmJkhc.put("jqxx", skqJqxx);
+					hmJkhc.put("nsrxx", nsrxx);
+					
+					hmJkhc.put("QYRQ", Util.toxkrq(skqJqxx.getKqyrq()));
+					hmJkhc.put("YXRQ", Util.toxkrq(skqJqxx.getKyxrq()));
+					hmJkhc.put("MXSBBZ", skqJqxx.getMxsbbz());
+					hmJkhc.put("JQLX", skqJqxx.getJqxhbm());
+					hmJkhc.put("JQSL", "1");
+					hmJkhc.put("LXBS", "");
+					hmJkhc.put("YYBB", "");
+					hmJkhc.put("FCI", "");
+					hmJkhc.put("MAC", mac_st);
+					hmJkhc.put("kpjzrq", kpjzrq);
+				}
+				
 				String smStr = "";
+				String smStrSt = "";
 				for (int i = 0; i < skqJqxx.getJqszsmList().size(); i++) {
 					SkqJqszsm szsm = skqJqxx.getJqszsmList().get(i);
 					Integer smsy = szsm.getSmsy();
 					String smsyStr = StringUtil.charFront(smsy.toString(), 2,
 							"0");
+					String smjc=szsm.getSmjc();
+					if(!StringUtil.isBlank(smjc)){
+						if(smjc.length()>10){
+							smjc=smjc.substring(0,10);
+						}
+					}
+					
 					String sm = smsyStr + "," + szsm.getSmbm() + ","
-							+ szsm.getSl().intValue() + "," + szsm.getSmjc();
+							+ szsm.getSl().intValue() + "," + smjc;
 					smStr = smStr + "<input type=\"hidden\" name=\"tax" + i
 							+ "\" id=\"tax" + i + "\"  value=\"" + sm + "\" />";
+					
+					smStrSt = smStrSt+smsyStr;
 				}
 				int length = skqJqxx.getJqszsmList().size();
 				if (length < 20) {
@@ -1030,6 +1234,8 @@ public class SkqSbsjController extends BaseController {
 				}
 				hmJkhc.put("xckpjzrq", xckpjzrq);
 				request.setAttribute("hmJkhc", hmJkhc);
+				request.setAttribute("smxkArr1", smStrSt);
+				request.setAttribute("NSRSBH", nsrxx.getNsrsbh());
 
 				return "/sbsj/jkhc.hc";
 
@@ -1060,19 +1266,21 @@ public class SkqSbsjController extends BaseController {
 		String sbsjsql = "select id from skq_sbsj "
 				+ " where (XZZT=0 or XZZT is null) and JQBH='" + jqbh + "'";
 		Long sid = dalClient.queryColumn(sbsjsql, "id");
-		if (sid != 0) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-			SkqSbsj sbsj = skqSbsjService.findById(sid, SkqSbsj.class);
-			sbsj.setKpjzsj(DateUtil.parse(kpjzrq, "yyyy-MM-dd"));
-			sbsj.setDzkpxe(dzkpxe);
-			sbsj.setYljkpxe(yljkpxe);
-			sbsj.setYljtpxe(yljtpxe);
-			sbsj.setCjrq(new Date());
-			sbsj.setXzzt(1);
-			sbsj.setXzrq(new Date());
-			sbsj.setMac(mac);
-			dalClient.update(sbsj);
+		if(sid!=null){
+			if (sid != 0) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+				SkqSbsj sbsj = skqSbsjService.findById(sid, SkqSbsj.class);
+				sbsj.setKpjzsj(DateUtil.parse(kpjzrq, "yyyy-MM-dd"));
+				sbsj.setDzkpxe(dzkpxe);
+				sbsj.setYljkpxe(yljkpxe);
+				sbsj.setYljtpxe(yljtpxe);
+				sbsj.setCjrq(new Date());
+				sbsj.setXzzt(1);
+				sbsj.setXzrq(new Date());
+				sbsj.setMac(mac);
+				dalClient.update(sbsj);
+			}
 		}
 
 		return "/sbsj/sbsj";
@@ -1196,6 +1404,130 @@ public class SkqSbsjController extends BaseController {
 		}
 
 		return "/com/jdk2010/sbsj/skqsbsj/skqsbsj_detail";
+	}
+	
+	
+	@RequestMapping("/exportExcel")
+	public void exportExcel(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		DbKit dbKit = new DbKit(
+				"select t.*,a.nsrsbh,a.nsrmc from skq_sbsj  t inner JOIN skq_nsrxx a ON t.nsrwjbm=a.nsrwjbm inner JOIN security_organization b ON a.swjgbm=b.code  ");
+ 		String searchSQL = "";
+		String orderSQL = "";
+
+		String NSRSBH = getPara("NSRSBH");
+        if (NSRSBH != null && !"".equals(NSRSBH)) {
+        	String nsrwjbm=dalClient.queryColumn("select nsrwjbm from skq_nsrxx where nsrsbh='"+NSRSBH+"'","nsrwjbm");
+            searchSQL = searchSQL + " and  t.NSRWJBM ='"+nsrwjbm+"'";
+            setAttr("NSRSBH", NSRSBH);
+        }
+
+		
+
+		String SWJGBM = getPara("SWJGBM");
+		if (SWJGBM != null && !"".equals(SWJGBM)) {
+			Long pid = dalClient.queryColumn(
+					"select id from security_organization where code='"
+							+ SWJGBM + "'", "id");
+			searchSQL = searchSQL
+					+ " and  a.SWJGBM in ("
+					+ securityOrganizationService
+							.getOrganizationListStrByParentId(pid + "") + ")";
+			setAttr("SWJGBM", SWJGBM);
+			String parentName = getPara("parentName");
+			if(parentName!=null){
+			if (getRequest().getMethod().equalsIgnoreCase("get")) {
+				parentName = new String(parentName.getBytes("iso8859-1"),
+						"utf-8");
+			}
+			}
+			setAttr("parentName", parentName);
+
+		} else {
+			SecurityUser securityUser = getSessionAttr("securityUser");
+			String username = securityUser.getUsername();
+			if (!"system".equals(username)) {
+				searchSQL = searchSQL + " and  a.SWJGBM ='"
+						+ getSessionAttr("securityUserSwjgbm") + "'";
+				setAttr("SWJGBM", getSessionAttr("securityUserSwjgbm"));
+				setAttr("parentName", getSessionAttr("securityUserSwjgName"));
+			}
+
+		}
+
+		String startTime = getPara("startTime");
+		if (startTime != null && !"".equals(startTime)) {
+			searchSQL = searchSQL + " and  SSKSSJ>='" + startTime+"'";
+			setAttr("startTime", startTime);
+		}
+
+		String endTime = getPara("endTime");
+		if (endTime != null && !"".equals(endTime)) {
+			searchSQL = searchSQL + " and  SSJZSJ<='" + endTime+"'";
+			setAttr("endTime", endTime);
+		}
+		
+		dbKit.append(orderSQL);
+		dbKit.append(searchSQL);
+		List<SkqSbsj> pageList = skqSbsjService.queryForList(dbKit,
+				SkqSbsj.class);
+		List<Map<String, Object>> list = createExcelRecord(pageList);
+		String columnNames[] = { "纳税人识别号", "纳税人名称", "机器编码","开始时间","截止时间","正常票份数","退票份数","废票份数","正常票总金额","退票总金额" };// 列名
+		String keys[] = {"nsrsbh", "nsrmc", "jqbh","sskssj","ssjzsj","zcpfs","tpfs","fpfs","zcpzje","tpzje"};// map中的key
+		String fileName="申报数据报表";
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ExcelUtil.createWorkBook(list, keys, columnNames).write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		byte[] content = os.toByteArray();
+		InputStream is = new ByteArrayInputStream(content);
+		// 设置response参数，可以打开下载页面
+		response.reset();
+		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+		response.setHeader("Content-Disposition", "attachment;filename="
+				+ new String((fileName + ".xls").getBytes(), "iso-8859-1"));
+		ServletOutputStream out = response.getOutputStream();
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		try {
+			bis = new BufferedInputStream(is);
+			bos = new BufferedOutputStream(out);
+			byte[] buff = new byte[2048];
+			int bytesRead;
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+				bos.write(buff, 0, bytesRead);
+			}
+		} catch (final IOException e) {
+			throw e;
+		} finally {
+			if (bis != null)
+				bis.close();
+			if (bos != null)
+				bos.close();
+		}
+	}
+
+	private List<Map<String, Object>> createExcelRecord(List<SkqSbsj> nsrxxList) {
+		List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sheetName", "sheet1");
+		listmap.add(map);
+		for (SkqSbsj sbsj : nsrxxList) {
+			Map<String, Object> mapValue = new HashMap<String, Object>();
+ 			mapValue.put("nsrsbh", sbsj.getNsrsbh());
+			mapValue.put("nsrmc", sbsj.getNsrmc());
+			mapValue.put("jqbh",sbsj.getJqbh());
+			mapValue.put("sskssj",DateUtil.formatDateTime(sbsj.getSskssj(),"yyyy-MM-dd"));
+			mapValue.put("ssjzsj",DateUtil.formatDateTime(sbsj.getSsjzsj(),"yyyy-MM-dd"));
+			mapValue.put("zcpfs",sbsj.getZcpfs());
+			mapValue.put("tpfs",sbsj.getTpfs());
+			mapValue.put("zcpzje",sbsj.getZcpzje());
+			mapValue.put("tpzje",sbsj.getTpzje());
+			listmap.add(mapValue);
+		}
+		return listmap;
 	}
 
 }

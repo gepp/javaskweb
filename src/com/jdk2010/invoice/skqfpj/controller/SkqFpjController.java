@@ -371,8 +371,9 @@ public class SkqFpjController extends BaseController {
                 strSql = strSql + " or (FPQSH=" + fpqsh + " and FPDM='" + fpdm + "')";
             }
         }
+        
         strSql = strSql + ")";
-        String sql = "select * from SKQ_FPJMX where FPXFZT = 0 " + strSql;
+        String sql = "select * from SKQ_FPJMX where FPXFZT = 0  and nsrwjbm='"+nsrwjbm+"'" + strSql;
         List<SkqFpjmx> alFp = dalClient.queryForObjectList(sql, SkqFpjmx.class);
         SkqNsrxx nsrxx = skqNsrxxService.getNsrxxByNsrwjbm(nsrwjbm);
         SkqJqxx jqxx = skqJqxxService.getJqxxByJqbh(jqbh);

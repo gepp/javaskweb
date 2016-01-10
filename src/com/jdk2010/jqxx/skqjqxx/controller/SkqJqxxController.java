@@ -366,8 +366,14 @@ public class SkqJqxxController extends BaseController {
 			SkqJqszsm szsm = skqJqxx.getJqszsmList().get(i);
 			Integer smsy = szsm.getSmsy();
 			String smsyStr = StringUtil.charFront(smsy.toString(), 2, "0");
+			String smjc=szsm.getSmjc();
+			if(!StringUtil.isBlank(smjc)){
+				if(smjc.length()>10){
+					smjc=smjc.substring(0,10);
+				}
+			}
 			String sm = smsyStr + "," + szsm.getSmbm() + ","
-					+ szsm.getSl().intValue() + "," + szsm.getSmjc();
+					+ szsm.getSl().intValue() + "," + smjc;
 			smStr = smStr + "<input type=\"hidden\" name=\"tax" + i
 					+ "\" id=\"tax" + i + "\"  value=\"" + sm + "\" />";
 		}

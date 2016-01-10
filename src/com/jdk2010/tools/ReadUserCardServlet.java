@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +21,8 @@ import com.jdk2010.framework.controller.BaseController;
 @RequestMapping(value = "/")
 public class ReadUserCardServlet extends BaseController {
 
+	static Logger logger = LoggerFactory.getLogger(ReadUserCardServlet.class);
+	
 	@RequestMapping("/ReadUserCardServlet")
 	public void ReadUserCardServlet(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -29,9 +33,8 @@ public class ReadUserCardServlet extends BaseController {
 		ObjectInputStream inputFromApplet = new ObjectInputStream(in);
 		HashMap echo = new HashMap();
 		echo = (HashMap) inputFromApplet.readObject();
-		System.out.println("echo = " + echo);
+		logger.error("用户卡echo = " + echo);
 		session.setAttribute("UCARDINFO", echo);
-
 		OutputStream outstr = response.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(outstr);
 		response.setContentType("text/html");
