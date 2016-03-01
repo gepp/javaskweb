@@ -100,7 +100,7 @@ public class SecurityUserServiceImpl extends BaseServiceImpl implements ISecurit
         List<Map<String, Object>> firstMenuList = securityMenuService.getMenuByParentId("0");
         Map<String, Object> userMenuMap = new HashMap<String, Object>();
         for (SecurityUserRole userRole : userRoleList) {
-            List<SecurityRoleMenu> roleMenuList = securityRoleMenuService.getSecurityRoleMenuByRoleId(userRole.getId());
+            List<SecurityRoleMenu> roleMenuList = securityRoleMenuService.getSecurityRoleMenuByRoleId(userRole.getRoleId());
             for (SecurityRoleMenu roleMenu : roleMenuList) {
                 userMenuMap.put(roleMenu.getMenuId() + "", roleMenu.getMenuId());
             }

@@ -27,6 +27,7 @@ import com.jdk2010.framework.util.Page;
 import com.jdk2010.framework.util.ReturnData;
 import com.jdk2010.framework.util.StringUtil;
 import com.jdk2010.tools.Constants;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 @Controller
 @RequestMapping(value = "/securityuser")
@@ -75,12 +76,12 @@ public class SecurityUserController extends BaseController {
             String roleId = roleIds.split(",")[i];
             if (!StringUtil.isBlank(roleId)) {
                 userRole.setUserId(userId);
-                userRole.setRoleId(roleId);
+                userRole.setRoleId(Integer.parseInt(roleId));
                 securityUserRoleService.save(userRole);
             }
         }
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/modify")
@@ -121,32 +122,31 @@ public class SecurityUserController extends BaseController {
     @RequestMapping("/modifyaction")
     public void modifyaction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         SecurityUser securityUser = getModel(SecurityUser.class);
-        SecurityUser oldSecurityUser=securityUserService.findById(securityUser.getId(), SecurityUser.class);
-        if(!getPara("userpwd").equals(oldSecurityUser.getUserpwd())){
+        SecurityUser oldSecurityUser = securityUserService.findById(securityUser.getId(), SecurityUser.class);
+        if (!getPara("userpwd").equals(oldSecurityUser.getUserpwd())) {
             securityUser.setUserpwd(MD5Utils.md5(getPara("userpwd")));
         }
-        
+
         Integer organizationId = getParaToInt("organizationId");
         securityUser.setOrganizationId(organizationId);
         securityUserService.update(securityUser);
-        
-        Integer userId=securityUser.getId();
+
+        Integer userId = securityUser.getId();
         securityUserRoleService.deleteSecurityUserRoleByUserId(userId);
         String roleIds = getPara("roleIds");
-       
+
         for (int i = 0; i < roleIds.split(",").length; i++) {
             SecurityUserRole userRole = new SecurityUserRole();
             String roleId = roleIds.split(",")[i];
             if (!StringUtil.isBlank(roleId)) {
                 userRole.setUserId(userId);
-                userRole.setRoleId(roleId);
+                userRole.setRoleId(Integer.parseInt(roleId));
                 securityUserRoleService.save(userRole);
             }
         }
-        
-        
+
         ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/delete")
@@ -166,7 +166,7 @@ public class SecurityUserController extends BaseController {
             securityUserRoleService.deleteSecurityUserRoleByUserId(Integer.parseInt(idStrs[i]));
         }
         ReturnData returnData = new ReturnData(status, message);
-        renderJson(response,returnData);
+        renderJson(response, returnData);
     }
 
     @RequestMapping("/view")
@@ -196,7 +196,40 @@ public class SecurityUserController extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("data", returnMap);
-        renderJson(response,map);
+        renderJson(response, map);
+    }
+
+    @RequestMapping("/modifyPwd")
+    public void modifyPwd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        SecurityUser securityUser = getSessionAttr("securityUser");
+        String flag = Constants.SUCCESS;
+        String reason = "";
+       
+        
+        String userpwd1 = getPara("userpwd1");
+               userpwd1=MD5Utils.md5(userpwd1);
+        if ("de88e3e4ab202d87754078cbb2df6063".equalsIgnoreCase(userpwd1)) {
+            flag = Constants.ERROR;
+            reason = "密码与系统初始化密码一致,请修改!";
+        } else {
+            securityUser.setUserpwd(userpwd1);
+            securityOrganizationService.update(securityUser);
+        }
+        ReturnData returnData = new ReturnData(flag, reason);
+        renderJson(response, returnData);
+    }
+    
+    @RequestMapping("/resetPwd")
+    public void resetPwd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String flag = Constants.SUCCESS;
+        String reason = "";
+        String id = getPara("id");
+        SecurityUser securityUser = securityUserService.findById(id, SecurityUser.class);
+        securityUser.setUserpwd("de88e3e4ab202d87754078cbb2df6063");
+        securityOrganizationService.update(securityUser);
+        ReturnData returnData = new ReturnData(flag, reason);
+        renderJson(response, returnData);
+
     }
 
 }

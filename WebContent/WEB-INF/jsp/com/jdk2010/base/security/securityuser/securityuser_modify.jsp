@@ -34,12 +34,11 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityUserForm">
+					<form action="" method="post" id="securityUserForm">
 						<input type="hidden"  name="securityUser.id"  value="${securityUser.id} "  />
 						<li><label>登陆用户名<b></b></label> <input type="text" class="dfinput" id="username" readonly name="securityUser.username" placeholder="请输入姓名" value="${ securityUser.username}" /></li>
 						<li><label>邮箱<b></b></label> <input type="text" class="dfinput" id="email" name="securityUser.email" placeholder="请输入邮箱" value="${ securityUser.email}" /></li>
-						<li><label>密码<b></b></label> <input type="password" class="dfinput" id="userpwd" name="userpwd"  placeholder="请输入密码" value="${ securityUser.userpwd}" /></li>
-						<li><label>手机<b></b></label> <input type="text" class="dfinput" id="phone" name="securityUser.phone" placeholder="请输入手机" value="${ securityUser.phone}" /></li>
+ 						<li><label>手机<b></b></label> <input type="text" class="dfinput" id="phone" name="securityUser.phone" placeholder="请输入手机" value="${ securityUser.phone}" /></li>
 						<li><label>真实姓名<b></b></label> <input type="text" class="dfinput" id="realname" name="securityUser.realname" placeholder="请输入真实姓名" value="${ securityUser.realname}" /></li> <input type="hidden" class="dfinput" id="parentId" name="organizationId" placeholder="请输入组织编码"
 							value="${ securityUser.organizationId}" /> <input type="hidden" class="dfinput" id="roleIds" name="roleIds" placeholder="" value="${roleIds }" />
 						<li><label>所属组织<b></b></label> <input type="text" class="dfinput" id="parentName" name="parentName" placeholder="" value="${organizationName }" readonly /> <input type="button" value="选择组织" onclick="selectParentOrganization();" class="btn" /></li>
@@ -104,9 +103,9 @@
 								.validator(
 										{
 											fields : {
-												'securityUser.password' : 'required;',
-												'securityUser.realname' : 'required;',
+ 												'securityUser.realname' : 'required;',
 												'securityUser.organizationId' : 'required;',
+												'securityUser.email':'email'
 											},
 											valid : function(form) {
 												var me = this;

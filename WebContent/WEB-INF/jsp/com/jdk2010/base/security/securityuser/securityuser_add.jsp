@@ -34,7 +34,7 @@
 			</div>
 			<div id="tab1" class="tabson">
 				<ul class="forminfo">
-					<form action="" method="POST" id="securityUserForm">
+					<form action="" method="post" id="securityUserForm">
 						<li><label>登陆用户名<b></b></label> <input type="text" class="dfinput" id="username" name="securityUser.username" placeholder="请输入登录名" /></li>
 						<li><label>邮箱<b></b></label> <input type="text" class="dfinput" id="email" name="securityUser.email" placeholder="请输入邮箱" /></li>
 						<li><label>密码<b></b></label> <input type="password" class="dfinput" id="userpwd" name="userpwd" placeholder="请输入密码" /></li>
@@ -105,9 +105,10 @@
 										{
 											fields : {
 												'securityUser.username' : 'required;remote[${contextpath}/securityuser/check.htm]',
-												'securityUser.password' : 'required;',
+												'userpwd' : 'required;password1',
 												'securityUser.realname' : 'required;',
 												'securityUser.organizationId' : 'required;',
+												'securityUser.email':'email'
 											},
 											valid : function(form) {
 												var me = this;

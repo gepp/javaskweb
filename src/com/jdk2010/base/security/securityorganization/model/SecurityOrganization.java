@@ -73,4 +73,14 @@ public class SecurityOrganization extends Model<SecurityOrganization> {
 		public void setStatus(String status) {
 			this.status = status;
 		}
+		
+		private String sjswjgbm;
+
+		public String getSjswjgbm() {
+			return sjswjgbm;
+		}
+		public void setSjswjgbm(String sjswjgbm) {
+			this.sjswjgbm = sjswjgbm;
+		}
+		
     }

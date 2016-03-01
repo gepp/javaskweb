@@ -72,22 +72,22 @@ public class SkqJqxxController extends BaseController {
 
         String JQBH = getPara("JQBH");
         if (JQBH != null && !"".equals(JQBH)) {
-            searchSQL = searchSQL + " and  t.JQBH LIKE '%:JQBH%'";
+            searchSQL = searchSQL + " and  t.JQBH LIKE :jqbh";
             setAttr("JQBH", JQBH);
-            dbKit.put("JQBH", JQBH);
+            dbKit.put("jqbh", JQBH+"%");
         }
 
         String SKKH = getPara("SKKH");
         if (SKKH != null && !"".equals(SKKH)) {
-            searchSQL = searchSQL + " and  t.SKKH LIKE '%:SKKH%'";
+            searchSQL = searchSQL + " and  t.SKKH LIKE :skkh";
             setAttr("SKKH", SKKH);
-            dbKit.put("SKKH",SKKH);
+            dbKit.put("skkh",SKKH+"%");
         }
         String YHKH = getPara("YHKH");
         if (YHKH != null && !"".equals(YHKH)) {
-            searchSQL = searchSQL + " and  t.YHKH LIKE '%:YHKH%'";
-            setAttr("YHKH", JQBH);
-            dbKit.put("YKKH", YHKH);
+            searchSQL = searchSQL + " and  t.YHKH LIKE :yhkh";
+            setAttr("YHKH", YHKH);
+            dbKit.put("yhkh", YHKH+"%");
         }
 
         String SWJGBM = getPara("SWJGBM");

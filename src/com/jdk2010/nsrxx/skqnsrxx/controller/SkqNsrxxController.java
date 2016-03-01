@@ -52,18 +52,17 @@ public class SkqNsrxxController extends BaseController {
 
         String NSRSBH = getPara("NSRSBH");
         if (NSRSBH != null && !"".equals(NSRSBH)) {
-            searchSQL = searchSQL + " and  NSRSBH LIKE '%:NSRSBH%'";
+            searchSQL = searchSQL + " and  NSRSBH like :nsrsbh";
             setAttr("NSRSBH", NSRSBH);
-            dbKit.put("NSRSBH", NSRSBH);
+            dbKit.put("nsrsbh", NSRSBH+"%");
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
-            searchSQL = searchSQL + " and  NSRMC LIKE '%:NSRMC%'";
+            searchSQL = searchSQL + " and  NSRMC like :nsrmc";
             setAttr("NSRMC", NSRMC);
-            dbKit.put("NSRMC", NSRMC);
+            dbKit.put("nsrmc", NSRMC+"%");
         }
-
         String SWJGBM = getPara("SWJGBM");
         if (SWJGBM != null && !"".equals(SWJGBM)) {
             searchSQL = searchSQL + " and  SWJGBM ='" + SWJGBM + "'";
@@ -93,16 +92,16 @@ public class SkqNsrxxController extends BaseController {
 
         String NSRSBH = getPara("NSRSBH");
         if (NSRSBH != null && !"".equals(NSRSBH)) {
-            searchSQL = searchSQL + " and  NSRSBH LIKE '%:NSRSBH%'";
+            searchSQL = searchSQL + " and  NSRSBH like :nsrsbh";
             setAttr("NSRSBH", NSRSBH);
-            dbKit.put("NSRSBH", NSRSBH);
+            dbKit.put("nsrsbh", NSRSBH+"%");
         }
 
         String NSRMC = getPara("NSRMC");
         if (NSRMC != null && !"".equals(NSRMC)) {
-            searchSQL = searchSQL + " and  NSRMC LIKE '%:NSRMC%'";
+            searchSQL = searchSQL + " and  NSRMC like :nsrmc";
             setAttr("NSRMC", NSRMC);
-            dbKit.put("NSRMC", NSRMC);
+            dbKit.put("nsrmc", NSRMC+"%");
         }
 
         String SWJGBM = getPara("SWJGBM");

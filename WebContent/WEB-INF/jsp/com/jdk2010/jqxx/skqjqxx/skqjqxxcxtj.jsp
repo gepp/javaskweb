@@ -32,9 +32,9 @@
 	<div class="rightinfo">
 		<form method="post" action="${ contextpath}/skqjqxx/listcxtj.htm">
 			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
-				<li><label style="width: 85px">纳税人微机编码</label><input
+				<%-- <li><label style="width: 85px">纳税人微机编码</label><input
 					type="text" name="NSRWJBM" id="NSRWJBM" class="scinput1"
-					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li>
+					placeholder="请输入纳税人微机编码" value="${NSRWJBM}"></li> --%>
 				<li><label style="width: 80px">机器编号</label><input type="text"
 					name="JQBH" id="JQBH" class="scinput1" placeholder="请输入机器编号"
 					value="${JQBH}"></li>
@@ -44,8 +44,6 @@
 				<li><label style="width: 60px">用户卡号</label><input type="text"
 					name="YHKH" id="YHKH" class="scinput1" placeholder="请输入用户卡号"
 					value="${YHKH}"></li>
-			</ul>
-			<ul class="seachform" style="padding-top: 10px; padding-left: 15px">
 				<li><label style="width: 85px">税务机关</label> <input
 					type="hidden" name="SWJGBM" id="swjgbm" class="scinput1" readonly
 					value="${SWJGBM}"> <input type="text" name="parentName"
@@ -53,8 +51,8 @@
 						onclick="selectParentOrganization();" value="${parentName}">
 							<input name="" type="button" class="scbtn" value="选择"
 							onclick="selectParentOrganization();" /></li>
-
 			</ul>
+			 
 			<div style="align: center; margin-bottom: 20px">
 				<br />
 				<ul class="seachform" style="left: 35%; position: absolute;">

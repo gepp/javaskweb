@@ -9,7 +9,7 @@ public class SecurityUserRole extends Model<SecurityUserRole> {
         	/* user_id */
     	private Integer userId;
         	/* role_id */
-    	private String roleId;
+    	private Integer roleId;
              	 
   		@TableField
 		public Integer getId() {
@@ -28,10 +28,10 @@ public class SecurityUserRole extends Model<SecurityUserRole> {
 		}
         	 
   		@TableField
-		public String getRoleId() {
+		public Integer getRoleId() {
 			return roleId;
 		}
-		public void setRoleId(String roleId) {
+		public void setRoleId(Integer roleId) {
 			this.roleId = roleId;
 		}
     }

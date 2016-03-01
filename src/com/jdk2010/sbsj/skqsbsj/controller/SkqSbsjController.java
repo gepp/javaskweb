@@ -74,9 +74,9 @@ public class SkqSbsjController extends BaseController {
 
         String JQBH = getPara("JQBH");
         if (JQBH != null && !"".equals(JQBH)) {
-            searchSQL = searchSQL + " and  t.JQBH =':JQBH'";
+            searchSQL = searchSQL + " and  t.JQBH =:jqbh";
             setAttr("JQBH", JQBH);
-            dbKit.put("JQBH", JQBH);
+            dbKit.put("jqbh", JQBH);
         }
 
         String startTime = getPara("startTime");
