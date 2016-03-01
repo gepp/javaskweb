@@ -267,7 +267,7 @@
 				'skqNsrxx.frdb' : 'required;',
 				'skqNsrxx.yhde' : 'required;double',
 				'skqNsrxx.bsy' : 'required;',
-				'skqNsrxx.ssgly' : 'required;',
+				'skqNsrxx.ssgly' : 'required;'
 
 			},
 			valid : function(form) {
