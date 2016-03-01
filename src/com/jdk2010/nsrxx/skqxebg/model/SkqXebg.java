@@ -36,6 +36,10 @@ public class SkqXebg extends Model<SkqXebg> {
     	private Date clsj;
         	/* 下载标示 */
     	private Integer xzbs;
+    	
+    	private String nsrsbh;
+    	
+    	private String nsrmc;
              	 
   		@TableField
 		public Integer getId() {
@@ -164,4 +168,18 @@ public class SkqXebg extends Model<SkqXebg> {
 		public void setXzbs(Integer xzbs) {
 			this.xzbs = xzbs;
 		}
+		public String getNsrsbh() {
+			return nsrsbh;
+		}
+		public void setNsrsbh(String nsrsbh) {
+			this.nsrsbh = nsrsbh;
+		}
+		public String getNsrmc() {
+			return nsrmc;
+		}
+		public void setNsrmc(String nsrmc) {
+			this.nsrmc = nsrmc;
+		}
+		
+		
     }

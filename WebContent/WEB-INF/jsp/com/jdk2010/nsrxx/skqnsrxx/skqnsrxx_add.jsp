@@ -16,189 +16,178 @@
 <script type="text/javascript" src="${ contextpath }/res/js/common.js"></script>
 <link rel="stylesheet"
 	href="${ contextpath }/res/js/validator-0.7.3/jquery.validator.css">
-	<script type="text/javascript"
+<script type="text/javascript"
 		src="${ contextpath }/res/js/validator-0.7.3/jquery.validator.js"></script>
-	<script type="text/javascript"
+<script type="text/javascript"
 		src="${ contextpath }/res/js/validator-0.7.3/local/zh_CN.js"></script>
-	<link href="${ contextpath }/res/css/select.css" rel="stylesheet"
+<link href="${ contextpath }/res/css/select.css" rel="stylesheet"
 		type="text/css" />
-	<script type="text/javascript"
+<script type="text/javascript"
 		src="${ contextpath }/res/js/select-ui.min.js"></script>
-	<style type="text/css">
+<style type="text/css">
 .forminfo li label {
 	width: 128px
 }
-
 .forminfo tr {
 	height: 45px
 }
-
 .dfinput {
 	width: 240px
 }
 </style>
 </head>
 <body>
-	<div class="place">
-		<span>位置：</span>
-		<ul class="placeul">
-			<li><a href="#">首页</a></li>
-			<li><a href="#">纳税人信息</a></li>
-		</ul>
-	</div>
-	<div class="formbody">
-		<div id="usual1" class="usual">
-			<div class="itab">
-				<ul>
-					<li><a href="#tab1" class="selected">纳税人信息添加</a></li>
-				</ul>
-			</div>
-			<div id="tab1" class="tabson">
-				<form action="" method="post" id="skqNsrxxForm">
-					<ul class="forminfo">
-						<table width="100%">
-							<tr>
-								<td>纳税人微机编码<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrwjbm"
+<div class="place"> <span>位置：</span>
+  <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">纳税人信息</a></li>
+  </ul>
+</div>
+<div class="formbody">
+  <div id="usual1" class="usual">
+    <div class="itab">
+      <ul>
+        <li><a href="#tab1" class="selected">纳税人信息添加</a></li>
+      </ul>
+    </div>
+    <div id="tab1" class="tabson">
+      <form action="" method="post" id="skqNsrxxForm">
+        <ul class="forminfo">
+          <table width="100%">
+            <tr>
+              <td>纳税人微机编码<b></b></td>
+              <td><input type="text" class="dfinput" id="nsrwjbm"
 									name="skqNsrxx.nsrwjbm" placeholder="请输入纳税人微机编码" /></td>
-								<td>纳税人识别号<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrsbh"
+              <td>纳税人识别号<b></b></td>
+              <td><input type="text" class="dfinput" id="nsrsbh"
 									name="skqNsrxx.nsrsbh" placeholder="请输入纳税人识别号" /></td>
-							</tr>
-
-							<tr>
-								<td>纳税人名称<b></b></td>
-								<td><input type="text" class="dfinput" id="nsrmc"
+            </tr>
+            <tr>
+              <td>纳税人名称<b></b></td>
+              <td><input type="text" class="dfinput" id="nsrmc"
 									name="skqNsrxx.nsrmc" placeholder="请输入纳税人名称" /></td>
-								<td>经营地址<b></b></td>
-								<td><input type="text" class="dfinput" id="jydz"
+              <td>经营地址<b></b></td>
+              <td><input type="text" class="dfinput" id="jydz"
 									name="skqNsrxx.jydz" placeholder="请输入经营地址" /></td>
-							</tr>
-
-							<tr>
-								<td>法人代表<b></b></td>
-								<td><input type="text" class="dfinput" id="frdb"
+            </tr>
+            <tr>
+              <td>法人代表<b></b></td>
+              <td><input type="text" class="dfinput" id="frdb"
 									name="skqNsrxx.frdb" placeholder="请输入法人代表" /></td>
-								<td>税收管理员<b></b></td>
-								<td><input type="text" class="dfinput" id="ssgly"
+              <td>税收管理员<b></b></td>
+              <td><input type="text" class="dfinput" id="ssgly"
 									name="skqNsrxx.ssgly" placeholder="请输入税收管理员" /></td>
-
-							</tr>
-							<tr>
-
-								<td>办税员<b></b></td>
-								<td><input type="text" class="dfinput" id="bsy"
+            </tr>
+            <tr>
+              <td>办税员<b></b></td>
+              <td><input type="text" class="dfinput" id="bsy"
 									name="skqNsrxx.bsy" placeholder="请输入办税员" /></td>
-								<td>月核定营业额<b></b></td>
-								<td><input type="text" class="dfinput" id="yhde"
+              <td>月核定营业额<b></b></td>
+              <td><input type="text" class="dfinput" id="yhde"
 									name="skqNsrxx.yhde" placeholder="请输入月核定营业额" /></td>
-							</tr>
-							<tr>
-								<td>所属行业<b></b></td>
-								<input type="hidden" class="dfinput" id="hybm" name="skqNsrxx.hybm"
+            </tr>
+            <tr>
+              <td>所属行业<b></b></td>
+              <input type="hidden" class="dfinput" id="hybm" name="skqNsrxx.hybm"
 									placeholder="" />
-								<td><input type="text" class="dfinput" id="hymc"
+              <td><input type="text" class="dfinput" id="hymc"
 									name="hymc" placeholder="" readonly onclick="selectHy();" />
-									<input type="button" value="选择" onclick="selectHy();"
+                <input type="button" value="选择" onclick="selectHy();"
 									class="btn" /></td>
-								<td>经营项目<b></b></td>
-								<input type="hidden" class="dfinput" id="hymxbm" name="skqNsrxx.hymxbm"
+              <td>经营项目<b></b></td>
+              <input type="hidden" class="dfinput" id="hymxbm" name="skqNsrxx.hymxbm"
 									placeholder="" />
-								<td><input type="text" class="dfinput" id="hymxmc" onclick="selecthymx();"
-									name="hymxmc" placeholder="" readonly /> <input
+              <td><input type="text" class="dfinput" id="hymxmc" onclick="selecthymx();"
+									name="hymxmc" placeholder="" readonly />
+                <input
 									type="button" value="选择" onclick="selecthymx();"
 									class="btn" /></td>
-							</tr>
-
-							<tr>
-								<td>主管科(所)<b></b></td>
-								<input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"
+            </tr>
+            <tr>
+              <td>主管科(所)<b></b></td>
+              <input type="hidden" name="skqNsrxx.swjgbm" id="swjgbm"
 									class="scinput1" readonly value="${swjgbm}">
-									<td><input type="text" class="dfinput" name="parentName"
-										id="parentName" placeholder="" readonly onclick="selectParentOrganization();"/> <input
+              <td><input type="text" class="dfinput" name="parentName"
+										id="parentName" placeholder="" readonly onclick="selectParentOrganization();"/>
+                <input
 										type="button" value="选择" onclick="selectParentOrganization();"
 										class="btn" /></td>
-									<td>注册类型编码<b></b></td>
-									<input type="hidden" class="dfinput" id="zclxbm"
+              <td>注册类型编码<b></b></td>
+              <input type="hidden" class="dfinput" id="zclxbm"
 										name="skqNsrxx.zclxbm"/>
-									<td><input type="text" class="dfinput" id="zclxmc"
-										name="zclxmc" placeholder="" readonly onclick="selectZclx();"/> <input
+              <td><input type="text" class="dfinput" id="zclxmc"
+										name="zclxmc" placeholder="" readonly onclick="selectZclx();"/>
+                <input
 										type="button" value="选择" onclick="selectZclx();"
 										class="btn" /></td>
-							</tr>
-							<tr>
-								<td>征收方式<b></b></td>
-								<td>
-									<div class="vocation">
-										<select name="skqNsrxx.zsfs" class="select1">
-											<option value="1">核定户</option>
-											<option value="0">查账征收户</option>
-										</select>
-									</div>
-								</td>
-								<td>状态<b></b></td>
-								<td>
-									<div class="vocation">
-										<select name="skqNsrxx.status" class="select1">
-											<option value="1">启用</option>
-											<option value="0">停用</option>
-										</select>
-									</div>
-								</td>
-							</tr>
-
-						</table>
-					</ul>
-					<br />
-					<div class="formtitle1">
-						<span>纳税户税种税目</span>
-					</div>
-					<div class="tools">
-						<ul class="toolbar">
-							<li class="click" onclick="selectSzsm();"><span><img
+            </tr>
+            <tr>
+              <td>征收方式<b></b></td>
+              <td><div class="vocation">
+                  <select name="skqNsrxx.zsfs" class="select1">
+                    <option value="1">核定户</option>
+                    <option value="0">查账征收户</option>
+                  </select>
+                </div></td>
+              <td>状态<b></b></td>
+              <td><div class="vocation">
+                  <select name="skqNsrxx.status" class="select1">
+                    <option value="1">启用</option>
+                    <option value="0">停用</option>
+                  </select>
+                </div></td>
+            </tr>
+          </table>
+        </ul>
+        <br />
+        <div class="formtitle1"> <span>纳税户税种税目</span> </div>
+        <div class="tools">
+          <ul class="toolbar">
+            <li class="click" onclick="selectSzsm();"><span><img
 									src="${contextpath }/res/images/t01.png" /></span>添加</li>
-							<li class="click" onclick="deleteSzsm();"><span><img
+            <li class="click" onclick="deleteSzsm();"><span><img
 									src="${contextpath }/res/images/t03.png" /></span>清空</li>
-							 
-						</ul>
-					</div>
-					<table class="tablelist">
-						<thead>
-							<tr>
-								<th>税种编码</th>
-								<th>税目编码</th>
-								<th>税目名称</th>
-								<th>税目简称</th>
-								<th>税率</th>
- 							</tr>
-						</thead>
-						<input type="hidden" id="smbms" name="smbms" value=""/>
-						<input type="hidden" id="hiddenStr" name="hiddenStr" value=""/>
-						<tbody id="nsrszsmDiv">
-							
-						</tbody>
-					</table>
-					<br /> <br />
-					<div style="left:25%;">
-					<ul class="forminfo">
-						<li><label>&nbsp;</label><input name="" type="submit"
-							class="btn" value=" 确定" /> &nbsp;&nbsp; <input name=""
+          </ul>
+        </div>
+        <table class="tablelist">
+          <thead>
+            <tr>
+              <th>税种编码</th>
+              <th>税目编码</th>
+              <th>税目名称</th>
+              <th>税目简称</th>
+              <th>税率</th>
+            </tr>
+          </thead>
+          <input type="hidden" id="smbms" name="smbms" value=""/>
+          <input type="hidden" id="hiddenStr" name="hiddenStr" value=""/>
+          <tbody id="nsrszsmDiv">
+          </tbody>
+        </table>
+        <br />
+        <br />
+        <div style="left:25%;">
+          <ul class="forminfo">
+            <li>
+              <label>&nbsp;</label>
+              <input name="" type="submit"
+							class="btn" value=" 确定" />
+              &nbsp;&nbsp;
+              <input name=""
 							type="button" class="btn" value="返回"
-							onclick="window.location='${ contextpath}/skqnsrxx/list'" /></li>
-					</ul>
-					</div>
-				</form>
-				
-			</div>
-		</div>
-	</div>
+							onclick="window.location='${ contextpath}/skqnsrxx/list'" />
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>
-
-
 <script type="text/javascript">
 	function selectParentOrganization() {
 		layer.open({

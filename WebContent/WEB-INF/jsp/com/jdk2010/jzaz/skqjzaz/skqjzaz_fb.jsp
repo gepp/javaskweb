@@ -20,16 +20,17 @@
 <div class="place"> <span>位置：</span>
   <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="#">建筑安装项目</a></li>
+    <li><a href="#">建筑安装分包项目</a></li>
   </ul>
 </div>
 <div class="rightinfo">
-  <form method="post" action="${ contextpath }/skqjzaz/list">
+  <form method="post" action="${ contextpath }/skqjzaz/fblist">
     <ul class="seachform" style="padding-top: 10px; padding-left: 15px">
       <li>
         <label style="width: 70px">项目名称</label>
         <input type="text" name="xmmc" id="xmmc" class="scinput1" style="width:300px;" placeholder="请输入项目名称" value="${xmmc}">
         <input type="hidden" name="nsrwjbm" id="nsrwjbm" value="${nsrwjbm}" />
+        <input type="hidden" name="parentid" id="parentid" value="${parentid}" />
       </li>
       <li>
         <input name="" type="submit" class="btn" style="width:80px;" value="查询"/>
@@ -45,18 +46,18 @@
   <div class="tools">
     <ul class="toolbar">
       <li onclick="add();"><span><img src="${ contextpath }/res/images/t01.png" /></span>添加</li>
-      <li id="table_delete" ><span><img src="${ contextpath }/res/images/t03.png" /></span>删除</li>
+      <li id="table_delete"><span><img src="${ contextpath }/res/images/t03.png" /></span>删除</li>
     </ul>
   </div>
-  <div class="formtitle1"> <span>建筑安装项目</span> </div>
+  <div class="formtitle1"> <span>建筑安装分包项目</span> </div>
   <table class="tablelist">
     <thead>
       <tr>
         <th width="30px" ><input type="checkbox" id="checkAll"/></th>
         <th>项目代码</th>
         <th>项目名称</th>
-        <th>甲方识别号</th>
-        <th>甲方名称</th>
+        <th>乙方识别号</th>
+        <th>乙方名称</th>
         <th>项目类型</th>
         <th>合同性质</th>
         <th>合同金额</th>
@@ -70,15 +71,14 @@
           <td><input type="checkbox" name="subBox" value="${item.id}" /></td>
           <td> ${ item.xmdm} </td>
           <td> ${ item.xmmc} </td>
-          <td> ${ item.jfwjbm} </td>
-          <td> ${ item.jfmc} </td>
+          <td> ${ item.yfwjbm} </td>
+          <td> ${ item.yfmc} </td>
           <td> ${ item.xmlx==1?'房地产工程':item.xmlx==2?'城市基础设施建设工程':item.xmlx==3?'企业设立改造工程':'其他'} </td>
           <td> ${ item.htxz==0?'总包合同':'分包合同'} </td>
           <td> ${ item.gck+item.jgc} </td>
           <td> ${ item.ykje} </td>
           <td>
-            <a href="${ contextpath }/skqjzaz/modify.htm?id=${item.id}" class="tablelink">编辑</a> 
-            <a href="${ contextpath }/skqjzaz/fblist.htm?parentid=${item.id}&nsrwjbm=${nsrwjbm}" class="tablelink">分包项目管理</a> 
+            <a href="${ contextpath }/skqjzaz/fbmodify.htm?id=${item.id}&nsrwjbm=${nsrwjbm}" class="tablelink">编辑</a> 
         </tr>
       </c:forEach>
     </tbody>
@@ -90,17 +90,22 @@
 $('.tablelist tbody tr:odd').addClass('odd');
 $(document).ready(function(){
 	var nsrwjbm = $('#nsrwjbm').val();
-	table_init("${ contextpath}/skqjzaz","${ contextpath}/skqjzaz/list.htm?nsrwjbm="+nsrwjbm);
+	var parentid = $('#parentid').val();
+	table_init("${ contextpath}/skqjzaz","${ contextpath}/skqjzaz/fblist.htm?nsrwjbm="+nsrwjbm+"&parentid="+parentid);
 });
 function resetSearch(){
 	var nsrwjbm = $('#nsrwjbm').val();
-	window.location.href = '${ contextpath }/skqjzaz/list.htm?nsrwjbm='+nsrwjbm;
+	var parentid = $('#parentid').val();
+	window.location.href = '${ contextpath }/skqjzaz/fblist.htm?nsrwjbm='+nsrwjbm+'&parentid='+parentid;
 }
 function goBack(){
-	window.location.href = '${ contextpath }/skqjzaz/init.htm';
+	var nsrwjbm = $('#nsrwjbm').val();
+	window.location.href = '${ contextpath }/skqjzaz/list.htm?nsrwjbm='+nsrwjbm;
 }
 function add(){
 	var nsrwjbm = $('#nsrwjbm').val();
-	window.location.href = "${ contextpath }/skqjzaz/add.htm?nsrwjbm="+nsrwjbm;
+	var parentid = $('#parentid').val();
+	window.location.href = "${ contextpath }/skqjzaz/fbadd.htm?nsrwjbm="+nsrwjbm+'&parentid='+parentid;
 }
+
 </script>

@@ -56,7 +56,7 @@ public class SkqNsrxxServiceImpl extends BaseServiceImpl implements ISkqNsrxxSer
 
 	@Override
 	public String getNsrwjbmByNsrsbh(String nsrsbh) {
-		String nsrwjbm = dalClient.queryColumn("select NSRWJBM from skq_nsrxx where NSRSBH='"+nsrsbh+"'", "NSRWJBM");
+		String nsrwjbm = dalClient.queryColumn("select NSRWJBM from skq_nsrxx where NSRSBH='"+nsrsbh+"' and status=1", "NSRWJBM");
 		return nsrwjbm;
 	}
 

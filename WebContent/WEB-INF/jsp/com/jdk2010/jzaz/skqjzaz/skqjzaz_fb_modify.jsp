@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>建筑安装项目</title>
+<title>建筑安装分包项目</title>
 <link href="${ contextpath }/res/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${ contextpath }/res/js/jquery.js"></script>
 <script type="text/javascript" src="${ contextpath }/res/js/layer/layer.js"></script>
@@ -21,14 +21,14 @@
 <div class="place"> <span>位置：</span>
    <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="#">建筑安装项目</a></li>
+    <li><a href="#">建筑安装分包项目</a></li>
   </ul>
  </div>
 <div class="formbody">
    <div id="usual1" class="usual">
     <div class="itab">
        <ul>
-        <li><a href="#tab1" class="selected">建筑安装项目编辑</a></li>
+        <li><a href="#tab1" class="selected">建筑安装项目分包编辑</a></li>
       </ul>
      </div>
     <div id="tab1" class="tabson">
@@ -40,39 +40,26 @@
           </li>
            <li>
             <label>项目名称<b></b></label>
-            <input  type="text" class="dfinput" id="xmmc" name="skqJzaz.xmmc" placeholder="请输入项目名称" value="${ skqJzaz.xmmc}" />
+            ${parentXmmc}-<input  type="text" class="dfinput" id="xmmc" name="skqJzaz.xmmc" placeholder="请输入项目名称" value="${ skqJzaz.xmmc}" />
           </li>
            <li>
-            <label>甲方识别号<b></b></label>
-            <input  type="text" class="dfinput" id="jfwjbm" name="skqJzaz.jfwjbm" placeholder="请输入甲方识别号" value="${ skqJzaz.jfwjbm}" />
+            <label>乙方识别号<b></b></label>
+            <input  type="text" class="dfinput" id="yfwjbm" name="skqJzaz.yfwjbm" placeholder="请输入甲方识别号" value="${ skqJzaz.yfwjbm}" />
           </li>
            <li>
-            <label>甲方名称<b></b></label>
-            <input  type="text" class="dfinput" id="jfmc" name="skqJzaz.jfmc" placeholder="请输入甲方名称" value="${ skqJzaz.jfmc}" />
-          </li>
-           <li>
-            <label>项目类型<b></b></label>
-            <cite>
-            <input type="radio" name="skqJzaz.xmlx" value="1" id="xmlx_0" <c:if test="${skqJzaz.xmlx==1}">checked</c:if> />
-            房地产工程
-            <input type="radio" name="skqJzaz.xmlx" value="2" id="xmlx_1" <c:if test="${skqJzaz.xmlx==2}">checked</c:if>/>
-            城市基础设施建设工程
-            <input type="radio" name="skqJzaz.xmlx" value="3" id="xmlx_2" <c:if test="${skqJzaz.xmlx==3}">checked</c:if>/>
-            企业设立改造工程
-            <input type="radio" name="skqJzaz.xmlx" value="4" id="xmlx_3" <c:if test="${skqJzaz.xmlx==4}">checked</c:if>/>
-            其他
-            </cite>
+            <label>乙方名称<b></b></label>
+            <input  type="text" class="dfinput" id="yfmc" name="skqJzaz.yfmc" placeholder="请输入甲方名称" value="${ skqJzaz.yfmc}" />
           </li>
            <li>
             <label>合同性质<b></b></label>
             <cite>
-            总包合同
+            分包合同
             </cite>
             <input  type="hidden" id="htxz" name="skqJzaz.htxz" value="${ skqJzaz.htxz}" />
           </li>
            <li>
             <label>合同金额<b></b></label>
-            <input  type="text" class="dfinput" id="gck" name="skqJzaz.gck" placeholder="请输入合同金额" value="${ skqJzaz.gck}" />
+            <input  type="text" class="dfinput" id="gck" name="skqJzaz.gck" placeholder="请输入合同金额" value="${ skqJzaz.gck}" />&nbsp;&nbsp;<font color="#FF0000">(剩余合同金额：${syje}元)</font>
           </li>
            <li>
             <label>登记已开金额<b></b></label>
@@ -81,10 +68,14 @@
            <li>
             <label>&nbsp;</label>
             <input  type="hidden" id="id" name="skqJzaz.id" value="${ skqJzaz.id}" />
-            <input  type="hidden" id="nsrwjbm" name="nsrwjbm" value="${ skqJzaz.yfwjbm}" />
+            <input  type="hidden" id="nsrwjbm" name="nsrwjbm" value="nsrwjbm" />
+            <input  type="hidden" id="parentXmmc" name="parentXmmc" value="${parentXmmc}" />
+            <input  type="hidden" id="xmlx" name="skqJzaz.xmlx" value="${skqJzazZb.xmlx}" />
+            <input  type="hidden" id="jfwjbm" name="skqJzaz.jfwjbm" value="${skqJzazZb.jfwjbm}" />
+            <input  type="hidden" id="jfmc" name="skqJzaz.jfmc" value="${skqJzazZb.jfmc}" />
             <input name="" type="submit" class="btn" value=" 确定"/>
             &nbsp;&nbsp;
-            <input name="" type="button" class="btn" value="返回" onclick="window.location='${ contextpath}/skqjzaz/list?nsrwjbm=${skqJzaz.yfwjbm}'"/>
+            <input name="" type="button" class="btn" value="返回" onclick="window.location='${ contextpath}/skqjzaz/fblist.htm?nsrwjbm=${nsrwjbm}&parentid=${skqJzaz.parentid}'"/>
           </li>
          </form>
       </ul>
@@ -111,17 +102,16 @@
  			    fields: {
 					'skqJzaz.xmdm':'required;',
 					'skqJzaz.xmmc':'required;',
-					'skqJzaz.jfwjbm':'required;',
-					'skqJzaz.jfmc':'required;',
-					'skqJzaz.gck':'required;',
-					'skqJzaz.ykje':'required;'
+					'skqJzaz.yfwjbm':'required;',
+					'skqJzaz.yfmc':'required;',
+					'skqJzaz.gck':'required;range[1~${syje}];'
 				},
  			   valid: function(form){
  				  var me = this;
  			        // 提交表单之前，hold住表单，防止重复提交
  			        me.holdSubmit();
  			        $.ajax({
- 			            url: "${ contextpath}/skqjzaz/modifyaction",
+ 			            url: "${ contextpath}/skqjzaz/fbmodifyaction",
  			            data: $(form).serialize(),
  			            type: "POST",
  			            success: function(data){
@@ -131,7 +121,7 @@
  			                	layer.alert('当前操作成功', {
 								shade:0,closeBtn: 0
 								}, function(){
-									window.location.href='${ contextpath}/skqjzaz/list?nsrwjbm=${skqJzaz.yfwjbm}';
+									window.location.href='${ contextpath}/skqjzaz/fblist?nsrwjbm=${nsrwjbm}&parentid=${skqJzaz.parentid}';
 								});
  			                }else{
  			                	sAlert('当前操作失败');

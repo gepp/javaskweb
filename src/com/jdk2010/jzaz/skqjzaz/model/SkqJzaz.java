@@ -42,6 +42,8 @@ public class SkqJzaz extends Model<SkqJzaz> {
     	private Double ddkje;
         	/* 项目状态 */
     	private Integer xmzt;
+    	
+    	private String swjgmc;
              	 
   		@TableField
 		public Integer getId() {
@@ -194,4 +196,13 @@ public class SkqJzaz extends Model<SkqJzaz> {
 		public void setXmzt(Integer xmzt) {
 			this.xmzt = xmzt;
 		}
+		
+		public String getSwjgmc() {
+			return swjgmc;
+		}
+		public void setSwjgmc(String swjgmc) {
+			this.swjgmc = swjgmc;
+		}
+		
+		
     }

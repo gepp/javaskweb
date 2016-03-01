@@ -61,6 +61,23 @@ public class SkqBdcController extends BaseController {
 		//System.out.println("str=============="+str);
 		renderText(response,str);
 	}
+	
+	@RequestMapping("/checkNsrsbh")
+	public void checkNsrsbh(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		String nsrsbh = getPara("nsrsbh");
+		String nsrwjbm = skqNsrxxService.getNsrwjbmByNsrsbh(nsrsbh);
+		if(nsrwjbm==null||"".equals(nsrwjbm)){
+			ReturnData returnData = new ReturnData(Constants.ERROR, "查询失败");
+			renderJson(response,returnData);
+		}
+		else{
+			ReturnData returnData = new ReturnData(Constants.SUCCESS, "操作成功");
+			returnData.put("nsrwjbm", nsrwjbm);
+			renderJson(response,returnData);
+		}		
+	}
 
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, HttpServletResponse response)
